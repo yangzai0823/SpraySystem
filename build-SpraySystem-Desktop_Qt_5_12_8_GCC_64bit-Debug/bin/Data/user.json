@@ -1,0 +1,11 @@
+{
+    "Users": [
+        {
+            "Id": "2b03fd41-ef3a-4939-8a1b-b3562c26b203",
+            "Name": "Admin",
+            "Password": "vws.123",
+            "Permissions": "用户信息,产品信息,设备维护,设备标定,系统信息",
+            "Role": "管理员"
+        }
+    ]
+}

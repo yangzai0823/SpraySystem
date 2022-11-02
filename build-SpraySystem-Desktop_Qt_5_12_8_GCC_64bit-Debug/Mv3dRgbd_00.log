@@ -1,0 +1,26 @@
+[2022-10-17 17:48:53] |               (null)-L1446: ---------------------Start call Mv3dRgbd.dll start--------------------
+[2022-10-17 17:48:53] |               (null)-L1450: Build Time[220519_14:00:42], SDK version[0x1000003].
+[2022-10-17 17:48:53] |               (null)-L1462: Config (Mv3dRgbdCfg.ini) not exist, use default value .
+[2022-10-17 17:48:53] |               (null)-L1465: DebugMode[0], nLogSize[100].
+[2022-10-17 17:48:53] |               (null)-L0916: [Init] Begin.
+[2022-10-17 17:48:53] |               (null)-L0949: [Init] end success.
+[2022-10-17 17:48:53] |               (null)-L0876: [CreateHandle] begin.
+[2022-10-17 17:48:53] |               (null)-L0337: [CreateHandle] Get Gige Sdk version:(0x3020201).
+[2022-10-17 17:48:53] |               (null)-L0405: [GetIPVal] chCurrentIp[192.168.125.110] nCurrentIp[-1062699666].
+[2022-10-17 17:48:53] |               (null)-L0909: [CreateHandle] end success.
+[2022-10-17 17:48:53] |               (null)-L0284: [BindDevice] bind device SN[00K28591919] Model[MV-DB500S-R] ip[192.168.125.110] SubNetmask[255.255.255.0] gateway[192.168.125.254].
+[2022-10-17 17:48:53] |               (null)-L0779: [ConnectDevice] begin.
+[2022-10-17 17:48:53] |               (null)-L0836: [ConnectDevice] File \Mv3dRgbdCfg.ini not exist, use default node Num.
+[2022-10-17 17:48:53] |               (null)-L0840: [ConnectDevice] success connect the camera(00K28591919) Model(MV-DB500S-R) version(V1.3.0 220614 832765) ip(192.168.125.110) ip type(5).
+[2022-10-17 17:48:53] |               (null)-L1189: camera module MV_CC_SetEnumValue:strKey(CameraWorkingMode) nValue(4).
+[2022-10-17 17:48:53] |               (null)-L1189: camera module MV_CC_SetEnumValue:strKey(ImageMode) nValue(2).
+[2022-10-17 17:48:53] |               (null)-L1174: camera module MV_CC_SetBoolValue: strKey(ChunkModeActive) bValue(1).
+[2022-10-17 17:48:53] |               (null)-L1189: camera module MV_CC_SetEnumValue:strKey(ChunkSelector) nValue(24).
+[2022-10-17 17:48:53] |               (null)-L1174: camera module MV_CC_SetBoolValue: strKey(ChunkEnable) bValue(1).
+[2022-10-17 17:48:53] |               (null)-L1339: [FileAccessRead] MV_CC_FileAccessRead success.
+[2022-10-17 17:48:53] |               (null)-L0869: [ConnectDevice] end success.
+[2022-10-17 17:48:55] |               (null)-L1262: [RegisterFrameCallBack] register RegisterDataCB success
+[2022-10-17 17:48:56] |               (null)-L1005: [MV3D_RGBD_RegisterExceptionCallBack] register cbException success
+[2022-10-17 17:48:57] |               (null)-L1273: [Start] begin.
+[2022-10-17 17:48:57] |               (null)-L1301: [Start] StartGrabbing success.
+[2022-10-17 17:48:57] |               (null)-L1307: [Start] end success.

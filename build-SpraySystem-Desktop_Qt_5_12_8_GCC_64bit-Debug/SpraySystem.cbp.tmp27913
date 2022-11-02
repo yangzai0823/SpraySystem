@@ -1,0 +1,1768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="SpraySystem"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\usr\lib\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\cmake\eigen3\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom_headers\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom_headers\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\cmake\;CMake Files\..\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\openrave-0.9\;CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\;CMake Files\..\..\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\..\..\usr\local\share\ompl\;CMake Files\..\..\..\..\..\..\usr\local\share\ompl\cmake\;CMake Files\..\..\..\..\..\..\usr\share\;CMake Files\..\..\..\..\..\..\usr\share\catkin\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\platform\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\test\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\tools\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\;CMake Files\..\..\..\..\..\..\usr\share\urdf\;CMake Files\..\..\..\..\..\..\usr\share\urdf\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole_bridge\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole_bridge\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole\cmake\;CMake Files\..\..\..\..\..\..\usr\share\cpp_common\;CMake Files\..\..\..\..\..\..\usr\share\cpp_common\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rostime\;CMake Files\..\..\..\..\..\..\usr\share\rostime\cmake\;CMake Files\..\..\..\..\..\..\usr\share\roscpp\;CMake Files\..\..\..\..\..\..\usr\share\roscpp\cmake\;CMake Files\..\..\..\..\..\..\usr\share\message_runtime\;CMake Files\..\..\..\..\..\..\usr\share\message_runtime\cmake\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_serialization\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_serialization\cmake\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_traits\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_traits\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\;CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\cmake\;CMake Files\..\..\..\..\..\..\usr\share\std_msgs\;CMake Files\..\..\..\..\..\..\usr\share\std_msgs\cmake\;CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\;CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\cmake\;CMake Files\..\..\..\..\Program\;CMake Files\..\..\..\..\Program\catkin_ws\;CMake Files\..\..\..\..\Program\catkin_ws\install\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\srdfdom\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\srdfdom\cmake\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\urdf2or\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\urdf2or\cmake\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\catkin_generated\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\catkin_generated\version\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin_generated\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin_generated\installspace\;CMake Files\VWSCamera\;CMake Files\VWSRobot\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="download_extra_data">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 download_extra_data"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="doxygen">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 doxygen"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="roscpp_generate_messages_cpp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 roscpp_generate_messages_cpp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="roscpp_generate_messages_lisp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 roscpp_generate_messages_lisp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="roscpp_generate_messages_py">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 roscpp_generate_messages_py"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rosgraph_msgs_generate_messages_cpp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rosgraph_msgs_generate_messages_cpp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rosgraph_msgs_generate_messages_lisp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rosgraph_msgs_generate_messages_lisp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rosgraph_msgs_generate_messages_py">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rosgraph_msgs_generate_messages_py"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="std_msgs_generate_messages_cpp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 std_msgs_generate_messages_cpp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="std_msgs_generate_messages_lisp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 std_msgs_generate_messages_lisp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="std_msgs_generate_messages_py">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 std_msgs_generate_messages_py"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SpraySystem">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin/SpraySystem" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NETWORK_LIB"/>
+					<Add option="-D_DEBUG"/>
+					<Add option="-DPOCO_ENABLE_CPP14"/>
+					<Add option="-DPOCO_ENABLE_CPP11"/>
+					<Add option="-DPOCO_OS_FAMILY_UNIX"/>
+					<Add option="-D_REENTRANT"/>
+					<Add option="-D_THREAD_SAFE"/>
+					<Add option="-D_LARGEFILE64_SOURCE"/>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-D_XOPEN_SOURCE=500"/>
+					<Add option="-DPOCO_HAVE_FD_EPOLL"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 SpraySystem"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SpraySystem/fast">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin/SpraySystem" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NETWORK_LIB"/>
+					<Add option="-D_DEBUG"/>
+					<Add option="-DPOCO_ENABLE_CPP14"/>
+					<Add option="-DPOCO_ENABLE_CPP11"/>
+					<Add option="-DPOCO_OS_FAMILY_UNIX"/>
+					<Add option="-D_REENTRANT"/>
+					<Add option="-D_THREAD_SAFE"/>
+					<Add option="-D_LARGEFILE64_SOURCE"/>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-D_XOPEN_SOURCE=500"/>
+					<Add option="-DPOCO_HAVE_FD_EPOLL"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 SpraySystem/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SpraySystem_autogen">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 SpraySystem_autogen"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VWSCamera">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/libVWSCamera.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/VWSCamera_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 VWSCamera"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VWSCamera/fast">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/libVWSCamera.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/VWSCamera_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 VWSCamera/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VWSCamera_autogen">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 VWSCamera_autogen"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VWSRobot">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/libVWSRobot.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-D_DEBUG"/>
+					<Add option="-DPOCO_ENABLE_CPP14"/>
+					<Add option="-DPOCO_ENABLE_CPP11"/>
+					<Add option="-DPOCO_OS_FAMILY_UNIX"/>
+					<Add option="-D_REENTRANT"/>
+					<Add option="-D_THREAD_SAFE"/>
+					<Add option="-D_LARGEFILE64_SOURCE"/>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-D_XOPEN_SOURCE=500"/>
+					<Add option="-DPOCO_HAVE_FD_EPOLL"/>
+					<Add option="-DXML_DTD"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/VWSRobot_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 VWSRobot"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VWSRobot/fast">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/libVWSRobot.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-D_DEBUG"/>
+					<Add option="-DPOCO_ENABLE_CPP14"/>
+					<Add option="-DPOCO_ENABLE_CPP11"/>
+					<Add option="-DPOCO_OS_FAMILY_UNIX"/>
+					<Add option="-D_REENTRANT"/>
+					<Add option="-D_THREAD_SAFE"/>
+					<Add option="-D_LARGEFILE64_SOURCE"/>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-D_XOPEN_SOURCE=500"/>
+					<Add option="-DPOCO_HAVE_FD_EPOLL"/>
+					<Add option="-DXML_DTD"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/VWSRobot_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 VWSRobot/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VWSRobot_autogen">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 VWSRobot_autogen"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/devicemonitor.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/devicemonitor.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/MotionController/motioncontroller.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/MotionController/motioncontroller.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/PLC/plc.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/PLC/plc.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Product/product.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Product/product.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Robot/robot.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Robot/robot.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/System/system.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/System/system.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/User/user.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/User/user.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/cameraproperty.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/cameraproperty.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/motioncontrollerproperty.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/motioncontrollerproperty.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/plcproperty.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/plcproperty.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/productproperty.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/productproperty.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/propertyframeinterface.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/propertyframeinterface.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/propertymodel.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/propertymodel.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/robotproperty.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/robotproperty.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/userproperty.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/userproperty.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Camera/camerarepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Camera/camerarepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/MotionController/motioncontrollerrepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/MotionController/motioncontrollerrepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/PLC/plcrepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/PLC/plcrepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Product/productrepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Product/productrepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Robot/robotrepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Robot/robotrepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/User/userrepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/User/userrepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/baserepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/baserepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/camerarepository.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/camerarepository.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcoperator.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcoperator.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/PLCData.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcoperator.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcoperator.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/Robot/robotoperator.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/Robot/robotoperator.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Calibration/sevenaxiscalibration.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Calibration/sevenaxiscalibration.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Calibration/sevenaxiscalibration.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Devices/devicelist.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Devices/devicelist.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Devices/devicelist.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Login/loginform.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Login/loginform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Login/loginform.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Main/mainwindow.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Main/mainwindow.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Main/mainwindow.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Products/Edit/producteditform.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Products/Edit/producteditform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Products/Edit/producteditform.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Products/List/productlistform.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Products/List/productlistform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Products/List/productlistform.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Systems/systemeditform.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Systems/systemeditform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Systems/systemeditform.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/Edit/usereditform.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/Edit/usereditform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/Edit/usereditform.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/List/userlistform.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/List/userlistform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/List/userlistform.ui">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/global.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Forms/global.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/config.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/config.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/jsonserializer.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/jsonserializer.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Include/Core/visibility_control.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/ctrajoptpy.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/libgtest.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/libjson.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/libosgviewer.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/librobot_ik.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/librobot_plan.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/libsco.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/libtrajopt.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Libs/libutils.so">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Resources.qrc">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/bin/bpmpd_caller">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/IK/abb_ik.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/IK/data/PIM_IRB1600_10_145__01.xml">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/IK/data/PIM_IRB2600_10.xml">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/IK/data/PIM_IRB2600_20.xml">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/IK/utils.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/IK/visibility_control.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/planner/ompl_planning_class.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/planner/planning_utils.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/planner/utils.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/macros.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/numpy_utils.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/openrave_userdata_utils.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/osgviewer/osgviewer.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/osgviewer/robot_ui.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/bpmpd_interface.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/bpmpd_io.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/expr_op_overloads.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/expr_ops.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/expr_vec_ops.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/gurobi_interface.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/modeling.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/modeling_utils.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/num_diff.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/optimizers.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/sco_common.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/sco_fwd.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/sco/solver_interface.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/cache.hxx">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/collision_checker.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/collision_terms.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/common.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/configuration_space.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/json_marshal.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/kinematic_terms.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/plot_callback.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/problem_description.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/rave_utils.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/traj_plotter.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/trajectory_costs.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/typedefs.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/trajopt/utils.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/basic_array.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/clock.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/config.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/eigen_conversions.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/eigen_slicing.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/interpolation.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/logging.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/math.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/stl_to_string.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/include/trajopt/utils/vector_ops.hpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/CMakeLists.txt">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/config/joint_names_abb_irb1410_urdf.yaml">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/export.log">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/launch/display.launch">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/launch/gazebo.launch">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/base.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/experiment_painter.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link1.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link2.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link3.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link4.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link5.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link6.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/painter.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/painter2.STL">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/package.xml">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/urdf/abb_irb1410_urdf.csv">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/urdf/abb_irb1410_urdf.srdf">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf/abb_irb1410_urdf/urdf/abb_irb1410_urdf.urdf">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/basestrategy.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/basestrategy.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyfor7axis.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyfor7axis.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyforplan.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyforplan.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/test_paint.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorycontext.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorycontext.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Log/clog.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Log/clog.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/qtsocketclient.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/qtsocketclient.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/qtsocketserver.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/qtsocketserver.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/socketclient.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/socketclient.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/socketserver.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/socketserver.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/GLFW/glfw3.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/GLFW/glfw3native.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/KHR/khrplatform.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApilEx.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdImgProc.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/RenderImage.hpp">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/RenderWindow.hpp">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/glad/glad.c">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/glad/glad.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.cpp">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/libabb_librws.so">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.cpp">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.h">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/main.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.rule">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Calibration/ui_sevenaxiscalibration.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Devices/ui_devicelist.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Login/ui_loginform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Main/ui_mainwindow.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Products/Edit/ui_producteditform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Products/List/ui_productlistform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Systems/ui_systemeditform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Users/Edit/ui_usereditform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include/Forms/Users/List/ui_userlistform.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/mocs_compilation.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSCamera/VWSCamera_autogen/mocs_compilation.cpp">
+			<Option target="VWSCamera"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/VWSRobot_autogen/mocs_compilation.cpp">
+			<Option target="VWSRobot"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Resources.qrc">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandEglPlatformIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeEglPlatformIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeGlxPlatformIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Network/Qt5NetworkConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Network/Qt5Network_QConnmanEnginePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Network/Qt5Network_QNetworkManagerEnginePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/cmake/eigen3/Eigen3Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\cmake\eigen3\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/cmake/eigen3/Eigen3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\cmake\eigen3\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/cmake/eigen3/Eigen3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\cmake\eigen3\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/urdfdom/cmake/urdfdom-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/urdfdom_headers/cmake/urdfdom_headers-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom_headers\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/urdfdom_headers/cmake/urdfdom_headers-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom_headers\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/console_bridge/cmake/console_bridge-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/console_bridge/cmake/console_bridge-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/console_bridge/cmake/console_bridge-targets-none.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/lib/x86_64-linux-gnu/console_bridge/cmake/console_bridge-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/openrave-0.9/openrave-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\openrave-0.9\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/openrave-0.9/openrave-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\openrave-0.9\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoFoundationConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoFoundationConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoFoundationTargets-relwithdebinfo.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoFoundationTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoJSONConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoJSONConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoJSONTargets-relwithdebinfo.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoJSONTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoNetConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoNetConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoNetTargets-relwithdebinfo.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoNetTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoUtilConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoUtilConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoUtilTargets-relwithdebinfo.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoUtilTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoXMLConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoXMLConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoXMLTargets-relwithdebinfo.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/lib/cmake/Poco/PocoXMLTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/share/ompl/cmake/omplConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\share\ompl\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/local/share/ompl/cmake/omplConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\share\ompl\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/package.xml">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/all.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/assert.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/atomic_configure_file.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkinConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkinConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_add_env_hooks.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_destinations.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_download.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_generate_environment.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_install_python.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_libraries.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_metapackage.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_package.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_package_xml.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_python_setup.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/catkin_workspace.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/debug_message.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/em_expand.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/empy.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/find_program_required.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/interrogate_setup_dot_py.py">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/legacy.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/list_append_deduplicate.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/list_append_unique.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/list_insert_in_workspace_order.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/python.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/safe_execute_process.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/stamp.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/string_starts_with.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/platform/lsb.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\platform\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/platform/ubuntu.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\platform\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/platform/windows.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\platform\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/test/catkin_download_test_data.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\test\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/test/gtest.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\test\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/test/nosetests.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\test\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/test/tests.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\test\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/tools/doxygen.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\tools\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/tools/libraries.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\tools\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/tools/rt.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\tools\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/_setup_util.py.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/env.sh.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/generate_cached_setup.py.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/rosinstall.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/setup.bash.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/setup.sh.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/catkin/cmake/templates/setup.zsh.in">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/urdf/cmake/urdfConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\urdf\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/urdf/cmake/urdfConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\urdf\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosconsole_bridge/cmake/rosconsole_bridgeConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosconsole_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosconsole_bridge/cmake/rosconsole_bridgeConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosconsole_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosconsole/cmake/rosconsole-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosconsole\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosconsole/cmake/rosconsoleConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosconsole\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosconsole/cmake/rosconsoleConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosconsole\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/cpp_common/cmake/cpp_commonConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\cpp_common\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/cpp_common/cmake/cpp_commonConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\cpp_common\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rostime/cmake/rostimeConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rostime\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rostime/cmake/rostimeConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rostime\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp/cmake/roscpp-msg-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp/cmake/roscppConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp/cmake/roscppConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/message_runtime/cmake/message_runtimeConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\message_runtime\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/message_runtime/cmake/message_runtimeConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\message_runtime\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp_serialization/cmake/roscpp_serializationConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp_serialization\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp_serialization/cmake/roscpp_serializationConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp_serialization\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp_traits/cmake/roscpp_traitsConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp_traits\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/roscpp_traits/cmake/roscpp_traitsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\roscpp_traits\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosgraph_msgs/cmake/rosgraph_msgs-msg-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosgraph_msgs/cmake/rosgraph_msgsConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/rosgraph_msgs/cmake/rosgraph_msgsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/std_msgs/cmake/std_msgs-msg-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\std_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/std_msgs/cmake/std_msgsConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\std_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/std_msgs/cmake/std_msgsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\std_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/xmlrpcpp/cmake/xmlrpcpp-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/xmlrpcpp/cmake/xmlrpcppConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../../../usr/share/xmlrpcpp/cmake/xmlrpcppConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../Program/catkin_ws/install/share/srdfdom/cmake/srdfdomConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\Program\catkin_ws\install\share\srdfdom\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../Program/catkin_ws/install/share/srdfdom/cmake/srdfdomConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\Program\catkin_ws\install\share\srdfdom\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../Program/catkin_ws/install/share/urdf2or/cmake/urdf2orConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\Program\catkin_ws\install\share\urdf2or\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../../../../Program/catkin_ws/install/share/urdf2or/cmake/urdf2orConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\Program\catkin_ws\install\share\urdf2or\cmake\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/catkin/catkin_generated/version/package.cmake">
+			<Option virtualFolder="CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\catkin_generated\version\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/catkin_generated/ordered_paths.cmake">
+			<Option virtualFolder="CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin_generated\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/../build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/catkin_generated/installspace/_setup_util.py">
+			<Option virtualFolder="CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin_generated\installspace\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\VWSCamera\"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\VWSRobot\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

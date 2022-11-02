@@ -1,0 +1,45 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.cpp" "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.cpp" "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Camera/camera.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Camera/camera.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/MotionController/motioncontroller.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/MotionController/motioncontroller.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/MotionController/motioncontroller.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/PLC/plc.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/PLC/plc.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/PLC/plc.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Product/product.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Product/product.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Product/product.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Robot/robot.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Robot/robot.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Robot/robot.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/System/system.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/System/system.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/System/system.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/User/user.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/User/user.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/User/user.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/cameraproperty.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/cameraproperty.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/cameraproperty.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/motioncontrollerproperty.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/motioncontrollerproperty.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/motioncontrollerproperty.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/plcproperty.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/plcproperty.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/plcproperty.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/productproperty.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/productproperty.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/productproperty.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/propertyframeinterface.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/propertyframeinterface.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/propertyframeinterface.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/propertymodel.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/propertymodel.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/propertymodel.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/robotproperty.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/robotproperty.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/robotproperty.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/userproperty.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Property/userproperty.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Property/userproperty.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Camera/camerarepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Camera/camerarepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Camera/camerarepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/MotionController/motioncontrollerrepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/MotionController/motioncontrollerrepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/MotionController/motioncontrollerrepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/PLC/plcrepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/PLC/plcrepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/PLC/plcrepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Product/productrepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Product/productrepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Product/productrepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Robot/robotrepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Robot/robotrepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Robot/robotrepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/User/userrepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/User/userrepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/User/userrepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/baserepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/baserepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/baserepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/camerarepository.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/camerarepository.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Repositories/camerarepository.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.cpp" "CMakeFiles/SpraySystem.dir/Device/Camera/cameraoperator.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/Camera/cameraoperator.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcdatapaser.cpp" "CMakeFiles/SpraySystem.dir/Device/MotionController/mcdatapaser.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/MotionController/mcdatapaser.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcoperator.cpp" "CMakeFiles/SpraySystem.dir/Device/MotionController/mcoperator.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/MotionController/mcoperator.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.cpp" "CMakeFiles/SpraySystem.dir/Device/PLC/plcdatapaser.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/PLC/plcdatapaser.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcoperator.cpp" "CMakeFiles/SpraySystem.dir/Device/PLC/plcoperator.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/PLC/plcoperator.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/Robot/robotoperator.cpp" "CMakeFiles/SpraySystem.dir/Device/Robot/robotoperator.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/Robot/robotoperator.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.cpp" "CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.cpp" "CMakeFiles/SpraySystem.dir/Device/deviceoperator.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Device/deviceoperator.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Forms/Calibration/sevenaxiscalibration.cpp" "CMakeFiles/SpraySystem.dir/Forms/Calibration/sevenaxiscalibration.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Forms/Calibration/sevenaxiscalibration.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Forms/Devices/devicelist.cpp" "CMakeFiles/SpraySystem.dir/Forms/Devices/devicelist.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Forms/Devices/devicelist.cpp.o

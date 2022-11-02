@@ -1,0 +1,1656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<PIMDocument xmlns="urn:abb-robotics-pim" DocumentType="ComponentLibrary" Version="5" SaveVersion="6.5.7260.87">
+  <DocumentHistory>
+    <HistoryEntry User="j_wei" Time="2017-02-01T09:06:28" GUID="{3FB846E8-E12B-44F1-896B-54AFEF4DEEB9}" HighestID="33"/>
+  </DocumentHistory>
+  <RootObject ID="1"/>
+  <Objects NextUnusedID="34">
+    <ComponentLibrary ID="1">
+      <Name Value=""/>
+      <Attributes/>
+      <Parent DocID="-1" ID="-1"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <AssemblyRootRef DocID="-1" ID="2"/>
+      <RootComponent DocID="-1" ID="3"/>
+    </ComponentLibrary>
+    <AssemblyRoot ID="2">
+      <Name Value=""/>
+      <Attributes/>
+      <Parent DocID="-1" ID="1"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="-1"/>
+      <Instances>
+        <ObjectRef DocID="-1" ID="3"/>
+      </Instances>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="AssemblyRoot"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Attachments/>
+      <Definitions>
+        <ObjectRef DocID="-1" ID="18"/>
+        <ObjectRef DocID="-1" ID="20"/>
+        <ObjectRef DocID="-1" ID="21"/>
+        <ObjectRef DocID="-1" ID="22"/>
+        <ObjectRef DocID="-1" ID="23"/>
+        <ObjectRef DocID="-1" ID="24"/>
+        <ObjectRef DocID="-1" ID="25"/>
+        <ObjectRef DocID="-1" ID="26"/>
+        <ObjectRef DocID="-1" ID="27"/>
+        <ObjectRef DocID="-1" ID="28"/>
+        <ObjectRef DocID="-1" ID="29"/>
+        <ObjectRef DocID="-1" ID="30"/>
+        <ObjectRef DocID="-1" ID="31"/>
+        <ObjectRef DocID="-1" ID="32"/>
+        <ObjectRef DocID="-1" ID="33"/>
+      </Definitions>
+      <BidirectionalAttachments/>
+      <Textures/>
+      <PhysicsConstraints/>
+    </AssemblyRoot>
+    <MechanismInstance ID="3">
+      <Name Value="IRB1600_10_145__01"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="18"/>
+      <ChildInstances>
+        <ObjectRef DocID="-1" ID="4"/>
+        <ObjectRef DocID="-1" ID="5"/>
+        <ObjectRef DocID="-1" ID="8"/>
+        <ObjectRef DocID="-1" ID="9"/>
+        <ObjectRef DocID="-1" ID="10"/>
+        <ObjectRef DocID="-1" ID="16"/>
+        <ObjectRef DocID="-1" ID="17"/>
+      </ChildInstances>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Mechanism"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <NumJoints Value="6"/>
+      <NumTransforms Value="7"/>
+      <JointValues>
+        <Double Value="0"/>
+        <Double Value="0"/>
+        <Double Value="0"/>
+        <Double Value="0"/>
+        <Double Value="0.523598775598299"/>
+        <Double Value="0"/>
+      </JointValues>
+      <CalibFrames/>
+      <CalibFrameKnownValid/>
+      <TraceTCP Value="false"/>
+      <HomePos/>
+      <UserDefinedPositions/>
+      <TransitionTimes/>
+      <JointLimitsMatrix/>
+      <JointLimitsVector/>
+    </MechanismInstance>
+    <MechanismLinkInstance ID="4">
+      <Name Value="Base"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="20"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="PartMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <MechanismLinkInstance ID="5">
+      <Name Value="Link1"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="21"/>
+      <ChildInstances>
+        <ObjectRef DocID="-1" ID="6"/>
+        <ObjectRef DocID="-1" ID="7"/>
+      </ChildInstances>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="GroupMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="-0.4865"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <ComponentInstance ID="6">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK1_1"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="5"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="22"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <ComponentInstance ID="7">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK1_2"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="5"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="23"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <MechanismLinkInstance ID="8">
+      <Name Value="Link2"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="24"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="PartMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="-0.4865"/>
+          <Y Value="-0.15"/>
+          <Z Value="-8.52997007879871E-17"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <MechanismLinkInstance ID="9">
+      <Name Value="Link3"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="25"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="PartMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="0"/>
+          <Y Value="-1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="-1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="1.1865"/>
+          <Y Value="0.15"/>
+          <Z Value="-8.52997007879871E-17"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <MechanismLinkInstance ID="10">
+      <Name Value="Link4"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="26"/>
+      <ChildInstances>
+        <ObjectRef DocID="-1" ID="11"/>
+        <ObjectRef DocID="-1" ID="12"/>
+        <ObjectRef DocID="-1" ID="13"/>
+        <ObjectRef DocID="-1" ID="14"/>
+        <ObjectRef DocID="-1" ID="15"/>
+      </ChildInstances>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="GroupMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="-1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="-1.1865"/>
+          <Y Value="2.21414697015344E-16"/>
+          <Z Value="-0.75"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <ComponentInstance ID="11">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_1"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="10"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="27"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <ComponentInstance ID="12">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_2"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="10"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="28"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <ComponentInstance ID="13">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_3"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="10"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="29"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <ComponentInstance ID="14">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_BULT"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="10"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="30"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <ComponentInstance ID="15">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_REST4"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="10"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="31"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="Part"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="0"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+    </ComponentInstance>
+    <MechanismLinkInstance ID="16">
+      <Name Value="Link5"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="32"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="0.866025403784439"/>
+          <Y Value="9.18454765366783E-17"/>
+          <Z Value="-0.5"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="2.46519032881566E-32"/>
+          <Y Value="1"/>
+          <Z Value="1.83690953073357E-16"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0.5"/>
+          <Y Value="-1.59081031806902E-16"/>
+          <Z Value="0.866025403784439"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="-0.492769052838329"/>
+          <Y Value="-9.8083778985157E-17"/>
+          <Z Value="0.533960858409763"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="PartMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="0"/>
+          <Y Value="-1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="-1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="1.1865"/>
+          <Y Value="0.75"/>
+          <Z Value="-3.78359737746199E-16"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <MechanismLinkInstance ID="17">
+      <Name Value="Link6"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="3"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <Definition DocID="-1" ID="33"/>
+      <ChildInstances/>
+      <Transform>
+        <RowX>
+          <X Value="0.866025403784439"/>
+          <Y Value="1.53075794227797E-16"/>
+          <Z Value="-0.5"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="-5.30270106023006E-17"/>
+          <Y Value="1"/>
+          <Z Value="2.14306111918916E-16"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0.5"/>
+          <Y Value="-1.59081031806902E-16"/>
+          <Z Value="0.866025403784439"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="-0.492769052838329"/>
+          <Y Value="-9.8083778985157E-17"/>
+          <Z Value="0.533960858409763"/>
+          <W Value="1"/>
+        </RowT>
+      </Transform>
+      <PickingEnabled Value="true"/>
+      <AttachmentPoints/>
+      <Source Value=""/>
+      <SourceFileTime>
+        <HighPart Value="0"/>
+        <LowPart Value="0"/>
+      </SourceFileTime>
+      <ComponentType Value="PartMechanismLink"/>
+      <Detectable Value="true"/>
+      <ClipPlane DocID="-1" ID="-1"/>
+      <PhysicsMotionControl Value="2"/>
+      <Skeleton/>
+      <PhysicsMaterial>
+        <SurfaceViscosity Value="5E-09"/>
+        <SurfaceRoughness Value="0.7"/>
+        <SurfaceAdhesion Value="0"/>
+        <SurfaceAdhesionOverlap Value="0"/>
+        <Density Value="7800"/>
+        <Damping Value="0.05"/>
+        <PoissonsRatio Value="0.3"/>
+        <Restitution Value="0.75"/>
+        <YoungsModulus Value="200000000000"/>
+        <CableDamping Value="0"/>
+        <CableYoungsModulus Value="0"/>
+      </PhysicsMaterial>
+      <CorrectionTransform>
+        <RowX>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="-1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="1.1865"/>
+          <Y Value="-3.3243699947786E-16"/>
+          <Z Value="-0.75"/>
+          <W Value="1"/>
+        </RowT>
+      </CorrectionTransform>
+    </MechanismLinkInstance>
+    <MechanismDef ID="18">
+      <Name Value=""/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <ForwardKinematics DocID="-1" ID="19"/>
+      <Flanges>
+        <Element type="TFlange">
+          <Name Value="wrist"/>
+          <LinkIndex Value="6"/>
+          <OffsetTransform>
+            <RowX>
+              <X Value="0"/>
+              <Y Value="0"/>
+              <Z Value="-1"/>
+              <W Value="0"/>
+            </RowX>
+            <RowY>
+              <X Value="0"/>
+              <Y Value="1"/>
+              <Z Value="0"/>
+              <W Value="0"/>
+            </RowY>
+            <RowZ>
+              <X Value="1"/>
+              <Y Value="0"/>
+              <Z Value="0"/>
+              <W Value="0"/>
+            </RowZ>
+            <RowT>
+              <X Value="0.815"/>
+              <Y Value="0"/>
+              <Z Value="1.1865"/>
+              <W Value="1"/>
+            </RowT>
+          </OffsetTransform>
+        </Element>
+      </Flanges>
+      <ModelToolData/>
+      <MechanismType Value="2"/>
+      <ModelName Value="IRB1600_10_145"/>
+      <ModelBaseFrame>
+        <RowX>
+          <X Value="1"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowX>
+        <RowY>
+          <X Value="0"/>
+          <Y Value="1"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </RowY>
+        <RowZ>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="1"/>
+          <W Value="0"/>
+        </RowZ>
+        <RowT>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="1"/>
+        </RowT>
+      </ModelBaseFrame>
+      <HomePos>
+        <Double Value="0"/>
+        <Double Value="0"/>
+        <Double Value="0"/>
+        <Double Value="0"/>
+        <Double Value="0.523598775598299"/>
+        <Double Value="0"/>
+      </HomePos>
+      <JointMask>
+        <Integer Value="1"/>
+        <Integer Value="1"/>
+        <Integer Value="1"/>
+        <Integer Value="1"/>
+        <Integer Value="1"/>
+        <Integer Value="1"/>
+      </JointMask>
+      <UsingCustomFwdKin Value="false"/>
+      <FwdKinInitData/>
+      <KinematicsCLSID Value=""/>
+      <LoadData>
+        <Mass Value="0"/>
+        <CenterOfGravity>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+        </CenterOfGravity>
+        <AxesOfMoment>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+          <W Value="0"/>
+        </AxesOfMoment>
+        <Inertia>
+          <X Value="0"/>
+          <Y Value="0"/>
+          <Z Value="0"/>
+        </Inertia>
+      </LoadData>
+    </MechanismDef>
+    <ForwardKinematicsDH ID="19">
+      <Name Value=""/>
+      <Attributes/>
+      <Parent DocID="-1" ID="18"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <NumActiveKJoints Value="6"/>
+      <NumJoints Value="6"/>
+      <NumLinks Value="7"/>
+      <BaseJoints>
+        <Integer Value="0"/>
+      </BaseJoints>
+      <JointDependencyFuncs/>
+      <JointDependency>
+        <NumCols Value="6"/>
+        <NumRows Value="6"/>
+        <MatrixElements>
+          <Double Value="1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+        </MatrixElements>
+      </JointDependency>
+      <JointLimitsMatrix>
+        <NumCols Value="6"/>
+        <NumRows Value="12"/>
+        <MatrixElements>
+          <Double Value="1"/>
+          <Double Value="-1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="-1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="-1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="-1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="-1"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="0"/>
+          <Double Value="1"/>
+          <Double Value="-1"/>
+        </MatrixElements>
+      </JointLimitsMatrix>
+      <JointLimitsVector>
+        <NumCols Value="1"/>
+        <NumRows Value="12"/>
+        <MatrixElements>
+          <Double Value="3.14159265358979"/>
+          <Double Value="3.14159265358979"/>
+          <Double Value="2.61799387799149"/>
+          <Double Value="1.5707963267949"/>
+          <Double Value="1.13446401379631"/>
+          <Double Value="4.27605666738611"/>
+          <Double Value="3.49065850398866"/>
+          <Double Value="3.49065850398866"/>
+          <Double Value="2.00712863979348"/>
+          <Double Value="2.00712863979348"/>
+          <Double Value="6.98131700797732"/>
+          <Double Value="6.98131700797732"/>
+        </MatrixElements>
+      </JointLimitsVector>
+      <JointZeroPosition/>
+      <KinematicBaseFrames>
+        <Element type="TDoubleMatrix4">
+          <RowX>
+            <X Value="1"/>
+            <Y Value="0"/>
+            <Z Value="0"/>
+            <W Value="0"/>
+          </RowX>
+          <RowY>
+            <X Value="0"/>
+            <Y Value="1"/>
+            <Z Value="0"/>
+            <W Value="0"/>
+          </RowY>
+          <RowZ>
+            <X Value="0"/>
+            <Y Value="0"/>
+            <Z Value="1"/>
+            <W Value="0"/>
+          </RowZ>
+          <RowT>
+            <X Value="0"/>
+            <Y Value="0"/>
+            <Z Value="0.4865"/>
+            <W Value="1"/>
+          </RowT>
+        </Element>
+      </KinematicBaseFrames>
+      <JointInfos>
+        <Element type="TJointInfo">
+          <IsRevoluteJoint Value="true"/>
+          <DHParameters>
+            <Element type="TDHParameters">
+              <NextJoint Value="1"/>
+              <Link Value="1"/>
+              <Twist Value="0"/>
+              <Length Value="0"/>
+              <Rotation Value="0"/>
+              <Offset Value="0"/>
+            </Element>
+          </DHParameters>
+        </Element>
+        <Element type="TJointInfo">
+          <IsRevoluteJoint Value="true"/>
+          <DHParameters>
+            <Element type="TDHParameters">
+              <NextJoint Value="2"/>
+              <Link Value="2"/>
+              <Twist Value="-1.5707963267949"/>
+              <Length Value="0.15"/>
+              <Rotation Value="-1.5707963267949"/>
+              <Offset Value="5.55111512312578E-17"/>
+            </Element>
+          </DHParameters>
+        </Element>
+        <Element type="TJointInfo">
+          <IsRevoluteJoint Value="true"/>
+          <DHParameters>
+            <Element type="TDHParameters">
+              <NextJoint Value="3"/>
+              <Link Value="3"/>
+              <Twist Value="0"/>
+              <Length Value="0.7"/>
+              <Rotation Value="-3.14159265358979"/>
+              <Offset Value="0"/>
+            </Element>
+          </DHParameters>
+        </Element>
+        <Element type="TJointInfo">
+          <IsRevoluteJoint Value="true"/>
+          <DHParameters>
+            <Element type="TDHParameters">
+              <NextJoint Value="4"/>
+              <Link Value="4"/>
+              <Twist Value="1.5707963267949"/>
+              <Length Value="0"/>
+              <Rotation Value="-3.14159265358979"/>
+              <Offset Value="0.6"/>
+            </Element>
+          </DHParameters>
+        </Element>
+        <Element type="TJointInfo">
+          <IsRevoluteJoint Value="true"/>
+          <DHParameters>
+            <Element type="TDHParameters">
+              <NextJoint Value="5"/>
+              <Link Value="5"/>
+              <Twist Value="1.5707963267949"/>
+              <Length Value="1.11022302462516E-16"/>
+              <Rotation Value="-3.14159265358979"/>
+              <Offset Value="1.11022302462516E-16"/>
+            </Element>
+          </DHParameters>
+        </Element>
+        <Element type="TJointInfo">
+          <IsRevoluteJoint Value="true"/>
+          <DHParameters>
+            <Element type="TDHParameters">
+              <NextJoint Value="-1"/>
+              <Link Value="6"/>
+              <Twist Value="1.5707963267949"/>
+              <Length Value="0"/>
+              <Rotation Value="0"/>
+              <Offset Value="0"/>
+            </Element>
+          </DHParameters>
+        </Element>
+      </JointInfos>
+      <UserDefinedKinBaseFrame/>
+      <PolynomialLimits/>
+    </ForwardKinematicsDH>
+    <PartDef ID="20">
+      <Name Value="Base"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="be22be46310b4e75a5968d316bbac758"/>
+    </PartDef>
+    <AssemblyDef ID="21">
+      <Name Value="Link1"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+    </AssemblyDef>
+    <PartDef ID="22">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK1_1"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="67160fb5427947deaf84a4edef572b5b"/>
+    </PartDef>
+    <PartDef ID="23">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK1_2"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="875a68a524644869ba49674bc3730730"/>
+    </PartDef>
+    <PartDef ID="24">
+      <Name Value="Link2"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="66776e9a90644fd084a30f65a4c0cdb1"/>
+    </PartDef>
+    <PartDef ID="25">
+      <Name Value="Link3"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="297f1bbda63149f797a6c0ef0c4e80eb"/>
+    </PartDef>
+    <AssemblyDef ID="26">
+      <Name Value="Link4"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+    </AssemblyDef>
+    <PartDef ID="27">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_1"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="511cdb9b80d54a4caad8ed618cff6c22"/>
+    </PartDef>
+    <PartDef ID="28">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_2"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="ea4075f67b7243a2b28da22e77d042f5"/>
+    </PartDef>
+    <PartDef ID="29">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_3"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="8efb53390ce3482ebb2e4f04dd36f7dc"/>
+    </PartDef>
+    <PartDef ID="30">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_BULT"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="8832a501d63b4237b77a257c5cf29094"/>
+    </PartDef>
+    <PartDef ID="31">
+      <Name Value="IRB1600X145M2004REV2_OK_LINK4_REST4"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="37a3e1ec6b1b4be9a56ce6069178bfc2"/>
+    </PartDef>
+    <PartDef ID="32">
+      <Name Value="Link5"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="4e0fb531a5a34d269d8bc9485a66fb24"/>
+    </PartDef>
+    <PartDef ID="33">
+      <Name Value="Link6"/>
+      <Attributes/>
+      <Parent DocID="-1" ID="2"/>
+      <UniqueId Value=""/>
+      <UIVisible Value="true"/>
+      <GeoPart StreamID="-1"/>
+      <GfxData StreamType="GfxDataStream" StreamID="8b1ef7ca0f5341538943f39aa4d71218"/>
+    </PartDef>
+  </Objects>
+  <ReferencedDocuments/>
+</PIMDocument>

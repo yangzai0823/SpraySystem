@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/user.png</file>
+        <file>Images/pwd.png</file>
+        <file>Images/logo.png</file>
+        <file>Images/product.png</file>
+        <file>Images/device.png</file>
+        <file>Images/system.png</file>
+        <file>Images/user_manager.png</file>
+        <file>Images/calibration.png</file>
+        <file>Images/start.png</file>
+        <file>Images/stop.png</file>
+        <file>Images/e-Stop.png</file>
+        <file>Images/running.png</file>
+        <file>Images/warning.png</file>
+        <file>Images/add.png</file>
+        <file>Images/edit.png</file>
+        <file>Images/save.png</file>
+        <file>Images/reset.png</file>
+        <file>Images/send.png</file>
+        <file>Images/delete.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="abb_irb1410_urdf">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="-0.11251 -0.00022759 0.069586"
+        rpy="0 0 0" />
+      <mass
+        value="25.458" />
+      <inertia
+        ixx="0.34823"
+        ixy="-0.00031629"
+        ixz="0.037142"
+        iyy="0.71063"
+        iyz="0.00039679"
+        izz="0.97908" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="0.048523 0.0048056 0.21561"
+        rpy="0 0 0" />
+      <mass
+        value="31.968" />
+      <inertia
+        ixx="1.0656"
+        ixy="0.026443"
+        ixz="-0.22785"
+        iyy="0.80974"
+        iyz="0.00099985"
+        izz="0.97641" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1295"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.967059728"
+      upper="2.967059728"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="0.026226 0.00043323 0.26821"
+        rpy="0 0 0" />
+      <mass
+        value="7.6192" />
+      <inertia
+        ixx="0.28293"
+        ixy="0.00041936"
+        ixz="-0.00028862"
+        iyy="0.2833"
+        iyz="0.00080141"
+        izz="0.018252" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="0.15 0 0.3455"
+      rpy="0 0 0" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.221730476"
+      upper="1.221730476"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="0.032537 -0.027547 0.10503"
+        rpy="0 0 0" />
+      <mass
+        value="7.4587" />
+      <inertia
+        ixx="0.05602"
+        ixy="0.0083085"
+        ixz="-0.0073425"
+        iyy="0.072634"
+        iyz="0.0051052"
+        izz="0.080055" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.6"
+      rpy="0 0 0" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.134464014"
+      upper="1.221730476"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="0.18448 6.4354E-17 -5.107E-15"
+        rpy="0 0 0" />
+      <mass
+        value="11.023" />
+      <inertia
+        ixx="0.0232"
+        ixy="1.0309E-16"
+        ixz="-2.8204E-17"
+        iyy="1.0478"
+        iyz="0.0013467"
+        izz="1.047" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="0 0 0.12"
+      rpy="0 0 0" />
+    <parent
+      link="link3" />
+    <child
+      link="link4" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.617993878"
+      upper="2.617993878"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="0.0084108 -2.2204E-16 2.5524E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.29435" />
+      <inertia
+        ixx="0.00017937"
+        ixy="-5.3413E-20"
+        ixz="1.5907E-20"
+        iyy="0.00029785"
+        iyz="-4.881E-21"
+        izz="0.0004181" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0.72 0 0"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link4" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.00712864"
+      upper="2.00712864"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="0.0059361 -0.00034342 2.3301E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.016853" />
+      <inertia
+        ixx="5.437E-06"
+        ixy="3.2638E-09"
+        ixz="-5.659E-23"
+        iyy="2.9242E-06"
+        iyz="1.7706E-21"
+        izz="2.8064E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/link6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0.0735 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-5.235987756"
+      upper="5.235987756"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="link_flange">
+  </link>
+  <joint
+    name="joint_flange"
+    type="fixed">
+    <origin
+      xyz="0.0115 0 0"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="link6" />
+    <child
+      link="link_flange" />
+  </joint>
+  <link
+    name="link_painter">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 -0.7856" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/experiment_painter.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/abb_irb1410_urdf/meshes/experiment_painter.STL" />
+          <!-- <box size="0.05 0.05 0.5"/> -->
+      </geometry>
+    </collision>
+  </link>
+<joint
+    name="joint_painter"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_flange" />
+    <child
+      link="link_painter" />
+  </joint>
+</robot>
