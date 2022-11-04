@@ -38,7 +38,13 @@ public:
     void Execute();
 
     void sendtorbt();
-    std::deque<vws::PlanTaskInfo> * GetPlanTaskInfo();
+    /**
+     * @brief Get the Plan Task Info object
+     * 
+     * @param upper_or_bottom    0: 表示底层箱子， 1：表示上层
+     * @return std::deque<vws::PlanTaskInfo>* 
+     */
+    std::deque<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0);
     float getChainSpeed(); // mm/s
     uint64_t getChainEncoder();
 
@@ -54,7 +60,8 @@ public:
 private:
     QQueue<RobotTask> trajQueue;
     QQueue<std::vector<float>> mcQueue;
-    std::deque<vws::PlanTaskInfo> qPlanTaskInfo;
+    std::deque<vws::PlanTaskInfo> qPlanTaskInfoTop;
+    std::deque<vws::PlanTaskInfo> qPlanTaskInfoBottom;
 
     TrajectoryProcess *trajProc;
     QThread *trajThread;
