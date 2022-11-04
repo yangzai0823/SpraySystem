@@ -86,6 +86,7 @@ include_directories(
 
   ${OpenCASCADE_INCLUDE_DIR}
 )
+link_directories(VWSCamera/Lib)
 
 
 if(ANDROID)
@@ -124,7 +125,6 @@ endif()
 
 
 #target_link_directories(SpraySystem PRIVATE )
-
 add_subdirectory(VWSCamera)
 add_subdirectory(VWSRobot)
 add_subdirectory(VWSVision)
@@ -157,11 +157,11 @@ target_link_libraries(SpraySystem PRIVATE
     VWSVision
     Poco::Net
     ${planlibs}
-
+    MediaProcess
 ${OSGVIEWER_LIBRARY_RELEASE}
     )
 file(GLOB_RECURSE binfiles Trajectory/Libs/bin/*)
-file(GLOB_RECURSE libfiles Libs/*)
+file(GLOB_RECURSE libfiles Libs/* VWSCamera/Lib/*)
 message(STATUS "${libfiles}")
 add_custom_command(TARGET SpraySystem
     POST_BUILD
