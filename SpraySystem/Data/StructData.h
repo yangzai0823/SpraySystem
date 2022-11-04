@@ -95,11 +95,19 @@ namespace vws{
     };
 
     /**
-     * @brief 视觉计算结果，用于轨迹规划
+     * @brief 轨迹规划任务信息
      */
-    struct VisionRet{
-        float width;
-        std::vector<float> boxCenterPos;
+    struct PlanTaskInfo{
+        bool flag  = false; //true: 以规划
+        float lx;
+        float ly;
+        float lz;
+        
+        Eigen::Isometry3d boxInfo;
+        
+        int face;
+        uint64_t encoder; //拍照时刻
+        uint64_t diff;  //偏移
     };
 
     /**

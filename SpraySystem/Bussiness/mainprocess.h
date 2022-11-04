@@ -17,6 +17,7 @@
 #include "Trajectory/trajectorygenerator.h"
 #include "Bussiness/signalprocess.h"
 #include "mutex"
+#include "deque"
 
 using RobotTask = VWSRobot::RobotTask;
 using RobotPosition = VWSRobot::RobotPosition;
@@ -37,6 +38,10 @@ public:
     void Execute();
 
     void sendtorbt();
+    std::deque<vws::PlanTaskInfo> * GetPlanTaskInfo();
+    float getChainSpeed(); // mm/s
+    uint64_t getChainEncoder();
+
 private:
     void VisionProcessing();
     void TrajectoryProcessing(bool range, bool camera);
@@ -49,7 +54,7 @@ public:
 private:
     QQueue<RobotTask> trajQueue;
     QQueue<std::vector<float>> mcQueue;
-
+    std::deque<vws::PlanTaskInfo> qPlanTaskInfo;
 
     TrajectoryProcess *trajProc;
     QThread *trajThread;
