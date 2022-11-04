@@ -1,0 +1,536 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "VWSRobot/libVWSRobot.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"link_directories",
+			"target_link_libraries",
+			"set_target_properties",
+			"include",
+			"find_package",
+			"add_definitions",
+			"target_include_directories",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"VWSRobot/CMakeLists.txt",
+			"CMakeLists.txt",
+			"/usr/local/lib/cmake/Poco/PocoUtilTargets.cmake",
+			"/usr/local/lib/cmake/Poco/PocoUtilConfig.cmake",
+			"/usr/local/lib/cmake/Poco/PocoConfig.cmake",
+			"/usr/local/lib/cmake/Poco/PocoFoundationTargets.cmake",
+			"/usr/local/lib/cmake/Poco/PocoFoundationConfig.cmake",
+			"/usr/share/rosconsole/cmake/rosconsole-extras.cmake",
+			"/usr/share/rosconsole/cmake/rosconsoleConfig.cmake",
+			"/usr/share/rosconsole_bridge/cmake/rosconsole_bridgeConfig.cmake",
+			"/usr/share/urdf/cmake/urdfConfig.cmake",
+			"/usr/share/catkin/cmake/catkinConfig.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 9,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 62,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 50,
+				"parent" : 2
+			},
+			{
+				"file" : 4,
+				"parent" : 5
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 29,
+				"parent" : 6
+			},
+			{
+				"file" : 3,
+				"parent" : 7
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 5,
+				"parent" : 8
+			},
+			{
+				"file" : 2,
+				"parent" : 9
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 56,
+				"parent" : 10
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 29,
+				"parent" : 6
+			},
+			{
+				"file" : 6,
+				"parent" : 12
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 8,
+				"parent" : 13
+			},
+			{
+				"file" : 5,
+				"parent" : 14
+			},
+			{
+				"command" : 3,
+				"file" : 5,
+				"line" : 56,
+				"parent" : 15
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 51,
+				"parent" : 2
+			},
+			{
+				"file" : 11,
+				"parent" : 17
+			},
+			{
+				"command" : 5,
+				"file" : 11,
+				"line" : 76,
+				"parent" : 18
+			},
+			{
+				"file" : 10,
+				"parent" : 19
+			},
+			{
+				"command" : 5,
+				"file" : 10,
+				"line" : 165,
+				"parent" : 20
+			},
+			{
+				"file" : 9,
+				"parent" : 21
+			},
+			{
+				"command" : 5,
+				"file" : 9,
+				"line" : 165,
+				"parent" : 22
+			},
+			{
+				"file" : 8,
+				"parent" : 23
+			},
+			{
+				"command" : 4,
+				"file" : 8,
+				"line" : 190,
+				"parent" : 24
+			},
+			{
+				"file" : 7,
+				"parent" : 25
+			},
+			{
+				"command" : 6,
+				"file" : 7,
+				"line" : 12,
+				"parent" : 26
+			},
+			{
+				"command" : 6,
+				"file" : 7,
+				"line" : 8,
+				"parent" : 26
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 1,
+				"line" : 74,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 4,
+					"define" : "POCO_ENABLE_CPP11"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "POCO_ENABLE_CPP14"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "POCO_HAVE_FD_EPOLL"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "POCO_OS_FAMILY_UNIX"
+				},
+				{
+					"backtrace" : 27,
+					"define" : "ROSCONSOLE_BACKEND_LOG4CXX"
+				},
+				{
+					"backtrace" : 28,
+					"define" : "ROS_PACKAGE_NAME=\"SpraySystem\""
+				},
+				{
+					"define" : "VWSRobot_EXPORTS"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "XML_DTD"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_DEBUG"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_FILE_OFFSET_BITS=64"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_LARGEFILE64_SOURCE"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_REENTRANT"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_THREAD_SAFE"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_XOPEN_SOURCE=500"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot"
+				},
+				{
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot"
+				},
+				{
+					"backtrace" : 0,
+					"path" : "/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/VWSRobot_autogen/include"
+				},
+				{
+					"backtrace" : 29,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/usr/local/include/openrave-0.9"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/usr/local/include/ompl-1.5"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/usr/include/eigen3"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/home/vws/Program/catkin_ws/install/include"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/src"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/Include"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"
+				},
+				{
+					"backtrace" : 30,
+					"isSystem" : true,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					4,
+					4
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				2
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 0,
+			"id" : "VWSRobot_autogen::@ba16f789bd305931c08a"
+		}
+	],
+	"id" : "VWSRobot::@ba16f789bd305931c08a",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-L/home/vws/Demo/QT/Spray/SpraySystem/Libs",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib:/home/vws/Demo/QT/Spray/SpraySystem/Libs:/usr/local/lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 1,
+				"fragment" : "/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/libabb_librws.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "/usr/local/lib/libPocoNet.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "/usr/local/lib/libPocoUtil.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "/usr/local/lib/libPocoXML.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "/usr/local/lib/libPocoJSON.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "/usr/local/lib/libPocoFoundation.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 16,
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 16,
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "VWSRobot",
+	"nameOnDisk" : "libVWSRobot.so",
+	"paths" : 
+	{
+		"build" : "VWSRobot",
+		"source" : "VWSRobot"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				2
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1,
+				3,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				4
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/VWSRobot/VWSRobot_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/VWSRobot.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "VWSRobot/VWSRobot.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/abb_librws_export.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/libabb_librws.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_cfg.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_client.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_common.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_interface.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_poco_client.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_rapid.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "VWSRobot/Lib/rws_state_machine_interface.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

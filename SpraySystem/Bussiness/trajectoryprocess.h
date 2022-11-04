@@ -12,12 +12,13 @@
 //#include "Device/PLC/PLCData.h"
 #include "Trajectory/trajectorycontext.h"
 #include "Vision/visioncontext.h"
+#include "Data/StructData.h"
 
 using RobotTask = VWSRobot::RobotTask;
 using ImageData = VWSCamera::ImageData;
-using PLCData = PLCDataPaser::PLCData;
-using VisionData = VisionContext::VisionData;
-using TrajParam = TrajectoryGenerator::TrajParam;
+using PLCData = vws::PLCData;
+using VisionData = vws::VisionData;
+using TrajParam = vws::TrajParam;
 
 Q_DECLARE_METATYPE(RobotTask)  //注册结构体
 class TrajectoryProcess : public QObject

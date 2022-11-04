@@ -11,7 +11,7 @@ void TrajectoryProcess::begintraj_Slot(QVariant vdata)
 
     std::cout<<"开始规划"<<std::endl;
 
-    TrajectoryGenerator *generator = new TrajectoryGenerator();
+    TrajectoryGenerator *generator =  TrajectoryGenerator::Instance();
             BaseStrategy *planstrategy;
             BaseStrategy *sevenstrategy;
     auto context = std::make_shared<TrajectoryContext>(generator,planstrategy,sevenstrategy);

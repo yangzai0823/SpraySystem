@@ -2,23 +2,15 @@
 #define PLCDATAPASER_H
 
 #include <QObject>
-//#include "PLCData.h"
+#include "Data/StructData.h"
 
 
 class PLCDataPaser
 {
 public:
-    struct PLCData{
-        int heart;
-        float laser1;
-        float laser2;
-        float laser3;
-        float laser4;
-        int cell;
-    };
 
     PLCDataPaser();
-    void DataPaser(QByteArray buf,PLCData & data);
+    void DataPaser(QByteArray buf,vws::PLCData & data);
 };
 
 #endif // PLCDATAPASER_H

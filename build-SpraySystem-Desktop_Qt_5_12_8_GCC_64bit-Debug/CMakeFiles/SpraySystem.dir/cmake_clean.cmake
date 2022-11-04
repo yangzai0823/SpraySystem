@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "SpraySystem_autogen"
   "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o"
   "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o.d"
+  "CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o"
+  "CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o.d"
   "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o"
   "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o.d"
   "CMakeFiles/SpraySystem.dir/DataAccess/Models/Camera/camera.cpp.o"

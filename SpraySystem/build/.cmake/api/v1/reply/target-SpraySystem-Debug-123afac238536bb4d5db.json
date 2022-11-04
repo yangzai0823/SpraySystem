@@ -1,0 +1,2622 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "bin/SpraySystem"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"link_directories",
+			"target_link_libraries",
+			"set_target_properties",
+			"_populate_Widgets_target_properties",
+			"find_package",
+			"add_library",
+			"include",
+			"ADD_LIBRARY",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt",
+			"/opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+			"/opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/Qt5/Qt5Config.cmake",
+			"VWSRobot/CMakeLists.txt",
+			"/usr/local/lib/cmake/Poco/PocoNetTargets.cmake",
+			"/usr/local/lib/cmake/Poco/PocoNetConfig.cmake",
+			"/usr/local/lib/cmake/Poco/PocoConfig.cmake",
+			"/usr/local/lib/cmake/Poco/PocoFoundationTargets.cmake",
+			"/usr/local/lib/cmake/Poco/PocoFoundationConfig.cmake",
+			"VWSVision/CMakeLists.txt",
+			"/usr/share/rosconsole/cmake/rosconsole-extras.cmake",
+			"/usr/share/rosconsole/cmake/rosconsoleConfig.cmake",
+			"/usr/share/rosconsole_bridge/cmake/rosconsole_bridgeConfig.cmake",
+			"/usr/share/urdf/cmake/urdfConfig.cmake",
+			"/usr/share/catkin/cmake/catkinConfig.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 98,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 61,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 150,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 27,
+				"parent" : 0
+			},
+			{
+				"file" : 2,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 28,
+				"parent" : 5
+			},
+			{
+				"file" : 1,
+				"parent" : 6
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 150,
+				"parent" : 7
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 32,
+				"parent" : 8
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 3,
+				"line" : 9,
+				"parent" : 10
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			},
+			{
+				"file" : 6,
+				"parent" : 12
+			},
+			{
+				"command" : 5,
+				"file" : 6,
+				"line" : 29,
+				"parent" : 13
+			},
+			{
+				"file" : 5,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 5,
+				"line" : 3,
+				"parent" : 15
+			},
+			{
+				"file" : 4,
+				"parent" : 16
+			},
+			{
+				"command" : 3,
+				"file" : 4,
+				"line" : 56,
+				"parent" : 17
+			},
+			{
+				"command" : 5,
+				"file" : 6,
+				"line" : 29,
+				"parent" : 13
+			},
+			{
+				"file" : 8,
+				"parent" : 19
+			},
+			{
+				"command" : 7,
+				"file" : 8,
+				"line" : 8,
+				"parent" : 20
+			},
+			{
+				"file" : 7,
+				"parent" : 21
+			},
+			{
+				"command" : 3,
+				"file" : 7,
+				"line" : 56,
+				"parent" : 22
+			},
+			{
+				"file" : 9
+			},
+			{
+				"command" : 8,
+				"file" : 9,
+				"line" : 39,
+				"parent" : 24
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			},
+			{
+				"file" : 14,
+				"parent" : 26
+			},
+			{
+				"command" : 5,
+				"file" : 14,
+				"line" : 76,
+				"parent" : 27
+			},
+			{
+				"file" : 13,
+				"parent" : 28
+			},
+			{
+				"command" : 5,
+				"file" : 13,
+				"line" : 165,
+				"parent" : 29
+			},
+			{
+				"file" : 12,
+				"parent" : 30
+			},
+			{
+				"command" : 5,
+				"file" : 12,
+				"line" : 165,
+				"parent" : 31
+			},
+			{
+				"file" : 11,
+				"parent" : 32
+			},
+			{
+				"command" : 7,
+				"file" : 11,
+				"line" : 190,
+				"parent" : 33
+			},
+			{
+				"file" : 10,
+				"parent" : 34
+			},
+			{
+				"command" : 9,
+				"file" : 10,
+				"line" : 12,
+				"parent" : 35
+			},
+			{
+				"command" : 9,
+				"file" : 10,
+				"line" : 8,
+				"parent" : 35
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 73,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "POCO_ENABLE_CPP11"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "POCO_ENABLE_CPP14"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "POCO_HAVE_FD_EPOLL"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "POCO_OS_FAMILY_UNIX"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "QT_WIDGETS_LIB"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "ROSCONSOLE_BACKEND_LOG4CXX"
+				},
+				{
+					"backtrace" : 37,
+					"define" : "ROS_PACKAGE_NAME=\"SpraySystem\""
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_DEBUG"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_FILE_OFFSET_BITS=64"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_LARGEFILE64_SOURCE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_REENTRANT"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_THREAD_SAFE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_XOPEN_SOURCE=500"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/build"
+				},
+				{
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem"
+				},
+				{
+					"backtrace" : 0,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/build/SpraySystem_autogen/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/usr/local/include/openrave-0.9"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/usr/local/include/ompl-1.5"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/usr/include/eigen3"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/home/vws/Program/catkin_ws/install/include"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/src"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/Include"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"
+				},
+				{
+					"backtrace" : 38,
+					"isSystem" : true,
+					"path" : "/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/opt/Qt5.12.8/5.12.8/gcc_64/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/opt/Qt5.12.8/5.12.8/gcc_64/./mkspecs/linux-g++"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3,
+					3,
+					3
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				4,
+				7,
+				10,
+				12,
+				15,
+				18,
+				21,
+				24,
+				27,
+				30,
+				32,
+				34,
+				36,
+				38,
+				40,
+				42,
+				44,
+				46,
+				48,
+				50,
+				52,
+				54,
+				56,
+				58,
+				60,
+				62,
+				64,
+				66,
+				68,
+				70,
+				72,
+				74,
+				76,
+				78,
+				80,
+				82,
+				84,
+				86,
+				88,
+				90,
+				92,
+				94,
+				96,
+				98,
+				100,
+				102,
+				104,
+				106,
+				179,
+				181,
+				183,
+				185,
+				186,
+				188,
+				190,
+				202,
+				205,
+				206,
+				218
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "VWSCamera::@a2800a5b4fef5b8dfebd"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "VWSRobot::@ba16f789bd305931c08a"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "VWSVision::@604fba03ca86b1dd0bd4"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "SpraySystem_autogen::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "SpraySystem::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/home/vws/Demo/QT/Spray/SpraySystem/Libs",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-L/home/vws/Program/catkin_ws/install/lib",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib:/home/vws/Demo/QT/Spray/SpraySystem/Libs:/opt/Qt5.12.8/5.12.8/gcc_64/lib:/home/vws/Demo/QT/Spray/SpraySystem/build/VWSCamera:/home/vws/Demo/QT/Spray/SpraySystem/build/VWSRobot:/home/vws/Demo/QT/Spray/SpraySystem/build/VWSVision:/usr/local/lib:/home/vws/Program/catkin_ws/install/lib:/opt/halcon/lib/x64-linux",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/opt/Qt5.12.8/5.12.8/gcc_64/lib/libQt5Widgets.so.5.12.8",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/opt/Qt5.12.8/5.12.8/gcc_64/lib/libQt5Network.so.5.12.8",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "VWSCamera/libVWSCamera.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "VWSRobot/libVWSRobot.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "VWSVision/libVWSVision.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libPocoNet.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ltrajopt",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_system.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopenrave0.9",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopenrave0.9-core",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lboost_thread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-llog4cxx",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopenrave0.9",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libompl.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_serialization.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_system.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_model.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_world.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdf.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_model.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_world.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole_bridge.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libroscpp.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_signals.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole_log4cxx.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole_backend_interface.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liblog4cxx.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_regex.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libroscpp_serialization.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librostime.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libxmlrpcpp.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libcpp_common.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_system.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_thread.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_chrono.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_date_time.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_atomic.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/home/vws/Program/catkin_ws/install/lib/libsrdfdom.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdf.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_model.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liburdfdom_world.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole_bridge.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libroscpp.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_signals.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole_log4cxx.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librosconsole_backend_interface.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liblog4cxx.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_regex.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libroscpp_serialization.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librostime.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libxmlrpcpp.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libcpp_common.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_system.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_thread.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_chrono.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_date_time.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_atomic.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lurdf2or",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libtinyxml2.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libosgd.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libOpenThreadsd.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losg",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgViewer",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lOpenThreads",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgDB",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgGA",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgUtil",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgText",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgviewer",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ljson",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lsco",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lutils",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrobot_ik",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrobot_plan",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libosgViewer.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/opt/Qt5.12.8/5.12.8/gcc_64/lib/libQt5Gui.so.5.12.8",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/opt/Qt5.12.8/5.12.8/gcc_64/lib/libQt5Core.so.5.12.8",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "../VWSRobot/Lib/libabb_librws.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 18,
+				"fragment" : "/usr/local/lib/libPocoFoundation.so.82",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 23,
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 23,
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 23,
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 25,
+				"fragment" : "/opt/halcon/lib/x64-linux/libhalcon.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 25,
+				"fragment" : "/opt/halcon/lib/x64-linux/libhalconcpp.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopenrave0.9",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopenrave0.9-core",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lboost_thread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-llog4cxx",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libompl.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_serialization.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/home/vws/Program/catkin_ws/install/lib/libsrdfdom.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lurdf2or",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libtinyxml2.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libosgd.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libOpenThreadsd.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losg",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgViewer",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lOpenThreads",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgDB",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgGA",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgUtil",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgText",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-losgviewer",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ljson",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lsco",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lutils",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrobot_ik",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrobot_plan",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/local/lib/libosgViewer.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-Wl,-rpath-link,/usr/local/lib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "SpraySystem",
+	"nameOnDisk" : "SpraySystem",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				4,
+				7,
+				10,
+				12,
+				15,
+				18,
+				21,
+				24,
+				27,
+				30,
+				32,
+				34,
+				36,
+				38,
+				40,
+				42,
+				44,
+				46,
+				48,
+				50,
+				52,
+				54,
+				56,
+				58,
+				60,
+				62,
+				64,
+				66,
+				68,
+				70,
+				72,
+				74,
+				76,
+				78,
+				80,
+				82,
+				84,
+				86,
+				88,
+				90,
+				92,
+				94,
+				96,
+				98,
+				100,
+				102,
+				104,
+				106,
+				179,
+				181,
+				183,
+				185,
+				186,
+				188,
+				190,
+				202,
+				205,
+				206,
+				218
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				2,
+				5,
+				8,
+				11,
+				13,
+				16,
+				19,
+				22,
+				25,
+				28,
+				31,
+				33,
+				35,
+				37,
+				39,
+				41,
+				43,
+				45,
+				47,
+				49,
+				51,
+				53,
+				55,
+				57,
+				59,
+				61,
+				63,
+				65,
+				67,
+				69,
+				71,
+				73,
+				75,
+				77,
+				79,
+				81,
+				83,
+				85,
+				87,
+				89,
+				91,
+				93,
+				95,
+				97,
+				99,
+				101,
+				103,
+				105,
+				107,
+				109,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				123,
+				124,
+				125,
+				126,
+				127,
+				128,
+				129,
+				130,
+				131,
+				132,
+				133,
+				134,
+				135,
+				136,
+				137,
+				138,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				149,
+				150,
+				151,
+				152,
+				153,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				180,
+				182,
+				184,
+				187,
+				189,
+				191,
+				204,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				216,
+				217
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				3,
+				6,
+				9,
+				14,
+				17,
+				20,
+				23,
+				26,
+				29,
+				108,
+				110,
+				111,
+				112,
+				160,
+				161,
+				162,
+				163,
+				164,
+				165,
+				166,
+				167,
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				174,
+				175,
+				176,
+				177,
+				178,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				203
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				219
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Calibration/sevenaxiscalibration.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Calibration/sevenaxiscalibration.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Calibration/sevenaxiscalibration.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Devices/devicelist.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Devices/devicelist.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Devices/devicelist.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Login/loginform.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Login/loginform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Login/loginform.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Main/devicemonitor.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Main/devicemonitor.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Main/mainwindow.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Main/mainwindow.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Main/mainwindow.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Products/Edit/producteditform.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Products/Edit/producteditform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Products/Edit/producteditform.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Products/List/productlistform.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Products/List/productlistform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Products/List/productlistform.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Systems/systemeditform.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Systems/systemeditform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Systems/systemeditform.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Users/Edit/usereditform.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Users/Edit/usereditform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Users/Edit/usereditform.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/Users/List/userlistform.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Users/List/userlistform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/Users/List/userlistform.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Forms/global.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Forms/global.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/Camera/camera.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/Camera/camera.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/MotionController/motioncontroller.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/MotionController/motioncontroller.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/PLC/plc.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/PLC/plc.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/Product/product.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/Product/product.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/Robot/robot.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/Robot/robot.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/System/system.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/System/system.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Models/User/user.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Models/User/user.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/cameraproperty.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/cameraproperty.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/motioncontrollerproperty.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/motioncontrollerproperty.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/plcproperty.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/plcproperty.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/productproperty.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/productproperty.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/propertyframeinterface.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/propertyframeinterface.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/propertymodel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/propertymodel.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/robotproperty.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/robotproperty.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Property/userproperty.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Property/userproperty.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/Camera/camerarepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/Camera/camerarepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/MotionController/motioncontrollerrepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/MotionController/motioncontrollerrepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/PLC/plcrepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/PLC/plcrepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/Product/productrepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/Product/productrepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/Robot/robotrepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/Robot/robotrepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/User/userrepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/User/userrepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/baserepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/baserepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DataAccess/Repositories/camerarepository.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "DataAccess/Repositories/camerarepository.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Util/Log/clog.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Util/Log/clog.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Util/Socket/qtsocketclient.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Util/Socket/qtsocketclient.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Util/Socket/qtsocketserver.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Util/Socket/qtsocketserver.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Util/Socket/socketclient.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Util/Socket/socketclient.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Util/Socket/socketserver.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Util/Socket/socketserver.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/Camera/cameraoperator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/Camera/cameraoperator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/MotionController/mcdatapaser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/MotionController/mcdatapaser.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/MotionController/mcoperator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/MotionController/mcoperator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/PLC/plcdatapaser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/PLC/plcdatapaser.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/PLC/plcoperator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/PLC/plcoperator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/Robot/robotoperator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/Robot/robotoperator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/devicemanager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/devicemanager.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Device/deviceoperator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Device/deviceoperator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Bussiness/mainprocess.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Bussiness/mainprocess.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Bussiness/trajectoryprocess.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Bussiness/trajectoryprocess.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/bin/bpmpd_caller",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/IK/abb_ik.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/IK/data/PIM_IRB1600_10_145__01.xml",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/IK/data/PIM_IRB2600_10.xml",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/IK/data/PIM_IRB2600_20.xml",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/IK/utils.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/IK/visibility_control.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/planner/ompl_planning_class.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/planner/planning_utils.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/planner/utils.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/macros.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/numpy_utils.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/openrave_userdata_utils.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/osgviewer/osgviewer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/osgviewer/robot_ui.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/bpmpd_interface.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/bpmpd_io.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/expr_op_overloads.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/expr_ops.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/expr_vec_ops.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/gurobi_interface.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/modeling.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/modeling_utils.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/num_diff.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/optimizers.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/sco_common.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/sco_fwd.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/sco/solver_interface.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/cache.hxx",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/collision_checker.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/collision_terms.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/common.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/configuration_space.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/json_marshal.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/kinematic_terms.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/plot_callback.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/problem_description.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/rave_utils.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/traj_plotter.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/trajectory_costs.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/typedefs.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/trajopt/utils.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/basic_array.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/clock.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/config.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/eigen_conversions.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/eigen_slicing.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/interpolation.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/logging.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/math.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/stl_to_string.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/include/trajopt/utils/vector_ops.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/CMakeLists.txt",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/config/joint_names_abb_irb1410_urdf.yaml",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/export.log",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/launch/display.launch",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/launch/gazebo.launch",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/base.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/experiment_painter.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link1.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link2.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link3.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link4.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link5.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/link6.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/painter.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/meshes/painter2.STL",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/package.xml",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/urdf/abb_irb1410_urdf.csv",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/urdf/abb_irb1410_urdf.srdf",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Libs/urdf/abb_irb1410_urdf/urdf/abb_irb1410_urdf.urdf",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Trajectory/Strategy/basestrategy.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Strategy/basestrategy.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Trajectory/Strategy/strategyfor7axis.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Strategy/strategyfor7axis.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Trajectory/Strategy/strategyforplan.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/Strategy/strategyforplan.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Trajectory/test_paint.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Trajectory/trajectorycontext.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/trajectorycontext.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Trajectory/trajectorygenerator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trajectory/trajectorygenerator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Vision/visioncontext.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Vision/visioncontext.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/ctrajoptpy.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libabb_librws.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libgtest.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libjson.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libosgviewer.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/librobot_ik.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/librobot_plan.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libsco.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libtrajopt.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Libs/libutils.so",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Resources.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Include/Core/Config/config.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Include/Core/Config/config.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Include/Core/Config/jsonserializer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Include/Core/Config/jsonserializer.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Include/Core/visibility_control.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Calibration/ui_sevenaxiscalibration.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Devices/ui_devicelist.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Login/ui_loginform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Main/ui_mainwindow.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Products/Edit/ui_producteditform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Products/List/ui_productlistform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Systems/ui_systemeditform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Users/Edit/ui_usereditform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/include/Forms/Users/List/ui_userlistform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.rule",
+			"sourceGroupIndex" : 3
+		}
+	],
+	"type" : "EXECUTABLE"
+}

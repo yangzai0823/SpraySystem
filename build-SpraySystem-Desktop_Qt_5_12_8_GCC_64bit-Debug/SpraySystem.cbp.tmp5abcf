@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="SpraySystem"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\..\..\opt\Qt5.12.8\5.12.8\gcc_64\lib\cmake\Qt5Network\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\usr\lib\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\cmake\eigen3\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom_headers\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\urdfdom_headers\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\console_bridge\cmake\;CMake Files\..\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\openrave-0.9\;CMake Files\..\..\..\..\..\..\usr\local\lib\cmake\Poco\;CMake Files\..\..\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\..\..\usr\local\share\ompl\;CMake Files\..\..\..\..\..\..\usr\local\share\ompl\cmake\;CMake Files\..\..\..\..\..\..\usr\share\;CMake Files\..\..\..\..\..\..\usr\share\catkin\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\platform\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\test\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\tools\;CMake Files\..\..\..\..\..\..\usr\share\catkin\cmake\templates\;CMake Files\..\..\..\..\..\..\usr\share\urdf\;CMake Files\..\..\..\..\..\..\usr\share\urdf\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole_bridge\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole_bridge\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole\;CMake Files\..\..\..\..\..\..\usr\share\rosconsole\cmake\;CMake Files\..\..\..\..\..\..\usr\share\cpp_common\;CMake Files\..\..\..\..\..\..\usr\share\cpp_common\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rostime\;CMake Files\..\..\..\..\..\..\usr\share\rostime\cmake\;CMake Files\..\..\..\..\..\..\usr\share\roscpp\;CMake Files\..\..\..\..\..\..\usr\share\roscpp\cmake\;CMake Files\..\..\..\..\..\..\usr\share\message_runtime\;CMake Files\..\..\..\..\..\..\usr\share\message_runtime\cmake\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_serialization\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_serialization\cmake\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_traits\;CMake Files\..\..\..\..\..\..\usr\share\roscpp_traits\cmake\;CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\;CMake Files\..\..\..\..\..\..\usr\share\rosgraph_msgs\cmake\;CMake Files\..\..\..\..\..\..\usr\share\std_msgs\;CMake Files\..\..\..\..\..\..\usr\share\std_msgs\cmake\;CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\;CMake Files\..\..\..\..\..\..\usr\share\xmlrpcpp\cmake\;CMake Files\..\..\..\..\Program\;CMake Files\..\..\..\..\Program\catkin_ws\;CMake Files\..\..\..\..\Program\catkin_ws\install\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\srdfdom\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\srdfdom\cmake\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\urdf2or\;CMake Files\..\..\..\..\Program\catkin_ws\install\share\urdf2or\cmake\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\catkin_generated\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin\catkin_generated\version\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin_generated\;CMake Files\..\build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug\catkin_generated\installspace\;CMake Files\VWSCamera\;CMake Files\VWSRobot\;CMake Files\VWSVision\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="download_extra_data">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 download_extra_data"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="doxygen">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 doxygen"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="roscpp_generate_messages_cpp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 roscpp_generate_messages_cpp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="roscpp_generate_messages_lisp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 roscpp_generate_messages_lisp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="roscpp_generate_messages_py">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 roscpp_generate_messages_py"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rosgraph_msgs_generate_messages_cpp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rosgraph_msgs_generate_messages_cpp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rosgraph_msgs_generate_messages_lisp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rosgraph_msgs_generate_messages_lisp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rosgraph_msgs_generate_messages_py">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rosgraph_msgs_generate_messages_py"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="std_msgs_generate_messages_cpp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 std_msgs_generate_messages_cpp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="std_msgs_generate_messages_lisp">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 std_msgs_generate_messages_lisp"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="std_msgs_generate_messages_py">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 std_msgs_generate_messages_py"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SpraySystem">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin/SpraySystem" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NETWORK_LIB"/>
+					<Add option="-D_DEBUG"/>
+					<Add option="-DPOCO_ENABLE_CPP14"/>
+					<Add option="-DPOCO_ENABLE_CPP11"/>
+					<Add option="-DPOCO_OS_FAMILY_UNIX"/>
+					<Add option="-D_REENTRANT"/>
+					<Add option="-D_THREAD_SAFE"/>
+					<Add option="-D_LARGEFILE64_SOURCE"/>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-D_XOPEN_SOURCE=500"/>
+					<Add option="-DPOCO_HAVE_FD_EPOLL"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 SpraySystem"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SpraySystem/fast">
+				<Option output="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin/SpraySystem" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_PACKAGE_NAME=&quot;SpraySystem&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NETWORK_LIB"/>
+					<Add option="-D_DEBUG"/>
+					<Add option="-DPOCO_ENABLE_CPP14"/>
+					<Add option="-DPOCO_ENABLE_CPP11"/>
+					<Add option="-DPOCO_OS_FAMILY_UNIX"/>
+					<Add option="-D_REENTRANT"/>
+					<Add option="-D_THREAD_SAFE"/>
+					<Add option="-D_LARGEFILE64_SOURCE"/>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-D_XOPEN_SOURCE=500"/>
+					<Add option="-DPOCO_HAVE_FD_EPOLL"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem"/>
+					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/local/include/openrave-0.9"/>
+					<Add directory="/usr/local/include/ompl-1.5"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/vws/Program/catkin_ws/install/include"/>
+					<Add directory="/usr/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/src"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/opt"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/Include/json/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 SpraySystem/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bi

@@ -1881,8 +1881,12 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: \
  /usr/local/include/Poco/Net/HTTPMessage.h \
  /usr/local/include/Poco/Net/MessageHeader.h \
  /usr/local/include/Poco/Net/HTTPCookie.h \
- /usr/local/include/Poco/Net/WebSocket.h /usr/include/boost/assign.hpp \
- /usr/include/boost/assign/std.hpp \
+ /usr/local/include/Poco/Net/WebSocket.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+ /usr/include/boost/assign.hpp /usr/include/boost/assign/std.hpp \
  /usr/include/boost/assign/std/vector.hpp \
  /usr/include/boost/assign/list_inserter.hpp \
  /usr/include/boost/preprocessor/iteration/local.hpp \

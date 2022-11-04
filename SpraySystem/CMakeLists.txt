@@ -35,6 +35,7 @@ file(GLOB_RECURSE bussiness Bussiness/*)
 file(GLOB_RECURSE trajectory Trajectory/*)
 file(GLOB_RECURSE vision Vision/*)
 file(GLOB_RECURSE libs Libs/*)
+file(GLOB_RECURSE struct Data/*)
 
 message(STATUS "**** ${inc}")
 
@@ -104,6 +105,7 @@ else()
     ${trajectory}
     ${vision}
     ${libs}
+    ${struct}
 
     main.cpp
     Resources.qrc

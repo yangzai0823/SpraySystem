@@ -5,29 +5,32 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include "VWSCamera/VWSCamera.h"
-using ImageData = VWSCamera::ImageData;
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include "VWSVision/head/heightandpose/SizeAndPose.h"
+#include "Data/StructData.h"
 
+using ImageData = VWSCamera::ImageData;
+using VisionData = vws::VisionData;
 class VisionContext
 {
 public:
-    struct VisionData{
-        float length;
-        float width;
-        float height;
-        std::vector<float> imgpose;
-        std::vector<float> robotpose;
-        std::vector<float> righttop;
-        std::vector<float> rightbottom;
-        std::vector<float> lefttop;
-        std::vector<float> leftbottom;
-        std::vector<float> normalvector;
-    };
+
     VisionContext();
 
-    void getPoseAndHeight(ImageData image, VisionData &visionData);
+    void work(ImageData data,Eigen::Isometry3d handEyeMatrix,VisionData & visionData);
+    void getPoseAndHeight(ImageData data, VisionData &visionData);
     void getWidth(std::vector<float> senorNums, float senorDistance, VisionData &visionData);
     void getLenght(std::vector<float> encoderVector, std::vector<float> encoerNUms, VisionData &visionData);
     void getPose(VisionData &visionData);
+
+ private:
+     HTuple ImageConver(ImageData data);
+     /**
+      * @brief RobotCenterPose
+      * @param visionData
+      */
+     void RobotCenterPose(VisionData &visionData, double handEyeMatrix[12]);
 };
 
 #endif // VISIONCONTEXT_H

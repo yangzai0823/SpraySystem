@@ -209,4 +209,7 @@ CMakeFiles/SpraySystem.dir/Device/PLC/plcdatapaser.cpp.o: \
  /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/bits/stl_multimap.h \
  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobject_impl.h \
  /usr/include/c++/7/chrono /usr/include/c++/7/ratio \
- /usr/include/c++/7/ctime /usr/include/c++/7/bits/parse_numbers.h
+ /usr/include/c++/7/ctime /usr/include/c++/7/bits/parse_numbers.h \
+ /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QtEndian \
+ /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qendian.h \
+ /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfloat16.h

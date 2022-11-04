@@ -432,6 +432,30 @@ Bussiness/mainprocess.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem.dir/build.make CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.s
 .PHONY : Bussiness/mainprocess.cpp.s
 
+Bussiness/signalprocess.o: Bussiness/signalprocess.cpp.o
+.PHONY : Bussiness/signalprocess.o
+
+# target to build an object file
+Bussiness/signalprocess.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem.dir/build.make CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o
+.PHONY : Bussiness/signalprocess.cpp.o
+
+Bussiness/signalprocess.i: Bussiness/signalprocess.cpp.i
+.PHONY : Bussiness/signalprocess.i
+
+# target to preprocess a source file
+Bussiness/signalprocess.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem.dir/build.make CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.i
+.PHONY : Bussiness/signalprocess.cpp.i
+
+Bussiness/signalprocess.s: Bussiness/signalprocess.cpp.s
+.PHONY : Bussiness/signalprocess.s
+
+# target to generate assembly for a file
+Bussiness/signalprocess.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem.dir/build.make CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.s
+.PHONY : Bussiness/signalprocess.cpp.s
+
 Bussiness/trajectoryprocess.o: Bussiness/trajectoryprocess.cpp.o
 .PHONY : Bussiness/trajectoryprocess.o
 
@@ -1906,6 +1930,9 @@ help:
 	@echo "... Bussiness/mainprocess.o"
 	@echo "... Bussiness/mainprocess.i"
 	@echo "... Bussiness/mainprocess.s"
+	@echo "... Bussiness/signalprocess.o"
+	@echo "... Bussiness/signalprocess.i"
+	@echo "... Bussiness/signalprocess.s"
 	@echo "... Bussiness/trajectoryprocess.o"
 	@echo "... Bussiness/trajectoryprocess.i"
 	@echo "... Bussiness/trajectoryprocess.s"

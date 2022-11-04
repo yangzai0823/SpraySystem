@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.cpp" "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o.d"
+  "/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp" "CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o.d"
   "/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.cpp" "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o.d"
   "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Camera/camera.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/Camera/camera.cpp.o.d"
   "/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/MotionController/motioncontroller.cpp" "CMakeFiles/SpraySystem.dir/DataAccess/Models/MotionController/motioncontroller.cpp.o" "gcc" "CMakeFiles/SpraySystem.dir/DataAccess/Models/MotionController/motioncontroller.cpp.o.d"

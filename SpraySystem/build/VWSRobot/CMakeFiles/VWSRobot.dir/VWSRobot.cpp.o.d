@@ -2,10 +2,11 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.cpp \
  /usr/include/stdc-predef.h \
  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
- /usr/include/c++/7/string \
+ /usr/local/include/Poco/Net/NetException.h \
+ /usr/local/include/Poco/Net/Net.h /usr/local/include/Poco/Foundation.h \
+ /usr/local/include/Poco/Config.h /usr/local/include/Poco/Platform.h \
+ /usr/local/include/Poco/Platform_POSIX.h \
+ /usr/local/include/Poco/Alignment.h /usr/include/c++/7/type_traits \
  /usr/include/x86_64-linux-gnu/c++/7/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -14,6 +15,7 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/cpu_defines.h \
+ /usr/local/include/Poco/Bugcheck.h /usr/include/c++/7/string \
  /usr/include/c++/7/bits/stringfwd.h /usr/include/c++/7/bits/memoryfwd.h \
  /usr/include/c++/7/bits/char_traits.h \
  /usr/include/c++/7/bits/stl_algobase.h \
@@ -23,7 +25,7 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/include/c++/7/ext/type_traits.h \
  /usr/include/c++/7/ext/numeric_traits.h \
  /usr/include/c++/7/bits/stl_pair.h /usr/include/c++/7/bits/move.h \
- /usr/include/c++/7/bits/concept_check.h /usr/include/c++/7/type_traits \
+ /usr/include/c++/7/bits/concept_check.h \
  /usr/include/c++/7/bits/stl_iterator_base_types.h \
  /usr/include/c++/7/bits/stl_iterator_base_funcs.h \
  /usr/include/c++/7/debug/assertions.h \
@@ -119,14 +121,9 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/7/bits/functional_hash.h \
- /usr/include/c++/7/bits/basic_string.tcc \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
- /usr/include/c++/7/vector /usr/include/c++/7/bits/stl_construct.h \
- /usr/include/c++/7/bits/stl_uninitialized.h \
- /usr/include/c++/7/bits/stl_vector.h \
- /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
- /usr/include/c++/7/sstream /usr/include/c++/7/istream \
- /usr/include/c++/7/ios /usr/include/c++/7/bits/ios_base.h \
+ /usr/include/c++/7/bits/basic_string.tcc /usr/include/c++/7/iostream \
+ /usr/include/c++/7/ostream /usr/include/c++/7/ios \
+ /usr/include/c++/7/bits/ios_base.h \
  /usr/include/c++/7/bits/locale_classes.h \
  /usr/include/c++/7/bits/locale_classes.tcc \
  /usr/include/c++/7/system_error \
@@ -140,74 +137,19 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/include/c++/7/bits/streambuf_iterator.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/ctype_inline.h \
  /usr/include/c++/7/bits/locale_facets.tcc \
- /usr/include/c++/7/bits/basic_ios.tcc /usr/include/c++/7/ostream \
- /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/bits/istream.tcc \
- /usr/include/c++/7/bits/sstream.tcc /usr/local/include/Poco/SharedPtr.h \
- /usr/local/include/Poco/Foundation.h /usr/local/include/Poco/Config.h \
- /usr/local/include/Poco/Platform.h \
- /usr/local/include/Poco/Platform_POSIX.h \
- /usr/local/include/Poco/Alignment.h /usr/local/include/Poco/Bugcheck.h \
- /usr/include/c++/7/iostream /usr/local/include/Poco/Types.h \
+ /usr/include/c++/7/bits/basic_ios.tcc \
+ /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
+ /usr/include/c++/7/bits/istream.tcc /usr/local/include/Poco/Types.h \
  /usr/local/include/Poco/Exception.h \
- /usr/local/include/Poco/AtomicCounter.h /usr/include/c++/7/atomic \
- /usr/include/c++/7/bits/atomic_base.h \
- /usr/include/c++/7/bits/atomic_lockfree_defines.h \
- /usr/include/c++/7/algorithm /usr/include/c++/7/utility \
- /usr/include/c++/7/bits/stl_relops.h /usr/include/c++/7/bits/stl_algo.h \
- /usr/include/c++/7/bits/algorithmfwd.h \
- /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
- /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
- /usr/include/c++/7/cstddef \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
- /usr/include/c++/7/deque /usr/include/c++/7/bits/stl_deque.h \
- /usr/include/c++/7/bits/deque.tcc \
- /usr/local/include/Poco/DOM/DOMParser.h \
- /usr/local/include/Poco/XML/XML.h \
- /usr/local/include/Poco/SAX/SAXParser.h \
- /usr/local/include/Poco/SAX/XMLReader.h \
- /usr/local/include/Poco/XML/XMLString.h \
- /usr/local/include/Poco/XML/ParserEngine.h \
- /usr/local/include/Poco/XML/expat.h /usr/include/c++/7/stdlib.h \
- /usr/local/include/Poco/XML/expat_external.h \
- /usr/local/include/Poco/XML/XMLStream.h \
- /usr/local/include/Poco/SAX/Locator.h \
- /usr/local/include/Poco/TextEncoding.h /usr/include/c++/7/map \
- /usr/include/c++/7/bits/stl_tree.h \
- /usr/include/c++/7/ext/aligned_buffer.h \
- /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/tuple \
- /usr/include/c++/7/array /usr/include/c++/7/bits/uses_allocator.h \
- /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/bits/stl_multimap.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
- /usr/local/include/Poco/DOM/AutoPtr.h /usr/local/include/Poco/AutoPtr.h \
- /usr/local/include/Poco/DOM/Document.h \
- /usr/local/include/Poco/DOM/AbstractContainerNode.h \
- /usr/local/include/Poco/DOM/AbstractNode.h \
- /usr/local/include/Poco/DOM/Node.h \
- /usr/local/include/Poco/DOM/EventTarget.h \
- /usr/local/include/Poco/DOM/DOMObject.h \
- /usr/local/include/Poco/SAX/NamespaceSupport.h /usr/include/c++/7/set \
- /usr/include/c++/7/bits/stl_set.h /usr/include/c++/7/bits/stl_multiset.h \
- /usr/local/include/Poco/DOM/MutationEvent.h \
- /usr/local/include/Poco/DOM/Event.h \
- /usr/local/include/Poco/DOM/DocumentEvent.h \
- /usr/local/include/Poco/DOM/Element.h /usr/local/include/Poco/XML/Name.h \
- /usr/local/include/Poco/XML/NamePool.h \
- /usr/local/include/Poco/AutoReleasePool.h /usr/include/c++/7/list \
- /usr/include/c++/7/bits/stl_list.h \
- /usr/include/c++/7/bits/allocated_ptr.h /usr/include/c++/7/bits/list.tcc \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
- /usr/local/include/Poco/Mutex.h /usr/local/include/Poco/ScopedLock.h \
- /usr/local/include/Poco/Timestamp.h /usr/include/c++/7/ctime \
- /usr/local/include/Poco/Mutex_POSIX.h \
- /usr/local/include/Poco/Net/HTTPClientSession.h \
- /usr/local/include/Poco/Net/Net.h \
- /usr/local/include/Poco/Net/HTTPSession.h \
- /usr/local/include/Poco/Net/StreamSocket.h \
+ /usr/local/include/Poco/Net/ServerSocket.h \
  /usr/local/include/Poco/Net/Socket.h \
  /usr/local/include/Poco/Net/SocketImpl.h \
- /usr/local/include/Poco/Net/SocketDefs.h /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/local/include/Poco/Net/SocketDefs.h /usr/include/c++/7/vector \
+ /usr/include/c++/7/bits/stl_construct.h \
+ /usr/include/c++/7/bits/stl_uninitialized.h \
+ /usr/include/c++/7/bits/stl_vector.h \
+ /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
+ /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
@@ -247,11 +189,26 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/local/include/Poco/Net/IPAddress.h \
  /usr/local/include/Poco/Net/IPAddressImpl.h \
  /usr/local/include/Poco/RefCountedObject.h \
- /usr/local/include/Poco/Timespan.h /usr/local/include/Poco/Buffer.h \
- /usr/include/c++/7/cstring /usr/local/include/Poco/FIFOBuffer.h \
+ /usr/local/include/Poco/AtomicCounter.h /usr/include/c++/7/atomic \
+ /usr/include/c++/7/bits/atomic_base.h \
+ /usr/include/c++/7/bits/atomic_lockfree_defines.h \
+ /usr/local/include/Poco/AutoPtr.h /usr/include/c++/7/algorithm \
+ /usr/include/c++/7/utility /usr/include/c++/7/bits/stl_relops.h \
+ /usr/include/c++/7/bits/stl_algo.h \
+ /usr/include/c++/7/bits/algorithmfwd.h \
+ /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
+ /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
+ /usr/include/c++/7/cstddef /usr/local/include/Poco/Timespan.h \
+ /usr/local/include/Poco/Timestamp.h /usr/include/c++/7/ctime \
+ /usr/local/include/Poco/Buffer.h /usr/include/c++/7/cstring \
+ /usr/local/include/Poco/Net/StreamSocket.h \
+ /usr/local/include/Poco/FIFOBuffer.h \
  /usr/local/include/Poco/BasicEvent.h \
  /usr/local/include/Poco/AbstractEvent.h \
  /usr/local/include/Poco/SingletonHolder.h \
+ /usr/local/include/Poco/Mutex.h /usr/local/include/Poco/ScopedLock.h \
+ /usr/local/include/Poco/Mutex_POSIX.h \
+ /usr/local/include/Poco/SharedPtr.h \
  /usr/local/include/Poco/ActiveResult.h /usr/local/include/Poco/Event.h \
  /usr/local/include/Poco/Event_POSIX.h \
  /usr/local/include/Poco/ActiveMethod.h \
@@ -273,6 +230,56 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/local/include/Poco/AbstractDelegate.h \
  /usr/local/include/Poco/Format.h /usr/local/include/Poco/Any.h \
  /usr/local/include/Poco/MetaProgramming.h \
+ /usr/local/include/Poco/Net/TCPServer.h \
+ /usr/local/include/Poco/Net/TCPServerConnectionFactory.h \
+ /usr/local/include/Poco/Net/TCPServerConnection.h \
+ /usr/local/include/Poco/Net/TCPServerParams.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
+ /usr/include/c++/7/sstream /usr/include/c++/7/bits/sstream.tcc \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
+ /usr/include/c++/7/deque /usr/include/c++/7/bits/stl_deque.h \
+ /usr/include/c++/7/bits/deque.tcc \
+ /usr/local/include/Poco/DOM/DOMParser.h \
+ /usr/local/include/Poco/XML/XML.h \
+ /usr/local/include/Poco/SAX/SAXParser.h \
+ /usr/local/include/Poco/SAX/XMLReader.h \
+ /usr/local/include/Poco/XML/XMLString.h \
+ /usr/local/include/Poco/XML/ParserEngine.h \
+ /usr/local/include/Poco/XML/expat.h /usr/include/c++/7/stdlib.h \
+ /usr/local/include/Poco/XML/expat_external.h \
+ /usr/local/include/Poco/XML/XMLStream.h \
+ /usr/local/include/Poco/SAX/Locator.h \
+ /usr/local/include/Poco/TextEncoding.h /usr/include/c++/7/map \
+ /usr/include/c++/7/bits/stl_tree.h \
+ /usr/include/c++/7/ext/aligned_buffer.h \
+ /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/tuple \
+ /usr/include/c++/7/array /usr/include/c++/7/bits/uses_allocator.h \
+ /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/bits/stl_multimap.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
+ /usr/local/include/Poco/DOM/AutoPtr.h \
+ /usr/local/include/Poco/DOM/Document.h \
+ /usr/local/include/Poco/DOM/AbstractContainerNode.h \
+ /usr/local/include/Poco/DOM/AbstractNode.h \
+ /usr/local/include/Poco/DOM/Node.h \
+ /usr/local/include/Poco/DOM/EventTarget.h \
+ /usr/local/include/Poco/DOM/DOMObject.h \
+ /usr/local/include/Poco/SAX/NamespaceSupport.h /usr/include/c++/7/set \
+ /usr/include/c++/7/bits/stl_set.h /usr/include/c++/7/bits/stl_multiset.h \
+ /usr/local/include/Poco/DOM/MutationEvent.h \
+ /usr/local/include/Poco/DOM/Event.h \
+ /usr/local/include/Poco/DOM/DocumentEvent.h \
+ /usr/local/include/Poco/DOM/Element.h /usr/local/include/Poco/XML/Name.h \
+ /usr/local/include/Poco/XML/NamePool.h \
+ /usr/local/include/Poco/AutoReleasePool.h /usr/include/c++/7/list \
+ /usr/include/c++/7/bits/stl_list.h \
+ /usr/include/c++/7/bits/allocated_ptr.h /usr/include/c++/7/bits/list.tcc \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
+ /usr/local/include/Poco/Net/HTTPClientSession.h \
+ /usr/local/include/Poco/Net/HTTPSession.h \
  /usr/local/include/Poco/Net/HTTPBasicCredentials.h \
  /usr/local/include/Poco/Net/HTTPDigestCredentials.h \
  /usr/local/include/Poco/Net/HTTPAuthenticationParams.h \
@@ -302,9 +309,13 @@ VWSRobot/CMakeFiles/VWSRobot.dir/VWSRobot.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/local/include/Poco/Net/NetException.h \
- /usr/local/include/Poco/Net/ServerSocket.h \
- /usr/local/include/Poco/Net/TCPServer.h \
- /usr/local/include/Poco/Net/TCPServerConnectionFactory.h \
- /usr/local/include/Poco/Net/TCPServerConnection.h \
- /usr/local/include/Poco/Net/TCPServerParams.h
+ /usr/include/c++/7/thread /usr/include/c++/7/chrono \
+ /usr/include/c++/7/ratio /usr/include/c++/7/bits/parse_numbers.h \
+ /usr/include/c++/7/memory /usr/include/c++/7/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/7/ext/concurrence.h \
+ /usr/include/c++/7/bits/unique_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr_base.h \
+ /usr/include/c++/7/bits/refwrap.h \
+ /usr/include/c++/7/bits/shared_ptr_atomic.h \
+ /usr/include/c++/7/backward/auto_ptr.h

@@ -8,7 +8,7 @@
 #include "trajectorygenerator.h"
 #include "VWSRobot/VWSRobot.h"
 using RobotTask = VWSRobot::RobotTask;
-using TrajParam = TrajectoryGenerator::TrajParam;
+using TrajParam = vws::TrajParam;
 
 Q_DECLARE_METATYPE(TrajParam)  //注册结构体
 class TrajectoryContext

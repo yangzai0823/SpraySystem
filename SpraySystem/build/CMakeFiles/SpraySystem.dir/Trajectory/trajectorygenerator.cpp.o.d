@@ -1755,52 +1755,13 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: \
  /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/planning_utils.h \
  /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/utils.h \
  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
- /usr/local/include/Poco/SharedPtr.h /usr/local/include/Poco/Foundation.h \
+ /usr/local/include/Poco/Net/NetException.h \
+ /usr/local/include/Poco/Net/Net.h /usr/local/include/Poco/Foundation.h \
  /usr/local/include/Poco/Config.h /usr/local/include/Poco/Platform.h \
  /usr/local/include/Poco/Platform_POSIX.h \
  /usr/local/include/Poco/Alignment.h /usr/local/include/Poco/Bugcheck.h \
  /usr/local/include/Poco/Types.h /usr/local/include/Poco/Exception.h \
- /usr/local/include/Poco/AtomicCounter.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
- /usr/local/include/Poco/DOM/DOMParser.h \
- /usr/local/include/Poco/XML/XML.h \
- /usr/local/include/Poco/SAX/SAXParser.h \
- /usr/local/include/Poco/SAX/XMLReader.h \
- /usr/local/include/Poco/XML/XMLString.h \
- /usr/local/include/Poco/XML/ParserEngine.h \
- /usr/local/include/Poco/XML/expat.h \
- /usr/local/include/Poco/XML/expat_external.h \
- /usr/local/include/Poco/XML/XMLStream.h \
- /usr/local/include/Poco/SAX/Locator.h \
- /usr/local/include/Poco/TextEncoding.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
- /usr/local/include/Poco/DOM/AutoPtr.h /usr/local/include/Poco/AutoPtr.h \
- /usr/local/include/Poco/DOM/Document.h \
- /usr/local/include/Poco/DOM/AbstractContainerNode.h \
- /usr/local/include/Poco/DOM/AbstractNode.h \
- /usr/local/include/Poco/DOM/Node.h \
- /usr/local/include/Poco/DOM/EventTarget.h \
- /usr/local/include/Poco/DOM/DOMObject.h \
- /usr/local/include/Poco/SAX/NamespaceSupport.h \
- /usr/local/include/Poco/DOM/MutationEvent.h \
- /usr/local/include/Poco/DOM/Event.h \
- /usr/local/include/Poco/DOM/DocumentEvent.h \
- /usr/local/include/Poco/DOM/Element.h /usr/local/include/Poco/XML/Name.h \
- /usr/local/include/Poco/XML/NamePool.h \
- /usr/local/include/Poco/AutoReleasePool.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
- /usr/local/include/Poco/Mutex.h /usr/local/include/Poco/ScopedLock.h \
- /usr/local/include/Poco/Timestamp.h \
- /usr/local/include/Poco/Mutex_POSIX.h \
- /usr/local/include/Poco/Net/HTTPClientSession.h \
- /usr/local/include/Poco/Net/Net.h \
- /usr/local/include/Poco/Net/HTTPSession.h \
- /usr/local/include/Poco/Net/StreamSocket.h \
+ /usr/local/include/Poco/Net/ServerSocket.h \
  /usr/local/include/Poco/Net/Socket.h \
  /usr/local/include/Poco/Net/SocketImpl.h \
  /usr/local/include/Poco/Net/SocketDefs.h \
@@ -1838,11 +1799,17 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: \
  /usr/local/include/Poco/Net/IPAddress.h \
  /usr/local/include/Poco/Net/IPAddressImpl.h \
  /usr/local/include/Poco/RefCountedObject.h \
- /usr/local/include/Poco/Timespan.h /usr/local/include/Poco/Buffer.h \
+ /usr/local/include/Poco/AtomicCounter.h \
+ /usr/local/include/Poco/AutoPtr.h /usr/local/include/Poco/Timespan.h \
+ /usr/local/include/Poco/Timestamp.h /usr/local/include/Poco/Buffer.h \
+ /usr/local/include/Poco/Net/StreamSocket.h \
  /usr/local/include/Poco/FIFOBuffer.h \
  /usr/local/include/Poco/BasicEvent.h \
  /usr/local/include/Poco/AbstractEvent.h \
  /usr/local/include/Poco/SingletonHolder.h \
+ /usr/local/include/Poco/Mutex.h /usr/local/include/Poco/ScopedLock.h \
+ /usr/local/include/Poco/Mutex_POSIX.h \
+ /usr/local/include/Poco/SharedPtr.h \
  /usr/local/include/Poco/ActiveResult.h /usr/local/include/Poco/Event.h \
  /usr/local/include/Poco/Event_POSIX.h \
  /usr/local/include/Poco/ActiveMethod.h \
@@ -1857,6 +1824,45 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: \
  /usr/local/include/Poco/AbstractDelegate.h \
  /usr/local/include/Poco/Format.h /usr/local/include/Poco/Any.h \
  /usr/local/include/Poco/MetaProgramming.h \
+ /usr/local/include/Poco/Net/TCPServer.h \
+ /usr/local/include/Poco/Net/TCPServerConnectionFactory.h \
+ /usr/local/include/Poco/Net/TCPServerConnection.h \
+ /usr/local/include/Poco/Net/TCPServerParams.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
+ /usr/local/include/Poco/DOM/DOMParser.h \
+ /usr/local/include/Poco/XML/XML.h \
+ /usr/local/include/Poco/SAX/SAXParser.h \
+ /usr/local/include/Poco/SAX/XMLReader.h \
+ /usr/local/include/Poco/XML/XMLString.h \
+ /usr/local/include/Poco/XML/ParserEngine.h \
+ /usr/local/include/Poco/XML/expat.h \
+ /usr/local/include/Poco/XML/expat_external.h \
+ /usr/local/include/Poco/XML/XMLStream.h \
+ /usr/local/include/Poco/SAX/Locator.h \
+ /usr/local/include/Poco/TextEncoding.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
+ /usr/local/include/Poco/DOM/AutoPtr.h \
+ /usr/local/include/Poco/DOM/Document.h \
+ /usr/local/include/Poco/DOM/AbstractContainerNode.h \
+ /usr/local/include/Poco/DOM/AbstractNode.h \
+ /usr/local/include/Poco/DOM/Node.h \
+ /usr/local/include/Poco/DOM/EventTarget.h \
+ /usr/local/include/Poco/DOM/DOMObject.h \
+ /usr/local/include/Poco/SAX/NamespaceSupport.h \
+ /usr/local/include/Poco/DOM/MutationEvent.h \
+ /usr/local/include/Poco/DOM/Event.h \
+ /usr/local/include/Poco/DOM/DocumentEvent.h \
+ /usr/local/include/Poco/DOM/Element.h /usr/local/include/Poco/XML/Name.h \
+ /usr/local/include/Poco/XML/NamePool.h \
+ /usr/local/include/Poco/AutoReleasePool.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
+ /usr/local/include/Poco/Net/HTTPClientSession.h \
+ /usr/local/include/Poco/Net/HTTPSession.h \
  /usr/local/include/Poco/Net/HTTPBasicCredentials.h \
  /usr/local/include/Poco/Net/HTTPDigestCredentials.h \
  /usr/local/include/Poco/Net/HTTPAuthenticationParams.h \

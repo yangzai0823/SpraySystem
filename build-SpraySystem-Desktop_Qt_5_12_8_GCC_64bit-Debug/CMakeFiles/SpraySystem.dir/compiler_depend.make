@@ -2115,13 +2115,12 @@ CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o: /home/vws/Demo/QT/Spray/
   /usr/local/include/Poco/Net/MessageHeader.h \
   /usr/local/include/Poco/Net/HTTPCookie.h \
   /usr/local/include/Poco/Net/WebSocket.h \
-  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.h \
@@ -2159,8 +2158,812 @@ CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o: /home/vws/Demo/QT/Spray/
   /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QDateTime \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qdatetime.h
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h
+
+CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp \
+  /usr/include/stdc-predef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /usr/include/c++/7/string \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/os_defines.h \
+  /usr/include/features.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/cpu_defines.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/memoryfwd.h \
+  /usr/include/c++/7/bits/char_traits.h \
+  /usr/include/c++/7/bits/stl_algobase.h \
+  /usr/include/c++/7/bits/functexcept.h \
+  /usr/include/c++/7/bits/exception_defines.h \
+  /usr/include/c++/7/bits/cpp_type_traits.h \
+  /usr/include/c++/7/ext/type_traits.h \
+  /usr/include/c++/7/ext/numeric_traits.h \
+  /usr/include/c++/7/bits/stl_pair.h \
+  /usr/include/c++/7/bits/move.h \
+  /usr/include/c++/7/bits/concept_check.h \
+  /usr/include/c++/7/type_traits \
+  /usr/include/c++/7/bits/stl_iterator_base_types.h \
+  /usr/include/c++/7/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/7/debug/assertions.h \
+  /usr/include/c++/7/bits/stl_iterator.h \
+  /usr/include/c++/7/bits/ptr_traits.h \
+  /usr/include/c++/7/debug/debug.h \
+  /usr/include/c++/7/bits/predefined_ops.h \
+  /usr/include/c++/7/bits/postypes.h \
+  /usr/include/c++/7/cwchar \
+  /usr/include/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/c++/7/cstdint \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdint.h \
+  /usr/include/stdint.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/c++allocator.h \
+  /usr/include/c++/7/ext/new_allocator.h \
+  /usr/include/c++/7/new \
+  /usr/include/c++/7/exception \
+  /usr/include/c++/7/bits/exception.h \
+  /usr/include/c++/7/bits/exception_ptr.h \
+  /usr/include/c++/7/bits/cxxabi_init_exception.h \
+  /usr/include/c++/7/typeinfo \
+  /usr/include/c++/7/bits/hash_bytes.h \
+  /usr/include/c++/7/bits/nested_exception.h \
+  /usr/include/c++/7/bits/localefwd.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/c++locale.h \
+  /usr/include/c++/7/clocale \
+  /usr/include/locale.h \
+  /usr/include/x86_64-linux-gnu/bits/locale.h \
+  /usr/include/c++/7/iosfwd \
+  /usr/include/c++/7/cctype \
+  /usr/include/ctype.h \
+  /usr/include/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap-16.h \
+  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/c++/7/bits/ostream_insert.h \
+  /usr/include/c++/7/bits/cxxabi_forced.h \
+  /usr/include/c++/7/bits/stl_function.h \
+  /usr/include/c++/7/backward/binders.h \
+  /usr/include/c++/7/bits/range_access.h \
+  /usr/include/c++/7/initializer_list \
+  /usr/include/c++/7/bits/basic_string.h \
+  /usr/include/c++/7/ext/atomicity.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/gthr-default.h \
+  /usr/include/pthread.h \
+  /usr/include/sched.h \
+  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/sched.h \
+  /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
+  /usr/include/time.h \
+  /usr/include/x86_64-linux-gnu/bits/time.h \
+  /usr/include/x86_64-linux-gnu/bits/timex.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/atomic_word.h \
+  /usr/include/c++/7/ext/alloc_traits.h \
+  /usr/include/c++/7/bits/alloc_traits.h \
+  /usr/include/c++/7/ext/string_conversions.h \
+  /usr/include/c++/7/cstdlib \
+  /usr/include/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+  /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/sys/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+  /usr/include/x86_64-linux-gnu/bits/sysmacros.h \
+  /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/c++/7/bits/std_abs.h \
+  /usr/include/c++/7/cstdio \
+  /usr/include/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/libio.h \
+  /usr/include/x86_64-linux-gnu/bits/_G_config.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+  /usr/include/c++/7/cerrno \
+  /usr/include/errno.h \
+  /usr/include/x86_64-linux-gnu/bits/errno.h \
+  /usr/include/linux/errno.h \
+  /usr/include/x86_64-linux-gnu/asm/errno.h \
+  /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/errno-base.h \
+  /usr/include/c++/7/bits/functional_hash.h \
+  /usr/include/c++/7/bits/basic_string.tcc \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /usr/include/x86_64-linux-gnu/sys/time.h \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/c++/7/iostream \
+  /usr/include/c++/7/ostream \
+  /usr/include/c++/7/ios \
+  /usr/include/c++/7/bits/ios_base.h \
+  /usr/include/c++/7/bits/locale_classes.h \
+  /usr/include/c++/7/bits/locale_classes.tcc \
+  /usr/include/c++/7/system_error \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/error_constants.h \
+  /usr/include/c++/7/stdexcept \
+  /usr/include/c++/7/streambuf \
+  /usr/include/c++/7/bits/streambuf.tcc \
+  /usr/include/c++/7/bits/basic_ios.h \
+  /usr/include/c++/7/bits/locale_facets.h \
+  /usr/include/c++/7/cwctype \
+  /usr/include/wctype.h \
+  /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/ctype_base.h \
+  /usr/include/c++/7/bits/streambuf_iterator.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/ctype_inline.h \
+  /usr/include/c++/7/bits/locale_facets.tcc \
+  /usr/include/c++/7/bits/basic_ios.tcc \
+  /usr/include/c++/7/bits/ostream.tcc \
+  /usr/include/c++/7/istream \
+  /usr/include/c++/7/bits/istream.tcc \
+  /usr/include/c++/7/vector \
+  /usr/include/c++/7/bits/stl_construct.h \
+  /usr/include/c++/7/bits/stl_uninitialized.h \
+  /usr/include/c++/7/bits/stl_vector.h \
+  /usr/include/c++/7/bits/stl_bvector.h \
+  /usr/include/c++/7/bits/vector.tcc \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/7/sstream \
+  /usr/include/c++/7/bits/sstream.tcc \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/stdlib.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/cassert \
+  /usr/include/assert.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/tuple \
+  /usr/include/c++/7/utility \
+  /usr/include/c++/7/bits/stl_relops.h \
+  /usr/include/c++/7/array \
+  /usr/include/c++/7/bits/uses_allocator.h \
+  /usr/include/c++/7/bits/invoke.h \
+  /usr/include/c++/7/bits/std_function.h \
+  /usr/include/c++/7/bits/refwrap.h \
+  /usr/include/c++/7/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/c++/7/limits \
+  /usr/include/c++/7/climits \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed/syslimits.h \
+  /usr/include/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+  /usr/include/linux/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/stl_tempbuf.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StaticData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QObject \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobject.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobjectdefs.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qnamespace.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qglobal.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qconfig.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qtcore-config.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qsystemdetection.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qprocessordetection.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qcompilerdetection.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qtypeinfo.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qsysinfo.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qlogging.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qflags.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qatomic.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qbasicatomic.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qgenericatomic.h \
+  /usr/include/c++/7/atomic \
+  /usr/include/c++/7/bits/atomic_base.h \
+  /usr/include/c++/7/bits/atomic_lockfree_defines.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qglobalstatic.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qnumeric.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qversiontagging.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobjectdefs_impl.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstring.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qchar.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qbytearray.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qrefcount.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qarraydata.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstringliteral.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstringalgorithms.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstringview.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qlist.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qalgorithms.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiterator.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qhashfunctions.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qpair.h \
+  /usr/include/c++/7/numeric \
+  /usr/include/c++/7/bits/stl_numeric.h \
+  /usr/include/c++/7/list \
+  /usr/include/c++/7/bits/stl_list.h \
+  /usr/include/c++/7/bits/allocated_ptr.h \
+  /usr/include/c++/7/ext/aligned_buffer.h \
+  /usr/include/c++/7/bits/list.tcc \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qbytearraylist.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstringlist.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qregexp.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstringmatcher.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qscopedpointer.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmetatype.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvarlengtharray.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qcontainerfwd.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobject_impl.h \
+  /usr/include/c++/7/memory \
+  /usr/include/c++/7/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/7/ext/concurrence.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/shared_ptr.h \
+  /usr/include/c++/7/bits/shared_ptr_base.h \
+  /usr/include/c++/7/bits/shared_ptr_atomic.h \
+  /usr/include/c++/7/backward/auto_ptr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/Robot/robotoperator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Robot/robot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.h \
+  /usr/local/include/Poco/Net/NetException.h \
+  /usr/local/include/Poco/Net/Net.h \
+  /usr/local/include/Poco/Foundation.h \
+  /usr/local/include/Poco/Config.h \
+  /usr/local/include/Poco/Platform.h \
+  /usr/local/include/Poco/Platform_POSIX.h \
+  /usr/local/include/Poco/Alignment.h \
+  /usr/local/include/Poco/Bugcheck.h \
+  /usr/local/include/Poco/Types.h \
+  /usr/local/include/Poco/Exception.h \
+  /usr/local/include/Poco/Net/ServerSocket.h \
+  /usr/local/include/Poco/Net/Socket.h \
+  /usr/local/include/Poco/Net/SocketImpl.h \
+  /usr/local/include/Poco/Net/SocketDefs.h \
+  /usr/include/x86_64-linux-gnu/sys/socket.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
+  /usr/include/x86_64-linux-gnu/bits/socket.h \
+  /usr/include/x86_64-linux-gnu/bits/socket_type.h \
+  /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
+  /usr/include/x86_64-linux-gnu/asm/socket.h \
+  /usr/include/asm-generic/socket.h \
+  /usr/include/x86_64-linux-gnu/asm/sockios.h \
+  /usr/include/asm-generic/sockios.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
+  /usr/include/x86_64-linux-gnu/sys/un.h \
+  /usr/include/x86_64-linux-gnu/sys/uio.h \
+  /usr/include/x86_64-linux-gnu/bits/uio-ext.h \
+  /usr/include/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+  /usr/include/linux/falloc.h \
+  /usr/include/x86_64-linux-gnu/bits/stat.h \
+  /usr/include/x86_64-linux-gnu/sys/ioctl.h \
+  /usr/include/x86_64-linux-gnu/bits/ioctls.h \
+  /usr/include/x86_64-linux-gnu/asm/ioctls.h \
+  /usr/include/asm-generic/ioctls.h \
+  /usr/include/linux/ioctl.h \
+  /usr/include/x86_64-linux-gnu/asm/ioctl.h \
+  /usr/include/asm-generic/ioctl.h \
+  /usr/include/x86_64-linux-gnu/bits/ioctl-types.h \
+  /usr/include/x86_64-linux-gnu/sys/ttydefaults.h \
+  /usr/include/arpa/inet.h \
+  /usr/include/netinet/in.h \
+  /usr/include/x86_64-linux-gnu/bits/in.h \
+  /usr/include/netinet/tcp.h \
+  /usr/include/netdb.h \
+  /usr/include/rpc/netdb.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
+  /usr/include/x86_64-linux-gnu/bits/netdb.h \
+  /usr/include/net/if.h \
+  /usr/local/include/Poco/Net/SocketAddress.h \
+  /usr/local/include/Poco/Net/SocketAddressImpl.h \
+  /usr/local/include/Poco/Net/IPAddress.h \
+  /usr/local/include/Poco/Net/IPAddressImpl.h \
+  /usr/local/include/Poco/RefCountedObject.h \
+  /usr/local/include/Poco/AtomicCounter.h \
+  /usr/local/include/Poco/AutoPtr.h \
+  /usr/local/include/Poco/Timespan.h \
+  /usr/local/include/Poco/Timestamp.h \
+  /usr/local/include/Poco/Buffer.h \
+  /usr/local/include/Poco/Net/StreamSocket.h \
+  /usr/local/include/Poco/FIFOBuffer.h \
+  /usr/local/include/Poco/BasicEvent.h \
+  /usr/local/include/Poco/AbstractEvent.h \
+  /usr/local/include/Poco/SingletonHolder.h \
+  /usr/local/include/Poco/Mutex.h \
+  /usr/local/include/Poco/ScopedLock.h \
+  /usr/local/include/Poco/Mutex_POSIX.h \
+  /usr/local/include/Poco/SharedPtr.h \
+  /usr/local/include/Poco/ActiveResult.h \
+  /usr/local/include/Poco/Event.h \
+  /usr/local/include/Poco/Event_POSIX.h \
+  /usr/local/include/Poco/ActiveMethod.h \
+  /usr/local/include/Poco/ActiveRunnable.h \
+  /usr/local/include/Poco/Runnable.h \
+  /usr/local/include/Poco/ActiveStarter.h \
+  /usr/local/include/Poco/ThreadPool.h \
+  /usr/local/include/Poco/Thread.h \
+  /usr/local/include/Poco/Thread_POSIX.h \
+  /usr/local/include/Poco/SignalHandler.h \
+  /usr/include/setjmp.h \
+  /usr/local/include/Poco/DefaultStrategy.h \
+  /usr/local/include/Poco/NotificationStrategy.h \
+  /usr/local/include/Poco/AbstractDelegate.h \
+  /usr/local/include/Poco/Format.h \
+  /usr/local/include/Poco/Any.h \
+  /usr/local/include/Poco/MetaProgramming.h \
+  /usr/local/include/Poco/Net/TCPServer.h \
+  /usr/local/include/Poco/Net/TCPServerConnectionFactory.h \
+  /usr/local/include/Poco/Net/TCPServerConnection.h \
+  /usr/local/include/Poco/Net/TCPServerParams.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
+  /usr/include/c++/7/deque \
+  /usr/include/c++/7/bits/stl_deque.h \
+  /usr/include/c++/7/bits/deque.tcc \
+  /usr/local/include/Poco/DOM/DOMParser.h \
+  /usr/local/include/Poco/XML/XML.h \
+  /usr/local/include/Poco/SAX/SAXParser.h \
+  /usr/local/include/Poco/SAX/XMLReader.h \
+  /usr/local/include/Poco/XML/XMLString.h \
+  /usr/local/include/Poco/XML/ParserEngine.h \
+  /usr/local/include/Poco/XML/expat.h \
+  /usr/local/include/Poco/XML/expat_external.h \
+  /usr/local/include/Poco/XML/XMLStream.h \
+  /usr/local/include/Poco/SAX/Locator.h \
+  /usr/local/include/Poco/TextEncoding.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
+  /usr/local/include/Poco/DOM/AutoPtr.h \
+  /usr/local/include/Poco/DOM/Document.h \
+  /usr/local/include/Poco/DOM/AbstractContainerNode.h \
+  /usr/local/include/Poco/DOM/AbstractNode.h \
+  /usr/local/include/Poco/DOM/Node.h \
+  /usr/local/include/Poco/DOM/EventTarget.h \
+  /usr/local/include/Poco/DOM/DOMObject.h \
+  /usr/local/include/Poco/SAX/NamespaceSupport.h \
+  /usr/include/c++/7/set \
+  /usr/include/c++/7/bits/stl_set.h \
+  /usr/include/c++/7/bits/stl_multiset.h \
+  /usr/local/include/Poco/DOM/MutationEvent.h \
+  /usr/local/include/Poco/DOM/Event.h \
+  /usr/local/include/Poco/DOM/DocumentEvent.h \
+  /usr/local/include/Poco/DOM/Element.h \
+  /usr/local/include/Poco/XML/Name.h \
+  /usr/local/include/Poco/XML/NamePool.h \
+  /usr/local/include/Poco/AutoReleasePool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
+  /usr/local/include/Poco/Net/HTTPClientSession.h \
+  /usr/local/include/Poco/Net/HTTPSession.h \
+  /usr/local/include/Poco/Net/HTTPBasicCredentials.h \
+  /usr/local/include/Poco/Net/HTTPDigestCredentials.h \
+  /usr/local/include/Poco/Net/HTTPAuthenticationParams.h \
+  /usr/local/include/Poco/Net/NameValueCollection.h \
+  /usr/local/include/Poco/String.h \
+  /usr/local/include/Poco/Ascii.h \
+  /usr/local/include/Poco/ListMap.h \
+  /usr/local/include/Poco/Net/HTTPNTLMCredentials.h \
+  /usr/local/include/Poco/Net/SSPINTLMCredentials.h \
+  /usr/local/include/Poco/Net/NTLMCredentials.h \
+  /usr/local/include/Poco/BinaryReader.h \
+  /usr/local/include/Poco/MemoryStream.h \
+  /usr/local/include/Poco/StreamUtil.h \
+  /usr/local/include/Poco/BinaryWriter.h \
+  /usr/local/include/Poco/Net/HTTPCredentials.h \
+  /usr/local/include/Poco/Net/HTTPResponse.h \
+  /usr/local/include/Poco/Net/HTTPMessage.h \
+  /usr/local/include/Poco/Net/MessageHeader.h \
+  /usr/local/include/Poco/Net/HTTPCookie.h \
+  /usr/local/include/Poco/Net/WebSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcoperator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/PLC/plc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/qtsocketserver.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/QTcpServer \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qtcpserver.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobject.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qdebug.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qhash.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmap.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qtextstream.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qlocale.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvariant.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvector.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qset.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qcontiguouscache.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qsharedpointer.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qsharedpointer_impl.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qhostaddress.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/QTcpSocket \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/QHostAddress \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qhostaddress.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Util/Socket/qtsocketclient.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QThread \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qthread.h \
+  /usr/include/c++/7/future \
+  /usr/include/c++/7/thread \
+  /usr/include/c++/7/condition_variable \
+  /usr/include/c++/7/bits/atomic_futex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QVariant \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvariant.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcoperator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/MotionController/motioncontroller.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcdatapaser.h
 
 CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.cpp \
   /usr/include/stdc-predef.h \
@@ -2612,7 +3415,7 @@ CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: /home/vws/Demo/QT/
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
   /usr/include/x86_64-linux-gnu/sys/time.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
-  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorycontext.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
   /usr/include/eigen3/Eigen/Core \
   /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
   /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
@@ -2788,6 +3591,7 @@ CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: /home/vws/Demo/QT/
   /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
   /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
   /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorycontext.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/basestrategy.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/ompl_planning_class.h \
@@ -4274,7 +5078,144 @@ CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: /home/vws/Demo/QT/
   /home/vws/Demo/QT/Spray/SpraySystem/Include/opt/utils/logging.hpp \
   /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/planning_utils.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/utils.h \
-  /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h
+  /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h
 
 CMakeFiles/SpraySystem.dir/DataAccess/Models/Camera/camera.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.cpp \
   /usr/include/stdc-predef.h \
@@ -8529,6 +9470,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Camera/camerarepository.cpp.o
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h
 
@@ -8829,6 +9772,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/MotionController/motioncontro
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h
 
@@ -9129,6 +10074,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/PLC/plcrepository.cpp.o: /hom
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h
 
@@ -9429,6 +10376,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Product/productrepository.cpp
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h
 
@@ -9729,6 +10678,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/Robot/robotrepository.cpp.o: 
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h
 
@@ -10029,6 +10980,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/User/userrepository.cpp.o: /h
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qiodevice.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h
 
@@ -10306,6 +11259,8 @@ CMakeFiles/SpraySystem.dir/DataAccess/Repositories/baserepository.cpp.o: /home/v
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobject.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qhash.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/QApplication \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qapplication.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -10879,6 +11834,198 @@ CMakeFiles/SpraySystem.dir/Device/MotionController/mcdatapaser.cpp.o: /home/vws/
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/iostream \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /usr/include/x86_64-linux-gnu/sys/time.h \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/7/sstream \
+  /usr/include/c++/7/bits/sstream.tcc \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/cassert \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /usr/include/c++/7/bits/refwrap.h \
+  /usr/include/c++/7/cstring \
+  /usr/include/c++/7/climits \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QtEndian \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qendian.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfloat16.h \
@@ -11191,15 +12338,198 @@ CMakeFiles/SpraySystem.dir/Device/MotionController/mcoperator.cpp.o: /home/vws/D
   /usr/include/c++/7/condition_variable \
   /usr/include/c++/7/bits/atomic_futex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcdatapaser.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QVariant \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvariant.h \
-  /usr/include/byteswap.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /usr/include/x86_64-linux-gnu/sys/time.h \
   /usr/include/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
   /usr/include/x86_64-linux-gnu/bits/environments.h \
   /usr/include/x86_64-linux-gnu/bits/confname.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/7/sstream \
+  /usr/include/c++/7/bits/sstream.tcc \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/cassert \
+  /usr/include/c++/7/cstring \
+  /usr/include/c++/7/climits \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QVariant \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvariant.h \
+  /usr/include/byteswap.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QWaitCondition \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qwaitcondition.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QCoreApplication \
@@ -11471,7 +12801,204 @@ CMakeFiles/SpraySystem.dir/Device/PLC/plcdatapaser.cpp.o: /home/vws/Demo/QT/Spra
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /usr/include/x86_64-linux-gnu/sys/time.h \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/c++/7/iostream \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/7/sstream \
+  /usr/include/c++/7/bits/sstream.tcc \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/cassert \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /usr/include/c++/7/bits/refwrap.h \
+  /usr/include/c++/7/cstring \
+  /usr/include/c++/7/climits \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QtEndian \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qendian.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfloat16.h \
+  /usr/include/byteswap.h
 
 CMakeFiles/SpraySystem.dir/Device/PLC/plcoperator.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcoperator.cpp \
   /usr/include/stdc-predef.h \
@@ -11784,6 +13311,195 @@ CMakeFiles/SpraySystem.dir/Device/PLC/plcoperator.cpp.o: /home/vws/Demo/QT/Spray
   /usr/include/c++/7/condition_variable \
   /usr/include/c++/7/bits/atomic_futex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /usr/include/x86_64-linux-gnu/sys/time.h \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/7/sstream \
+  /usr/include/c++/7/bits/sstream.tcc \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/cassert \
+  /usr/include/c++/7/cstring \
+  /usr/include/c++/7/climits \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QVariant \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvariant.h
 
@@ -12497,8 +14213,8 @@ CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o: /home/vws/Demo/QT/Spray/S
   /usr/include/c++/7/bits/refwrap.h \
   /usr/include/c++/7/bits/shared_ptr_atomic.h \
   /usr/include/c++/7/backward/auto_ptr.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.h \
@@ -12706,12 +14422,186 @@ CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o: /home/vws/Demo/QT/Spray/S
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QThread \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qthread.h \
   /usr/include/c++/7/future \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/thread \
   /usr/include/c++/7/condition_variable \
   /usr/include/c++/7/bits/atomic_futex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/cassert \
+  /usr/include/c++/7/climits \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QVariant \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qvariant.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcoperator.h \
@@ -12734,6 +14624,8 @@ CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o: /home/vws/Demo/QT/Spray/S
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Robot/robotrepository.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/robotproperty.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/PLC/plcrepository.h \
@@ -13726,6 +15618,8 @@ CMakeFiles/SpraySystem.dir/Forms/Devices/devicelist.cpp.o: /home/vws/Demo/QT/Spr
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Robot/robotrepository.h \
@@ -13927,12 +15821,186 @@ CMakeFiles/SpraySystem.dir/Forms/Devices/devicelist.cpp.o: /home/vws/Demo/QT/Spr
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QThread \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qthread.h \
   /usr/include/c++/7/future \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/thread \
   /usr/include/c++/7/condition_variable \
   /usr/include/c++/7/bits/atomic_futex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
+  /usr/include/c++/7/complex \
+  /usr/include/c++/7/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h \
+  /usr/include/c++/7/cassert \
+  /usr/include/c++/7/climits \
+  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ForwardDeclarations.h \
+  /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h \
+  /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/util/Memory.h \
+  /usr/include/eigen3/Eigen/src/Core/NumTraits.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Half.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/TypeCasting.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h \
+  /usr/include/eigen3/Eigen/src/Core/arch/CUDA/Complex.h \
+  /usr/include/eigen3/Eigen/src/Core/IO.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseCoeffsBase.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/BlockMethods.h \
+  /usr/include/eigen3/Eigen/src/Core/MatrixBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/EigenBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Product.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h \
+  /usr/include/eigen3/Eigen/src/Core/Assign.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayBase.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+  /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+  /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h \
+  /usr/include/eigen3/Eigen/src/Core/DenseStorage.h \
+  /usr/include/eigen3/Eigen/src/Core/NestByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/ReturnByValue.h \
+  /usr/include/eigen3/Eigen/src/Core/NoAlias.h \
+  /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Array.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/CwiseUnaryView.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Dot.h \
+  /usr/include/eigen3/Eigen/src/Core/StableNorm.h \
+  /usr/include/eigen3/Eigen/src/Core/Stride.h \
+  /usr/include/eigen3/Eigen/src/Core/MapBase.h \
+  /usr/include/eigen3/Eigen/src/Core/Map.h \
+  /usr/include/eigen3/Eigen/src/Core/Ref.h \
+  /usr/include/eigen3/Eigen/src/Core/Block.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorBlock.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpose.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Diagonal.h \
+  /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Redux.h \
+  /usr/include/eigen3/Eigen/src/Core/Visitor.h \
+  /usr/include/eigen3/Eigen/src/Core/Fuzzy.h \
+  /usr/include/eigen3/Eigen/src/Core/Swap.h \
+  /usr/include/eigen3/Eigen/src/Core/CommaInitializer.h \
+  /usr/include/eigen3/Eigen/src/Core/GeneralProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/Solve.h \
+  /usr/include/eigen3/Eigen/src/Core/Inverse.h \
+  /usr/include/eigen3/Eigen/src/Core/SolverBase.h \
+  /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/Transpositions.h \
+  /usr/include/eigen3/Eigen/src/Core/TriangularMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+  /usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h \
+  /usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h \
+  /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h \
+  /usr/include/eigen3/Eigen/src/Core/BandMatrix.h \
+  /usr/include/eigen3/Eigen/src/Core/CoreIterators.h \
+  /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h \
+  /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h \
+  /usr/include/eigen3/Eigen/src/Core/Select.h \
+  /usr/include/eigen3/Eigen/src/Core/VectorwiseOp.h \
+  /usr/include/eigen3/Eigen/src/Core/Random.h \
+  /usr/include/eigen3/Eigen/src/Core/Replicate.h \
+  /usr/include/eigen3/Eigen/src/Core/Reverse.h \
+  /usr/include/eigen3/Eigen/src/Core/ArrayWrapper.h \
+  /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
+  /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/eigen3/Eigen/Geometry \
+  /usr/include/eigen3/Eigen/Core \
+  /usr/include/eigen3/Eigen/SVD \
+  /usr/include/eigen3/Eigen/QR \
+  /usr/include/eigen3/Eigen/Cholesky \
+  /usr/include/eigen3/Eigen/src/Cholesky/LLT.h \
+  /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+  /usr/include/eigen3/Eigen/Jacobi \
+  /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
+  /usr/include/eigen3/Eigen/Householder \
+  /usr/include/eigen3/Eigen/src/Householder/Householder.h \
+  /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
+  /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
+  /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
+  /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+  /usr/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
+  /usr/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
+  /usr/include/eigen3/Eigen/src/SVD/SVDBase.h \
+  /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
+  /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+  /usr/include/eigen3/Eigen/LU \
+  /usr/include/eigen3/Eigen/src/misc/Kernel.h \
+  /usr/include/eigen3/Eigen/src/misc/Image.h \
+  /usr/include/eigen3/Eigen/src/LU/FullPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/PartialPivLU.h \
+  /usr/include/eigen3/Eigen/src/LU/Determinant.h \
+  /usr/include/eigen3/Eigen/src/LU/InverseImpl.h \
+  /usr/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
+  /usr/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
+  /usr/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
+  /usr/include/eigen3/Eigen/src/Geometry/RotationBase.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AngleAxis.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Transform.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Translation.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Scaling.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h \
+  /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h \
+  /usr/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
+  /usr/include/eigen3/Eigen/src/Geometry/Umeyama.h \
+  /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/MotionController/motioncontroller.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/MotionController/mcdatapaser.h \
@@ -14297,6 +16365,8 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: /home/vws/Demo/QT/Spray/
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/User/userrepository.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/User/user.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/userproperty.h \
@@ -14385,8 +16455,6 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: /home/vws/Demo/QT/Spray/
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QThread \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qthread.h \
   /usr/include/c++/7/future \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/thread \
   /usr/include/c++/7/condition_variable \
   /usr/include/c++/7/bits/atomic_futex.h \
@@ -16216,10 +18284,11 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: /home/vws/Demo/QT/Spray/
   /usr/local/include/Poco/Net/MessageHeader.h \
   /usr/local/include/Poco/Net/HTTPCookie.h \
   /usr/local/include/Poco/Net/WebSocket.h \
-  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h \
@@ -16251,6 +18320,144 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: /home/vws/Demo/QT/Spray/
   /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qmessagebox.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qdialog.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QtDebug \
@@ -18762,13 +20969,12 @@ CMakeFiles/SpraySystem.dir/Forms/Main/mainwindow.cpp.o: /home/vws/Demo/QT/Spray/
   /usr/local/include/Poco/Net/MessageHeader.h \
   /usr/local/include/Poco/Net/HTTPCookie.h \
   /usr/local/include/Poco/Net/WebSocket.h \
-  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.h \
@@ -18799,6 +21005,144 @@ CMakeFiles/SpraySystem.dir/Forms/Main/mainwindow.cpp.o: /home/vws/Demo/QT/Spray/
   /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Forms/Login/loginform.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/QDesktopWidget \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qdesktopwidget.h \
@@ -18819,6 +21163,8 @@ CMakeFiles/SpraySystem.dir/Forms/Main/mainwindow.cpp.o: /home/vws/Demo/QT/Spray/
   /home/vws/Demo/QT/Spray/SpraySystem/Include/Core/visibility_control.hpp \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qglobal.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/baserepository.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/List/userlistform.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui/QStandardItemModel \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui/qstandarditemmodel.h \
@@ -19209,6 +21555,8 @@ CMakeFiles/SpraySystem.dir/Forms/Products/Edit/producteditform.cpp.o: /home/vws/
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   SpraySystem_autogen/include/ui_producteditform.h \
@@ -19595,6 +21943,8 @@ CMakeFiles/SpraySystem.dir/Forms/Products/List/productlistform.cpp.o: /home/vws/
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   SpraySystem_autogen/include/ui_productlistform.h \
@@ -20335,6 +22685,8 @@ CMakeFiles/SpraySystem.dir/Forms/Users/Edit/usereditform.cpp.o: /home/vws/Demo/Q
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/List/userlistform.h \
@@ -20730,6 +23082,8 @@ CMakeFiles/SpraySystem.dir/Forms/Users/List/userlistform.cpp.o: /home/vws/Demo/Q
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   SpraySystem_autogen/include/ui_userlistform.h \
@@ -23776,13 +26130,12 @@ CMakeFiles/SpraySystem.dir/SpraySystem_autogen/mocs_compilation.cpp.o: SpraySyst
   /usr/local/include/Poco/Net/MessageHeader.h \
   /usr/local/include/Poco/Net/HTTPCookie.h \
   /usr/local/include/Poco/Net/WebSocket.h \
-  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
   /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/deviceoperator.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.h \
@@ -23820,6 +26173,144 @@ CMakeFiles/SpraySystem.dir/SpraySystem_autogen/mocs_compilation.cpp.o: SpraySyst
   /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
   /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h \
   SpraySystem_autogen/O3MQALNIT2/moc_trajectoryprocess.cpp \
   /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h \
   SpraySystem_autogen/KAUV5J3TFN/moc_mcoperator.cpp \
@@ -23907,6 +26398,8 @@ CMakeFiles/SpraySystem.dir/SpraySystem_autogen/mocs_compilation.cpp.o: SpraySyst
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
+  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/Robot/robotrepository.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/robotproperty.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/PLC/plcrepository.h \
@@ -28390,7 +30883,11 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o: /home/vws/Demo/QT
   /usr/local/include/Poco/Net/HTTPMessage.h \
   /usr/local/include/Poco/Net/MessageHeader.h \
   /usr/local/include/Poco/Net/HTTPCookie.h \
-  /usr/local/include/Poco/Net/WebSocket.h
+  /usr/local/include/Poco/Net/WebSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h
 
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.cpp \
   /usr/include/stdc-predef.h \
@@ -30446,6 +32943,10 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: /home/vws/Demo/
   /usr/local/include/Poco/Net/MessageHeader.h \
   /usr/local/include/Poco/Net/HTTPCookie.h \
   /usr/local/include/Poco/Net/WebSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h \
   /usr/include/boost/assign.hpp \
   /usr/include/boost/assign/std.hpp \
   /usr/include/boost/assign/std/vector.hpp \
@@ -30935,8 +33436,8 @@ CMakeFiles/SpraySystem.dir/Util/Log/clog.cpp.o: /home/vws/Demo/QT/Spray/SpraySys
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qobject.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qshareddata.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qhash.h \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QMutex \
-  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/QApplication \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qapplication.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -32152,7 +34653,148 @@ CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o: /home/vws/Demo/QT/Spray/S
   /usr/include/x86_64-linux-gnu/bits/environments.h \
   /usr/include/x86_64-linux-gnu/bits/confname.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
-  /usr/include/x86_64-linux-gnu/bits/getopt_core.h
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+  /usr/include/c++/7/math.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+  /usr/include/c++/7/iostream \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+  /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h
 
 CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.cpp \
   /usr/include/stdc-predef.h \
@@ -32467,6 +35109,8 @@ CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfile.h \
   /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/bits/std_mutex.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/User/userrepository.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/User/user.h \
   /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/userproperty.h \
@@ -32582,11 +35226,7 @@ CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.
 
 /usr/local/include/osgUtil/PositionalStateContainer:
 
-/usr/local/include/osgUtil/RenderBin:
-
 /usr/local/include/osg/FrameBufferObject:
-
-/usr/local/include/osgUtil/RenderLeaf:
 
 /usr/local/include/osgUtil/StateGraph:
 
@@ -32604,8 +35244,6 @@ CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.
 
 /usr/local/include/osgGA/StandardManipulator:
 
-/usr/local/include/osgGA/OrbitManipulator:
-
 /usr/local/include/osgGA/TrackballManipulator:
 
 /usr/local/include/OpenThreads/Barrier:
@@ -32613,10 +35251,6 @@ CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.
 /usr/local/include/osg/OperationThread:
 
 /usr/local/include/osg/TextureAttribute:
-
-/usr/include/urdf_model/link.h:
-
-/usr/local/include/osg/Image:
 
 /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.cpp:
 
@@ -32706,8 +35340,6 @@ CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.
 
 /usr/local/include/osg/Notify:
 
-/usr/local/include/osg/ref_ptr:
-
 /usr/local/include/osg/CopyOp:
 
 /usr/local/include/OpenThreads/Atomic:
@@ -32780,8 +35412,6 @@ SpraySystem_autogen/4WCEBAG3SO/moc_producteditform.cpp:
 
 SpraySystem_autogen/Q6YWSHJTZG/moc_mainwindow.cpp:
 
-SpraySystem_autogen/2TQNIIHRGU/moc_loginform.cpp:
-
 SpraySystem_autogen/KAUV5J3TFN/moc_mcoperator.cpp:
 
 SpraySystem_autogen/O3MQALNIT2/moc_trajectoryprocess.cpp:
@@ -32811,8 +35441,6 @@ SpraySystem_autogen/include/ui_userlistform.h:
 /home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/Edit/usereditform.h:
 
 SpraySystem_autogen/include/ui_systemeditform.h:
-
-/home/vws/Demo/QT/Spray/SpraySystem/Forms/Systems/systemeditform.cpp:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/QTableView:
 
@@ -32902,6 +35530,8 @@ SpraySystem_autogen/include/ui_loginform.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/QListWidgetItem:
 
+/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QDateTime:
+
 /home/vws/Demo/QT/Spray/SpraySystem/Forms/Users/Edit/usereditform.cpp:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QDate:
@@ -32909,8 +35539,6 @@ SpraySystem_autogen/include/ui_loginform.h:
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qdesktopwidget.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/QDesktopWidget:
-
-/home/vws/Demo/QT/Spray/SpraySystem/Forms/Devices/devicelist.cpp:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qabstractscrollarea.h:
 
@@ -33014,6 +35642,8 @@ SpraySystem_autogen/include/ui_sevenaxiscalibration.h:
 
 /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Repositories/PLC/plcrepository.h:
 
+/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h:
+
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfiledevice.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qfileinfo.h:
@@ -33112,7 +35742,181 @@ SpraySystem_autogen/include/ui_sevenaxiscalibration.h:
 
 /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.cpp:
 
-/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QDateTime:
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/Forms/Devices/devicelist.cpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h:
+
+/usr/local/include/osgGA/OrbitManipulator:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h:
+
+/usr/local/include/osgUtil/RenderBin:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h:
+
+/usr/local/include/osg/ref_ptr:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/Forms/Systems/systemeditform.cpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h:
+
+SpraySystem_autogen/2TQNIIHRGU/moc_loginform.cpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h:
+
+/usr/local/include/osgUtil/RenderLeaf:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h:
+
+/usr/include/urdf_model/link.h:
+
+/usr/local/include/osg/Image:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h:
 
 /usr/include/urdf_world/types.h:
 
@@ -33133,6 +35937,8 @@ SpraySystem_autogen/include/ui_sevenaxiscalibration.h:
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/qtcpsocket.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qsharedpointer_impl.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qsharedpointer.h:
 
@@ -33172,8 +35978,6 @@ SpraySystem_autogen/include/ui_sevenaxiscalibration.h:
 
 /home/vws/Demo/QT/Spray/SpraySystem/Device/Camera/cameraoperator.h:
 
-/opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qmutex.h:
-
 /home/vws/Demo/QT/Spray/SpraySystem/Device/devicemanager.h:
 
 /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h:
@@ -33203,6 +36007,8 @@ SpraySystem_autogen/include/ui_sevenaxiscalibration.h:
 /usr/local/include/Poco/Ascii.h:
 
 /usr/local/include/Poco/Net/NameValueCollection.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h:
 
 /usr/local/include/Poco/Net/HTTPAuthenticationParams.h:
 
@@ -33336,6 +36142,8 @@ SpraySystem_autogen/Q6YWSHJTZG/moc_devicemonitor.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h:
+
 /usr/include/x86_64-linux-gnu/bits/fcntl.h:
 
 /usr/include/fcntl.h:
@@ -33389,6 +36197,8 @@ SpraySystem_autogen/Q6YWSHJTZG/moc_devicemonitor.cpp:
 /usr/local/include/Poco/Config.h:
 
 /usr/local/include/Poco/Foundation.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h:
 
 /usr/local/include/Poco/Net/NetException.h:
 
@@ -33486,6 +36296,8 @@ SpraySystem_autogen/Q6YWSHJTZG/moc_devicemonitor.cpp:
 
 /usr/include/eigen3/Eigen/src/SparseCore/SparseColEtree.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h:
+
 /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h:
 
 /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_Structs.h:
@@ -33560,6 +36372,8 @@ SpraySystem_autogen/Q6YWSHJTZG/moc_devicemonitor.cpp:
 
 /usr/include/boost/utility/detail/result_of_iterate.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h:
+
 /usr/include/boost/iterator/transform_iterator.hpp:
 
 /usr/include/boost/range/detail/default_constructible_unary_fn.hpp:
@@ -33609,6 +36423,8 @@ SpraySystem_autogen/Q6YWSHJTZG/moc_devicemonitor.cpp:
 /usr/include/boost/multi_index/detail/archive_constructed.hpp:
 
 /usr/include/boost/multi_index/detail/has_tag.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h:
 
 /usr/include/boost/multi_index/detail/converter.hpp:
 
@@ -33739,6 +36555,8 @@ SpraySystem_autogen/BMVV2VYSNI/moc_usereditform.cpp:
 /home/vws/Demo/QT/Spray/SpraySystem/Include/opt/sco/sco_fwd.hpp:
 
 /usr/include/boost/predef/library/std/dinkumware.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h:
 
 /usr/include/boost/predef/library/c/uc.h:
 
@@ -33914,7 +36732,11 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/mpl/aux_/config/compiler.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h:
+
 /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h:
 
 /usr/include/boost/unordered_map.hpp:
 
@@ -33958,6 +36780,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/date_time/gregorian/greg_day_of_year.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h:
+
 /usr/include/eigen3/Eigen/src/Core/Select.h:
 
 /usr/include/boost/preprocessor/arithmetic/add.hpp:
@@ -33965,6 +36789,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 /usr/include/c++/7/bits/random.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qtableview.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h:
 
 /usr/local/include/ompl-1.5/ompl/base/PlannerTerminationCondition.h:
 
@@ -33992,13 +36818,19 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/range/concepts.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h:
+
 /usr/include/boost/preprocessor/punctuation/comma.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h:
 
 /usr/include/boost/preprocessor/logical/bool.hpp:
 
 /usr/include/boost/preprocessor/control/iif.hpp:
 
 /usr/include/boost/type_traits/is_signed.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h:
 
 /usr/include/boost/move/detail/workaround.hpp:
 
@@ -34110,6 +36942,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/eigen3/Eigen/src/misc/Image.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h:
+
 /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_relax_snode.h:
 
 /usr/include/boost/move/core.hpp:
@@ -34196,6 +37030,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/function.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h:
+
 /usr/include/boost/version.hpp:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qlistwidget.h:
@@ -34225,6 +37061,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 /usr/include/c++/7/bits/locale_conv.h:
 
 /usr/include/boost/predef/compiler/metaware.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h:
 
 /usr/include/c++/7/bits/locale_facets_nonio.tcc:
 
@@ -34310,6 +37148,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/Data/StaticData.h:
+
 /usr/include/c++/7/bits/stl_stack.h:
 
 /usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h:
@@ -34346,6 +37186,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/predef/other.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h:
+
 /usr/include/boost/config/no_tr1/memory.hpp:
 
 /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h:
@@ -34373,6 +37215,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 /usr/include/boost/predef/platform/windows_phone.h:
 
 /usr/include/eigen3/Eigen/Jacobi:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h:
 
 /usr/include/boost/thread/pthread/thread_data.hpp:
 
@@ -34648,6 +37492,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/limits.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h:
+
 /usr/include/eigen3/Eigen/src/SparseCore/SparseCwiseBinaryOp.h:
 
 /usr/include/boost/preprocessor/seq/detail/is_empty.hpp:
@@ -34678,6 +37524,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/mpl/aux_/preprocessed/gcc/greater_equal.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h:
+
 /usr/include/eigen3/Eigen/src/Core/DenseBase.h:
 
 /usr/include/c++/7/iosfwd:
@@ -34691,6 +37539,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 /usr/include/c++/7/bits/stream_iterator.h:
 
 /home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Property/motioncontrollerproperty.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h:
 
 /usr/include/boost/predef/hardware/simd/ppc/versions.h:
 
@@ -34726,6 +37576,8 @@ SpraySystem_autogen/include/ui_devicelist.h:
 
 /usr/include/boost/type_traits/function_traits.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h:
+
 /usr/include/boost/multi_array.hpp:
 
 /usr/local/include/ompl-1.5/ompl/util/Hash.h:
@@ -34759,6 +37611,8 @@ SpraySystem_autogen/MAJJY4XP2V/moc_clog.cpp:
 /usr/include/c++/7/ext/atomicity.h:
 
 /usr/include/eigen3/Eigen/src/Core/Diagonal.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h:
 
 /usr/include/boost/predef/os/bsd/open.h:
 
@@ -34837,6 +37691,8 @@ SpraySystem_autogen/MAJJY4XP2V/moc_clog.cpp:
 /usr/include/boost/date_time/adjust_functors.hpp:
 
 /usr/include/boost/mpl/list.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h:
 
 /usr/include/boost/mpl/aux_/preprocessed/gcc/or.hpp:
 
@@ -34972,11 +37828,15 @@ SpraySystem_autogen/MAJJY4XP2V/moc_clog.cpp:
 
 /usr/include/c++/7/ext/type_traits.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h:
+
 /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.cpp:
 
 /usr/include/boost/utility/base_from_member.hpp:
 
 /usr/include/c++/7/cctype:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h:
 
 /usr/include/boost/type_traits/is_void.hpp:
 
@@ -35015,6 +37875,8 @@ SpraySystem_autogen/MAJJY4XP2V/moc_clog.cpp:
 /usr/include/stdc-predef.h:
 
 /usr/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h:
 
 /usr/include/boost/preprocessor/comma_if.hpp:
 
@@ -35144,6 +38006,8 @@ SpraySystem_autogen/MAJJY4XP2V/moc_clog.cpp:
 
 /usr/include/boost/preprocessor/control/if.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h:
+
 /usr/include/boost/predef/other/endian.h:
 
 /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h:
@@ -35169,6 +38033,8 @@ SpraySystem_autogen/MAJJY4XP2V/moc_clog.cpp:
 /usr/include/boost/lexical_cast/detail/lcast_char_constants.hpp:
 
 /usr/include/c++/7/bits/localefwd.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h:
 
 /usr/include/c++/7/bits/memoryfwd.h:
 
@@ -35241,6 +38107,8 @@ SpraySystem_autogen/ETIVPI6LXD/moc_productlistform.cpp:
 /usr/include/c++/7/bits/stl_bvector.h:
 
 /usr/include/c++/7/cmath:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h:
 
 /usr/include/boost/graph/graph_concepts.hpp:
 
@@ -35528,6 +38396,8 @@ SpraySystem_autogen/ETIVPI6LXD/moc_productlistform.cpp:
 
 /usr/include/c++/7/bits/shared_ptr.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h:
+
 /usr/include/boost/mpl/aux_/preprocessed/gcc/reverse_iter_fold_impl.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/mm_malloc.h:
@@ -35684,6 +38554,8 @@ SpraySystem_autogen/ETIVPI6LXD/moc_productlistform.cpp:
 
 /usr/include/boost/mpl/aux_/has_size.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h:
+
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qstringlist.h:
 
 /usr/include/boost/range/end.hpp:
@@ -35744,6 +38616,8 @@ SpraySystem_autogen/ETIVPI6LXD/moc_productlistform.cpp:
 
 /usr/include/boost/date_time/gregorian/greg_year.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h:
+
 /usr/local/include/ompl-1.5/ompl/control/Control.h:
 
 /usr/local/include/osg/BoundingSphere:
@@ -35797,6 +38671,8 @@ SpraySystem_autogen/JWJ6FHLVP4/moc_sevenaxiscalibration.cpp:
 /usr/include/c++/7/condition_variable:
 
 /usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h:
 
 /usr/local/include/Poco/ScopedLock.h:
 
@@ -35907,6 +38783,8 @@ SpraySystem_autogen/JWJ6FHLVP4/moc_sevenaxiscalibration.cpp:
 /usr/include/c++/7/bits/allocator.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h:
 
 /usr/include/boost/serialization/tracking_enum.hpp:
 
@@ -36078,6 +38956,8 @@ SpraySystem_autogen/JWJ6FHLVP4/moc_sevenaxiscalibration.cpp:
 
 /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h:
+
 /usr/include/log4cxx/helpers/outputstream.h:
 
 /usr/include/boost/mpl/aux_/preprocessed/gcc/fold_impl.hpp:
@@ -36117,6 +38997,8 @@ SpraySystem_autogen/JWJ6FHLVP4/moc_sevenaxiscalibration.cpp:
 /usr/include/boost/predef/hardware/simd/arm.h:
 
 /usr/include/boost/predef/hardware/simd/arm/versions.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h:
 
 /usr/include/boost/predef/detail/_exception.h:
 
@@ -36230,6 +39112,8 @@ SpraySystem_autogen/JWJ6FHLVP4/moc_sevenaxiscalibration.cpp:
 
 /usr/include/boost/type_traits/conditional.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h:
+
 /usr/include/c++/7/bits/stl_tree.h:
 
 /usr/include/boost/thread/detail/delete.hpp:
@@ -36334,11 +39218,15 @@ SpraySystem_autogen/JWJ6FHLVP4/moc_sevenaxiscalibration.cpp:
 
 /usr/include/boost/type_traits/floating_point_promotion.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h:
+
 /usr/include/boost/date_time/gregorian/greg_month.hpp:
 
 SpraySystem_autogen/GJWS7XTKGW/moc_qtsocketclient.cpp:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui/qtextdocument.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h:
 
 /usr/include/boost/date_time/gregorian/greg_duration.hpp:
 
@@ -36476,6 +39364,8 @@ SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp:
 
 /usr/include/boost/mpl/aux_/config/bcc.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h:
+
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/qatomic.h:
 
 /usr/include/boost/type_traits/detail/has_binary_operator.hpp:
@@ -36540,6 +39430,8 @@ SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp:
 
 /usr/include/c++/7/bitset:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h:
+
 /usr/include/boost/thread/v2/thread.hpp:
 
 /usr/include/boost/range/range_fwd.hpp:
@@ -36591,6 +39483,8 @@ SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp:
 /usr/include/eigen3/Eigen/src/SVD/SVDBase.h:
 
 /usr/include/boost/format/detail/workarounds_stlport.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h:
 
 /usr/include/boost/thread/detail/make_tuple_indices.hpp:
 
@@ -36748,6 +39642,8 @@ SpraySystem_autogen/include/ui_producteditform.h:
 
 /usr/include/boost/mpl/aux_/yes_no.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h:
+
 /usr/include/c++/7/bits/stl_deque.h:
 
 /usr/include/boost/mpl/pop_front_fwd.hpp:
@@ -36761,6 +39657,8 @@ SpraySystem_autogen/include/ui_producteditform.h:
 /usr/include/boost/concept/usage.hpp:
 
 /usr/include/boost/concept/detail/concept_def.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h:
 
 /usr/include/boost/preprocessor/seq/enum.hpp:
 
@@ -37018,6 +39916,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 
 /usr/include/boost/type_traits/is_member_object_pointer.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h:
+
 /usr/include/eigen3/Eigen/src/SparseCore/MappedSparseMatrix.h:
 
 /usr/include/boost/type_traits/is_object.hpp:
@@ -37074,6 +39974,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 
 /usr/include/boost/move/detail/std_ns_begin.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h:
+
 /usr/include/boost/predef/compiler/diab.h:
 
 /usr/include/log4cxx/helpers/pool.h:
@@ -37089,6 +39991,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 /usr/include/log4cxx/helpers/messagebuffer.h:
 
 /usr/include/log4cxx/spi/loggerrepository.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h:
 
 /usr/include/boost/mpl/bool_fwd.hpp:
 
@@ -37306,6 +40210,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtGui/qtextoption.h:
 
+/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp:
+
 /usr/include/c++/7/cfloat:
 
 /usr/include/boost/mpl/list/aux_/front.hpp:
@@ -37313,6 +40219,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 /usr/include/eigen3/Eigen/src/SparseCore/CompressedStorage.h:
 
 /usr/include/boost/mpl/clear_fwd.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h:
 
 /usr/include/boost/mpl/list/aux_/O1_size.hpp:
 
@@ -37454,6 +40362,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 
 /usr/include/boost/mpl/vector/aux_/begin_end.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h:
+
 /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h:
 
 /usr/include/boost/mpl/vector/aux_/preprocessed/typeof_based/vector10.hpp:
@@ -37495,6 +40405,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 /usr/include/boost/math/tools/precision.hpp:
 
 /usr/include/boost/math/tools/convert_from_string.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h:
 
 /usr/include/boost/range/iterator_range_core.hpp:
 
@@ -37544,6 +40456,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 
 /usr/include/boost/preprocessor/seq/cat.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h:
+
 /usr/include/eigen3/Eigen/QR:
 
 /usr/include/boost/preprocessor/seq/fold_left.hpp:
@@ -37562,7 +40476,11 @@ SpraySystem_autogen/include/ui_usereditform.h:
 
 /usr/include/boost/preprocessor/comparison/less_equal.hpp:
 
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h:
+
 /usr/include/boost/preprocessor/logical/not.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h:
 
 /usr/include/boost/utility/identity_type.hpp:
 
@@ -37625,6 +40543,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 /usr/local/include/ompl-1.5/ompl/datastructures/GridN.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qabstractslider.h:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h:
 
 /usr/include/boost/numeric/conversion/detail/is_subranged.hpp:
 
@@ -37789,6 +40709,8 @@ SpraySystem_autogen/include/ui_usereditform.h:
 /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed/limits.h:
 
 /usr/include/boost/serialization/void_cast_fwd.hpp:
+
+/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h:
 
 /opt/Qt5.12.8/5.12.8/gcc_64/include/QtNetwork/QTcpSocket:
 

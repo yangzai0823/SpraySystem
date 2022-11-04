@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDir>
+#include <mutex>
 
 class CLog : public QObject
 {
@@ -19,6 +20,7 @@ public:
 
     static void log(CLOG_LEVEL nLevel, QString data);
 private:
+    static std::mutex _mutex;
     static CLog *m_CLog;
     CLog();
     static QString getLevelDesc(CLOG_LEVEL level);

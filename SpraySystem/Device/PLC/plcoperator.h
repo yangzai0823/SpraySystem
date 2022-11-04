@@ -6,9 +6,10 @@
 #include "Util/Socket/qtsocketserver.h"
 #include "Util/Socket/qtsocketclient.h"
 #include "plcdatapaser.h"
+#include "Data/StructData.h"
 #include <QVariant>
 
-using PLCData = PLCDataPaser::PLCData;
+using PLCData = vws::PLCData;
 
 Q_DECLARE_METATYPE(PLCData)  //注册结构体
 class PLCOperator: public QObject, public DeviceOperator

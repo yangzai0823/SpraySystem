@@ -438,12 +438,12 @@ CMakeFiles/SpraySystem.dir/all: VWSVision/CMakeFiles/VWSVision.dir/all
 CMakeFiles/SpraySystem.dir/all: CMakeFiles/SpraySystem_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem.dir/build.make CMakeFiles/SpraySystem.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem.dir/build.make CMakeFiles/SpraySystem.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63 "Built target SpraySystem"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 "Built target SpraySystem"
 .PHONY : CMakeFiles/SpraySystem.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SpraySystem.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles 77
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles 78
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpraySystem.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles 0
 .PHONY : CMakeFiles/SpraySystem.dir/rule
@@ -466,7 +466,7 @@ CMakeFiles/SpraySystem_autogen.dir/all: VWSRobot/CMakeFiles/VWSRobot.dir/all
 CMakeFiles/SpraySystem_autogen.dir/all: VWSVision/CMakeFiles/VWSVision.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem_autogen.dir/build.make CMakeFiles/SpraySystem_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpraySystem_autogen.dir/build.make CMakeFiles/SpraySystem_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=64 "Built target SpraySystem_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=65 "Built target SpraySystem_autogen"
 .PHONY : CMakeFiles/SpraySystem_autogen.dir/all
 
 # Build rule for subdir invocation for target.
@@ -492,7 +492,7 @@ CMakeFiles/SpraySystem_autogen.dir/clean:
 VWSCamera/CMakeFiles/VWSCamera.dir/all: VWSCamera/CMakeFiles/VWSCamera_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f VWSCamera/CMakeFiles/VWSCamera.dir/build.make VWSCamera/CMakeFiles/VWSCamera.dir/depend
 	$(MAKE) $(MAKESILENT) -f VWSCamera/CMakeFiles/VWSCamera.dir/build.make VWSCamera/CMakeFiles/VWSCamera.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=65,66,67,68 "Built target VWSCamera"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=66,67,68,69 "Built target VWSCamera"
 .PHONY : VWSCamera/CMakeFiles/VWSCamera.dir/all
 
 # Build rule for subdir invocation for target.
@@ -518,7 +518,7 @@ VWSCamera/CMakeFiles/VWSCamera.dir/clean:
 VWSCamera/CMakeFiles/VWSCamera_autogen.dir/all:
 	$(MAKE) $(MAKESILENT) -f VWSCamera/CMakeFiles/VWSCamera_autogen.dir/build.make VWSCamera/CMakeFiles/VWSCamera_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f VWSCamera/CMakeFiles/VWSCamera_autogen.dir/build.make VWSCamera/CMakeFiles/VWSCamera_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=69 "Built target VWSCamera_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=70 "Built target VWSCamera_autogen"
 .PHONY : VWSCamera/CMakeFiles/VWSCamera_autogen.dir/all
 
 # Build rule for subdir invocation for target.
@@ -544,7 +544,7 @@ VWSCamera/CMakeFiles/VWSCamera_autogen.dir/clean:
 VWSRobot/CMakeFiles/VWSRobot.dir/all: VWSRobot/CMakeFiles/VWSRobot_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f VWSRobot/CMakeFiles/VWSRobot.dir/build.make VWSRobot/CMakeFiles/VWSRobot.dir/depend
 	$(MAKE) $(MAKESILENT) -f VWSRobot/CMakeFiles/VWSRobot.dir/build.make VWSRobot/CMakeFiles/VWSRobot.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=70,71,72 "Built target VWSRobot"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=71,72,73 "Built target VWSRobot"
 .PHONY : VWSRobot/CMakeFiles/VWSRobot.dir/all
 
 # Build rule for subdir invocation for target.
@@ -570,7 +570,7 @@ VWSRobot/CMakeFiles/VWSRobot.dir/clean:
 VWSRobot/CMakeFiles/VWSRobot_autogen.dir/all:
 	$(MAKE) $(MAKESILENT) -f VWSRobot/CMakeFiles/VWSRobot_autogen.dir/build.make VWSRobot/CMakeFiles/VWSRobot_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f VWSRobot/CMakeFiles/VWSRobot_autogen.dir/build.make VWSRobot/CMakeFiles/VWSRobot_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=73 "Built target VWSRobot_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=74 "Built target VWSRobot_autogen"
 .PHONY : VWSRobot/CMakeFiles/VWSRobot_autogen.dir/all
 
 # Build rule for subdir invocation for target.
@@ -596,7 +596,7 @@ VWSRobot/CMakeFiles/VWSRobot_autogen.dir/clean:
 VWSVision/CMakeFiles/VWSVision.dir/all: VWSVision/CMakeFiles/VWSVision_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f VWSVision/CMakeFiles/VWSVision.dir/build.make VWSVision/CMakeFiles/VWSVision.dir/depend
 	$(MAKE) $(MAKESILENT) -f VWSVision/CMakeFiles/VWSVision.dir/build.make VWSVision/CMakeFiles/VWSVision.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=74,75,76 "Built target VWSVision"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=75,76,77 "Built target VWSVision"
 .PHONY : VWSVision/CMakeFiles/VWSVision.dir/all
 
 # Build rule for subdir invocation for target.
@@ -622,7 +622,7 @@ VWSVision/CMakeFiles/VWSVision.dir/clean:
 VWSVision/CMakeFiles/VWSVision_autogen.dir/all:
 	$(MAKE) $(MAKESILENT) -f VWSVision/CMakeFiles/VWSVision_autogen.dir/build.make VWSVision/CMakeFiles/VWSVision_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f VWSVision/CMakeFiles/VWSVision_autogen.dir/build.make VWSVision/CMakeFiles/VWSVision_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=77 "Built target VWSVision_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=78 "Built target VWSVision_autogen"
 .PHONY : VWSVision/CMakeFiles/VWSVision_autogen.dir/all
 
 # Build rule for subdir invocation for target.

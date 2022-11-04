@@ -780,10 +780,24 @@ CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.cpp -o CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.s
 
+CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
+CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp
+CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o -MF CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o.d -o CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp
+
+CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp > CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.i
+
+CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp -o CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.s
+
 CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.cpp
 CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o -MF CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o.d -o CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.cpp
 
 CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.i: cmake_force
@@ -797,7 +811,7 @@ CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/basestrategy.cpp
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o -MF CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o.d -o CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/basestrategy.cpp
 
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.i: cmake_force
@@ -811,7 +825,7 @@ CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyfor7axis.cpp
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o -MF CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o.d -o CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyfor7axis.cpp
 
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.i: cmake_force
@@ -825,7 +839,7 @@ CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.s: cmake_for
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyforplan.cpp
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o -MF CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o.d -o CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Strategy/strategyforplan.cpp
 
 CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.i: cmake_force
@@ -839,7 +853,7 @@ CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyforplan.cpp.s: cmake_forc
 CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/test_paint.cpp
 CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o -MF CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o.d -o CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/test_paint.cpp
 
 CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.i: cmake_force
@@ -853,7 +867,7 @@ CMakeFiles/SpraySystem.dir/Trajectory/test_paint.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorycontext.cpp
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o -MF CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o.d -o CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorycontext.cpp
 
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.i: cmake_force
@@ -867,7 +881,7 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.cpp
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o -MF CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o.d -o CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/trajectorygenerator.cpp
 
 CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.i: cmake_force
@@ -881,7 +895,7 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorygenerator.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.cpp
 CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o -MF CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o.d -o CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.cpp
 
 CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.i: cmake_force
@@ -895,7 +909,7 @@ CMakeFiles/SpraySystem.dir/Vision/visioncontext.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/main.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/main.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/main.cpp
 CMakeFiles/SpraySystem.dir/main.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/SpraySystem.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/SpraySystem.dir/main.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/main.cpp.o -MF CMakeFiles/SpraySystem.dir/main.cpp.o.d -o CMakeFiles/SpraySystem.dir/main.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/main.cpp
 
 CMakeFiles/SpraySystem.dir/main.cpp.i: cmake_force
@@ -909,7 +923,7 @@ CMakeFiles/SpraySystem.dir/main.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/config.cpp
 CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o -MF CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o.d -o CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/config.cpp
 
 CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.i: cmake_force
@@ -923,7 +937,7 @@ CMakeFiles/SpraySystem.dir/Include/Core/Config/config.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o: /home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/jsonserializer.cpp
 CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o -MF CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o.d -o CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.o -c /home/vws/Demo/QT/Spray/SpraySystem/Include/Core/Config/jsonserializer.cpp
 
 CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.i: cmake_force
@@ -937,7 +951,7 @@ CMakeFiles/SpraySystem.dir/Include/Core/Config/jsonserializer.cpp.s: cmake_force
 CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o: CMakeFiles/SpraySystem.dir/flags.make
 CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o: SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp
 CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o: CMakeFiles/SpraySystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o -MF CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o.d -o CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.o -c /home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp
 
 CMakeFiles/SpraySystem.dir/SpraySystem_autogen/EWIEGA46WW/qrc_Resources.cpp.i: cmake_force
@@ -999,6 +1013,7 @@ SpraySystem_OBJECTS = \
 "CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o" \
 "CMakeFiles/SpraySystem.dir/Device/deviceoperator.cpp.o" \
 "CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o" \
+"CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o" \
 "CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o" \
 "CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o" \
 "CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o" \
@@ -1064,6 +1079,7 @@ bin/SpraySystem: CMakeFiles/SpraySystem.dir/Device/Robot/robotoperator.cpp.o
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/Device/devicemanager.cpp.o
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/Device/deviceoperator.cpp.o
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/Bussiness/mainprocess.cpp.o
+bin/SpraySystem: CMakeFiles/SpraySystem.dir/Bussiness/signalprocess.cpp.o
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/Bussiness/trajectoryprocess.cpp.o
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/Trajectory/Strategy/basestrategy.cpp.o
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/Trajectory/Strategy/strategyfor7axis.cpp.o
@@ -1166,7 +1182,7 @@ bin/SpraySystem: /usr/local/lib/libosgd.so
 bin/SpraySystem: /usr/local/lib/libOpenThreadsd.so
 bin/SpraySystem: /usr/local/lib/libosgViewer.so
 bin/SpraySystem: CMakeFiles/SpraySystem.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Linking CXX executable bin/SpraySystem"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Linking CXX executable bin/SpraySystem"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SpraySystem.dir/link.txt --verbose=$(VERBOSE)
 	/opt/cmake-3.23.3/bin/cmake -E make_directory /home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/urdf
 	/opt/cmake-3.23.3/bin/cmake -E copy_directory /home/vws/Demo/QT/Spray/SpraySystem/Trajectory/Libs/urdf /home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/urdf/

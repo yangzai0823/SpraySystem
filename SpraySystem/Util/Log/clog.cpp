@@ -1,6 +1,5 @@
 #include "clog.h"
 
-#include <QMutex>
 #include <QApplication>
 #include <QDate>
 #include <QTextStream>
@@ -10,22 +9,24 @@
 const char PATH_LogPath[] = "/Logs/";
 const char Suffix[] = ".log";
 const int ExpirDay = 10;
-QMutex m_mutex;
+
+static std::mutex m_mutex;
 
 QString logDir;
 
 CLog *CLog::m_CLog = NULL;
+std::mutex CLog::_mutex;
 
 CLog *CLog::getInstance()
 {
     if(m_CLog==NULL)
     {
-        m_mutex.lock();
+        _mutex.lock();
         if(m_CLog==NULL)
         {
             m_CLog = new CLog();
         }
-        m_mutex.unlock();
+        _mutex.unlock();
     }
 
      return m_CLog;
@@ -46,7 +47,7 @@ bool CLog::createDir(QString dirPath)
 
 void CLog::log(CLog::CLOG_LEVEL nLevel, QString data)
 {
-    m_mutex.lock();
+    _mutex.lock();
 
     QString subDir;
     switch (nLevel)
@@ -81,7 +82,7 @@ void CLog::log(CLog::CLOG_LEVEL nLevel, QString data)
             logfile.close();
          }
     }
-    m_mutex.unlock();
+    _mutex.unlock();
 }
 
 CLog::CLog()

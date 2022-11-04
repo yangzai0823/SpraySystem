@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <memory>
-#include <QMutex>
+#include <mutex>
 
 #include "Camera/cameraoperator.h"
 #include "Robot/robotoperator.h"
@@ -42,7 +42,7 @@ public:
 
     void disconnectDevices();
 private:
-    static QMutex mutex;
+    static std::mutex _mutex;
     static DeviceManager *deviceManager;
 
     DeviceManager();

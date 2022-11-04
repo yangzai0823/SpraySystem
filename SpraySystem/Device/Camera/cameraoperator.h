@@ -23,6 +23,7 @@ public:
     int getState();
     //int getImage(ImageData & data);
     int RegisterFrameCallBack(GetImageCallBack func, void* pUser);
+    int deleteImage(const ImageData &data);
 
 private:
     std::shared_ptr<VWSCamera> vwsCamera;

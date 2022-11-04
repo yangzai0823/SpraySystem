@@ -1,24 +1,45 @@
 #include "plcdatapaser.h"
+#include <QtEndian>
+#include <byteswap.h>
+#include <iostream>
 
 PLCDataPaser::PLCDataPaser()
 {
 
 }
 
-void PLCDataPaser::DataPaser(QByteArray buf, PLCData &data)
+void PLCDataPaser::DataPaser(QByteArray buf, vws::PLCData &data)
 {
-    auto hexArr = buf.toHex();
-    std::vector<int> laserVec;
-    for(int i=0; i<=hexArr.length() - 4; i+=4){
-       auto hex= QString("0x%1%2%3%4").arg(hexArr[i+2]).arg(hexArr[i+3]).arg(hexArr[i]).arg(hexArr[i+1]);
-       //auto num =  QString("%1").arg(hex,0,10).toInt();
-       bool ok;
-       auto num = hex.toUInt(&ok,16);
-       laserVec.push_back(num);
-    }
+#pragma pack(1)
+    struct DDD{
+        int16_t laser1;
+        int16_t laser2;
+        int16_t laser3;
+        int16_t laser4;
 
-    data.laser1 = laserVec.at(0);
-    data.laser2 = laserVec.at(1);
-    data.laser3 = laserVec.at(2);
-    data.laser4 = laserVec.at(3);
+        uint8_t flag1;
+        uint8_t flag2;
+    };
+#pragma pack()
+
+     char* v1 = buf.data();
+     DDD* pd = (DDD*)v1;            
+
+     uint8_t b1=false;
+     uint8_t b2=false;
+     uint8_t b3=false;
+     uint8_t b4=false;
+
+     b1 = (pd->flag1&0xf0)>>4;
+     b2 = pd->flag1&0xf;
+     b3 = (pd->flag2&0xf0)>>4;
+     b4 = pd->flag2&0xf;
+
+     data.laser1 = pd->laser1;
+     data.laser2 = pd->laser2;
+     data.laser3 = pd->laser3;
+     data.laser4 = pd->laser4;
+     data.flag1 = (bool)b1;
+     data.flag2 = (bool)b2;
+     data.flag3 = (bool)b3;
 }

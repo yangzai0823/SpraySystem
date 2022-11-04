@@ -4,7 +4,7 @@
 #include "DataAccess/Repositories/PLC/plcrepository.h"
 #include "DataAccess/Repositories/MotionController/motioncontrollerrepository.h"
 
-QMutex DeviceManager::mutex;
+std::mutex DeviceManager::_mutex;
 DeviceManager *DeviceManager::deviceManager = NULL;
 
 DeviceManager::DeviceManager()
@@ -25,7 +25,7 @@ DeviceManager::DeviceManager()
 DeviceManager* DeviceManager::getInstance()
 {
     if(deviceManager == NULL){
-        mutex.lock();
+        _mutex.lock();
         if(deviceManager==NULL){
             deviceManager = new DeviceManager();
         }
@@ -212,7 +212,7 @@ PLCOperator* DeviceManager::getPlc()
     if(plcoperator==nullptr){
         std::shared_ptr<PLC> plc = PLCRepository::getInstance()->query();
         plcoperator = new PLCOperator(plc);
-//        plcoperator->init();
+        plcoperator->init();
     }
     return this->plcoperator;
 }

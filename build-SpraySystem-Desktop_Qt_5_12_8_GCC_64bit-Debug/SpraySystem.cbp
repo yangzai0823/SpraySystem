@@ -155,6 +155,7 @@
 					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include"/>
 					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
 					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include"/>
 					<Add directory="/usr/include"/>
 					<Add directory="/usr/local/include/openrave-0.9"/>
 					<Add directory="/usr/local/include/ompl-1.5"/>
@@ -214,6 +215,7 @@
 					<Add directory="/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/SpraySystem_autogen/include"/>
 					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include"/>
 					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib"/>
+					<Add directory="/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include"/>
 					<Add directory="/usr/include"/>
 					<Add directory="/usr/local/include/openrave-0.9"/>
 					<Add directory="/usr/local/include/ompl-1.5"/>
@@ -604,10 +606,22 @@
 		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.h">
 			<Option target="SpraySystem"/>
 		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h">
+			<Option target="SpraySystem"/>
+		</Unit>
 		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.cpp">
 			<Option target="SpraySystem"/>
 		</Unit>
 		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Data/StaticData.h">
+			<Option target="SpraySystem"/>
+		</Unit>
+		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h">
 			<Option target="SpraySystem"/>
 		</Unit>
 		<Unit filename="/home/vws/Demo/QT/Spray/SpraySystem/DataAccess/Models/Camera/camera.cpp">

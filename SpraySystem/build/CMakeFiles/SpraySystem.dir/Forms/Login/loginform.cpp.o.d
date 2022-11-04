@@ -1932,52 +1932,13 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: \
  /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/planning_utils.h \
  /home/vws/Demo/QT/Spray/SpraySystem/Include/planner/utils.h \
  /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/VWSRobot.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
- /usr/local/include/Poco/SharedPtr.h /usr/local/include/Poco/Foundation.h \
+ /usr/local/include/Poco/Net/NetException.h \
+ /usr/local/include/Poco/Net/Net.h /usr/local/include/Poco/Foundation.h \
  /usr/local/include/Poco/Config.h /usr/local/include/Poco/Platform.h \
  /usr/local/include/Poco/Platform_POSIX.h \
  /usr/local/include/Poco/Alignment.h /usr/local/include/Poco/Bugcheck.h \
  /usr/local/include/Poco/Types.h /usr/local/include/Poco/Exception.h \
- /usr/local/include/Poco/AtomicCounter.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
- /usr/local/include/Poco/DOM/DOMParser.h \
- /usr/local/include/Poco/XML/XML.h \
- /usr/local/include/Poco/SAX/SAXParser.h \
- /usr/local/include/Poco/SAX/XMLReader.h \
- /usr/local/include/Poco/XML/XMLString.h \
- /usr/local/include/Poco/XML/ParserEngine.h \
- /usr/local/include/Poco/XML/expat.h \
- /usr/local/include/Poco/XML/expat_external.h \
- /usr/local/include/Poco/XML/XMLStream.h \
- /usr/local/include/Poco/SAX/Locator.h \
- /usr/local/include/Poco/TextEncoding.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
- /usr/local/include/Poco/DOM/AutoPtr.h /usr/local/include/Poco/AutoPtr.h \
- /usr/local/include/Poco/DOM/Document.h \
- /usr/local/include/Poco/DOM/AbstractContainerNode.h \
- /usr/local/include/Poco/DOM/AbstractNode.h \
- /usr/local/include/Poco/DOM/Node.h \
- /usr/local/include/Poco/DOM/EventTarget.h \
- /usr/local/include/Poco/DOM/DOMObject.h \
- /usr/local/include/Poco/SAX/NamespaceSupport.h \
- /usr/local/include/Poco/DOM/MutationEvent.h \
- /usr/local/include/Poco/DOM/Event.h \
- /usr/local/include/Poco/DOM/DocumentEvent.h \
- /usr/local/include/Poco/DOM/Element.h /usr/local/include/Poco/XML/Name.h \
- /usr/local/include/Poco/XML/NamePool.h \
- /usr/local/include/Poco/AutoReleasePool.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
- /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
- /usr/local/include/Poco/Mutex.h /usr/local/include/Poco/ScopedLock.h \
- /usr/local/include/Poco/Timestamp.h \
- /usr/local/include/Poco/Mutex_POSIX.h \
- /usr/local/include/Poco/Net/HTTPClientSession.h \
- /usr/local/include/Poco/Net/Net.h \
- /usr/local/include/Poco/Net/HTTPSession.h \
- /usr/local/include/Poco/Net/StreamSocket.h \
+ /usr/local/include/Poco/Net/ServerSocket.h \
  /usr/local/include/Poco/Net/Socket.h \
  /usr/local/include/Poco/Net/SocketImpl.h \
  /usr/local/include/Poco/Net/SocketDefs.h \
@@ -2015,11 +1976,17 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: \
  /usr/local/include/Poco/Net/IPAddress.h \
  /usr/local/include/Poco/Net/IPAddressImpl.h \
  /usr/local/include/Poco/RefCountedObject.h \
- /usr/local/include/Poco/Timespan.h /usr/local/include/Poco/Buffer.h \
+ /usr/local/include/Poco/AtomicCounter.h \
+ /usr/local/include/Poco/AutoPtr.h /usr/local/include/Poco/Timespan.h \
+ /usr/local/include/Poco/Timestamp.h /usr/local/include/Poco/Buffer.h \
+ /usr/local/include/Poco/Net/StreamSocket.h \
  /usr/local/include/Poco/FIFOBuffer.h \
  /usr/local/include/Poco/BasicEvent.h \
  /usr/local/include/Poco/AbstractEvent.h \
  /usr/local/include/Poco/SingletonHolder.h \
+ /usr/local/include/Poco/Mutex.h /usr/local/include/Poco/ScopedLock.h \
+ /usr/local/include/Poco/Mutex_POSIX.h \
+ /usr/local/include/Poco/SharedPtr.h \
  /usr/local/include/Poco/ActiveResult.h /usr/local/include/Poco/Event.h \
  /usr/local/include/Poco/Event_POSIX.h \
  /usr/local/include/Poco/ActiveMethod.h \
@@ -2034,6 +2001,45 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: \
  /usr/local/include/Poco/AbstractDelegate.h \
  /usr/local/include/Poco/Format.h /usr/local/include/Poco/Any.h \
  /usr/local/include/Poco/MetaProgramming.h \
+ /usr/local/include/Poco/Net/TCPServer.h \
+ /usr/local/include/Poco/Net/TCPServerConnectionFactory.h \
+ /usr/local/include/Poco/Net/TCPServerConnection.h \
+ /usr/local/include/Poco/Net/TCPServerParams.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_state_machine_interface.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_interface.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_cfg.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_rapid.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_client.h \
+ /usr/local/include/Poco/DOM/DOMParser.h \
+ /usr/local/include/Poco/XML/XML.h \
+ /usr/local/include/Poco/SAX/SAXParser.h \
+ /usr/local/include/Poco/SAX/XMLReader.h \
+ /usr/local/include/Poco/XML/XMLString.h \
+ /usr/local/include/Poco/XML/ParserEngine.h \
+ /usr/local/include/Poco/XML/expat.h \
+ /usr/local/include/Poco/XML/expat_external.h \
+ /usr/local/include/Poco/XML/XMLStream.h \
+ /usr/local/include/Poco/SAX/Locator.h \
+ /usr/local/include/Poco/TextEncoding.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_common.h \
+ /usr/local/include/Poco/DOM/AutoPtr.h \
+ /usr/local/include/Poco/DOM/Document.h \
+ /usr/local/include/Poco/DOM/AbstractContainerNode.h \
+ /usr/local/include/Poco/DOM/AbstractNode.h \
+ /usr/local/include/Poco/DOM/Node.h \
+ /usr/local/include/Poco/DOM/EventTarget.h \
+ /usr/local/include/Poco/DOM/DOMObject.h \
+ /usr/local/include/Poco/SAX/NamespaceSupport.h \
+ /usr/local/include/Poco/DOM/MutationEvent.h \
+ /usr/local/include/Poco/DOM/Event.h \
+ /usr/local/include/Poco/DOM/DocumentEvent.h \
+ /usr/local/include/Poco/DOM/Element.h /usr/local/include/Poco/XML/Name.h \
+ /usr/local/include/Poco/XML/NamePool.h \
+ /usr/local/include/Poco/AutoReleasePool.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/abb_librws_export.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib/rws_poco_client.h \
+ /usr/local/include/Poco/Net/HTTPClientSession.h \
+ /usr/local/include/Poco/Net/HTTPSession.h \
  /usr/local/include/Poco/Net/HTTPBasicCredentials.h \
  /usr/local/include/Poco/Net/HTTPDigestCredentials.h \
  /usr/local/include/Poco/Net/HTTPAuthenticationParams.h \
@@ -2088,6 +2094,143 @@ CMakeFiles/SpraySystem.dir/Forms/Login/loginform.cpp.o: \
  /home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h \
  /home/vws/Demo/QT/Spray/SpraySystem/Device/PLC/plcdatapaser.h \
  /home/vws/Demo/QT/Spray/SpraySystem/Vision/visioncontext.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/head/heightandpose/SizeAndPose.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/Halcon.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HVersNum.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HIntDef.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hclib/hclib_types.h \
+ /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HDeclSpec.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HErrorDef.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HConst.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HBase.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/IPType.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HParallel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HAlloc.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HMacro.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/HExtern.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HBaseGP.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/IOSpy.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstance.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HInstanceDefines.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/CORE1.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/DBNew.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HXLD.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/hlib/HError.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppForwards.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTuple.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTupleElement.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HString.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSmartPtr.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandleBase.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHandle.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVector.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectBase.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObject.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HException.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevWindowStack.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataBase.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorOverloads.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCppIncludes.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOperatorSet.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFeatureSet.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTemplate.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HNCCModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HObjectModel3D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSurfaceMatchingResult.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableSurfaceMatchingResult.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HShapeModel3D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDeformableModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDescriptorModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HVariationModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCalibData.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCameraSetupModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStereoModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentTraining.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComponentModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HGnuplot.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSocket.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerial.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMeasure.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMatrix.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFunction1D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarCode.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDataCode2D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMisc.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HImage.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HRegion.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLD.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDCont.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPoly.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDPara.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDModPara.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDExtPara.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HWindow.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFile.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HFramegrabber.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIODevice.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOChannel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRBox.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRMlp.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRSvm.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HLexicon.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCV.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassBox.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassMlp.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassSvm.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassGmm.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifier.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierResult.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlClassifierTrainResult.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlDevice.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlPrune.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDlModelOcr.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HColorTransLUT.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBgEsti.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSystem.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HInfo.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCamPar.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HPose.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat2D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HHomMat3D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HQuaternion.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDualQuaternion.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSheetOfLightModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassLUT.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HComputeDevice.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMutex.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HEvent.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HCondition.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBarrier.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessage.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMessageQueue.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDict.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextResult.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HMetrologyModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSerializedItem.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassKnn.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRKnn.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HOCRCnn.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HClassTrainData.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScatteredDataInterpolator.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HSampleIdentifier.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HXLDDistTrans.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDrawingObject.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HScene3D.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HBeadInspectionModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HTextureInspectionResult.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HStructuredLightModel.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HIOStream.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HDevThread.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include/halconcpp/HalconCpp.h \
  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qmessagebox.h \
  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtWidgets/qdialog.h \
  /opt/Qt5.12.8/5.12.8/gcc_64/include/QtCore/QtDebug \

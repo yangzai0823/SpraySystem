@@ -6,23 +6,55 @@
 
 void imgFunc(const VWSCamera::ImageData &data, void* pUser)
 {
-//    static int64_t q = data.RGB8PlanarImage.nTimeStamp;
-//    static int i = 0;
-//    std::cout<<++i<<"  "<<data.RGB8PlanarImage.nTimeStamp<<"      "<<data.RGB8PlanarImage.nTimeStamp - q<<std::endl;
-//    q = data.RGB8PlanarImage.nTimeStamp;
-//    //saveToFile("/home/joker/testData/"+std::to_string(i),data);
+    MainProcess::CameraCallbackData *cameraCallbackData = (MainProcess::CameraCallbackData*)pUser;
+    auto mainProcess = cameraCallbackData->mainProcess;
+    static int64_t q = data.RGB8PlanarImage.nTimeStamp;
+    static int i = 0;
+    std::cout<<++i<<"  "<<data.RGB8PlanarImage.nTimeStamp<<"      "<<data.RGB8PlanarImage.nTimeStamp - q<<std::endl;
+    q = data.RGB8PlanarImage.nTimeStamp;
 
-//    //解析图像转换成视觉需要的格式
+    mainProcess->currentData = data;
 
+    Eigen::Isometry3d handEyeMatrix;
+    handEyeMatrix.affine().block(0,0,3,4)
+            <<  -0.03743671625852585,
+            -0.001139160362072289,
+            -0.9992983341217041,
+            2654.87060546875,
+            0.009748989716172219,
+            -0.9999521374702454,
+            0.0007746600895188749,
+            -1332.0638427734376,
+            -0.9992514252662659,
+            -0.009713122621178627,
+            0.03744605928659439,
+            481.78564453125;
 
-//    //销毁图像
-//    ((VWSCamera *)pUser)->deleteImage(data);
+    VisionData v;
+
+    if(cameraCallbackData->camera->getName()=="Camera 1"){
+        mainProcess->mainData.image1 = data;
+    }
+    else{
+       mainProcess->mainData.image2 = data;
+    }
+    mainProcess->visionContext->work(data,handEyeMatrix,v);
+
 }
 
 void MainProcess::recevieData_Slot(QVariant data)
 {
     plcdata = data.value<PLCData>();
-    TrajectoryProcessing(true,false);
+
+   auto ret = signalProcess->work(plcdata, mainData);
+   //上层数据采集完毕
+   if(ret==2){
+
+   }
+   //下层数据采集完毕
+   else if(ret == 3){
+
+   }
 }
 
 
@@ -30,9 +62,9 @@ MainProcess::MainProcess()
 {
     DeviceManager *deviceManager = DeviceManager::getInstance();
     //PLC
-//    auto plc = deviceManager->getPlc();
-//    plc->start();
-//    connect(plc,SIGNAL(recevieData_Signal(QVariant)),this,SLOT(recevieData_Slot(QVariant)));
+    auto plc = deviceManager->getPlc();
+    plc->start();
+    connect(plc,SIGNAL(recevieData_Signal(QVariant)),this,SLOT(recevieData_Slot(QVariant)));
 
     //运动控制器
     auto mc = deviceManager->getMC();
@@ -40,59 +72,53 @@ MainProcess::MainProcess()
     connect(mc,SIGNAL(getTrajParam_Signal()),this,SLOT(getTrajParam_Slot()));
 
     //机器人
-//    VWSRobot *vwsrbt = new VWSRobot();
-//    auto ret1 = vwsrbt->Init("192.168.125.1");
-//     vwsrbt->start();
-
-
     auto rbt = deviceManager->getRobot(0);
     rbt->init();
     rbt->start();
+
+    //相机
+    auto camera1 = deviceManager->getCamera(0);
+    camera1CallbackData = new  CameraCallbackData();
+    camera1CallbackData->camera = camera1;
+    camera1CallbackData->mainProcess = this;
+
+    auto ret = camera1->init();
+    std::cout<<"camera init: "<<ret<<std::endl;
+    ret = camera1->start();
+    std::cout<<"camera start: "<<ret<<std::endl;
+    camera1->RegisterFrameCallBack(imgFunc,(void *)(camera1CallbackData));
+    //    auto camera2 = deviceManager->getCamera(1);
+    //    camera2->RegisterFrameCallBack(imgFunc,(void *)(&camera2));
+
+
 
 //    VWSRobot::RobotPosition p;
 //        rbt->getRobotPosition(p);
 //    //p.RobJoint[0],p.RobJoint[1],p.RobJoint[2],p.RobJoint[3],p.RobJoint[4],p.RobJoint[5]
 
 
-//    std::vector<RobotTask> tasks;
-//    VWSRobot::RobotTask tk;
-//    tk.task = VWSRobot::TaskType::MOVEABSJ;  // 1:movel, 2:movej, 3:moveabsj
-//    tk.speed[0] = 10;
-//    tk.speed[1] = 10;
-
-//    std::array<float,7> arr;
-//    for(auto i =0;i<6;i++){
-//        arr[i] = p.RobJoint[i];
-//    }
-//    tk.track.push_back(arr);
-//    tasks.push_back(tk);
-//    rbt->sendData(tasks);
-
-//    auto camera1 = deviceManager->getCamera(0);
-//    camera1->RegisterFrameCallBack(imgFunc,(void *)(&camera1));
-//    auto camera2 = deviceManager->getCamera(1);
-//    camera2->RegisterFrameCallBack(imgFunc,(void *)(&camera2));
-
-    imgSocket = new QtSocketClient();
-//    connect(imgSocket,SIGNAL(readyRead_Signal(QByteArrary)),this,SLOT(imgData_Slot(QByteArray)));
-    connect(imgSocket,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(imgData_Slot(QByteArray)),Qt::ConnectionType::QueuedConnection);
-    auto imgret = imgSocket->connectServer("192.168.125.66",6667);
-//    imgSocket->connectServer("172.17.240.1",10000);
-
+    visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();
     trajThread = new QThread;
     trajProc->moveToThread(trajThread);
     connect(this,SIGNAL(begintraj_Singal(QVariant)), trajProc,SLOT(begintraj_Slot(QVariant)));
     connect(trajProc,SIGNAL(traj_Signal(QVariant,QVariant)),this,SLOT(traj_Slot(QVariant,QVariant)));
     trajThread->start();
+
+    signalProcess = new SignalProcess();
 }
 
 MainProcess::~MainProcess()
-{
+{  
     trajThread->quit();
     trajThread->wait();
     delete trajThread;
     delete trajProc;
+
+    delete camera1CallbackData;
+    delete camera2CallbackData;
+
+    delete signalProcess;
 }
 
 bool range;

@@ -3,7 +3,6 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <vector>
-#include <istream>
 #include <iostream>
 
 #include "planner/ompl_planning_class.h"
@@ -11,33 +10,16 @@
 #include "planner/utils.h"
 
 #include "VWSRobot/VWSRobot.h"
+#include "Data/StructData.h"
 
+using TrajParam = vws::TrajParam;
 class TrajectoryGenerator
 {
 public:
-    struct TrajParam{
-        Eigen::Vector3d boxCenterPoint;
-        Eigen::Vector3d boxSize;
-        Eigen::Quaterniond boxQuat;
-        /**
-         * @brief 拍照时刻编码器数值
-         */
-        float encoder;
-        float sevenEncoder;
-        /**
-         * @brief 跟踪偏移量
-         */
-        float offsetOfTraj;
-    };
 
-    TrajectoryGenerator();
-
+    static TrajectoryGenerator* Instance();
     ~TrajectoryGenerator();
 
-    /**
-     * @brief 生成环境信息
-     */
-    void GenerateEnvirInfo();
 
     /**
      * @brief 箱体环境信息
@@ -60,6 +42,9 @@ public:
     std::vector<float> calChainZeroPoint(TrajParam param);
 
 private:
+    static std::mutex _mutex;
+
+    static TrajectoryGenerator *_instance;
     VwsPlanEnv *pt;
     OpenRAVE::RobotBasePtr robot;
     Eigen::VectorXd planRet;
@@ -72,6 +57,11 @@ private:
     Eigen::Vector3d extraAxisDirection;
 
 private:
+    TrajectoryGenerator();
+    /**
+     * @brief 生成环境信息
+     */
+    void GenerateEnvirInfo();
     Eigen::Vector3d topfarpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize);
     Eigen::Vector3d topnearpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize);
     Eigen::Vector3d bottomnearpont(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize);

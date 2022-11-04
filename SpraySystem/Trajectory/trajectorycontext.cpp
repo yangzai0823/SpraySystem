@@ -22,7 +22,7 @@ RobotTask  TrajectoryContext::Work(TrajParam param)
     auto y = p1[1]+ param.offsetOfTraj/1000.0;
     param.boxCenterPoint[1] = param.boxCenterPoint[1] - y;
 
-    generator->GenerateEnvirInfo();
+//    generator->GenerateEnvirInfo();
     generator->BoxEnvirInfo(param.boxCenterPoint,param.boxSize,param.boxQuat);
     generator->GenerateTrajectory(param.boxCenterPoint,param.boxSize,param.boxQuat);
     auto rbtTask = generator->GenerateSprayTask();

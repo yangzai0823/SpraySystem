@@ -1927,4 +1927,8 @@ CMakeFiles/SpraySystem.dir/Trajectory/trajectorycontext.cpp.o: \
  /usr/local/include/Poco/Net/HTTPMessage.h \
  /usr/local/include/Poco/Net/MessageHeader.h \
  /usr/local/include/Poco/Net/HTTPCookie.h \
- /usr/local/include/Poco/Net/WebSocket.h
+ /usr/local/include/Poco/Net/WebSocket.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/VWSCamera.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdApi.h \
+ /home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include/Mv3dRgbdDefine.h

@@ -7,7 +7,7 @@ mcdatapaser::mcdatapaser()
 
 }
 
-void mcdatapaser::DataPaser(QByteArray buf, mcdatapaser::MCData &data)
+void mcdatapaser::DataPaser(QByteArray buf, vws::MCData &data)
 {
     static QByteArray buff2;
    buff2.append(buf);

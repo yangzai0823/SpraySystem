@@ -11,7 +11,7 @@
 #include "Device/MotionController/mcdatapaser.h"
 #include <QVariant>
 
-using MCData = mcdatapaser::MCData;
+using MCData = vws::MCData;
 
 
 Q_DECLARE_METATYPE(MCData)  //注册结构体

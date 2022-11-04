@@ -51,8 +51,7 @@
 #include <deque>
 
 #include "planner/ompl_planning_class.h"
-
-//#include "planner/utils.h"
+#include <mutex>
 
 namespace po = boost::program_options;
 namespace ob = ompl::base;
@@ -64,6 +63,8 @@ using namespace OpenRAVE;
 using namespace util;
 using namespace boost::assign;
 
+TrajectoryGenerator *TrajectoryGenerator::_instance = NULL;
+std::mutex TrajectoryGenerator::_mutex;
 
 TrajectoryGenerator::TrajectoryGenerator()
 {
@@ -84,9 +85,24 @@ TrajectoryGenerator::TrajectoryGenerator()
     extraAxisDirection = Eigen::Vector3d( 0, -0.0002153165405616164,0);
 }
 
+TrajectoryGenerator *TrajectoryGenerator::Instance()
+{
+    if(_instance==NULL)
+    {
+        _mutex.lock();
+        if(_instance==NULL)
+        {
+            _instance = new TrajectoryGenerator();
+        }
+        _mutex.unlock();
+    }
+
+     return _instance;
+}
+
 TrajectoryGenerator::~TrajectoryGenerator()
 {
-//    delete pt;
+    delete pt;
 }
 
 void TrajectoryGenerator::GenerateEnvirInfo()

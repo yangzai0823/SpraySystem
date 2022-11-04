@@ -306,9 +306,27 @@
 			null
 		],
 		[
+			"/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.h",
+			"MU",
+			"O3MQALNIT2/moc_signalprocess.cpp",
+			null
+		],
+		[
 			"/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/trajectoryprocess.h",
 			"MU",
 			"O3MQALNIT2/moc_trajectoryprocess.cpp",
+			null
+		],
+		[
+			"/home/vws/Demo/QT/Spray/SpraySystem/Data/StaticData.h",
+			"MU",
+			"M5WLY3B75D/moc_StaticData.cpp",
+			null
+		],
+		[
+			"/home/vws/Demo/QT/Spray/SpraySystem/Data/StructData.h",
+			"MU",
+			"M5WLY3B75D/moc_StructData.cpp",
 			null
 		],
 		[
@@ -971,6 +989,7 @@
 		"/home/vws/Demo/QT/Spray/SpraySystem",
 		"/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include",
 		"/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib",
+		"/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include",
 		"/usr/local/include/openrave-0.9",
 		"/usr/local/include/ompl-1.5",
 		"/usr/include/eigen3",
@@ -1021,6 +1040,11 @@
 	[
 		[
 			"/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/mainprocess.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/vws/Demo/QT/Spray/SpraySystem/Bussiness/signalprocess.cpp",
 			"MU",
 			null
 		],

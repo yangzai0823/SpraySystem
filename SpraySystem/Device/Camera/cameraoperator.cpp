@@ -15,22 +15,22 @@ CameraOperator::~CameraOperator()
 
 int CameraOperator::init()
 {
-//    vwsCamera  = std::make_shared<VWSCamera>();
-//    int ret = vwsCamera->Init(ip.toUtf8().data(),port);
-//    return ret;
+    vwsCamera  = std::make_shared<VWSCamera>();
+    int ret = vwsCamera->Init(ip.toStdString(),port);
+    return ret;
 }
 
 int CameraOperator::start()
 {
-//    auto ret = vwsCamera->connect();
-//    return ret;
+    auto ret = vwsCamera->connect();
+    return ret;
 }
 
 void CameraOperator::close()
 {
-//    if(vwsCamera==nullptr)
-//        return;
-//    vwsCamera->disConnect();
+    if(vwsCamera==nullptr)
+        return;
+    vwsCamera->disConnect();
 }
 
 int CameraOperator::getState()
@@ -43,5 +43,11 @@ int CameraOperator::getState()
 
 int CameraOperator::RegisterFrameCallBack(GetImageCallBack func, void *pUser)
 {
-//    vwsCamera->RegisterFrameCallBack(func,pUser);
+    vwsCamera->RegisterFrameCallBack(func,pUser);
+}
+
+int CameraOperator::deleteImage(const ImageData &data)
+{
+    auto ret = vwsCamera->deleteImage(data);
+    return ret;
 }

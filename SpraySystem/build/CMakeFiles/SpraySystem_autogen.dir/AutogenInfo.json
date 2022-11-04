@@ -968,6 +968,7 @@
 		"/home/vws/Demo/QT/Spray/SpraySystem",
 		"/home/vws/Demo/QT/Spray/SpraySystem/VWSCamera/Include",
 		"/home/vws/Demo/QT/Spray/SpraySystem/VWSRobot/Lib",
+		"/home/vws/Demo/QT/Spray/SpraySystem/VWSVision/include",
 		"/usr/local/include/openrave-0.9",
 		"/usr/local/include/ompl-1.5",
 		"/usr/include/eigen3",
