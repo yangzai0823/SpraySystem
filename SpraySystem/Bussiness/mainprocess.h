@@ -16,6 +16,7 @@
 #include "Util/Socket/qtsocketclient.h"
 #include "Trajectory/trajectorygenerator.h"
 #include "Bussiness/signalprocess.h"
+#include "mutex"
 
 using RobotTask = VWSRobot::RobotTask;
 using RobotPosition = VWSRobot::RobotPosition;
@@ -39,6 +40,7 @@ public:
 private:
     void VisionProcessing();
     void TrajectoryProcessing(bool range, bool camera);
+    void UpdateCurrentData();
 public:
     ImageData currentData;
     VisionData visionData;
@@ -60,6 +62,8 @@ private:
     CameraCallbackData *camera2CallbackData;
 
     SignalProcess *signalProcess;
+
+    static std::mutex _mutex;
 private slots:
     /**
      * @brief PLC槽

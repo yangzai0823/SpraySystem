@@ -4,10 +4,12 @@
 #include "VWSRobot/VWSRobot.h"
 
 
+std::mutex MainProcess::_mutex;
 void imgFunc(const VWSCamera::ImageData &data, void* pUser)
 {
     MainProcess::CameraCallbackData *cameraCallbackData = (MainProcess::CameraCallbackData*)pUser;
     auto mainProcess = cameraCallbackData->mainProcess;
+    auto cameraOperator = cameraCallbackData->camera;
     static int64_t q = data.RGB8PlanarImage.nTimeStamp;
     static int i = 0;
     std::cout<<++i<<"  "<<data.RGB8PlanarImage.nTimeStamp<<"      "<<data.RGB8PlanarImage.nTimeStamp - q<<std::endl;
@@ -15,30 +17,25 @@ void imgFunc(const VWSCamera::ImageData &data, void* pUser)
 
     mainProcess->currentData = data;
 
-    Eigen::Isometry3d handEyeMatrix;
-    handEyeMatrix.affine().block(0,0,3,4)
-            <<  -0.03743671625852585,
-            -0.001139160362072289,
-            -0.9992983341217041,
-            2654.87060546875,
-            0.009748989716172219,
-            -0.9999521374702454,
-            0.0007746600895188749,
-            -1332.0638427734376,
-            -0.9992514252662659,
-            -0.009713122621178627,
-            0.03744605928659439,
-            481.78564453125;
+
 
     VisionData v;
 
-    if(cameraCallbackData->camera->getName()=="Camera 1"){
-        mainProcess->mainData.image1 = data;
+    if(cameraCallbackData->camera->getName()=="Camera 2"){
+//        mainProcess->mainData.imageTop.push_back(data);
     }
     else{
-       mainProcess->mainData.image2 = data;
+        mainProcess->mainData.imageBottom.push_back(data);
+        if(mainProcess->mainData.imageBottom.size()==2){
+            std::cout<<"处理第二章图像"<<std::endl;
+
+            //清空图像
+            cameraOperator->deleteImage(mainProcess->mainData.imageBottom[0]);
+             cameraOperator->deleteImage(mainProcess->mainData.imageBottom[1]);
+
+        }
     }
-    mainProcess->visionContext->work(data,handEyeMatrix,v);
+//    mainProcess->visionContext->work(data,handEyeMatrix,v);
 
 }
 
@@ -48,11 +45,11 @@ void MainProcess::recevieData_Slot(QVariant data)
 
    auto ret = signalProcess->work(plcdata, mainData);
    //上层数据采集完毕
-   if(ret==2){
+   if(ret==1){
 
    }
-   //下层数据采集完毕
-   else if(ret == 3){
+   //下层数据采集完毕,处理第一张图片
+   else if(ret == 2){
 
    }
 }
@@ -140,7 +137,14 @@ void MainProcess::TrajectoryProcessing(bool brange = false, bool camera = false)
 //        data.setValue(trajData);
 //        emit begintraj_Singal(data);
 //        range =false;
-//    }
+    //    }
+}
+
+void MainProcess::UpdateCurrentData()
+{
+    _mutex.lock();
+
+    _mutex.unlock();
 }
 
 void MainProcess::traj_Slot(QVariant varmc,QVariant varrbt)
