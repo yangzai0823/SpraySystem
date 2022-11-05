@@ -41,6 +41,23 @@ int QtSocketClient::connectServer(QString ip,int port)
     return 1;
 }
 
+void QtSocketClient::connect_Slot(QString ip,int port)
+{
+    bool ret;
+    tcpsocket = new QTcpSocket();
+    try {
+        tcpsocket->connectToHost((QHostAddress)ip, port);
+
+        ret = tcpsocket->waitForConnected(3000);
+
+
+        connect(tcpsocket,SIGNAL(readyRead()),this,SLOT(readyRead_Slot()));
+    } catch (char* msg) {
+      
+    }
+
+}
+
 int QtSocketClient::send(QString msg)
 {
     return tcpsocket->write(msg.toUtf8().data());
@@ -48,7 +65,8 @@ int QtSocketClient::send(QString msg)
 
 int QtSocketClient::send(QByteArray msg)
 {
-    auto ret = tcpsocket->write(msg);
+    //auto ret = tcpsocket->write(msg);
+    emit send_Signal(msg);
 //    std::cout<<"发送成功，字节书: "<<ret<<std::endl;
 }
 
@@ -69,4 +87,10 @@ void QtSocketClient::readyRead_Slot()//定义接收信号的槽
 
     emit readyRead_Signal(buf);
 
+    //调用相应的数据解释
+
+}
+
+void QtSocketClient::send_Slot(QByteArray msg){
+    auto ret = tcpsocket->write(msg);
 }

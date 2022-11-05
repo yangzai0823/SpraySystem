@@ -43,6 +43,7 @@ private slots:
 
 signals:
     void getTrajParam_Signal();
+    void connect_Signal(QString ip,int port);
 };
 
 #endif // MCOPERATOR_H

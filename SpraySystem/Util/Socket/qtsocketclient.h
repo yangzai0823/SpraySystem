@@ -13,19 +13,23 @@ class QtSocketClient : public QThread
 public:
      QtSocketClient();
      ~QtSocketClient();
+    
     int connectServer(QString ip,int port);
     int send(QString msg);
 //    int send(char* msg);
     int send(QByteArray msg);
     void close();
-private:
+public:
     QTcpSocket *tcpsocket= NULL;
     QThread *socketThread;
-private slots:
+public slots:
      void readyRead_Slot();
-
+public slots:
+      void connect_Slot(QString ip,int port);
+      void send_Slot(QByteArray msg);
 signals:
      void readyRead_Signal(QByteArray buf);
+     void send_Signal(QByteArray msg);
 
 };
 

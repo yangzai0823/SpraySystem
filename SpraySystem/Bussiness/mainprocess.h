@@ -44,7 +44,7 @@ public:
      * @param upper_or_bottom    0: 表示底层箱子， 1：表示上层
      * @return std::vector<vws::PlanTaskInfo>* 
      */
-    std::vector<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0) const;
+    std::vector<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0);
     float getChainSpeed() const; // mm/s
     uint64_t getChainEncoder() const;
     float getChainUnits() const;        //

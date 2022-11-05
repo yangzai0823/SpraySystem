@@ -25,13 +25,16 @@ int MCOperator::init()
     dataparser = std::make_shared<mcdatapaser>();
 
     connect(socketclient,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(readyRead_Slot(QByteArray)),Qt::ConnectionType::QueuedConnection);
+    connect(this,SIGNAL(connect_Signal(QString,int)),socketclient,SLOT(connect_Slot(QString,int)),Qt::ConnectionType::QueuedConnection);
+
     return 1;
 }
 
 int MCOperator::start()
 {
-    auto ret = socketclient->connectServer(ip,port);
-    return ret;
+    // auto ret = socketclient->connectServer(ip,port);
+   emit connect_Signal(ip,port);
+    return 1;
 }
 
 void MCOperator::close()

@@ -15,7 +15,8 @@ uint32_t SignalProcess::work(vws::PLCData plcData,vws::MainData & mainData)
     _mutex.lock();
 //    auto retTop = topwork(plcData,mainData);
     auto retBottom = bottomwork(plcData,mainData);
-    if(retBottom==3){
+    if(retBottom==2){
+        std::cout<<"底层完成"<<std::endl;
        ret =2;
     }
     _mutex.unlock();
@@ -78,6 +79,7 @@ uint32_t SignalProcess::bottomwork(vws::PLCData plcData, vws::MainData &mainData
         staticSignal = mainData.currentBottom.box1signal;
         //获取拍照时刻编码器数值
         mainData.currentBottom.imgEncoder = DeviceManager::getInstance()->getMC()->getChainEncoders()[0];
+        std::cout<<"拍照时刻编码器： "<<mainData.currentBottom.imgEncoder;
         mainData.currentBottom.face = 0;
     }
     else if(!plcData.flag_camera_b && bottomflag){

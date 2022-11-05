@@ -42,7 +42,7 @@ namespace vws{
      */
     struct ProcessData{
         /**
-         * @brief 标识位，0：空闲，1：触发拍照,采集信息，2：信号完成，4：完成, 5:已处理, 
+         * @brief 标识位，0：空闲，1：触发拍照,采集信息，2：信号完成，4：完成, 5:已处理, 6：视觉开始处理
          * TODO: 添加等待尾部拍照状态
          */
         uint8_t flag = 0;
@@ -86,7 +86,7 @@ namespace vws{
         
         int face;  //0：前面， 1：后面
         uint64_t encoder; //拍照时刻
-        uint64_t diff;  //偏移
+        float diff;  //偏移
     };
 
     /**

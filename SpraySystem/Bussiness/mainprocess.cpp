@@ -25,6 +25,7 @@ void imgFunc(const VWSCamera::ImageData &data, void* pUser)
     else{
         std::cout<<"获得下相机图像"<<std::endl;
         mainProcess->mainData.currentBottom.image = data;
+        mainProcess->mainData.currentBottom.imgFlag =true;
         mainProcess->UpdateCurrentData(mainProcess->mainData.currentBottom, 0);
     }
 //    mainProcess->visionContext->work(data,handEyeMatrix,v);
@@ -92,7 +93,7 @@ MainProcess::MainProcess()
     trajProc = new TrajectoryProcess();
     trajThread = new QThread;
     trajProc->moveToThread(trajThread);
-    connect(this,SIGNAL(begintraj_Singal(QVariant)), trajProc,SLOT(begintraj_Slot(QVariant)));
+    connect(this,SIGNAL(begintraj_Singal(MainProcess* )), trajProc,SLOT(begintraj_Slot(MainProcess* )));
     trajThread->start();
 
     signalProcess = new SignalProcess();
@@ -111,11 +112,53 @@ MainProcess::~MainProcess()
     delete signalProcess;
 }
 
+std::vector<vws::PlanTaskInfo> *MainProcess::GetPlanTaskInfo(int upper_or_bottom)
+{
+    if(upper_or_bottom == 0){
+         return &qPlanTaskInfoBottom;
+    }else
+    {
+        return &qPlanTaskInfoTop;
+    }
+}
+
+float MainProcess::getChainSpeed() const
+{
+    return 80;
+}
+
+uint64_t MainProcess::getChainEncoder() const
+{
+    auto val = DeviceManager::getInstance()->getMC()->getChainEncoders();
+    return val[0];
+}
+
+float MainProcess::getChainUnits() const
+{
+    return 1/0.4198727819755431f;
+}
+
+Eigen::VectorXd MainProcess::getRobotWaitPose() const
+{
+    Eigen::VectorXd val(6);
+    val << 1.5, 0, 0, 0, 0, 0;
+    std::cout<<"getRobotWaitPose: "<<val[0]<<std::endl;
+    return val;
+}
+
+bool MainProcess::getChainEncoderDir() const
+{
+    //TODO: 根据实际情况
+    return true;
+}
+
 void MainProcess::VisionProcessing(vws::ProcessData data,bool upper_or_bottom)
 {
+    std::cout<<"视觉处理"<<std::endl;
     VisionData visionData;
     visionContext->work(data.image,vws::handEyeMatrix, visionData);
     DeviceManager::getInstance()->getCamera(0)->deleteImage(data.image);
+    data.imgFlag =false;
     vws::PlanTaskInfo planTaskInfo;
     planTaskInfo.diff =  vws::diff;
     planTaskInfo.lx = visionData.width;
@@ -127,25 +170,30 @@ void MainProcess::VisionProcessing(vws::ProcessData data,bool upper_or_bottom)
     planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(1,2,3,4));
     planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(1,2,3));
     if(upper_or_bottom){
+       std::cout<<"顶层箱子参数进入队列"<<std::endl;
         qPlanTaskInfoTop.push_back(planTaskInfo);
     }
     else{
+          std::cout<<"底层箱子参数进入队列"<<std::endl;
         qPlanTaskInfoBottom.push_back(planTaskInfo);
     }
-    //触发轨迹规划信号
 
+    std::cout<<"触发轨迹规划信号"<<std::endl;
+
+    emit begintraj_Singal(this);
 }
 
 void MainProcess::UpdateCurrentData(vws::ProcessData data, bool upper_or_bottom)
 {
     _mutex.lock();
-    if(data.flag ==3 && data.imgFlag){
+    if(data.flag ==2 && data.imgFlag){
         data.flag = 4;
     }
     _mutex.unlock();
 
    if(data.flag==4){
         //视觉处理
+        data.flag =6;
         VisionProcessing(data,upper_or_bottom);
         data.flag  =5;
    }

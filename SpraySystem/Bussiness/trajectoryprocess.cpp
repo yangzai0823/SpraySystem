@@ -25,10 +25,10 @@ std::vector<vws::PlanTaskInfo> TrajectoryProcess::tryGetPlanTask(MainProcess* vd
     uint64_t current_encoder = vdata->getChainEncoder();
     bool isIncrease = vdata->getChainEncoderDir();
     float units = vdata->getChainUnits();
-    float speed = vdata->getChainSpeed();  // mm/s
+//    float speed = vdata->getChainSpeed();  // mm/s
 
-        float expire_t = 4 * 1000 / speed;
-    uint64_t expire_en = expire_t * speed * units;
+    float expire_t = 4 * 1000;
+    uint64_t expire_en = expire_t * units;
     uint64_t plan_range = 1000 * units;
     uint64_t plan_delay = 1200 * units;
     int equal_th = 400;
@@ -104,10 +104,11 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
             BaseStrategy *planstrategy;
             BaseStrategy *sevenstrategy;
     auto context = std::make_shared<TrajectoryContext>(generator,planstrategy,sevenstrategy);
-    float valid_range = 3000;       //mm
+    float valid_range = 6000;       //mm
     uint64_t current_encoder = vdata->getChainEncoder();
     bool isIncrease = vdata->getChainEncoderDir();
     float units = vdata->getChainUnits();
+    uint64_t expire_range = valid_range * units;
     uint64_t plan_delay = 1200 * units;
     int equal_th = 400;
     auto bottom_task_q = vdata->GetPlanTaskInfo(0);
@@ -134,6 +135,9 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
       }
     }
 
+
+    //todo:: 清理队列。把超过一定距离的task清除掉
+
     //*************************************************************************
     //*                           规划任务                                    
     //*       从队列中取出头部数据，根据箱体信息生成场景，然后依次规划路径
@@ -142,28 +146,45 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     while (!taskQ.empty()) {
       auto task_info = taskQ.top().second;
       taskQ.pop();
-      // 创建环境
-      for (int i = 0; i < task_info.size(); i++){
-        auto boxInfo = task_info[i].boxInfo;
-        auto boxSize =
-            Eigen::Vector3d(task_info[i].lx, task_info[i].ly, task_info[i].lz);
-        generator->AddBoxEnvirInfo(boxInfo.translation(), boxSize,
-                                   Eigen::Quaterniond(boxInfo.rotation()),
-                                   "tool");
-      }
       // 生成喷涂约束
       auto task = task_info.back();
       auto boxInfo = task.boxInfo;
       auto boxSize = Eigen::Vector3d(task.lx, task.ly, task.lz);
+      auto boxCenter = boxInfo.translation();
       Eigen::VectorXd p, ori;
       Eigen::VectorXd init_dof, traj, entry_traj, quit_traj;
       init_dof = vdata->getRobotWaitPose();
       int ndof = 6;
-      generator->GeneratePaintConstraint(boxInfo.translation(), boxSize,
+
+      auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
+      float dest_y = -task.diff;
+      if(!((task.face == 0) ^ invert)){
+        p1[1] = p1[1] - boxSize[1];
+        dest_y = -dest_y;
+      }
+      float diff = dest_y - p1[1];
+      // 创建环境
+      for (int i = 0; i < task_info.size(); i++){
+        auto boxInfo_1 = task_info[i].boxInfo;
+        auto boxSize_1 =
+            Eigen::Vector3d(task_info[i].lx, task_info[i].ly, task_info[i].lz);
+        auto boxCenter_1 = boxInfo_1.translation();
+        boxCenter_1[1] += diff;
+        generator->AddBoxEnvirInfo(boxCenter_1, boxSize_1,
+                                   Eigen::Quaterniond(boxInfo.rotation()),
+                                   "tool");
+      }
+
+
+      boxCenter[1] += diff;
+      generator->GeneratePaintConstraint(boxCenter, boxSize,
                                          Eigen::Quaterniond(boxInfo.rotation()),
                                          getPaintOrientation(), task.face == 0,
                                          invert, p, ori);
       bool ret = generator->GeneratePaintTrajectory(init_dof, p, ori, traj, ndof);
+
+
+
       int N = p.size() / ndof;
       if(ret){
         ret = generator->GenerateEntryTrajectory(
@@ -174,10 +195,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
               ndof, 3);
         }
       }
-      auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
-      if(!((task.face == 0) ^ invert)){
-        p1[1] = p1[1] - boxSize[1];
-      }
+
       auto mc_data = generator->calChainZeroPoint(p1, 0, task.encoder, isIncrease);
 
       // 清除环境
