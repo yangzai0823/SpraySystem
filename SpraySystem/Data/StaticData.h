@@ -8,29 +8,34 @@ namespace vws {
         /**
          * @brief PLC出发信号超时时间，单位毫秒
          */
-        int64_t BottomSingalTimeOut = 60 * 1000;
+        static int64_t BottomSingalTimeOut = 60 * 1000;
         /**
          * @brief PLC出发信号超时时间，单位毫秒
          */
-        int64_t TopSingalTimeOut = 60 * 1000;
+        static int64_t TopSingalTimeOut = 60 * 1000;
         /**
-         * @brief 箱子理论长度
+         * @brief 箱子理论长度，单位mm
          */
-        int64_t BoxLenght = 1.2;
+        static int64_t BoxLenght = 500;
 
         /**
-         * @brief 箱子理论高度
+         * @brief 箱子理论高度, 单位mm
          */
-        int64_t BoxHeight = 0.8;
+       static int64_t BoxHeight = 800;
 
-        Eigen::Isometry3d handEyeMatrix;
+        static Eigen::Isometry3d handEyeMatrix;
 
-        int32_t LaserUp = 2047;
-        int32_t LaserBottom = 0;
+        static int32_t LaserUp = 2047;
+        static int32_t LaserBottom = 0;
 
 
         /// @brief 喷涂偏差值
-        uint64_t diff = 300; 
+        static uint64_t diff = 300; 
+
+        //机器人空闲位置
+
+        //
+
      class DataInit{
      public:
          static void Init(){

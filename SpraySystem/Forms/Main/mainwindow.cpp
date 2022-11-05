@@ -211,5 +211,5 @@ void MainWindow::deviceConnectError_slot(QString device, int state)
 
 void MainWindow::on_btn_EStop_clicked()
 {
-    mainprocess->sendtorbt();
+    // mainprocess->sendtorbt();
 }

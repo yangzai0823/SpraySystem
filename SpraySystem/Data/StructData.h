@@ -15,26 +15,26 @@ namespace vws{
      */
     struct PLCData{
         int heart;
-        float laser1;
-        float laser2;
-        float laser3;
-        float laser4;
-        /**
-         * @brief 上方箱体感应
-         */
-        bool flag1;
-        /**
-         * @brief 下方箱体感应
-         */
-        bool flag2;
-        /**
-         * @brief 下相机信号
-         */
-        bool flag3;
+        float laser1 = 0;
+        float laser2 = 0;
+        float laser3 = 0;
+        float laser4 = 0;
         /**
          * @brief 上相机信号
          */
-        bool flag4;
+        bool flag_laser_u = 0;
+        /**
+         * @brief 下相机信息号
+         */
+        bool flag_laser_b = 0;
+        /**
+         * @brief 上箱体感应
+         */
+        bool flag_camera_b = 0;
+        /**
+         * @brief 
+         */
+        bool flag_camera_u = 0;
     };
 
     /**
@@ -42,9 +42,10 @@ namespace vws{
      */
     struct ProcessData{
         /**
-         * @brief 标识位，0：空闲，1：触发拍照,采集信息，2：信息采集失败，3：信号完成，4：完成
+         * @brief 标识位，0：空闲，1：触发拍照,采集信息，2：信号完成，4：完成, 5:已处理, 
+         * TODO: 添加等待尾部拍照状态
          */
-        uint8_t flag;
+        uint8_t flag = 0;
         bool imgFlag=false;
         ImageData image;
 
@@ -54,6 +55,14 @@ namespace vws{
         std::vector<float> box1signal;
 
         int64_t mtimeStamp = 0;
+        /**
+         * @brief 拍照时刻编码器数值
+        */
+        uint64_t imgEncoder;
+        /*
+        * @brief 前后面，0：前面，1：后面
+        */
+        int face;
     };
 
     /**

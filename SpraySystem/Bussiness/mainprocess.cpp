@@ -17,8 +17,6 @@ void imgFunc(const VWSCamera::ImageData &data, void* pUser)
 
     mainProcess->currentData = data;
 
-
-
     VisionData v;
 
     if(cameraCallbackData->camera->getName()=="Camera 2"){
@@ -27,7 +25,7 @@ void imgFunc(const VWSCamera::ImageData &data, void* pUser)
     else{
         std::cout<<"获得下相机图像"<<std::endl;
         mainProcess->mainData.currentBottom.image = data;
-        mainProcess->UpdateCurrentData(mainProcess->mainData.currentBottom);
+        mainProcess->UpdateCurrentData(mainProcess->mainData.currentBottom, 0);
     }
 //    mainProcess->visionContext->work(data,handEyeMatrix,v);
 
@@ -42,15 +40,17 @@ void MainProcess::recevieData_Slot(QVariant data)
    if(ret==1){
 
    }
-   //下层数据采集完毕,处理第一张图片
    else if(ret == 2){
-      UpdateCurrentData(mainData.currentBottom);
+    std::cout<<"下层数据采集完毕,处理第一张图片"<<std::endl;
+      UpdateCurrentData(mainData.currentBottom,0);
    }
 }
 
 
 MainProcess::MainProcess()
 {
+    vws::DataInit::Init();
+
     DeviceManager *deviceManager = DeviceManager::getInstance();
     //PLC
     auto plc = deviceManager->getPlc();
@@ -93,7 +93,6 @@ MainProcess::MainProcess()
     trajThread = new QThread;
     trajProc->moveToThread(trajThread);
     connect(this,SIGNAL(begintraj_Singal(QVariant)), trajProc,SLOT(begintraj_Slot(QVariant)));
-    connect(trajProc,SIGNAL(traj_Signal(QVariant,QVariant)),this,SLOT(traj_Slot(QVariant,QVariant)));
     trajThread->start();
 
     signalProcess = new SignalProcess();
@@ -122,19 +121,22 @@ void MainProcess::VisionProcessing(vws::ProcessData data,bool upper_or_bottom)
     planTaskInfo.lx = visionData.width;
     planTaskInfo.ly = vws::BoxLenght;
     planTaskInfo.lz = vws::BoxHeight;
-    // planTaskInfo.encoder = 
-    planTaskInfo.face =0;
+    planTaskInfo.encoder = data.imgEncoder;
+    planTaskInfo.face =data.face;
     planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
     planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(1,2,3,4));
     planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(1,2,3));
     if(upper_or_bottom){
-        
-    }else{
-
+        qPlanTaskInfoTop.push_back(planTaskInfo);
     }
+    else{
+        qPlanTaskInfoBottom.push_back(planTaskInfo);
+    }
+    //触发轨迹规划信号
+
 }
 
-void MainProcess::UpdateCurrentData(vws::ProcessData data)
+void MainProcess::UpdateCurrentData(vws::ProcessData data, bool upper_or_bottom)
 {
     _mutex.lock();
     if(data.flag ==3 && data.imgFlag){
@@ -144,87 +146,48 @@ void MainProcess::UpdateCurrentData(vws::ProcessData data)
 
    if(data.flag==4){
         //视觉处理
+        VisionProcessing(data,upper_or_bottom);
+        data.flag  =5;
    }
 }
 
-void MainProcess::traj_Slot(QVariant varmc,QVariant varrbt)
-{
-    std::cout<<"反馈规划轨迹"<<std::endl;
 
-    auto mcdata = varmc.value<std::vector<float>>();
-    auto rbtdata= varrbt.value<RobotTask>();
-    mcQueue.push_back(mcdata);
-    trajQueue.push_back(rbtdata);
-}
+// void MainProcess::imgData_Slot(QByteArray imgData)
+// {
+// #pragma pack(1)
+//     struct DDD{
+//         double x;
+//         double y;
+//         double z;
+//         double q1;
+//         double q2;
+//         double q3;
+//         double q4;
+//     };
+// #pragma pack()
+//     auto buf = imgData.data();
+//     DDD* pd = (DDD*)buf;
 
+//     TrajParam param;
+//     param.boxCenterPoint = Eigen::Vector3d(pd->x,pd->y,pd->z);
+//     param.boxSize = Eigen::Vector3d(535,805,785);  //箱子尺寸lx,ly,lz
+//     param.boxQuat= Eigen::Quaterniond(pd->q1,pd->q2,pd->q3,pd->q4);
 
-// p1 上层近点
-// p2 下层近点
-// p3 右侧上层
-// p4 上层远点
-void calBoxPose1(
-    const Eigen::Vector3d& p1,
-    const Eigen::Vector3d& p2,
-    const Eigen::Vector3d& p3,
-    const Eigen::Vector3d& p4,
-    float& lx,
-    float& ly,
-    float& lz,
-    Eigen::Vector3d& center,
-    Eigen::Quaterniond& quat) {
-    Eigen::Vector3d ix = p4 - p1;
-    lx				   = ix.norm();
-    ix.normalize();
-    Eigen::Vector3d iy = p1 - p3;
-    ly				   = iy.norm();
-    iy.normalize();
-    Eigen::Vector3d iz = ix.cross(iy);
-    lz				   = (p1 - p2).norm();
-    ix				   = iy.cross(iz);
-    center			   = p1 + 0.5f * lx * ix - 0.5f * ly * iy - 0.5f * lz * iz;
-    Eigen::Matrix3d rotation;
-    rotation.col(0) = ix;
-    rotation.col(1) = iy;
-    rotation.col(2) = iz;
-    quat			= Eigen::Quaterniond(rotation);
-}
+//     auto mc = DeviceManager::getInstance()->getMC();
+//     auto encoders = mc->getChainEncoders();
+//     auto realtimeencoder = mc->getRealTimeEncoder();
 
-void MainProcess::imgData_Slot(QByteArray imgData)
-{
-#pragma pack(1)
-    struct DDD{
-        double x;
-        double y;
-        double z;
-        double q1;
-        double q2;
-        double q3;
-        double q4;
-    };
-#pragma pack()
-    auto buf = imgData.data();
-    DDD* pd = (DDD*)buf;
+//     std::cout<<"拍照悬挂链： "<<encoders[0]<<std::endl;
+//     std::cout<<"机器人0点： "<<realtimeencoder[0]<<std::endl;
 
-    TrajParam param;
-    param.boxCenterPoint = Eigen::Vector3d(pd->x,pd->y,pd->z);
-    param.boxSize = Eigen::Vector3d(535,805,785);  //箱子尺寸lx,ly,lz
-    param.boxQuat= Eigen::Quaterniond(pd->q1,pd->q2,pd->q3,pd->q4);
+//     param.offsetOfTraj = 300;
+//     param.sevenEncoder = realtimeencoder[0];
+//     param.encoder=encoders[0];
 
-    auto mc = DeviceManager::getInstance()->getMC();
-    auto encoders = mc->getChainEncoders();
-    auto realtimeencoder = mc->getRealTimeEncoder();
-
-    std::cout<<"拍照悬挂链： "<<encoders[0]<<std::endl;
-    std::cout<<"机器人0点： "<<realtimeencoder[0]<<std::endl;
-
-    param.offsetOfTraj = 300;
-    param.sevenEncoder = realtimeencoder[0];
-    param.encoder=encoders[0];
-
-    QVariant data;
-    data.setValue(param);
-    emit begintraj_Singal(data);
-}
+//     QVariant data;
+//     data.setValue(param);
+//     emit begintraj_Singal(data);
+// }
 
 void MainProcess::getTrajParam_Slot()
 {
@@ -239,39 +202,37 @@ void MainProcess::getTrajParam_Slot()
 
         std::cout<<"运动控制发送信息: "<<zeropoint<<std::endl;
         mc->sendTrajParam(zeropoint,offset);
-
-
-
     }
 }
-void MainProcess::sendtorbt()
-{
-    static VWSRobot::RobotTask staticTask;
 
-    auto rbt = DeviceManager::getInstance()->getRobot(0);
-    rbt->start();
-     VWSRobot::RobotTask rbtparam;
-    std::cout<<"机器人发送信息: "<<std::endl;
-    if(trajQueue.count()>0){
-         rbtparam = trajQueue.dequeue();
-         staticTask = rbtparam;
-    }
-    else
-    {
-        rbtparam = staticTask;
-    }
+// void MainProcess::sendtorbt()
+// {
+//     static VWSRobot::RobotTask staticTask;
 
-    std::vector<RobotTask> tasks;
-    std::cout<<"规划总点数: "<< rbtparam.track.size() <<std::endl;
-    size_t index__(0);
-    for(auto&& i:rbtparam.track){
-        std::cout << ++index__ << "\t";
-        for(auto&&v : i){
-            std::cout << v << ",";
-        }
-        std::cout << std::endl;
-    }
-    tasks.push_back(rbtparam);
-    rbt->sendData(tasks);
-    std::cout<<"发送结束"<<std::endl;
-}
+//     auto rbt = DeviceManager::getInstance()->getRobot(0);
+//     rbt->start();
+//      VWSRobot::RobotTask rbtparam;
+//     std::cout<<"机器人发送信息: "<<std::endl;
+//     if(trajQueue.count()>0){
+//          rbtparam = trajQueue.dequeue();
+//          staticTask = rbtparam;
+//     }
+//     else
+//     {
+//         rbtparam = staticTask;
+//     }
+
+//     std::vector<RobotTask> tasks;
+//     std::cout<<"规划总点数: "<< rbtparam.track.size() <<std::endl;
+//     size_t index__(0);
+//     for(auto&& i:rbtparam.track){
+//         std::cout << ++index__ << "\t";
+//         for(auto&&v : i){
+//             std::cout << v << ",";
+//         }
+//         std::cout << std::endl;
+//     }
+//     tasks.push_back(rbtparam);
+//     rbt->sendData(tasks);
+//     std::cout<<"发送结束"<<std::endl;
+// }

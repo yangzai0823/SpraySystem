@@ -37,7 +37,7 @@ public:
     ~MainProcess();
     void Execute();
 
-    void sendtorbt();
+    // void sendtorbt();
     /**
      * @brief Get the Plan Task Info object
      * 
@@ -47,7 +47,10 @@ public:
     std::deque<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0);
     float getChainSpeed(); // mm/s
     uint64_t getChainEncoder();
-    void UpdateCurrentData(vws::ProcessData data);
+    /// @brief 
+    /// @param data 
+    /// @param upper_or_bottom   0: 表示底层箱子， 1：表示上层
+    void UpdateCurrentData(vws::ProcessData data,bool upper_or_bottom=0);
 private:
     /// @brief 
     /// @param data 
@@ -85,13 +88,8 @@ private slots:
      * @param data
      */
     void recevieData_Slot(QVariant data);
-    /**
-     * @brief 轨迹规划反馈槽
-     * @param varmc
-     * @param varrbt
-     */
-    void traj_Slot(QVariant varmc,QVariant varrbt);
-    void imgData_Slot(QByteArray imgData);
+
+    // void imgData_Slot(QByteArray imgData);
     /**
      * @brief 运动控制器获取参数槽
      */
