@@ -42,11 +42,15 @@ public:
      * @brief Get the Plan Task Info object
      * 
      * @param upper_or_bottom    0: 表示底层箱子， 1：表示上层
-     * @return std::deque<vws::PlanTaskInfo>* 
+     * @return std::vector<vws::PlanTaskInfo>* 
      */
-    std::deque<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0);
-    float getChainSpeed(); // mm/s
-    uint64_t getChainEncoder();
+    std::vector<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0) const;
+    float getChainSpeed() const; // mm/s
+    uint64_t getChainEncoder() const;
+    float getChainUnits() const;        //
+    Eigen::VectorXd getRobotWaitPose() const;     //
+    bool getChainEncoderDir() const;        // true: 运行时编码器值增加，false ： 运行时编码器值减小
+
     /// @brief 
     /// @param data 
     /// @param upper_or_bottom   0: 表示底层箱子， 1：表示上层
@@ -56,6 +60,11 @@ private:
     /// @param data 
     /// @param upper_or_bottom   0: 表示底层箱子， 1：表示上层
     void VisionProcessing(vws::ProcessData data,bool upper_or_bottom=0);
+
+private:
+    void TrajectoryProcessing(bool range, bool camera);
+
+
 public:
     ImageData currentData;
     VisionData visionData;
@@ -95,7 +104,7 @@ private slots:
      */
     void getTrajParam_Slot();
 signals:
-    void begintraj_Singal(QVariant data);
+    void begintraj_Singal(MainProcess* data);
 };
 
 #endif // MAINPROCESS_H

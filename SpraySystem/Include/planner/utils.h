@@ -1,4 +1,20 @@
+#pragma once
+#include <IK/abb_ik.h>
+#include <ompl/base/State.h>
+#include <openrave-core.h>
+#include <openrave/openrave.h>
 
+#ifdef USE_OCCT
+#include <TopoDS_Shape.hxx>
+#endif
+#include <boost/shared_ptr.hpp>
+#include <iostream>
+#include <trajopt/typedefs.hpp>
+
+#include "sco/sco_common.hpp"
+#include "trajopt/collision_checker.hpp"
+#include "trajopt/collision_terms.hpp"
+#include "trajopt/common.hpp"
 // 求可行的机器人configure
 std::ostream& operator<<(std::ostream& s, const ompl::base::State* st);
 std::ostream& operator<<(std::ostream& s, const trajopt::DblVec& pvalue);
@@ -88,6 +104,24 @@ void genInitOrientedPathForLine(const Eigen::Vector3d& p1,
                                 const Eigen::Isometry3d& painter_tf,
                                 double step_dist, double paint_dist,
                                 Eigen::VectorXd& p, Eigen::VectorXd& ori);
+
+/**
+ * @brief 检查轨迹是否在约束范围内
+ * 
+ * @param robot         机器人模型
+ * @param manip_name    执行器的名称
+ * @param traj          轨迹序列，
+ * @param pos           位置约束，类型：（x，y，z）
+ * @param ori           姿态约束，类型：四元数
+ * @param pos_tol       位置约束的范围，单位：米
+ * @param ori_tol       姿态约束的范围，单位：弧度，检测标准是四元数对应坐标系三个轴各自差异角度不超过该约束
+ * @return true         满足约束
+ * @return false        不满足约束
+ */
+bool checkPath(OpenRAVE::RobotBasePtr robot, const std::string& manip_name,
+               const Eigen::VectorXd& traj, const Eigen::VectorXd& pos,
+               const Eigen::VectorXd& ori, double pos_tol, double ori_tol);
+
 class VwsPlanEnv {
  public:
   OpenRAVE::EnvironmentBasePtr env;

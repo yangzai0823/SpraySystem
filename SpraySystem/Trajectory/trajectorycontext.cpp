@@ -1,5 +1,5 @@
 #include "trajectorycontext.h"
-
+#include "Bussiness/mainprocess.h"
 TrajectoryContext::TrajectoryContext(TrajectoryGenerator *generator,BaseStrategy *planstrategy,BaseStrategy *sevenstrategy)
 {
     this->planstrategy = planstrategy;
@@ -15,20 +15,22 @@ TrajectoryContext::~TrajectoryContext()
     delete generator;
 }
 
-RobotTask  TrajectoryContext::Work(TrajParam param)
+RobotTask  TrajectoryContext::Work(vws::PlanTaskInfo* param)
 {
-
-    auto p1 = bottomnearpont(param.boxCenterPoint,param.boxSize);
-    auto y = p1[1]+ param.offsetOfTraj/1000.0;
-    param.boxCenterPoint[1] = param.boxCenterPoint[1] - y;
-
-//    generator->GenerateEnvirInfo();
-    generator->BoxEnvirInfo(param.boxCenterPoint,param.boxSize,param.boxQuat);
-    generator->GenerateTrajectory(param.boxCenterPoint,param.boxSize,param.boxQuat);
+    
+    
+    // auto p1 = bottomnearpont(param.boxCenterPoint,param.boxSize);
+    // auto y = p1[1]+ param.offsetOfTraj/1000.0;
+    // param.boxCenterPoint[1] = param.boxCenterPoint[1] - y;
+    
+    // generator->GenerateEnvirInfo();
+    // generator->BoxEnvirInfo(param.boxCenterPoint,param.boxSize,param.boxQuat);
+    // generator->GenerateTrajectory(param.boxCenterPoint,param.boxSize,param.boxQuat);
     auto rbtTask = generator->GenerateSprayTask();
 
     return rbtTask;
 }
+
 
 std::vector<float> TrajectoryContext::calChainZeroPoint(TrajParam param)
 {

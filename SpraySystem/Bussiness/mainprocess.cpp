@@ -152,6 +152,7 @@ void MainProcess::UpdateCurrentData(vws::ProcessData data, bool upper_or_bottom)
 }
 
 
+
 // void MainProcess::imgData_Slot(QByteArray imgData)
 // {
 // #pragma pack(1)
@@ -188,6 +189,7 @@ void MainProcess::UpdateCurrentData(vws::ProcessData data, bool upper_or_bottom)
 //     data.setValue(param);
 //     emit begintraj_Singal(data);
 // }
+
 
 void MainProcess::getTrajParam_Slot()
 {

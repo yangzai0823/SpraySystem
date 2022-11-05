@@ -7,10 +7,11 @@
 #include "Strategy/basestrategy.h"
 #include "trajectorygenerator.h"
 #include "VWSRobot/VWSRobot.h"
+#include "Data/StructData.h"
 using RobotTask = VWSRobot::RobotTask;
 using TrajParam = vws::TrajParam;
-
 Q_DECLARE_METATYPE(TrajParam)  //注册结构体
+
 class TrajectoryContext
 {
 public:
@@ -21,7 +22,7 @@ public:
      * @brief 轨迹规划
      * @return
      */
-    RobotTask  Work(TrajParam param);
+    RobotTask  Work(vws::PlanTaskInfo* param);
 
     std::vector<float> calChainZeroPoint(TrajParam param);
 private:
