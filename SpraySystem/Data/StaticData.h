@@ -27,6 +27,10 @@ namespace vws {
 
         int32_t LaserUp = 2047;
         int32_t LaserBottom = 0;
+
+
+        /// @brief 喷涂偏差值
+        uint64_t diff = 300; 
      class DataInit{
      public:
          static void Init(){

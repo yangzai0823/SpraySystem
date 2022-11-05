@@ -47,11 +47,12 @@ public:
     std::deque<vws::PlanTaskInfo> * GetPlanTaskInfo(int upper_or_bottom = 0);
     float getChainSpeed(); // mm/s
     uint64_t getChainEncoder();
-
+    void UpdateCurrentData(vws::ProcessData data);
 private:
-    void VisionProcessing();
-    void TrajectoryProcessing(bool range, bool camera);
-    void UpdateCurrentData();
+    /// @brief 
+    /// @param data 
+    /// @param upper_or_bottom   0: 表示底层箱子， 1：表示上层
+    void VisionProcessing(vws::ProcessData data,bool upper_or_bottom=0);
 public:
     ImageData currentData;
     VisionData visionData;
@@ -60,8 +61,8 @@ public:
 private:
     QQueue<RobotTask> trajQueue;
     QQueue<std::vector<float>> mcQueue;
-    std::deque<vws::PlanTaskInfo> qPlanTaskInfoTop;
-    std::deque<vws::PlanTaskInfo> qPlanTaskInfoBottom;
+    std::vector<vws::PlanTaskInfo> qPlanTaskInfoTop;
+    std::vector<vws::PlanTaskInfo> qPlanTaskInfoBottom;
 
     TrajectoryProcess *trajProc;
     QThread *trajThread;
@@ -76,6 +77,8 @@ private:
     SignalProcess *signalProcess;
 
     static std::mutex _mutex;
+
+    bool imgFlag = false;
 private slots:
     /**
      * @brief PLC槽

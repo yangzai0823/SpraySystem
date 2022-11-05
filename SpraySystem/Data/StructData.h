@@ -42,10 +42,10 @@ namespace vws{
      */
     struct ProcessData{
         /**
-         * @brief 标识位，0：空闲，1：触发拍照,采集信息，2：信息采集失败，3：信号完成，无图像，4：信号未完成，有图像，5：完成
+         * @brief 标识位，0：空闲，1：触发拍照,采集信息，2：信息采集失败，3：信号完成，4：完成
          */
         uint8_t flag;
-
+        bool imgFlag=false;
         ImageData image;
 
         /**
@@ -60,38 +60,8 @@ namespace vws{
      * @brief 主程序
      */
     struct MainData{
-        /**
-         * @brief 标识位，0：空闲，
-         */
-        uint8_t flag;
-        /**
-         * @brief 上层箱子两次触发图像结果
-         */
-        std::vector<ImageData> imageTop;
-        std::vector<ImageData> imageBottom;
-        ImageData  image1;
-        ImageData  image2;
-        /**
-         * @brief 上册箱体信息：测距1、测距2
-         */
-        std::vector<float> box1signal;
-        /**
-         * @brief 下册箱体信息：测距1、测距2
-         */
-        std::vector<float> box2signal;
-        int cell = 0;
-        int64_t mtimeStampTop = 0;
-        int64_t mtimeStampBottom = 0;
-
-        int32_t topflag = 0;
-        int32_t bottomflag = 0;
-
         ProcessData currentTop;
         ProcessData currentBottom;
-
-        QQueue<ProcessData> qTop;
-
-        QQueue<ProcessData> qBottom;
     };
 
     /**
@@ -105,7 +75,7 @@ namespace vws{
         
         Eigen::Isometry3d boxInfo;
         
-        int face;
+        int face;  //0：前面， 1：后面
         uint64_t encoder; //拍照时刻
         uint64_t diff;  //偏移
     };

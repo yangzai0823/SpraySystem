@@ -26,11 +26,9 @@ uint32_t SignalProcess::topwork(vws::PLCData plcData, vws::MainData &mainData)
 {
     //获取当前时间戳，对比触发时刻记录的时间戳
     int64_t currentStamp = getTimeStamp();
-    if(this->flagtop!=0 && currentStamp - mainData.mtimeStampTop>vws::BottomSingalTimeOut){
+    if(this->flagtop!=0 && currentStamp - mainData.currentTop.mtimeStamp>vws::BottomSingalTimeOut){
         std::cout<<"触发时间超过规定时长，清空存储信息"<<std::endl;
-        mainData.cell = 0;
-        flagtop = 0;
-        mainData.box1signal = {0,0};
+
     }
 
     if(plcData.flag4 && flagtop==0){
@@ -38,15 +36,9 @@ uint32_t SignalProcess::topwork(vws::PLCData plcData, vws::MainData &mainData)
         flagtop = 1;
         //2. 记录测距
         if(LaserOk(plcData.laser1,plcData.laser2)){
-            mainData.box1signal = {plcData.laser1,plcData.laser2};
+   
         }
-        mainData.mtimeStampTop = currentStamp;
-    }
-
-    if(flagtop ==1 && mainData.box1signal.size()==0){
-        if(LaserOk(plcData.laser1,plcData.laser2)){
-            mainData.box1signal = {plcData.laser1,plcData.laser2};
-        }
+   
     }
 }
 
@@ -54,7 +46,7 @@ uint32_t SignalProcess::bottomwork(vws::PLCData plcData, vws::MainData &mainData
 {
     //获取当前时间戳，对比触发时刻记录的时间戳
     int64_t currentStamp = getTimeStamp();
-    if(this->flagbottom!=0 && currentStamp - mainData.mtimeStampBottom>vws::BottomSingalTimeOut){
+    if(this->flagbottom!=0 && currentStamp - mainData.currentBottom.mtimeStamp>vws::BottomSingalTimeOut){
         std::cout<<"下箱体触发时间超过规定时长，清空存储信息"<<std::endl;
         flagbottom = 0;
         mainData.currentBottom.box1signal.clear();
@@ -76,14 +68,6 @@ uint32_t SignalProcess::bottomwork(vws::PLCData plcData, vws::MainData &mainData
         }
         else{
             mainData.currentBottom.flag = 3;
-        }
-    }
-
-    //测距失败重新采集
-    if(mainData.currentBottom.flag==3){
-        if(LaserOk(plcData.laser3,plcData.laser4)){
-            mainData.currentBottom.box1signal = {plcData.laser3,plcData.laser4};
-            mainData.currentBottom.flag =3;
         }
     }
 

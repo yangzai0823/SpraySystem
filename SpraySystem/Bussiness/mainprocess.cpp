@@ -2,7 +2,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include "VWSRobot/VWSRobot.h"
-
+#include "Data/StaticData.h"
 
 std::mutex MainProcess::_mutex;
 void imgFunc(const VWSCamera::ImageData &data, void* pUser)
@@ -22,18 +22,12 @@ void imgFunc(const VWSCamera::ImageData &data, void* pUser)
     VisionData v;
 
     if(cameraCallbackData->camera->getName()=="Camera 2"){
-//        mainProcess->mainData.imageTop.push_back(data);
+
     }
     else{
-        mainProcess->mainData.imageBottom.push_back(data);
-        if(mainProcess->mainData.imageBottom.size()==2){
-            std::cout<<"处理第二章图像"<<std::endl;
-
-            //清空图像
-            cameraOperator->deleteImage(mainProcess->mainData.imageBottom[0]);
-             cameraOperator->deleteImage(mainProcess->mainData.imageBottom[1]);
-
-        }
+        std::cout<<"获得下相机图像"<<std::endl;
+        mainProcess->mainData.currentBottom.image = data;
+        mainProcess->UpdateCurrentData(mainProcess->mainData.currentBottom);
     }
 //    mainProcess->visionContext->work(data,handEyeMatrix,v);
 
@@ -50,7 +44,7 @@ void MainProcess::recevieData_Slot(QVariant data)
    }
    //下层数据采集完毕,处理第一张图片
    else if(ret == 2){
-
+      UpdateCurrentData(mainData.currentBottom);
    }
 }
 
@@ -118,33 +112,39 @@ MainProcess::~MainProcess()
     delete signalProcess;
 }
 
-bool range;
-int intcamera =2 ;
-void MainProcess::TrajectoryProcessing(bool brange = false, bool camera = false)
+void MainProcess::VisionProcessing(vws::ProcessData data,bool upper_or_bottom)
 {
-    if(brange)
-        range = brange;
-    if(camera){
-        intcamera++;
-    }
+    VisionData visionData;
+    visionContext->work(data.image,vws::handEyeMatrix, visionData);
+    DeviceManager::getInstance()->getCamera(0)->deleteImage(data.image);
+    vws::PlanTaskInfo planTaskInfo;
+    planTaskInfo.diff =  vws::diff;
+    planTaskInfo.lx = visionData.width;
+    planTaskInfo.ly = vws::BoxLenght;
+    planTaskInfo.lz = vws::BoxHeight;
+    // planTaskInfo.encoder = 
+    planTaskInfo.face =0;
+    planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
+    planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(1,2,3,4));
+    planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(1,2,3));
+    if(upper_or_bottom){
+        
+    }else{
 
-    //测距信号，上下相机采图完成，触发路径规划
-//    if(range && ((plcdata.cell==1 && intcamera==1) || (plcdata.cell==2 && intcamera==2)))
-//    {
-//        TrajData trajData;
-//        trajData.plcData =plcdata;
-//        QVariant data;
-//        data.setValue(trajData);
-//        emit begintraj_Singal(data);
-//        range =false;
-    //    }
+    }
 }
 
-void MainProcess::UpdateCurrentData()
+void MainProcess::UpdateCurrentData(vws::ProcessData data)
 {
     _mutex.lock();
-
+    if(data.flag ==3 && data.imgFlag){
+        data.flag = 4;
+    }
     _mutex.unlock();
+
+   if(data.flag==4){
+        //视觉处理
+   }
 }
 
 void MainProcess::traj_Slot(QVariant varmc,QVariant varrbt)
