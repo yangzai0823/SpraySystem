@@ -1,8 +1,9 @@
 #include "qtsocketclient.h"
 
 
-QtSocketClient::QtSocketClient()
+QtSocketClient::QtSocketClient(BaseDataPaser *paser)
 {
+    _paser = paser;
 //    socketThread = new QThread();
     //主线程
     socketThread = new QThread(this);
@@ -10,6 +11,8 @@ QtSocketClient::QtSocketClient()
 //    connect(socketThread, SIGNAL(finished()), this, SLOT(OnThreadFinished()));
     moveToThread(socketThread);
     socketThread->start();
+
+    connect(this,SIGNAL(send_Signal(QByteArray)),this,SLOT(send_Slot(QByteArray)));
 }
 
 QtSocketClient::~QtSocketClient()
@@ -85,12 +88,14 @@ void QtSocketClient::readyRead_Slot()//定义接收信号的槽
 
     QByteArray buf=tcpsocket->readAll();
 
-    emit readyRead_Signal(buf);
+    // emit readyRead_Signal(buf);
 
     //调用相应的数据解释
-
+    _paser->DataPaser(buf);
 }
 
-void QtSocketClient::send_Slot(QByteArray msg){
+void QtSocketClient::send_Slot(QByteArray msg)
+{
     auto ret = tcpsocket->write(msg);
+    std::cout<<"发送成功，字节书: "<<ret<<std::endl;
 }

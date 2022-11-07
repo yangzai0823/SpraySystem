@@ -195,7 +195,7 @@ void MainProcess::UpdateCurrentData(vws::ProcessData data, bool upper_or_bottom)
     _mutex.unlock();
 
    if(data.flag==4){
-        //视觉处理
+        std::cout<<"信号+图像完成"<<std::endl;
         data.flag =6;
         VisionProcessing(data,upper_or_bottom);
         data.flag  =5;

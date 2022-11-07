@@ -26,11 +26,12 @@ public:
     int sendData(QString data);
     QString getName();
 
+    PLCData plcData;
 private:
     QtSocketClient *socketclient;
-    std::shared_ptr<PLCDataPaser> dataparser;
+    PLCDataPaser* dataparser;
 private slots:
-    void readyRead_Slot(QByteArray buf);
+    void readyRead_Slot();
 signals:
     void recevieData_Signal(QVariant data);
     void newConnection_Signal(QString ip,int port);

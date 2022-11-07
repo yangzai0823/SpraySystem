@@ -15,14 +15,17 @@ MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
 
 MCOperator::~MCOperator()
 {
+    delete dataparser;
     delete socketclient;
 }
 
 int MCOperator::init()
 {
-    socketclient = new QtSocketClient();
+    dataparser = new mcdatapaser();
+    dataparser->mcData = &data;
+    socketclient = new QtSocketClient(dataparser);
 
-    dataparser = std::make_shared<mcdatapaser>();
+
 
     connect(socketclient,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(readyRead_Slot(QByteArray)),Qt::ConnectionType::QueuedConnection);
     connect(this,SIGNAL(connect_Signal(QString,int)),socketclient,SLOT(connect_Slot(QString,int)),Qt::ConnectionType::QueuedConnection);
@@ -101,7 +104,7 @@ void MCOperator::waitData(bool &flag)
     int i=0;
     while (!flag) {
         i++;
-        QCoreApplication::processEvents();
+//        QCoreApplication::processEvents();
         usleep(10);
     }
     flag =false;
@@ -113,7 +116,7 @@ void MCOperator::readyRead_Slot(QByteArray buf)
     std::thread::id id = std::this_thread::get_id();
 //    std::cout << "mcoperator slot 线程ID: "<< id << std::endl;
 
-    dataparser->DataPaser(buf,data);
+//    dataparser->DataPaser(buf,data);
 
     //获取规划数据
     if(data.btrajparam){

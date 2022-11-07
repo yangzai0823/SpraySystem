@@ -6,12 +6,13 @@
 #include <QHostAddress>
 #include <iostream>
 #include <QThread>
+#include "Data/basedatapaser.h"
 
 class QtSocketClient : public QThread
 {
     Q_OBJECT
 public:
-     QtSocketClient();
+     QtSocketClient(BaseDataPaser *paser);
      ~QtSocketClient();
     
     int connectServer(QString ip,int port);
@@ -22,6 +23,8 @@ public:
 public:
     QTcpSocket *tcpsocket= NULL;
     QThread *socketThread;
+private:
+    BaseDataPaser *_paser;
 public slots:
      void readyRead_Slot();
 public slots:

@@ -34,7 +34,7 @@ public:
 private:
     MCData data;
     QtSocketClient *socketclient;
-     std::shared_ptr<mcdatapaser> dataparser;
+     mcdatapaser* dataparser;
 
     void sendData(uint8_t head,float v1, float v2);
     void waitData(bool &flag);

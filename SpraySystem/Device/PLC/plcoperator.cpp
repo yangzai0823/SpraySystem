@@ -9,15 +9,19 @@ PLCOperator::PLCOperator(std::shared_ptr<PLC> plc)
 
 PLCOperator::~PLCOperator()
 {
+    delete dataparser;
     delete socketclient;
 }
 
 int PLCOperator::init()
 {
-    socketclient = new QtSocketClient();
-    dataparser = std::make_shared<PLCDataPaser>();
+    dataparser = new PLCDataPaser();
+    dataparser->plcdata = &plcData;
+    socketclient = new QtSocketClient(dataparser);
 
-    connect(socketclient,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(readyRead_Slot(QByteArray)));
+
+    // connect(socketclient,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(readyRead_Slot(QByteArray)));
+    connect(dataparser,SIGNAL(readyRead_Signal()),this,SLOT(readyRead_Slot()));
     return 1;
 }
 
@@ -43,13 +47,13 @@ int PLCOperator::sendData(QString data)
     return ret;
 }
 
-void PLCOperator::readyRead_Slot(QByteArray buf)
+void PLCOperator::readyRead_Slot()
 {
-    PLCData data;
-    dataparser->DataPaser(buf,data);
+    // PLCData data;
+//    dataparser->DataPaser(buf,data);
 
     QVariant varData;
-    varData.setValue(data);
+    varData.setValue(plcData);
 
     emit recevieData_Signal(varData);
 }

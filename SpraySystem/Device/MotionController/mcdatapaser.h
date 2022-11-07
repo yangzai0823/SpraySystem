@@ -3,15 +3,20 @@
 #include <QObject>
 #include <iostream>
 #include "Data/StructData.h"
+#include "Data/basedatapaser.h"
 
 using MCData = vws::MCData;
 
-class mcdatapaser
+class mcdatapaser:public BaseDataPaser
 {
 public:
 
     mcdatapaser();
-    void DataPaser(QByteArray buf,MCData & data);
+
+    void DataPaser(QByteArray buf);
+    MCData *mcData;
+private:
+  void DataPaser(QByteArray buf,MCData * data);
 };
 
 #endif // MCDATAPASER_H
