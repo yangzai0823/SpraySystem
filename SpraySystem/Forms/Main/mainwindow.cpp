@@ -132,12 +132,16 @@ void MainWindow::on_btn_Start_clicked()
     QIcon ico;
     if(isRun)
     {
-        delete mainprocess;
-        ico.addFile("://Images/start.png");
+      mainprocess->triggerTest();
+      return;
+      // delete mainprocess;
+      ico.addFile("://Images/start.png");
     }
     else
     {
-        mainprocess = new MainProcess();
+        if(!mainprocess){
+            mainprocess = new MainProcess();
+        }
 
         ico.addFile("://Images/stop.png");
     }

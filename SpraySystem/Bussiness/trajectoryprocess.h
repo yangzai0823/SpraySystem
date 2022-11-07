@@ -31,7 +31,7 @@ public:
     std::vector<vws::PlanTaskInfo> tryGetPlanTask(
         MainProcess *vdata, vws::PlanTaskInfo *task,
         std::vector<vws::PlanTaskInfo> &q1, std::vector<vws::PlanTaskInfo> &q2,
-        uint64_t encoder_off1, uint64_t encoder_off2, bool dir);
+        int64_t encoder_off1, int64_t encoder_off2, int64_t current_encoder, bool dir);
 
    private:
     std::shared_ptr<VisionContext> visionContext;

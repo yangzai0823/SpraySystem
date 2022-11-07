@@ -58,7 +58,7 @@ namespace vws{
         /**
          * @brief 拍照时刻编码器数值
         */
-        uint64_t imgEncoder;
+        int64_t imgEncoder;
         /*
         * @brief 前后面，0：前面，1：后面
         */
@@ -85,7 +85,7 @@ namespace vws{
         Eigen::Isometry3d boxInfo;
         
         int face;  //0：前面， 1：后面
-        uint64_t encoder; //拍照时刻
+        int64_t encoder; //拍照时刻
         float diff;  //偏移
     };
 

@@ -426,7 +426,7 @@
       <origin
 
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 0 -0.7856" />
       <geometry>
         <mesh
           filename="file://../urdf/abb_irb1410_urdf/meshes/experiment_painter.STL" />

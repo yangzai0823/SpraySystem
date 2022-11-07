@@ -129,8 +129,11 @@ float MainProcess::getChainSpeed() const
 
 uint64_t MainProcess::getChainEncoder() const
 {
-    auto val = DeviceManager::getInstance()->getMC()->getChainEncoders();
-    return val[0];
+    // auto val = DeviceManager::getInstance()->getMC()->getChainEncoders();
+    // return val[0];
+    static uint64_t en = 1e8;
+    en -= 50;
+    return en;
 }
 
 float MainProcess::getChainUnits() const
@@ -149,7 +152,7 @@ Eigen::VectorXd MainProcess::getRobotWaitPose() const
 bool MainProcess::getChainEncoderDir() const
 {
     //TODO: 根据实际情况
-    return true;
+    return false;
 }
 
 void MainProcess::VisionProcessing(vws::ProcessData data,bool upper_or_bottom)

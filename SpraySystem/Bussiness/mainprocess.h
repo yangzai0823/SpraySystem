@@ -55,7 +55,10 @@ public:
     /// @param data 
     /// @param upper_or_bottom   0: 表示底层箱子， 1：表示上层
     void UpdateCurrentData(vws::ProcessData data,bool upper_or_bottom=0);
-private:
+
+    void triggerTest() { emit begintraj_Singal(this); }
+
+   private:
     /// @brief 
     /// @param data 
     /// @param upper_or_bottom   0: 表示底层箱子， 1：表示上层

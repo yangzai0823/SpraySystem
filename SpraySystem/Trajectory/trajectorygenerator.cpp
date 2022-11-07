@@ -83,6 +83,7 @@ TrajectoryGenerator::TrajectoryGenerator()
             0.03744605928659439,
             481.78564453125;
     extraAxisDirection = Eigen::Vector3d( 0, -0.0002153165405616164,0);
+    GenerateEnvirInfo();
 }
 
 TrajectoryGenerator *TrajectoryGenerator::Instance()
@@ -111,9 +112,9 @@ void TrajectoryGenerator::GenerateEnvirInfo()
     // 初始化环境
     // URDFTest pt;
       pt = new VwsPlanEnv(
-        "/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/urdf/abb_irb1410_urdf/urdf/"
+        "../urdf/abb_irb1410_urdf/urdf/"
         "abb_irb1410_urdf.urdf",
-        "/home/vws/Demo/QT/Spray/build-SpraySystem-Desktop_Qt_5_12_8_GCC_64bit-Debug/urdf/abb_irb1410_urdf/urdf/"
+        "../urdf/abb_irb1410_urdf/urdf/"
         "abb_irb1410_urdf.srdf");
     auto manip_rot =   Eigen::AngleAxisd(M_PI, Vector3d::UnitZ()) *
                                Eigen::AngleAxisd(-M_PI / 2, Vector3d::UnitY()) *
@@ -132,12 +133,8 @@ void TrajectoryGenerator::AddBoxEnvirInfo(Eigen::Vector3d boxcenter,
   double box1centerx, box1centery, box1centerz;
   double box1height, box1width, box1length;
   double box1q1, box1q2, box1q3, box1q4;
-  box1centerx = boxcenter[0] / 1000.0;
-  box1centery = boxcenter[1] / 1000.0;
-  box1centerz = boxcenter[2] / 1000.0;
-  box1length = boxsize[0] / 2000.0;
-  box1width = boxsize[1] / 2000.0;
-  box1height = boxsize[2] / 2000.0;
+  boxcenter = boxcenter / 1000.0;
+  boxsize = boxsize / 1000.0;
 
   // 规划目标前表面
   boxes_.push_back(pt->addBox(boxcenter, boxsize / 2.0, boxq, name));
@@ -166,8 +163,8 @@ void TrajectoryGenerator::clearEnv(){
     for(auto &&k : boxes_){
       pt->removeBox(k);
     }
+    boxes_.clear();
 }
-
 
 void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint,
                                              Eigen::Vector3d boxSize,

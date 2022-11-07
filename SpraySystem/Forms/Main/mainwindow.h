@@ -58,7 +58,7 @@ private:
 
 //    DeviceMonitor *devicemonitor; //监听所有设备状态
 //    QThread *devicemonitorThread;
-    MainProcess *mainprocess;
+    MainProcess *mainprocess = nullptr;
 
     void startDevices();
     void updateDeviceState(QPushButton* sender,int state);
