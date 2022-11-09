@@ -79,6 +79,7 @@ int VWSRobot::sendData(std::vector<RobotTask>taskData) {
             data[off + 7] = 0;
             data[off + 8] = 0;
             data[off + 9] = 0;
+            off += 10;
         }else{
             for(auto jter = iter->track.begin();jter != iter->track.end();jter++){
                 data[off + 0] = *reinterpret_cast<float *>(&(iter->task));
@@ -94,7 +95,7 @@ int VWSRobot::sendData(std::vector<RobotTask>taskData) {
                 off += 10;
             }
         }
-        off += 10;
+
     }
 
     int nsend = 0;
@@ -105,7 +106,7 @@ int VWSRobot::sendData(std::vector<RobotTask>taskData) {
 //    std::cin>>e;
     //streamSocket.close();
     //delete serverSocket;
-    delete data;
+    delete data; //TODO: 删除报错
     return nsend == datalen?1:0;
 }
 

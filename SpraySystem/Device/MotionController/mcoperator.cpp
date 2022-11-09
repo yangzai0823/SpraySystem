@@ -25,7 +25,7 @@ int MCOperator::init()
     dataparser->mcData = &data;
     socketclient = new QtSocketClient(dataparser);
 
-
+    connect(dataparser,SIGNAL(getTrajParam_Signal()),this,SLOT(getTrajParam_Slot()));
 
     connect(socketclient,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(readyRead_Slot(QByteArray)),Qt::ConnectionType::QueuedConnection);
     connect(this,SIGNAL(connect_Signal(QString,int)),socketclient,SLOT(connect_Slot(QString,int)),Qt::ConnectionType::QueuedConnection);
@@ -37,6 +37,8 @@ int MCOperator::start()
 {
     // auto ret = socketclient->connectServer(ip,port);
    emit connect_Signal(ip,port);
+
+    sendData(8,0,0);
     return 1;
 }
 
@@ -114,14 +116,20 @@ void MCOperator::waitData(bool &flag)
 void MCOperator::readyRead_Slot(QByteArray buf)
 {
     std::thread::id id = std::this_thread::get_id();
+    emit getTrajParam_Signal();
 //    std::cout << "mcoperator slot 线程ID: "<< id << std::endl;
 
 //    dataparser->DataPaser(buf,data);
 
     //获取规划数据
-    if(data.btrajparam){
-        data.btrajparam=false;
-        emit getTrajParam_Signal();
+    // if(data.btrajparam){
+    //     data.btrajparam=false;
+    //     emit getTrajParam_Signal();
 
-    }
+    // }
+}
+
+void MCOperator::getTrajParam_Slot()
+{
+      emit getTrajParam_Signal();
 }

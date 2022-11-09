@@ -70,6 +70,7 @@ int QtSocketClient::send(QByteArray msg)
 {
     //auto ret = tcpsocket->write(msg);
     emit send_Signal(msg);
+    return 0;
 //    std::cout<<"发送成功，字节书: "<<ret<<std::endl;
 }
 

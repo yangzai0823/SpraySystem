@@ -50,6 +50,7 @@ void mcdatapaser::DataPaser(QByteArray buf, vws::MCData *data)
                 std::cout<<"运动控制器请求参数"<<std::endl;
                 data->btrajparam=true;
                 data->getparam = d1;
+                emit getTrajParam_Signal();
                 break;
             default:
                 break;

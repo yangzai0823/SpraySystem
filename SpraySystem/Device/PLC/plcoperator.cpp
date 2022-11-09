@@ -49,9 +49,6 @@ int PLCOperator::sendData(QString data)
 
 void PLCOperator::readyRead_Slot()
 {
-    // PLCData data;
-//    dataparser->DataPaser(buf,data);
-
     QVariant varData;
     varData.setValue(plcData);
 

@@ -15,7 +15,14 @@ public:
     void DataPaser(QByteArray buf);
     vws::PLCData *plcdata;
 private:
+    bool init = false;  //是否初始化，第一次接收plc信号，初始化相机高低位信号
+    bool pre_camera_b = false;
+    bool pre_camera_u = false;
+    bool pre_laser_b = false;
+    bool pre_laser_u = false;
 
+    bool isemit; //是否触发信号
+private:
     void DataPaser(QByteArray buf,vws::PLCData *data);
 
 signals:

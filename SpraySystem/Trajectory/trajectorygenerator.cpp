@@ -123,6 +123,12 @@ void TrajectoryGenerator::GenerateEnvirInfo()
     //设置工具坐标系
     pt->addManipulator(robot, "tool", "base", "link_flange", manip_rot,
                        Eigen::Vector3d(0.00, 0.2, 0.285));
+      //  // 添加墙面
+   pt->addBox(Eigen::Vector3d(-1, 0, 1), Eigen::Vector3d(0.01, 5, 2),
+   Eigen::Quaterniond(1,0,0,0), "wall");
+         //  // 添加地面
+   pt->addBox(Eigen::Vector3d(0, 0, -0.3), Eigen::Vector3d(5, 5, 0.01),
+   Eigen::Quaterniond(1,0,0,0), "floor");
 }
 
 void TrajectoryGenerator::AddBoxEnvirInfo(Eigen::Vector3d boxcenter,
@@ -206,8 +212,8 @@ void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint
   // genInitPathForRect(p1, p2, p3, dn, p, dir);
   // genInitOrientedPathForRect(p1, p2, p3, ori_dn, p, ori);
   genInitOrientedPathForBoxPlane(p1, p2, p3, ori_dn,
-                                 0,  // 0: x, 1: y
-                                 0.2, 0.15, 0.1, 0.1, 2, p, ori);
+                                 1,  // 0: x, 1: y
+                                 0.2, 0.15, 0.1, 0.1, 1, p, ori);
   p = p * 1000.0;
 }
 
@@ -279,7 +285,7 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       //             cnst_voil_cnt, elapsed_time, false);
       // }
       free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.2, free_traj, collision_cnt,
-                  cnst_voil_cnt, elapsed_time, true);
+                  cnst_voil_cnt, elapsed_time, false);
       
       float dist =pathDist(free_traj, ndof);
       if(cnst_voil_cnt == 0 && collision_cnt ==0){
@@ -348,10 +354,10 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   std::vector<double> dofvalues;
   auto init_pos2 =
       planOrientedPathFixed(pt->env, "tool", p, ori, 0, 0.1, init_pos,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
   traj =
       planOrientedPathFixed(pt->env, "tool", p, ori, 100, 0.1, init_pos2,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
   std::cout << "voil_cnt " << cnst_voil_cnt << ", collision cnt "
             << collision_cnt << std::endl;
   if (collision_cnt ||
@@ -392,7 +398,7 @@ VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask()
     return tk;
 }
 std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
-  float sevenEncoder, uint64_t encoder, bool is_increase){
+  float sevenEncoder, int64_t encoder, bool is_increase){
 
     // 编码器系数，单位：mm/unit
     chainFactor = 0.4198727819755431f;

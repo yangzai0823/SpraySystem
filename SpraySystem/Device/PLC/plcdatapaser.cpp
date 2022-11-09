@@ -36,12 +36,56 @@ void PLCDataPaser::DataPaser(QByteArray buf, vws::PLCData *data)
         data->flag_camera_b = (bool)pd->flag_camera_b;
         data->flag_camera_u = (bool)pd->flag_cmaera_u;
     }
-     //todo: 相机触发高低位变换
 }
 
 void PLCDataPaser::DataPaser(QByteArray buf)
 {
+    isemit = false; //默认不发送
+    //解析plc信号
     DataPaser(buf,plcdata);
-    emit readyRead_Signal();
+
+    //监测信号变化，触发plc信号； 注意：箱体晃动可能导致信号多次触发，通过上层状态转换避免重复操作
+    if(!init){
+        init = true;
+        pre_camera_b = plcdata->flag_camera_b;
+        pre_camera_u = plcdata->flag_camera_u;
+        pre_laser_b = plcdata->flag_laser_b;
+        pre_laser_u = plcdata->flag_laser_u;
+        return;
+    }
+    else{
+        if(plcdata->flag_camera_b==true && pre_camera_b==false){
+            std::cout<<"低-> 高"<<std::endl;
+
+            pre_camera_b = plcdata->flag_camera_b; //更新
+            isemit= true;
+
+        }else if(plcdata->flag_camera_b==false && pre_camera_b==true){
+             std::cout<<"高-> 低"<<std::endl;
+
+             pre_camera_b = plcdata->flag_camera_b; //更新
+             isemit = true;
+        } 
+        
+        if(plcdata->flag_laser_u != pre_laser_u){
+            if(plcdata->flag_laser_u == true && pre_laser_u==false){
+                std::cout<<"上箱体检测信息号"<<std::endl;
+                isemit = true;
+            }
+            pre_laser_u = plcdata->flag_laser_u;
+        }
+        if(plcdata->flag_laser_b != pre_laser_b){
+            if(plcdata->flag_laser_b == true && pre_laser_b==false){
+                std::cout<<"下箱体检测信息号"<<std::endl;
+                isemit = true;
+            }
+            pre_laser_b = plcdata->flag_laser_b;
+        }
+    }
+
+    if(isemit){
+        std::cout<<"触发plc信号"<<std::endl;
+        emit readyRead_Signal();
+    }
     
 }

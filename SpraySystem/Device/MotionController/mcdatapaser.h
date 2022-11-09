@@ -7,8 +7,9 @@
 
 using MCData = vws::MCData;
 
-class mcdatapaser:public BaseDataPaser
+class mcdatapaser:public QObject ,public BaseDataPaser
 {
+  Q_OBJECT
 public:
 
     mcdatapaser();
@@ -17,6 +18,8 @@ public:
     MCData *mcData;
 private:
   void DataPaser(QByteArray buf,MCData * data);
+signals:
+    void getTrajParam_Signal();
 };
 
 #endif // MCDATAPASER_H

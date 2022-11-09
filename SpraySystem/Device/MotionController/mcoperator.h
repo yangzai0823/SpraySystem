@@ -30,7 +30,6 @@ public:
     std::vector<float> getChainEncoders();
     std::vector<float> getRealTimeEncoder();
     void SevenAxisReset();
-
 private:
     MCData data;
     QtSocketClient *socketclient;
@@ -38,9 +37,9 @@ private:
 
     void sendData(uint8_t head,float v1, float v2);
     void waitData(bool &flag);
-private slots:
+public slots:
     void readyRead_Slot(QByteArray buf);
-
+    void getTrajParam_Slot();
 signals:
     void getTrajParam_Signal();
     void connect_Signal(QString ip,int port);

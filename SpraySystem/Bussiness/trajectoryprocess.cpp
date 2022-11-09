@@ -87,6 +87,25 @@ Eigen::Quaterniond getPaintOrientation(){
   return quat;
 }
 
+void AbbRbt(Eigen::VectorXd planRet, RobotTask &tk)
+{
+  int cnt = 0;
+   for(int i = 0; i < planRet.size() / 6; i++){
+       std::cout << i << ": ";
+       std::array<float,7> jv;
+       for(int n = 0; n < 6; n++){
+           jv[n] = planRet[cnt++] / M_PI * 180.0;
+           // IRB 1410机器人3轴和2轴耦合，因此需要添加下面的补偿
+           if(n == 2){
+               jv[n] += jv[n-1];
+           }
+           std::cout << jv[n] << ", ";
+       }
+       std::cout << std::endl;
+       tk.track.push_back(jv);
+   }
+}
+
 void fakeData(MainProcess *vdata, int64_t encoder) {
   static int64_t init_encoder = encoder;
   static bool genUp = true;
@@ -206,7 +225,9 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
 
 void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
 {
+#ifdef PLAN_FAKE_DATA
   fakeData(vdata, vdata->getChainEncoder());
+#endif
   std::cout << "开始规划" << std::endl;
 
   TrajectoryGenerator *generator = TrajectoryGenerator::Instance();
@@ -272,7 +293,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
       auto p = ptask;
       ptask++;
       bottom_task_q->erase(p);
-      std::cout << "erase : bottom" << std::endl;
+      std::cout << "erase : bottom - " << bottom_task_q->size() << std::endl;
     }else{
       ptask++;
     }
@@ -326,7 +347,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
         getPaintOrientation(), task.face == 0, invert, p, ori);
     bool ret = generator->GeneratePaintTrajectory(init_dof, p, ori, traj, ndof);
 
-    int N = p.size() / ndof;
+    int N = traj.size() / ndof;
     if (ret) {
       ret = generator->GenerateEntryTrajectory(
           init_dof, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3);
@@ -339,32 +360,33 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
 
     auto mc_data =
         generator->calChainZeroPoint(p1, 0, task.encoder, isIncrease);
-
+    mc_data[1] = task.face == 0 ? -task.diff : task.diff;     // 前提是机器人正方向和箱体允许方向相同，否则取负号
+    std::cout << "task encoder: " << task.encoder << std::endl;
+    std::cout << "p1 pos: " << p1[0] << ", "<< p1[1] << ", "<< p1[2] << std::endl;
+    std::cout <<"mc data: " << mc_data[0] << "," << mc_data[1] << std::endl;
     // 清除环境
     generator->clearEnv();
     if (!ret) {
       continue;
     }
-    }
-    //1. 计算悬挂链0点
 
 
-    //1. 对设开关测量值
+    std::vector<RobotTask> rbttasks;
+    RobotTask rbttask;
+    rbttask.task = VWSRobot::TaskType::MOVEABSJ;
+    rbttask.speed[0] = 100;
+    rbttask.speed[1] = 100;
+    AbbRbt(entry_traj, rbttask);
+    rbttasks.push_back(rbttask);
 
-    //2. 上下相机图像信息
+    rbttask.track.clear();
+    AbbRbt(traj,rbttask);
+    rbttasks.push_back(rbttask);
 
-    //3. 轨迹规划
+    rbttask.track.clear();
+    AbbRbt(quit_traj, rbttask);
+    rbttasks.push_back(rbttask);
 
-
-
-    // auto rbtdata = context->Work(vdata);
-    // auto mcdata = context->calChainZeroPoint();
-
-
-    QVariant varmc;
-    QVariant varrbt;
-    // varmc.setValue(mcdata);
-    // varrbt.setValue(rbtdata);
-    // emit traj_Signal(varmc,varrbt);
-
+    vdata->SetRobotTaskInfo(mc_data, rbttasks);
+  }
 }

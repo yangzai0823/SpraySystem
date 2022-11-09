@@ -24,6 +24,7 @@ public:
     void getLenght(std::vector<float> encoderVector, std::vector<float> encoerNUms, VisionData &visionData);
     void getPose(VisionData &visionData);
 
+    void visionProcessFunc(const VWSCamera::ImageData &data, vws::VisionData &visionData);
  private:
      HTuple ImageConver(ImageData data);
      /**

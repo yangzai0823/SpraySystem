@@ -212,8 +212,28 @@ void MainWindow::deviceConnectError_slot(QString device, int state)
 }
 
 
-
+int i = 0;
 void MainWindow::on_btn_EStop_clicked()
 {
-    // mainprocess->sendtorbt();
+//     if(i==0){
+//         mainprocess->plcdata.laser1=mainprocess->plcdata.laser2=mainprocess->plcdata.laser3 = mainprocess->plcdata.laser4 = 100;
+//         mainprocess->plcdata.flag_camera_b = 1;
+//         mainprocess->bottomWork();
+//     }
+//     else if(i==1){
+//         mainprocess->plcdata.flag_laser_b = 1;
+//         mainprocess->bottomWork();
+//     }
+//     else if(i==2){
+
+//         mainprocess->plcdata.flag_laser_b =0;
+// //        mainprocess->bottomWork();
+//     }
+//     else if(i ==3){
+//         mainprocess->plcdata.flag_camera_b = 1;
+//         mainprocess->bottomWork();
+//     }
+//     std::cout<<"i: "<<i<<std::endl;
+//     i++;
+   mainprocess->sendtorbt();
 }

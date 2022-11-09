@@ -1,12 +1,14 @@
 #ifndef PLCDATA_H
 #define PLCDATA_H
 #include "VWSCamera/VWSCamera.h"
+//#include "SignalState.h"
 #include <iostream>
 #include <vector>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <boost/foreach.hpp>
 #include <QQueue>
+
 using ImageData = VWSCamera::ImageData;
 
 namespace vws{
@@ -20,19 +22,19 @@ namespace vws{
         float laser3 = 0;
         float laser4 = 0;
         /**
-         * @brief 上相机信号
+         * @brief 上层箱体感应信号
          */
         bool flag_laser_u = 0;
         /**
-         * @brief 下相机信息号
+         * @brief 下层箱体感应信号
          */
         bool flag_laser_b = 0;
         /**
-         * @brief 上箱体感应
+         * @brief 上相机拍照信号，0：尾部触发，1：头部触发
          */
         bool flag_camera_b = 0;
         /**
-         * @brief 
+         * @brief 下相机拍照信号，0：尾部触发，1：头部触发
          */
         bool flag_camera_u = 0;
     };
@@ -41,13 +43,12 @@ namespace vws{
      * @brief 流程数据
      */
     struct ProcessData{
-        /**
-         * @brief 标识位，0：空闲，1：头触发拍照,采集信息，2：箱体感应信号完成，4：图像参数全部完成, 5:已处理, 6：视觉开始处理
-         * TODO: 3：等待尾部拍照， 7: 尾部拍照触发
-         */
-        uint8_t flag = 0;
+//        SignalState::State state = SignalState::State::IDLE;
         bool imgFlag=false;
-        ImageData image;
+        bool imgFlag_trail= false;
+        bool flag_laser_b = false;
+        bool flag_camera_b = false;
+        std::vector<ImageData> image;
 
         /**
          * @brief 箱体信息：测距1、测距2

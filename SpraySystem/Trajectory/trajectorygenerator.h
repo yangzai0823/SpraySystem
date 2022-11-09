@@ -90,7 +90,7 @@ public:
      */
     std::vector<float> calChainZeroPoint(
         Eigen::Vector3d p1, float sevenEncoder,
-        uint64_t encoder, bool is_increas);
+        int64_t encoder, bool is_increas);
 
     /**
      * @brief 计算悬挂链0点
