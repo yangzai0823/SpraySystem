@@ -1,0 +1,94 @@
+void visionProcessFunc(const VWSCamera::ImageData &data)
+{
+
+    HTuple hv_CamParam, hv_ObjectModel3D, hv_Status;
+    double hv_Result, hv_MedianHeight, hv_MedianWidth;
+    double IntersecPonitUL[3], IntersecPonitDR[3], IntersecPonitDL[3], IntersecPonitUR[3];
+    double LineQuali[4];
+    double VectorPosition[9];
+    double MedianHeight, MedianWidth;
+
+    std::string Result = 0;
+    hv_CamParam.Clear();
+    hv_CamParam[0] = "area_scan_division";
+    hv_CamParam[1] = 0.06;
+    hv_CamParam[2] = 0;
+    hv_CamParam[3] = 8.5e-06;
+    hv_CamParam[4] = 8.5e-06;
+    hv_CamParam[5] = 704;
+    hv_CamParam[6] = 512;
+    hv_CamParam[7] = 1408;
+    hv_CamParam[8] = 1024;
+    double hv_SetParas[6] = {900, 1720, -1220, 880, 6, 1e5};
+
+
+    int width = data.PointCloudImage.nWidth;
+    int height = data.PointCloudImage.nHeight;
+    int count = width * height;
+    float *cloudData = (float *)(data.PointCloudImage.pData);
+    std::vector<float> px, py, pz;
+    for (int i = 0; i < count; i++)
+    {
+        px.push_back(cloudData[i * 3]);
+        py.push_back(cloudData[i * 3 + 1]);
+        pz.push_back(cloudData[i * 3 + 2]);
+    }
+
+    HImage imgx("real", width, height, (void *)px.data());
+    HImage imgy("real", width, height, (void *)py.data());
+    HImage imgz("real", width, height, (void *)pz.data());
+
+    XyzToObjectModel3d(imgx, imgy, imgz, &hv_ObjectModel3D);
+
+
+    PCLlibs::HeightAndPoseVector(hv_CamParam, hv_SetParas, hv_ObjectModel3D, MedianHeight, MedianWidth, VectorPosition, IntersecPonitUR,
+                                 IntersecPonitUL, IntersecPonitDR, IntersecPonitDL, LineQuali, Result); ////
+
+    double Quater[4];
+    double RightUpPoint1[3];
+    double boxSize[3] = {MedianHeight, 805, 535};
+
+    double Quater1[4] = {
+        0,
+        0,
+        0,
+        0,
+    };
+    double centerPoint1[3] = {0, 0, 0};
+    double handEyeMatrix[12] = {-0.03743671625852585,
+                                -0.001139160362072289,
+                                -0.9992983341217041,
+                                2654.87060546875,
+                                0.009748989716172219,
+                                -0.9999521374702454,
+                                0.0007746600895188749,
+                                -1332.0638427734376,
+                                -0.9992514252662659,
+                                -0.009713122621178627,
+                                0.03744605928659439,
+                                481.78564453125};
+    if (Result == "1, 运行成功")
+    {
+        PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix, Quater1, centerPoint1);
+
+        std::cout << "VectorUnit:  [  " << VectorPosition[0] << ",   " << VectorPosition[1] << ",   " << VectorPosition[2] << ",   " << VectorPosition[3] << ",   " << VectorPosition[4] << ",   " << VectorPosition[5] << ",   " << VectorPosition[6] << ",   " << VectorPosition[7] << ",   " << VectorPosition[8] << "]  " << std::endl; //左侧棱长向量
+        std::cout << "LineQuality:  [  " << LineQuali[0] << ",   " << LineQuali[1] << ",   " << LineQuali[2] << ",   " << LineQuali[3] << "]  " << std::endl;                                                                                                                                                                               //法向量
+    }
+
+    std::cout << "Quater:  [  " << Quater1[0] << ",   " << Quater1[1] << ",   " << Quater1[2] << ",   " << Quater1[3] << "]  " << std::endl; //四元数
+    std::cout << "centerPoint:  [  " << centerPoint1[0] << ",   " << centerPoint1[1] << ",   " << centerPoint1[2] << "] " << std::endl;      //中心坐标
+
+    double *buf = new double[8];
+    buf[0] = centerPoint1[0];
+    buf[1] = centerPoint1[1];
+    buf[2] = centerPoint1[2];
+    buf[3] = Quater1[0];
+    buf[4] = Quater1[1];
+    buf[5] = Quater1[2];
+    buf[6] = Quater1[3];
+    buf[7] = MedianHeight;
+
+    // write(connect_fd, (void *)buf, sizeof(double)*7);
+    write(serverFD, (void *)buf, sizeof(double) * 8);
+    delete[] buf;
+}

@@ -62,19 +62,6 @@ std::vector<vws::PlanTaskInfo> TrajectoryProcess::tryGetPlanTask(MainProcess* vd
     return env_info;
 }
 
-  template<typename _Tp>
-    struct PairFirstLess : public binary_function<std::pair<int, _Tp>, std::pair<int, _Tp>, bool>
-    {
-      _GLIBCXX14_CONSTEXPR
-      bool
-      operator()(const std::pair<int, _Tp>& __x, const std::pair<int, _Tp>& __y) const
-      { return __x.first < __y.first; }
-    };
-
-typedef std::priority_queue<std::pair<int, std::vector<vws::PlanTaskInfo>>,
-                              vector<std::pair<int, std::vector<vws::PlanTaskInfo>>>,
-                              PairFirstLess<std::vector<vws::PlanTaskInfo>>>
-SortedTaskQ;
 
 
 Eigen::Quaterniond getPaintOrientation(){

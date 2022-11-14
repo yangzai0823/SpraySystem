@@ -18,14 +18,13 @@ using RobotTask = VWSRobot::RobotTask;
 using ImageData = VWSCamera::ImageData;
 using PLCData = vws::PLCData;
 using VisionData = vws::VisionData;
-using TrajParam = vws::TrajParam;
-Q_DECLARE_METATYPE(RobotTask)  //注册结构体
+
+Q_DECLARE_METATYPE(RobotTask) //注册结构体
 class MainProcess;
 class TrajectoryProcess : public QObject
 {
     Q_OBJECT
 public:
-
     TrajectoryProcess();
 
     std::vector<vws::PlanTaskInfo> tryGetPlanTask(
@@ -33,12 +32,28 @@ public:
         std::vector<vws::PlanTaskInfo> &q1, std::vector<vws::PlanTaskInfo> &q2,
         int64_t encoder_off1, int64_t encoder_off2, int64_t current_encoder, bool dir);
 
-   private:
+private:
     std::shared_ptr<VisionContext> visionContext;
 private slots:
-    void begintraj_Slot(MainProcess* vdata);
+    void begintraj_Slot(MainProcess *vdata);
 signals:
-    void traj_Signal(QVariant varmc,QVariant varrbt);
+    void traj_Signal(QVariant varmc, QVariant varrbt);
 };
+
+
+template<typename _Tp>
+    struct PairFirstLess : public std::binary_function<std::pair<int, _Tp>, std::pair<int, _Tp>, bool>
+    {
+      _GLIBCXX14_CONSTEXPR
+      bool
+      operator()(const std::pair<int, _Tp>& __x, const std::pair<int, _Tp>& __y) const
+      { return __x.first < __y.first; }
+    };
+
+typedef std::priority_queue<std::pair<int, std::vector<vws::PlanTaskInfo>>,
+                              std::vector<std::pair<int, std::vector<vws::PlanTaskInfo>>>,
+                              PairFirstLess<std::vector<vws::PlanTaskInfo>>>
+SortedTaskQ;
+
 
 #endif // TRAJECTORYPROCESS_H

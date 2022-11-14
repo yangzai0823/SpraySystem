@@ -28,8 +28,8 @@
 #include "SizeAndPose.h"
 // #include <Eigen/Dense>
 
-// using namespace HalconCpp;
-// using namespace Eigen;
+using namespace HalconCpp;
+// // using namespace Eigen;
 // using namespace std;
 
 namespace PCLlibs
@@ -63,9 +63,9 @@ namespace PCLlibs
     void get_object_pose(HTuple hv_ObjectModel3DRigidTrans, HTuple hv_CamParam, HTuple *hv_Pose2);
     void getWLSWeight(HTuple hv_MatA, HTuple hv_MeanPoint, HTuple hv_lineVec, HTuple *hv_MatW2);
     void HeightAndPoseVector(HTuple hv_CamParam, double hv_SetParas[6], HTuple hv_ObjectModel3D, double &MedianHeight, double &MedianWidth, double *VectorPosition, double *IntersecPonitUR,
-                             double *IntersecPonitUL, double *IntersecPonitDR, double *IntersecPonitDL, double *LineQuali, int *Result);
+                             double *IntersecPonitUL, double *IntersecPonitDR, double *IntersecPonitDL, double *LineQuali, std::string &Result);
     void LineIntersec3D(HTuple hv_MeanPointUp, HTuple hv_lineVecUp, HTuple hv_MeanPointRight,
-                        HTuple hv_lineVecRight, HTuple *hv_IntersecPonit, HTuple *hv_Result);
+                        HTuple hv_lineVecRight, HTuple *hv_IntersecPonit, int *hv_Result);
     void LineQuality_3D(HTuple hv_LineUpX, HTuple hv_LineUpY, HTuple hv_LineUpZ, HTuple hv_MeanPointUp,
                         HTuple hv_lineVecUp, HTuple *hv_DistUp, HTuple *hv_MedianUp, HTuple *hv_DeviationUp);
     void MeasureHeight(HObject ho_RegionFillUp, HObject ho_ImageReduced1, HObject ho_ImageReduced2,
@@ -93,10 +93,14 @@ namespace PCLlibs
     void Distance_point_line_3d(HTuple hv_RightUpPoint, HTuple hv_RightLineVector, HTuple hv_LeftUpPoint1,
                                 HTuple *hv_Distan1);
 
+    void Line3D_Angle(HTuple hv_lineVecRight, HTuple hv_lineVecUp, HTuple *hv_AngleUR);
+
     void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
                           double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint);
     void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);//
+                          double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
+    void CalcuCameraRobot(double VectorPosition[9], double RightUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
+
     // Procedures
     void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
                           double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint)
@@ -291,6 +295,102 @@ namespace PCLlibs
         return;
     }
 
+    void CalcuCameraRobot(double VectorPosition[9], double RightUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint)
+    {
+        CenterPoint[0] = 0;
+        CenterPoint[1] = 0;
+        CenterPoint[2] = 0;
+        Quater[0] = 0;
+        Quater[1] = 0;
+        Quater[2] = 0;
+        Quater[3] = 0;
+        // Local control variables
+        HTuple hv_VectorX, hv_VectorY, hv_VectorZ;
+        HTuple hv_RightPoint, hv_Size;
+        HTuple hv_calibPose;
+        // HTuple hv_VectorX1, hv_VectorY1, hv_VectorZ1, hv_calibPoint;
+        HTuple hv_ProdX, hv_ProdY, hv_Sum1, hv_ProdZ;
+        HTuple hv_Sum2, hv_Trans, hv_HomMat3DIdentity, hv_HomMat3DTranslate2;
+        HTuple hv_Pose3, hv_HomMatCamera, hv_HomMat3DIdentity1;
+        HTuple hv_Pose, hv_HomMatCalib, hv_HomMat3DCompose, hv_HomMat3DTranslate;
+        HTuple hv_Quaternion, hv_Pose1;
+        hv_VectorX.Clear();
+        hv_VectorY.Clear();
+        hv_VectorZ.Clear();
+        hv_RightPoint.Clear();
+        hv_Size.Clear();
+        // hv_VectorX1.Clear();
+        // hv_VectorY1.Clear();
+        // hv_VectorZ1.Clear();
+        // hv_calibPoint.Clear();
+        hv_VectorX[0] = VectorPosition[0];
+        hv_VectorX[1] = VectorPosition[1];
+        hv_VectorX[2] = VectorPosition[2];
+        hv_VectorY[0] = VectorPosition[3];
+        hv_VectorY[1] = VectorPosition[4];
+        hv_VectorY[2] = VectorPosition[5];
+        hv_VectorZ[0] = VectorPosition[6];
+        hv_VectorZ[1] = VectorPosition[7];
+        hv_VectorZ[2] = VectorPosition[8];
+        hv_RightPoint[0] = RightUpPoint[0];
+        hv_RightPoint[1] = RightUpPoint[1];
+        hv_RightPoint[2] = RightUpPoint[2];
+        hv_Size[0] = boxSize[0];
+        hv_Size[1] = boxSize[1];
+        hv_Size[2] = boxSize[2];
+        hv_calibPose[0] = CalibPose[0];
+        hv_calibPose[1] = CalibPose[1];
+        hv_calibPose[2] = CalibPose[2];
+        hv_calibPose[3] = CalibPose[3];
+        hv_calibPose[4] = CalibPose[4];
+        hv_calibPose[5] = CalibPose[5];
+        hv_calibPose[6] = CalibPose[6];
+        hv_calibPose[7] = CalibPose[7];
+        hv_calibPose[8] = CalibPose[8];
+        hv_calibPose[9] = CalibPose[9];
+        hv_calibPose[10] = CalibPose[10];
+        hv_calibPose[11] = CalibPose[11];
+        TupleMult(-hv_VectorZ, HTuple(hv_Size[0]) / 2, &hv_ProdX);
+        TupleMult(-hv_VectorY, HTuple(hv_Size[1]) / 2, &hv_ProdY);
+        TupleAdd(hv_ProdX, hv_ProdY, &hv_Sum1);
+        TupleMult(-hv_VectorX, HTuple(hv_Size[2]) / 2, &hv_ProdZ);
+        TupleAdd(hv_Sum1, hv_ProdZ, &hv_Sum2);
+        TupleAdd(hv_Sum2, hv_RightPoint, &hv_Trans);
+
+        //*----------------------------------
+        HomMat3dIdentity(&hv_HomMat3DIdentity);
+        HomMat3dTranslate(hv_HomMat3DIdentity, HTuple(hv_Trans[0]), HTuple(hv_Trans[1]),
+                          HTuple(hv_Trans[2]), &hv_HomMat3DTranslate2);
+        // hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 11, 1)]=HTuple(hv_calibPose);
+        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX[0]).TupleConcat(HTuple(hv_VectorY[0]))).TupleConcat(HTuple(hv_VectorZ[0]));
+        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX[1]).TupleConcat(HTuple(hv_VectorY[1]))).TupleConcat(HTuple(hv_VectorZ[1]));
+        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX[2]).TupleConcat(HTuple(hv_VectorY[2]))).TupleConcat(HTuple(hv_VectorZ[2]));
+        HomMat3dToPose(hv_HomMat3DTranslate2, &hv_Pose3);
+        PoseToHomMat3d(hv_Pose3, &hv_HomMatCamera);
+
+        HomMat3dIdentity(&hv_HomMat3DIdentity1);
+        hv_HomMat3DIdentity1[HTuple::TupleGenSequence(0, 11, 1)] = HTuple(hv_calibPose);
+        HomMat3dToPose(hv_HomMat3DIdentity1, &hv_Pose);
+        PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
+
+        HomMat3dCompose(hv_HomMatCalib, hv_HomMatCamera, &hv_HomMat3DCompose);
+
+        HomMat3dToPose(hv_HomMat3DCompose, &hv_Pose1);
+        PoseToQuat(hv_Pose1, &hv_Quaternion);
+
+        double *tmpQuater = hv_Quaternion.ToDArr();
+        Quater[0] = tmpQuater[0];
+        Quater[1] = tmpQuater[1];
+        Quater[2] = tmpQuater[2];
+        Quater[3] = tmpQuater[3];
+
+        double *tmpPoint = hv_HomMat3DCompose.ToDArr();
+        CenterPoint[0] = tmpPoint[3];
+        CenterPoint[1] = tmpPoint[7];
+        CenterPoint[2] = tmpPoint[11];
+        return;
+    }
+
     // Procedures
     void Cal2Norm(HTuple hv_RightLineVector, HTuple *hv_NormS2)
     {
@@ -319,7 +419,7 @@ namespace PCLlibs
         hv_Length = HTuple(SensorDis);
         hv_S1 = HTuple(SensorDis1);
         hv_S2 = HTuple(SensorDis2);
-
+        deepth = 0;
         //深度的直接测量结果为
         hv_Width = (hv_Length - hv_S1) - hv_S2;
         hv_D.Clear();
@@ -388,7 +488,7 @@ namespace PCLlibs
     {
 
         // Local iconic variables
-
+        boxLength = 0;
         // Local control variables
         HTuple hv_Vector2, hv_LeftUpPoint1, hv_LeftDownPoint1;
         HTuple hv_LeftLineVector, hv_RightLineVector, hv_MultPointS;
@@ -586,11 +686,6 @@ namespace PCLlibs
         HTuple hv_VectorCrossX, hv_VectorCrossY, hv_VectorCrossZ;
         HTuple hv_a1, hv_a2, hv_a3, hv_b1, hv_b2, hv_b3;
 
-        // VectorCrossX := N[1]*N1[2]-N[2]*N1[1]
-        // VectorCrossY := N[2]*N1[0]-N[0]*N1[2]
-        // VectorCrossZ := N[0]*N1[1]-N[1]*N1[0]
-        // VectorCross := [VectorCrossX, VectorCrossY, VectorCrossZ]
-        // return ()
         hv_a1 = ((const HTuple &)hv_N)[0];
         hv_a2 = ((const HTuple &)hv_N)[1];
         hv_a3 = ((const HTuple &)hv_N)[2];
@@ -604,7 +699,6 @@ namespace PCLlibs
         (*hv_VectorCross).Append(hv_VectorCrossX);
         (*hv_VectorCross).Append(hv_VectorCrossY);
         (*hv_VectorCross).Append(hv_VectorCrossZ);
-        return;
         return;
     }
 
@@ -1836,7 +1930,7 @@ namespace PCLlibs
     }
 
     void LineIntersec3D(HTuple hv_MeanPointUp, HTuple hv_lineVecUp, HTuple hv_MeanPointRight,
-                        HTuple hv_lineVecRight, HTuple *hv_IntersecPonit, HTuple *hv_Result)
+                        HTuple hv_lineVecRight, HTuple *hv_IntersecPonit, int *hv_Result)
     {
 
         // Local iconic variables
@@ -1846,7 +1940,11 @@ namespace PCLlibs
         HTuple hv_DiffP, hv_DotD, hv_DotE, hv_DenomCoe, hv_MolecCoe;
         HTuple hv_T1, hv_T2, hv_Prod1, hv_ProdUp, hv_Prod11, hv_ProdRight;
         HTuple hv_Sum;
-
+        hv_Result = (int *)1;
+        (*hv_IntersecPonit).Clear();
+        (*hv_IntersecPonit)[0] = 0;
+        (*hv_IntersecPonit)[1] = 0;
+        (*hv_IntersecPonit)[2] = 0;
         //*两条线的交点如何求？1. 公垂线；2.最短的公垂线与两条线的交点？
         CrossMultFunc(hv_lineVecUp, hv_lineVecRight, &hv_VectorCross);
 
@@ -1868,8 +1966,7 @@ namespace PCLlibs
         else if (0 != (int((hv_DenomCoe.TupleAbs()) <= 0.001)))
         {
             //*两个直线平行或者重合
-            (*hv_Result) = //'两个直线平行或重合，请确认'
-                "\344\270\244\344\270\252\347\233\264\347\272\277\345\271\263\350\241\214\346\210\226\351\207\215\345\220\210\357\274\214\350\257\267\347\241\256\350\256\244";
+            hv_Result = (int *)-1; //, 两个直线平行或重合，请确认
         }
         else
         {
@@ -1887,7 +1984,6 @@ namespace PCLlibs
         //两个端点中点
         TupleAdd(hv_ProdRight, hv_ProdUp, &hv_Sum);
         TupleDiv(hv_Sum, 2, &(*hv_IntersecPonit));
-        return;
         return;
     }
 
@@ -2182,9 +2278,19 @@ namespace PCLlibs
                            &(*hv_LineUpZ));
         return;
     }
+    void Line3D_Angle(HTuple hv_lineVecRight, HTuple hv_lineVecUp, HTuple *hv_AngleUR)
+    {
 
+        HTuple hv_CosUR, hv_ACos;
+
+        DotVector(hv_lineVecRight, hv_lineVecUp, &hv_CosUR);
+        TupleAcos(hv_CosUR, &hv_ACos);
+        (*hv_AngleUR) = hv_ACos.TupleDeg();
+
+        return;
+    }
     void HeightAndPoseVector(HTuple hv_CamParam, double hv_SetParas[6], HTuple hv_ObjectModel3D, double &MedianHeight, double &MedianWidth, double *VectorPosition, double *IntersecPonitUR,
-                             double *IntersecPonitUL, double *IntersecPonitDR, double *IntersecPonitDL, double *LineQuali, int *Result)
+                             double *IntersecPonitUL, double *IntersecPonitDR, double *IntersecPonitDL, double *LineQuali, std::string &Result)
     {
 
         // Local iconic variables
@@ -2237,422 +2343,519 @@ namespace PCLlibs
         HTuple hv_MeanPointRight, hv_lineVecRight, hv_DistUp, hv_MedianUp;
         HTuple hv_DeviationUp, hv_DistDown, hv_MedianDown, hv_DeviationDown;
         HTuple hv_DistRight, hv_MedianRight, hv_DeviationRight;
-        HTuple hv_DistLeft, hv_MedianLeft, hv_DeviationLeft, hv_DeviaDis;
-        HTuple hv_Indices2, hv_Line, hv_Length, hv_Deep, hv_VectorY2, hv_Result;
-        HTuple hv_VectorZ1, hv_VectorZ2, hv_VectorY1, hv_MedianWidth, hv_MedianHeight;
+        HTuple hv_DistLeft, hv_MedianLeft, hv_DeviationLeft, hv_DeviaDis, hv_Number;
+        HTuple hv_Indices2, hv_Line, hv_Length, hv_Deep, hv_VectorY2, hv_Result, hv_Exception;
+        int Result1 = 1;
+        HTuple hv_VectorZ1, hv_VectorZ2, hv_VectorY1, hv_MedianWidth, hv_MedianHeight, hv_Length3;
 
-        SelectPointsObjectModel3d(hv_ObjectModel3D, "point_coord_z", HTuple(hv_SetParas[0]),
-                                  HTuple(hv_SetParas[1]), &hv_ObjectModel3DZ1);
-        SelectPointsObjectModel3d(hv_ObjectModel3DZ1, "point_coord_x", HTuple(hv_SetParas[2]),
-                                  HTuple(hv_SetParas[3]), &hv_ObjectModel3DZ);
-        ConnectionObjectModel3d(hv_ObjectModel3DZ, "distance_3d", HTuple(hv_SetParas[4]),
-                                &hv_ObjectModel3DConnected);
-        GetObjectModel3dParams(hv_ObjectModel3DConnected, "num_points", &hv_GenParamValue);
-        //*点云数量大于10万时，才认为采集没问题
-        if (0 != (int((hv_GenParamValue.TupleMax()) > HTuple(hv_SetParas[5]))))
+        MedianHeight = 0;
+        MedianWidth = 0;
+        // VectorPosition[0,1,2,3,4,5,6,7,8] = 0;
+        VectorPosition[0] = 0;
+        VectorPosition[1] = 0;
+        VectorPosition[2] = 0;
+        VectorPosition[3] = 0;
+        VectorPosition[4] = 0;
+        VectorPosition[5] = 0;
+        VectorPosition[6] = 0;
+        VectorPosition[7] = 0;
+        VectorPosition[8] = 0;
+        IntersecPonitUR[0] = 0;
+        IntersecPonitUR[1] = 0;
+        IntersecPonitUR[2] = 0;
+        IntersecPonitUL[0] = 0;
+        IntersecPonitUL[1] = 0;
+        IntersecPonitUL[2] = 0;
+        IntersecPonitDR[0] = 0;
+        IntersecPonitDR[1] = 0;
+        IntersecPonitDR[2] = 0;
+        IntersecPonitDL[0] = 0;
+        IntersecPonitDL[1] = 0;
+        IntersecPonitDL[2] = 0;
+        LineQuali[0] = 0;
+        LineQuali[1] = 0;
+        LineQuali[2] = 0;
+        LineQuali[3] = 0;
+        Result = "1, 运行成功";
+
+        try
         {
-            SelectObjectModel3d(hv_ObjectModel3DConnected, "num_points", "and", (hv_GenParamValue.TupleMax()) - 200,
-                                (hv_GenParamValue.TupleMax()) + 50, &hv_ObjectModel3DSelected);
-            //显示去噪后的目标区域
-            //*----------------------------------------------------------------2. 将点云集合变换到原始坐标系下主轴 x y z------------------------------
-            //*moments_object_model_3d中的 'central_moment_2_points'指的是二阶方差，前三个数是X Y Z的方差，后三个数是协方差结果，表示三个轴的关联性(xy xz yz)
-            MomentsObjectModel3d(hv_ObjectModel3DSelected, "principal_axes", &hv_Pose);
-            PoseInvert(hv_Pose, &hv_PoseInvert);
-            //**------方法2：刚性变换，等效于仿射变换
-            RigidTransObjectModel3d(hv_ObjectModel3DSelected, hv_PoseInvert, &hv_ObjectModel3DRigidTrans);
+            /* code */
 
-            //*获取3D模型的姿态
-            get_object_pose(hv_ObjectModel3DRigidTrans, hv_CamParam, &hv_Pose2);
-            //*转换成X、Y、Z通道的图像
-            ObjectModel3dToXyz(&ho_X1, &ho_Y1, &ho_Z1, hv_ObjectModel3DRigidTrans, "cartesian",
-                               hv_CamParam, hv_Pose2);
-            XyzToObjectModel3d(ho_X1, ho_Y1, ho_Z1, &hv_ObjectModel3D1);
-            //**Blolb处理去除边界干扰，抠出在一个平面的目标点云
-            GetDomain(ho_Z1, &ho_Domain);
-            GetImageSize(ho_Z1, &hv_Width, &hv_Height);
-            SmallestRectangle2(ho_Domain, &hv_Row1, &hv_Column1, &hv_Phi1, &hv_Length11,
-                               &hv_Length21);
-            OpeningCircle(ho_Domain, &ho_RegionOpening1, 3.5);
-            ErosionRectangle1(ho_RegionOpening1, &ho_RegionErosion, hv_Length11 / 3, hv_Length21 / 3);
-            ReduceDomain(ho_X1, ho_RegionErosion, &ho_ImageReduced);
-            ReduceDomain(ho_Y1, ho_RegionErosion, &ho_ImageReduced4);
-            ReduceDomain(ho_Z1, ho_RegionErosion, &ho_ImageReduced5);
-            XyzToObjectModel3d(ho_ImageReduced, ho_ImageReduced4, ho_ImageReduced5, &hv_ObjectModel3D4);
-
-            //*将抠出的平面反转回去，并计算出ObjectModel3DRigidTrans的实际主轴姿态，再对ObjectModel3DRigidTrans进行反转
-            PoseInvert(hv_Pose2, &hv_PoseInvert1);
-            RigidTransObjectModel3d(hv_ObjectModel3D4, hv_PoseInvert1, &hv_ObjectModel3DRigidTrans1);
-            MomentsObjectModel3d(hv_ObjectModel3DRigidTrans1, "principal_axes", &hv_MomentsPose);
-            PoseInvert(hv_MomentsPose, &hv_PoseInvert3);
-            RigidTransObjectModel3d(hv_ObjectModel3DRigidTrans, hv_PoseInvert3, &hv_ObjectModel3DRigidTrans3);
-
-            //*获取调平变换后的3D模型姿态
-            get_object_pose(hv_ObjectModel3DRigidTrans3, hv_CamParam, &hv_PoseEstimated);
-            //*将调平后的点云，再映射到X、Y、Z平面
-            ObjectModel3dToXyz(&ho_X, &ho_Y, &ho_Z, hv_ObjectModel3DRigidTrans3, "cartesian",
-                               hv_CamParam, hv_PoseEstimated);
-            XyzToObjectModel3d(ho_X, ho_Y, ho_Z, &hv_ObjectModel3D2);
-            //*获取在同一平面上的点云信息
-            GetDomain(ho_Z, &ho_Domain);
-            AreaCenter(ho_Domain, &hv_AZrea, &hv_Row2, &hv_Column2);
-            GetImageSize(ho_Z, &hv_Width, &hv_Height);
-            MeanImage(ho_Z, &ho_ImageMean, 1, 1);
-            Intensity(ho_Domain, ho_ImageMean, &hv_Mean1, &hv_Deviation4);
-            //*高度小于平均高度的区域
-            hv_Devi = hv_Deviation4 * 1.7;
-            if (0 != (int(hv_Devi < 40)))
+            SelectPointsObjectModel3d(hv_ObjectModel3D, "point_coord_z", HTuple(hv_SetParas[0]),
+                                      HTuple(hv_SetParas[1]), &hv_ObjectModel3DZ1);
+            SelectPointsObjectModel3d(hv_ObjectModel3DZ1, "point_coord_x", HTuple(hv_SetParas[2]),
+                                      HTuple(hv_SetParas[3]), &hv_ObjectModel3DZ);
+            ConnectionObjectModel3d(hv_ObjectModel3DZ, "distance_3d", HTuple(hv_SetParas[4]),
+                                    &hv_ObjectModel3DConnected);
+            GetObjectModel3dParams(hv_ObjectModel3DConnected, "num_points", &hv_GenParamValue);
+            //*点云数量大于10万时，才认为采集没问题
+            if (0 != (int((hv_GenParamValue.TupleMax()) > HTuple(hv_SetParas[5]))))
             {
-                hv_Devi = 40;
-            }
-            hv_MinTh = hv_Mean1 - hv_Devi;
-            hv_MaxTh = hv_Mean1 + hv_Devi;
+                SelectObjectModel3d(hv_ObjectModel3DConnected, "num_points", "and", (hv_GenParamValue.TupleMax()) - 200,
+                                    (hv_GenParamValue.TupleMax()) + 50, &hv_ObjectModel3DSelected);
+                TupleLength(hv_ObjectModel3DSelected, &hv_Length3);
 
-            //*在Z方向上确认深度突变的位置
-            Threshold(ho_Z, &ho_Region, hv_MinTh, hv_MaxTh);
-            OpeningCircle(ho_Region, &ho_RegionOpening, 1.5);
-            Connection(ho_RegionOpening, &ho_ConnectedRegions);
-            SelectShapeStd(ho_ConnectedRegions, &ho_RegionFillUp, "max_area", 70);
-            ReduceDomain(ho_X, ho_RegionFillUp, &ho_ImageReduced1);
-            ReduceDomain(ho_Y, ho_RegionFillUp, &ho_ImageReduced2);
-            ReduceDomain(ho_Z, ho_RegionFillUp, &ho_ImageReduced3);
-            Intensity(ho_RegionFillUp, ho_ImageReduced3, &hv_Mean, &hv_Deviation3);
+                if (0 != (int(hv_Length3 != 1)))
+                {
 
-            //*对目标区域喷涂，为了方便找边缘对
-            Difference(ho_Domain, ho_RegionFillUp, &ho_RegionDifference1);
-            PaintRegion(ho_RegionDifference1, ho_Z, &ho_ZResult, -99999, "fill");
+                    //显示去噪后的目标区域
+                    //*----------------------------------------------------------------2. 将点云集合变换到原始坐标系下主轴 x y z------------------------------
+                    //*moments_object_model_3d中的 'central_moment_2_points'指的是二阶方差，前三个数是X Y Z的方差，后三个数是协方差结果，表示三个轴的关联性(xy xz yz)
+                    MomentsObjectModel3d(hv_ObjectModel3DSelected, "principal_axes", &hv_Pose);
+                    PoseInvert(hv_Pose, &hv_PoseInvert);
+                    //**------方法2：刚性变换，等效于仿射变换
+                    RigidTransObjectModel3d(hv_ObjectModel3DSelected, hv_PoseInvert, &hv_ObjectModel3DRigidTrans);
 
-            SmallestRectangle2(ho_RegionFillUp, &hv_Row, &hv_Column, &hv_Phi, &hv_Length1,
-                               &hv_Length2);
+                    //*获取3D模型的姿态
+                    get_object_pose(hv_ObjectModel3DRigidTrans, hv_CamParam, &hv_Pose2);
+                    //*转换成X、Y、Z通道的图像
+                    ObjectModel3dToXyz(&ho_X1, &ho_Y1, &ho_Z1, hv_ObjectModel3DRigidTrans, "cartesian",
+                                       hv_CamParam, hv_Pose2);
+                    XyzToObjectModel3d(ho_X1, ho_Y1, ho_Z1, &hv_ObjectModel3D1);
+                    //**Blolb处理去除边界干扰，抠出在一个平面的目标点云
+                    GetDomain(ho_Z1, &ho_Domain);
+                    GetImageSize(ho_Z1, &hv_Width, &hv_Height);
+                    SmallestRectangle2(ho_Domain, &hv_Row1, &hv_Column1, &hv_Phi1, &hv_Length11,
+                                       &hv_Length21);
+                    OpeningCircle(ho_Domain, &ho_RegionOpening1, 3.5);
+                    ErosionRectangle1(ho_RegionOpening1, &ho_RegionErosion, hv_Length11 / 3, hv_Length21 / 3);
+                    ReduceDomain(ho_X1, ho_RegionErosion, &ho_ImageReduced);
+                    ReduceDomain(ho_Y1, ho_RegionErosion, &ho_ImageReduced4);
+                    ReduceDomain(ho_Z1, ho_RegionErosion, &ho_ImageReduced5);
+                    XyzToObjectModel3d(ho_ImageReduced, ho_ImageReduced4, ho_ImageReduced5, &hv_ObjectModel3D4);
 
-            //**----------------------------------------------3.1.1 计算箱子的端点-------------------------------------------------
-            Rect2Corner(hv_Row, hv_Column, hv_Phi, hv_Length1, hv_Length2, &hv_RowCorner,
-                        &hv_ColCorner);
+                    //*将抠出的平面反转回去，并计算出ObjectModel3DRigidTrans的实际主轴姿态，再对ObjectModel3DRigidTrans进行反转
+                    PoseInvert(hv_Pose2, &hv_PoseInvert1);
+                    RigidTransObjectModel3d(hv_ObjectModel3D4, hv_PoseInvert1, &hv_ObjectModel3DRigidTrans1);
+                    MomentsObjectModel3d(hv_ObjectModel3DRigidTrans1, "principal_axes", &hv_MomentsPose);
+                    PoseInvert(hv_MomentsPose, &hv_PoseInvert3);
+                    RigidTransObjectModel3d(hv_ObjectModel3DRigidTrans, hv_PoseInvert3, &hv_ObjectModel3DRigidTrans3);
 
-            hv_LeftUp1.Clear();
-            hv_LeftUp1.Append(HTuple(hv_RowCorner[0]));
-            hv_LeftUp1.Append(HTuple(hv_ColCorner[0]));
-            hv_LeftDown1.Clear();
-            hv_LeftDown1.Append(HTuple(hv_RowCorner[1]));
-            hv_LeftDown1.Append(HTuple(hv_ColCorner[1]));
-            hv_RightUp1.Clear();
-            hv_RightUp1.Append(HTuple(hv_RowCorner[2]));
-            hv_RightUp1.Append(HTuple(hv_ColCorner[2]));
-            hv_RightDown1.Clear();
-            hv_RightDown1.Append(HTuple(hv_RowCorner[3]));
-            hv_RightDown1.Append(HTuple(hv_ColCorner[3]));
-            //计算3D坐标下的结果
-            CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
-                             hv_LeftUp1, &hv_LeftUpPoint1);
-            CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
-                             hv_RightUp1, &hv_RightUpPoint1);
-            CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
-                             hv_RightDown1, &hv_RightDownPoint1);
-            CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
-                             hv_LeftDown1, &hv_LeftDownPoint1);
+                    //*获取调平变换后的3D模型姿态
+                    get_object_pose(hv_ObjectModel3DRigidTrans3, hv_CamParam, &hv_PoseEstimated);
+                    //*将调平后的点云，再映射到X、Y、Z平面
+                    ObjectModel3dToXyz(&ho_X, &ho_Y, &ho_Z, hv_ObjectModel3DRigidTrans3, "cartesian",
+                                       hv_CamParam, hv_PoseEstimated);
+                    XyzToObjectModel3d(ho_X, ho_Y, ho_Z, &hv_ObjectModel3D2);
+                    //*获取在同一平面上的点云信息
+                    GetDomain(ho_Z, &ho_Domain);
+                    AreaCenter(ho_Domain, &hv_AZrea, &hv_Row2, &hv_Column2);
+                    GetImageSize(ho_Z, &hv_Width, &hv_Height);
+                    MeanImage(ho_Z, &ho_ImageMean, 1, 1);
+                    Intensity(ho_Domain, ho_ImageMean, &hv_Mean1, &hv_Deviation4);
+                    //*高度小于平均高度的区域
+                    hv_Devi = hv_Deviation4 * 1.7;
+                    if (0 != (int(hv_Devi < 40)))
+                    {
+                        hv_Devi = 40;
+                    }
+                    hv_MinTh = hv_Mean1 - hv_Devi;
+                    hv_MaxTh = hv_Mean1 + hv_Devi;
 
-            //*---------------------------------3.1.2计算左右两个棱向量对应的单位向量并显示---------------------------------
-            //*变换回到原始点云显示：先变换XYZ仿射前->然后变换到第二次中心矩变换前->再变换到第一次中心矩变换前
-            //*变换3D对应的四个端点和法向量RegionOpening1
-            PoseInvert(hv_PoseEstimated, &hv_PoseInvert11);
-            PoseToHomMat3d(hv_PoseInvert11, &hv_HomMat3D);
-            PoseToHomMat3d(hv_MomentsPose, &hv_HomMat3D1);
-            PoseToHomMat3d(hv_Pose, &hv_HomMat3D2);
+                    //*在Z方向上确认深度突变的位置
+                    Threshold(ho_Z, &ho_Region, hv_MinTh, hv_MaxTh);
+                    OpeningCircle(ho_Region, &ho_RegionOpening, 1.5);
+                    Connection(ho_RegionOpening, &ho_ConnectedRegions);
+                    SelectShapeStd(ho_ConnectedRegions, &ho_RegionFillUp, "max_area", 70);
+                    CountObj(ho_RegionFillUp, &hv_Number);
 
-            hv_NormalsVector1 = hv_PoseInvert11.TupleSelectRange(0, 2);
-            AffineTransPoint3d(hv_HomMat3D1, HTuple(hv_NormalsVector1[0]), HTuple(hv_NormalsVector1[1]),
-                               HTuple(hv_NormalsVector1[2]), &hv_Qx52, &hv_Qy52, &hv_Qz52);
-            AffineTransPoint3d(hv_HomMat3D2, hv_Qx52, hv_Qy52, hv_Qz52, &hv_Qx53, &hv_Qy53,
-                               &hv_Qz53);
-            hv_NormalsVector2.Clear();
-            hv_NormalsVector2.Append(hv_Qx53);
-            hv_NormalsVector2.Append(hv_Qy53);
-            hv_NormalsVector2.Append(hv_Qz53);
-            //**单位化法向量:实际为箱体X轴方向
-            UnitVector(hv_NormalsVector2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
+                    if (0 != (int(hv_Number == 1)))
+                    {
+                        ReduceDomain(ho_X, ho_RegionFillUp, &ho_ImageReduced1);
+                        ReduceDomain(ho_Y, ho_RegionFillUp, &ho_ImageReduced2);
+                        ReduceDomain(ho_Z, ho_RegionFillUp, &ho_ImageReduced3);
+                        Intensity(ho_RegionFillUp, ho_ImageReduced3, &hv_Mean, &hv_Deviation3);
 
-            //* 左上角端点变换到原始点云下
-            VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_LeftUpPoint1,
-                                  &hv_LeftUpPoint2);
-            //* 左下角端点变换到原始点云下
-            VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_LeftDownPoint1,
-                                  &hv_LeftDownPoint2);
-            //* 右上角端点变换到原始点云下
-            VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_RightUpPoint1,
-                                  &hv_RightUpPoint2);
-            //* 右下角端点变换到原始点云下
-            VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_RightDownPoint1,
-                                  &hv_RightDownPoint2);
+                        //*对目标区域喷涂，为了方便找边缘对
+                        Difference(ho_Domain, ho_RegionFillUp, &ho_RegionDifference1);
+                        PaintRegion(ho_RegionDifference1, ho_Z, &ho_ZResult, -99999, "fill");
 
-            //*根据实际的3D坐标点，对4组坐标排序
-            hv_PositionX.Clear();
-            hv_PositionX.Append(HTuple(hv_LeftUpPoint2[0]));
-            hv_PositionX.Append(HTuple(hv_LeftDownPoint2[0]));
-            hv_PositionX.Append(HTuple(hv_RightUpPoint2[0]));
-            hv_PositionX.Append(HTuple(hv_RightDownPoint2[0]));
-            hv_PositionY.Clear();
-            hv_PositionY.Append(HTuple(hv_LeftUpPoint2[1]));
-            hv_PositionY.Append(HTuple(hv_LeftDownPoint2[1]));
-            hv_PositionY.Append(HTuple(hv_RightUpPoint2[1]));
-            hv_PositionY.Append(HTuple(hv_RightDownPoint2[1]));
-            hv_PositionZ.Clear();
-            hv_PositionZ.Append(HTuple(hv_LeftUpPoint2[2]));
-            hv_PositionZ.Append(HTuple(hv_LeftDownPoint2[2]));
-            hv_PositionZ.Append(HTuple(hv_RightUpPoint2[2]));
-            hv_PositionZ.Append(HTuple(hv_RightDownPoint2[2]));
-            //**索引判断坐标
-            //*X值小的为上侧点，Y值小的为右侧点
-            TupleSortIndex(hv_PositionY, &hv_Indices);
-            //*则Y大的两个端点为左侧边缘的端点
-            hv_LeftRowCorner.Clear();
-            hv_LeftRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[2])]));
-            hv_LeftRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[3])]));
-            hv_LeftColCorner.Clear();
-            hv_LeftColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[2])]));
-            hv_LeftColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[3])]));
-            hv_LeftZCorner.Clear();
-            hv_LeftZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[2])]));
-            hv_LeftZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[3])]));
-            //*X值小的为上侧点
-            TupleSortIndex(hv_LeftColCorner, &hv_Indices1);
-            hv_VectorY.Clear();
-            hv_VectorY.Append(HTuple(hv_LeftColCorner[HTuple(hv_Indices1[0])]));
-            hv_VectorY.Append(HTuple(hv_LeftRowCorner[HTuple(hv_Indices1[0])]));
-            hv_VectorY.Append(HTuple(hv_LeftZCorner[HTuple(hv_Indices1[0])]));
-            hv_VectorZ.Clear();
-            hv_VectorZ.Append(HTuple(hv_LeftColCorner[HTuple(hv_Indices1[1])]));
-            hv_VectorZ.Append(HTuple(hv_LeftRowCorner[HTuple(hv_Indices1[1])]));
-            hv_VectorZ.Append(HTuple(hv_LeftZCorner[HTuple(hv_Indices1[1])]));
+                        SmallestRectangle2(ho_RegionFillUp, &hv_Row, &hv_Column, &hv_Phi, &hv_Length1,
+                                           &hv_Length2);
 
-            //***则Y小的两个端点为右侧边缘的端点
-            hv_RightRowCorner.Clear();
-            hv_RightRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[0])]));
-            hv_RightRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[1])]));
-            hv_RightColCorner.Clear();
-            hv_RightColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[0])]));
-            hv_RightColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[1])]));
-            hv_RightZCorner.Clear();
-            hv_RightZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[0])]));
-            hv_RightZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[1])]));
-            //*X值小的为上侧点
-            TupleSortIndex(hv_RightColCorner, &hv_Indices1);
-            hv_RightUpPoint.Clear();
-            hv_RightUpPoint.Append(HTuple(hv_RightColCorner[HTuple(hv_Indices1[0])]));
-            hv_RightUpPoint.Append(HTuple(hv_RightRowCorner[HTuple(hv_Indices1[0])]));
-            hv_RightUpPoint.Append(HTuple(hv_RightZCorner[HTuple(hv_Indices1[0])]));
-            hv_RightDownPoint.Clear();
-            hv_RightDownPoint.Append(HTuple(hv_RightColCorner[HTuple(hv_Indices1[1])]));
-            hv_RightDownPoint.Append(HTuple(hv_RightRowCorner[HTuple(hv_Indices1[1])]));
-            hv_RightDownPoint.Append(HTuple(hv_RightZCorner[HTuple(hv_Indices1[1])]));
+                        //**----------------------------------------------3.1.1 计算箱子的端点-------------------------------------------------
+                        Rect2Corner(hv_Row, hv_Column, hv_Phi, hv_Length1, hv_Length2, &hv_RowCorner,
+                                    &hv_ColCorner);
 
-            //*根据3D坐标点，对二维坐标点排序
-            SortCorner(hv_RightUpPoint, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
-                       hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
-                       &hv_RightUp);
-            SortCorner(hv_RightDownPoint, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
-                       hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
-                       &hv_RightDown);
-            SortCorner(hv_VectorY, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
-                       hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
-                       &hv_LeftUp);
-            SortCorner(hv_VectorZ, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
-                       hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
-                       &hv_LeftDown);
+                        hv_LeftUp1.Clear();
+                        hv_LeftUp1.Append(HTuple(hv_RowCorner[0]));
+                        hv_LeftUp1.Append(HTuple(hv_ColCorner[0]));
+                        hv_LeftDown1.Clear();
+                        hv_LeftDown1.Append(HTuple(hv_RowCorner[1]));
+                        hv_LeftDown1.Append(HTuple(hv_ColCorner[1]));
+                        hv_RightUp1.Clear();
+                        hv_RightUp1.Append(HTuple(hv_RowCorner[2]));
+                        hv_RightUp1.Append(HTuple(hv_ColCorner[2]));
+                        hv_RightDown1.Clear();
+                        hv_RightDown1.Append(HTuple(hv_RowCorner[3]));
+                        hv_RightDown1.Append(HTuple(hv_ColCorner[3]));
+                        //计算3D坐标下的结果
+                        CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
+                                         hv_LeftUp1, &hv_LeftUpPoint1);
+                        CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
+                                         hv_RightUp1, &hv_RightUpPoint1);
+                        CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
+                                         hv_RightDown1, &hv_RightDownPoint1);
+                        CalcuCornerPoint(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
+                                         hv_LeftDown1, &hv_LeftDownPoint1);
 
-            //**---------------------------------------------3.2 获取目标区域的边缘点和箱子高度--------------------------------------
-            //*下述三个参数用来显示找点结果
-            hv_MeasureWidth = 0.5;
-            //*根据四个端点坐标计算宽度方向的中心坐标
-            CalCenterLinePoints(hv_LeftUp, hv_LeftDown, hv_RightUp, hv_RightDown, hv_MeasureWidth,
-                                &hv_Rows, &hv_Columns, &hv_tuple_Phi, &hv_tuple_Len1, &hv_tuple_Len2);
-            //*计算高度方向的数值
-            LinePosition(HTuple(hv_RightUp[0]), HTuple(hv_RightUp[1]), HTuple(hv_LeftUp[0]),
-                         HTuple(hv_LeftUp[1]), &hv_UpCenterRow, &hv_UpCenterCol, &hv_LengthU, &hv_PhiU);
-            GenRectangle2(&ho_Rectangle1, hv_UpCenterRow, hv_UpCenterCol, hv_PhiU, hv_LengthU,
-                          5);
+                        //*---------------------------------3.1.2计算左右两个棱向量对应的单位向量并显示---------------------------------
+                        //*变换回到原始点云显示：先变换XYZ仿射前->然后变换到第二次中心矩变换前->再变换到第一次中心矩变换前
+                        //*变换3D对应的四个端点和法向量RegionOpening1
+                        PoseInvert(hv_PoseEstimated, &hv_PoseInvert11);
+                        PoseToHomMat3d(hv_PoseInvert11, &hv_HomMat3D);
+                        PoseToHomMat3d(hv_MomentsPose, &hv_HomMat3D1);
+                        PoseToHomMat3d(hv_Pose, &hv_HomMat3D2);
 
-            MeasureHeight(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
-                          ho_ZResult, ho_Rectangle1, hv_Rows, hv_Columns, hv_tuple_Phi, hv_tuple_Len1,
-                          hv_tuple_Len2, hv_MaxTh, hv_MinTh, &hv_Height3D, &hv_LineUpX1, &hv_LineUpY1,
-                          &hv_LineUpZ1, &hv_LineDownX1, &hv_LineDownY1, &hv_LineDownZ1);
-            TupleMedian(hv_Height3D, &(hv_MedianHeight));
+                        hv_NormalsVector1 = hv_PoseInvert11.TupleSelectRange(0, 2);
+                        AffineTransPoint3d(hv_HomMat3D1, HTuple(hv_NormalsVector1[0]), HTuple(hv_NormalsVector1[1]),
+                                           HTuple(hv_NormalsVector1[2]), &hv_Qx52, &hv_Qy52, &hv_Qz52);
+                        AffineTransPoint3d(hv_HomMat3D2, hv_Qx52, hv_Qy52, hv_Qz52, &hv_Qx53, &hv_Qy53,
+                                           &hv_Qz53);
+                        hv_NormalsVector2.Clear();
+                        hv_NormalsVector2.Append(hv_Qx53);
+                        hv_NormalsVector2.Append(hv_Qy53);
+                        hv_NormalsVector2.Append(hv_Qz53);
+                        //**单位化法向量:实际为箱体X轴方向
+                        UnitVector(hv_NormalsVector2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
 
-            //*根据四个端点坐标计算高度方向的中心坐标,角度和长度
-            CalCenterLinePoints(hv_LeftUp, hv_RightUp, hv_LeftDown, hv_RightDown, hv_MeasureWidth,
-                                &hv_Rows1, &hv_Columns1, &hv_tuple_Phi1, &hv_tuple_Len11, &hv_tuple_Len21);
-            //*计算宽度方向的数值
-            LinePosition(HTuple(hv_RightUp[0]), HTuple(hv_RightUp[1]), HTuple(hv_RightDown[0]),
-                         HTuple(hv_RightDown[1]), &hv_RightCenterRow, &hv_RightCenterCol, &hv_LengthR,
-                         &hv_PhiR);
-            GenRectangle2(&ho_Rectangle2, hv_RightCenterRow, hv_RightCenterCol, hv_PhiR,
-                          hv_LengthR, 5);
-            MeasureHeight(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
-                          ho_ZResult, ho_Rectangle2, hv_Rows1, hv_Columns1, hv_tuple_Phi1, hv_tuple_Len11,
-                          hv_tuple_Len21, hv_MaxTh, hv_MinTh, &hv_Width3D, &hv_LineRightX1, &hv_LineRightY1,
-                          &hv_LineRightZ1, &hv_LineLeftX1, &hv_LineLeftY1, &hv_LineLeftZ1);
-            TupleMedian(hv_Width3D, &(hv_MedianWidth));
+                        //* 左上角端点变换到原始点云下
+                        VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_LeftUpPoint1,
+                                              &hv_LeftUpPoint2);
+                        //* 左下角端点变换到原始点云下
+                        VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_LeftDownPoint1,
+                                              &hv_LeftDownPoint2);
+                        //* 右上角端点变换到原始点云下
+                        VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_RightUpPoint1,
+                                              &hv_RightUpPoint2);
+                        //* 右下角端点变换到原始点云下
+                        VectorPoint_3rd_trans(hv_HomMat3D, hv_HomMat3D1, hv_HomMat3D2, hv_RightDownPoint1,
+                                              &hv_RightDownPoint2);
 
-            double Height = hv_MedianHeight[0].D();
-            double Width = hv_MedianWidth[0].D();
-            MedianWidth = Width;
-            MedianHeight = Height;
-            //***将坐标变换到原始3D模型下
-            VectorPoints_3rd_trans(hv_LineUpX1, hv_LineUpY1, hv_LineUpZ1, hv_HomMat3D, hv_HomMat3D1,
-                                   hv_HomMat3D2, &hv_LineUpX, &hv_LineUpY, &hv_LineUpZ);
-            VectorPoints_3rd_trans(hv_LineDownX1, hv_LineDownY1, hv_LineDownZ1, hv_HomMat3D,
-                                   hv_HomMat3D1, hv_HomMat3D2, &hv_LineDownX, &hv_LineDownY, &hv_LineDownZ);
-            VectorPoints_3rd_trans(hv_LineLeftX1, hv_LineLeftY1, hv_LineLeftZ1, hv_HomMat3D,
-                                   hv_HomMat3D1, hv_HomMat3D2, &hv_LineLeftX, &hv_LineLeftY, &hv_LineLeftZ);
-            VectorPoints_3rd_trans(hv_LineRightX1, hv_LineRightY1, hv_LineRightZ1, hv_HomMat3D,
-                                   hv_HomMat3D1, hv_HomMat3D2, &hv_LineRightX, &hv_LineRightY, &hv_LineRightZ);
+                        //*根据实际的3D坐标点，对4组坐标排序
+                        hv_PositionX.Clear();
+                        hv_PositionX.Append(HTuple(hv_LeftUpPoint2[0]));
+                        hv_PositionX.Append(HTuple(hv_LeftDownPoint2[0]));
+                        hv_PositionX.Append(HTuple(hv_RightUpPoint2[0]));
+                        hv_PositionX.Append(HTuple(hv_RightDownPoint2[0]));
+                        hv_PositionY.Clear();
+                        hv_PositionY.Append(HTuple(hv_LeftUpPoint2[1]));
+                        hv_PositionY.Append(HTuple(hv_LeftDownPoint2[1]));
+                        hv_PositionY.Append(HTuple(hv_RightUpPoint2[1]));
+                        hv_PositionY.Append(HTuple(hv_RightDownPoint2[1]));
+                        hv_PositionZ.Clear();
+                        hv_PositionZ.Append(HTuple(hv_LeftUpPoint2[2]));
+                        hv_PositionZ.Append(HTuple(hv_LeftDownPoint2[2]));
+                        hv_PositionZ.Append(HTuple(hv_RightUpPoint2[2]));
+                        hv_PositionZ.Append(HTuple(hv_RightDownPoint2[2]));
+                        //**索引判断坐标
+                        //*X值小的为上侧点，Y值小的为右侧点
+                        TupleSortIndex(hv_PositionY, &hv_Indices);
+                        //*则Y大的两个端点为左侧边缘的端点
+                        hv_LeftRowCorner.Clear();
+                        hv_LeftRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[2])]));
+                        hv_LeftRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[3])]));
+                        hv_LeftColCorner.Clear();
+                        hv_LeftColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[2])]));
+                        hv_LeftColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[3])]));
+                        hv_LeftZCorner.Clear();
+                        hv_LeftZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[2])]));
+                        hv_LeftZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[3])]));
+                        //*X值小的为上侧点
+                        TupleSortIndex(hv_LeftColCorner, &hv_Indices1);
+                        hv_VectorY.Clear();
+                        hv_VectorY.Append(HTuple(hv_LeftColCorner[HTuple(hv_Indices1[0])]));
+                        hv_VectorY.Append(HTuple(hv_LeftRowCorner[HTuple(hv_Indices1[0])]));
+                        hv_VectorY.Append(HTuple(hv_LeftZCorner[HTuple(hv_Indices1[0])]));
+                        hv_VectorZ.Clear();
+                        hv_VectorZ.Append(HTuple(hv_LeftColCorner[HTuple(hv_Indices1[1])]));
+                        hv_VectorZ.Append(HTuple(hv_LeftRowCorner[HTuple(hv_Indices1[1])]));
+                        hv_VectorZ.Append(HTuple(hv_LeftZCorner[HTuple(hv_Indices1[1])]));
 
-            //*3D直线拟合
-            FitLine3D(hv_LineUpX, hv_LineUpY, hv_LineUpZ, &hv_MeanPointUp, &hv_lineVecUp);
-            FitLine3D(hv_LineDownX, hv_LineDownY, hv_LineDownZ, &hv_MeanPointDown, &hv_lineVecDown);
-            FitLine3D(hv_LineLeftX, hv_LineLeftY, hv_LineLeftZ, &hv_MeanPointLeft, &hv_lineVecLeft);
-            FitLine3D(hv_LineRightX, hv_LineRightY, hv_LineRightZ, &hv_MeanPointRight, &hv_lineVecRight);
+                        //***则Y小的两个端点为右侧边缘的端点
+                        hv_RightRowCorner.Clear();
+                        hv_RightRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[0])]));
+                        hv_RightRowCorner.Append(HTuple(hv_PositionY[HTuple(hv_Indices[1])]));
+                        hv_RightColCorner.Clear();
+                        hv_RightColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[0])]));
+                        hv_RightColCorner.Append(HTuple(hv_PositionX[HTuple(hv_Indices[1])]));
+                        hv_RightZCorner.Clear();
+                        hv_RightZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[0])]));
+                        hv_RightZCorner.Append(HTuple(hv_PositionZ[HTuple(hv_Indices[1])]));
+                        //*X值小的为上侧点
+                        TupleSortIndex(hv_RightColCorner, &hv_Indices1);
+                        hv_RightUpPoint.Clear();
+                        hv_RightUpPoint.Append(HTuple(hv_RightColCorner[HTuple(hv_Indices1[0])]));
+                        hv_RightUpPoint.Append(HTuple(hv_RightRowCorner[HTuple(hv_Indices1[0])]));
+                        hv_RightUpPoint.Append(HTuple(hv_RightZCorner[HTuple(hv_Indices1[0])]));
+                        hv_RightDownPoint.Clear();
+                        hv_RightDownPoint.Append(HTuple(hv_RightColCorner[HTuple(hv_Indices1[1])]));
+                        hv_RightDownPoint.Append(HTuple(hv_RightRowCorner[HTuple(hv_Indices1[1])]));
+                        hv_RightDownPoint.Append(HTuple(hv_RightZCorner[HTuple(hv_Indices1[1])]));
 
-            //*根据空间点到直线的距离判断直线质量
-            LineQuality_3D(hv_LineUpX, hv_LineUpY, hv_LineUpZ, hv_MeanPointUp, hv_lineVecUp,
-                           &hv_DistUp, &hv_MedianUp, &hv_DeviationUp);
-            LineQuality_3D(hv_LineDownX, hv_LineDownY, hv_LineDownZ, hv_MeanPointDown, hv_lineVecDown,
-                           &hv_DistDown, &hv_MedianDown, &hv_DeviationDown);
-            LineQuality_3D(hv_LineRightX, hv_LineRightY, hv_LineRightZ, hv_MeanPointRight,
-                           hv_lineVecRight, &hv_DistRight, &hv_MedianRight, &hv_DeviationRight);
-            LineQuality_3D(hv_LineLeftX, hv_LineLeftY, hv_LineLeftZ, hv_MeanPointLeft, hv_lineVecLeft,
-                           &hv_DistLeft, &hv_MedianLeft, &hv_DeviationLeft);
+                        //*根据3D坐标点，对二维坐标点排序
+                        SortCorner(hv_RightUpPoint, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
+                                   hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
+                                   &hv_RightUp);
+                        SortCorner(hv_RightDownPoint, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
+                                   hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
+                                   &hv_RightDown);
+                        SortCorner(hv_VectorY, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
+                                   hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
+                                   &hv_LeftUp);
+                        SortCorner(hv_VectorZ, hv_RightUpPoint2, hv_RightDownPoint2, hv_LeftUpPoint2,
+                                   hv_LeftDownPoint2, hv_RightDown1, hv_RightUp1, hv_LeftUp1, hv_LeftDown1,
+                                   &hv_LeftDown);
 
-            double deviUp = hv_DeviationUp[0].D();
-            double deviDown = hv_DeviationDown[0].D();
-            double deviRight = hv_DeviationRight[0].D();
-            double deviLeft = hv_DeviationLeft[0].D();
-            LineQuali[0] = deviUp;
-            LineQuali[1] = deviDown;
-            LineQuali[2] = deviRight;
-            LineQuali[3] = deviLeft;
+                        //**---------------------------------------------3.2 获取目标区域的边缘点和箱子高度--------------------------------------
+                        //*下述三个参数用来显示找点结果
+                        hv_MeasureWidth = 0.5;
+                        //*根据四个端点坐标计算宽度方向的中心坐标
+                        CalCenterLinePoints(hv_LeftUp, hv_LeftDown, hv_RightUp, hv_RightDown, hv_MeasureWidth,
+                                            &hv_Rows, &hv_Columns, &hv_tuple_Phi, &hv_tuple_Len1, &hv_tuple_Len2);
+                        //*计算高度方向的数值
+                        LinePosition(HTuple(hv_RightUp[0]), HTuple(hv_RightUp[1]), HTuple(hv_LeftUp[0]),
+                                     HTuple(hv_LeftUp[1]), &hv_UpCenterRow, &hv_UpCenterCol, &hv_LengthU, &hv_PhiU);
+                        GenRectangle2(&ho_Rectangle1, hv_UpCenterRow, hv_UpCenterCol, hv_PhiU, hv_LengthU,
+                                      5);
 
-            hv_DeviaDis.Clear();
-            hv_DeviaDis.Append(hv_DeviationUp);
-            hv_DeviaDis.Append(hv_DeviationDown);
-            hv_DeviaDis.Append(hv_DeviationRight);
-            TupleSortIndex(hv_DeviaDis, &hv_Indices2);
-            hv_Line = "Right";
-            if (0 != (int(HTuple(hv_Indices2[0]) == 0)))
-            {
-                hv_Line = "Up";
-            }
-            else if (0 != (int(HTuple(hv_Indices2[0]) == 1)))
-            {
-                hv_Line = "Down";
+                        MeasureHeight(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
+                                      ho_ZResult, ho_Rectangle1, hv_Rows, hv_Columns, hv_tuple_Phi, hv_tuple_Len1,
+                                      hv_tuple_Len2, hv_MaxTh, hv_MinTh, &hv_Height3D, &hv_LineUpX1, &hv_LineUpY1,
+                                      &hv_LineUpZ1, &hv_LineDownX1, &hv_LineDownY1, &hv_LineDownZ1);
+                        TupleMedian(hv_Height3D, &(hv_MedianHeight));
+
+                        //*根据四个端点坐标计算高度方向的中心坐标,角度和长度
+                        CalCenterLinePoints(hv_LeftUp, hv_RightUp, hv_LeftDown, hv_RightDown, hv_MeasureWidth,
+                                            &hv_Rows1, &hv_Columns1, &hv_tuple_Phi1, &hv_tuple_Len11, &hv_tuple_Len21);
+                        //*计算宽度方向的数值
+                        LinePosition(HTuple(hv_RightUp[0]), HTuple(hv_RightUp[1]), HTuple(hv_RightDown[0]),
+                                     HTuple(hv_RightDown[1]), &hv_RightCenterRow, &hv_RightCenterCol, &hv_LengthR,
+                                     &hv_PhiR);
+                        GenRectangle2(&ho_Rectangle2, hv_RightCenterRow, hv_RightCenterCol, hv_PhiR,
+                                      hv_LengthR, 5);
+                        MeasureHeight(ho_RegionFillUp, ho_ImageReduced1, ho_ImageReduced2, ho_ImageReduced3,
+                                      ho_ZResult, ho_Rectangle2, hv_Rows1, hv_Columns1, hv_tuple_Phi1, hv_tuple_Len11,
+                                      hv_tuple_Len21, hv_MaxTh, hv_MinTh, &hv_Width3D, &hv_LineRightX1, &hv_LineRightY1,
+                                      &hv_LineRightZ1, &hv_LineLeftX1, &hv_LineLeftY1, &hv_LineLeftZ1);
+                        TupleMedian(hv_Width3D, &(hv_MedianWidth));
+
+                        double Height = hv_MedianHeight[0].D();
+                        double Width = hv_MedianWidth[0].D();
+                        MedianWidth = Width;
+                        MedianHeight = Height;
+                        //***将坐标变换到原始3D模型下
+                        VectorPoints_3rd_trans(hv_LineUpX1, hv_LineUpY1, hv_LineUpZ1, hv_HomMat3D, hv_HomMat3D1,
+                                               hv_HomMat3D2, &hv_LineUpX, &hv_LineUpY, &hv_LineUpZ);
+                        VectorPoints_3rd_trans(hv_LineDownX1, hv_LineDownY1, hv_LineDownZ1, hv_HomMat3D,
+                                               hv_HomMat3D1, hv_HomMat3D2, &hv_LineDownX, &hv_LineDownY, &hv_LineDownZ);
+                        VectorPoints_3rd_trans(hv_LineLeftX1, hv_LineLeftY1, hv_LineLeftZ1, hv_HomMat3D,
+                                               hv_HomMat3D1, hv_HomMat3D2, &hv_LineLeftX, &hv_LineLeftY, &hv_LineLeftZ);
+                        VectorPoints_3rd_trans(hv_LineRightX1, hv_LineRightY1, hv_LineRightZ1, hv_HomMat3D,
+                                               hv_HomMat3D1, hv_HomMat3D2, &hv_LineRightX, &hv_LineRightY, &hv_LineRightZ);
+
+                        //*3D直线拟合
+                        FitLine3D(hv_LineUpX, hv_LineUpY, hv_LineUpZ, &hv_MeanPointUp, &hv_lineVecUp);
+                        FitLine3D(hv_LineDownX, hv_LineDownY, hv_LineDownZ, &hv_MeanPointDown, &hv_lineVecDown);
+                        FitLine3D(hv_LineLeftX, hv_LineLeftY, hv_LineLeftZ, &hv_MeanPointLeft, &hv_lineVecLeft);
+                        FitLine3D(hv_LineRightX, hv_LineRightY, hv_LineRightZ, &hv_MeanPointRight, &hv_lineVecRight);
+
+                        HTuple hv_AngleUR, hv_AngleDR, hv_AngleUL, hv_AngleDL;
+                        Line3D_Angle(hv_lineVecRight, hv_lineVecUp, &hv_AngleUR);
+                        Line3D_Angle(hv_lineVecRight, hv_lineVecDown, &hv_AngleDR);
+                        Line3D_Angle(hv_lineVecLeft, hv_lineVecUp, &hv_AngleUL);
+                        Line3D_Angle(hv_lineVecLeft, hv_lineVecDown, &hv_AngleDL);
+
+                        if (0 != (HTuple(HTuple(HTuple(int(((hv_AngleUR - 90).TupleAbs()) < 10)).TupleOr(int(((hv_AngleDR - 90).TupleAbs()) < 10))).TupleOr(int(((hv_AngleUL - 90).TupleAbs()) < 10))).TupleOr(int(((hv_AngleDL - 90).TupleAbs()) < 10))))
+                        {
+                            Result = "-1, 直线拟合结果异常，请确认";
+                            return;
+                        }
+                        else
+                        {
+                            //*根据空间点到直线的距离判断直线质量
+                            LineQuality_3D(hv_LineUpX, hv_LineUpY, hv_LineUpZ, hv_MeanPointUp, hv_lineVecUp,
+                                           &hv_DistUp, &hv_MedianUp, &hv_DeviationUp);
+                            LineQuality_3D(hv_LineDownX, hv_LineDownY, hv_LineDownZ, hv_MeanPointDown, hv_lineVecDown,
+                                           &hv_DistDown, &hv_MedianDown, &hv_DeviationDown);
+                            LineQuality_3D(hv_LineRightX, hv_LineRightY, hv_LineRightZ, hv_MeanPointRight,
+                                           hv_lineVecRight, &hv_DistRight, &hv_MedianRight, &hv_DeviationRight);
+                            LineQuality_3D(hv_LineLeftX, hv_LineLeftY, hv_LineLeftZ, hv_MeanPointLeft, hv_lineVecLeft,
+                                           &hv_DistLeft, &hv_MedianLeft, &hv_DeviationLeft);
+
+                            double deviUp = hv_DeviationUp[0].D();
+                            double deviDown = hv_DeviationDown[0].D();
+                            double deviRight = hv_DeviationRight[0].D();
+                            double deviLeft = hv_DeviationLeft[0].D();
+                            LineQuali[0] = deviUp;
+                            LineQuali[1] = deviDown;
+                            LineQuali[2] = deviRight;
+                            LineQuali[3] = deviLeft;
+
+                            hv_DeviaDis.Clear();
+                            hv_DeviaDis.Append(hv_DeviationUp);
+                            hv_DeviaDis.Append(hv_DeviationDown);
+                            hv_DeviaDis.Append(hv_DeviationRight);
+                            TupleSortIndex(hv_DeviaDis, &hv_Indices2);
+                            hv_Line = "Right";
+                            if (0 != (int(HTuple(hv_Indices2[0]) == 0)))
+                            {
+                                hv_Line = "Up";
+                            }
+                            else if (0 != (int(HTuple(hv_Indices2[0]) == 1)))
+                            {
+                                hv_Line = "Down";
+                            }
+                            else
+                            {
+                                hv_Line = "Right";
+                            }
+                            //*
+
+                            //*计算两条三维直线的交点
+                            LineIntersec3D(hv_MeanPointUp, hv_lineVecUp, hv_MeanPointRight, hv_lineVecRight,
+                                           &hv_RightPoint, &(Result1));
+                            if (Result1 == -1)
+                            {
+                                Result = "-1, 两个直线平行或重合，请确认";
+                                return;
+                            }
+
+                            LineIntersec3D(hv_MeanPointUp, hv_lineVecUp, hv_MeanPointLeft, hv_lineVecLeft,
+                                           &hv_IntersecPonitUL, &(Result1));
+                            if (Result1 == -1)
+                            {
+                                Result = "-1, 两个直线平行或重合，请确认";
+                                return;
+                            }
+
+                            LineIntersec3D(hv_MeanPointDown, hv_lineVecDown, hv_MeanPointRight, hv_lineVecRight,
+                                           &hv_IntersecPonitDR, &(Result1));
+                            if (Result1 == -1)
+                            {
+                                Result = "-1, 两个直线平行或重合，请确认";
+                                return;
+                            }
+
+                            LineIntersec3D(hv_MeanPointDown, hv_lineVecDown, hv_MeanPointLeft, hv_lineVecLeft,
+                                           &hv_IntersecPonitDL, &(Result1));
+                            if (Result1 == -1)
+                            {
+                                Result = "-1, 两个直线平行或重合，请确认";
+                                return;
+                            }
+                            double *PonitUR = hv_RightPoint.ToDArr();
+                            double *PonitUL = hv_IntersecPonitUL.ToDArr();
+                            double *PonitDR = hv_IntersecPonitDR.ToDArr();
+                            double *PonitDL = hv_IntersecPonitDL.ToDArr();
+
+                            IntersecPonitUR[0] = PonitUR[0];
+                            IntersecPonitUR[1] = PonitUR[1];
+                            IntersecPonitUR[2] = PonitUR[2];
+                            IntersecPonitUL[0] = PonitUL[0];
+                            IntersecPonitUL[1] = PonitUL[1];
+                            IntersecPonitUL[2] = PonitUL[2];
+
+                            IntersecPonitDR[0] = PonitDR[0];
+                            IntersecPonitDR[1] = PonitDR[1];
+                            IntersecPonitDR[2] = PonitDR[2];
+                            IntersecPonitDL[0] = PonitDL[0];
+                            IntersecPonitDL[1] = PonitDL[1];
+                            IntersecPonitDL[2] = PonitDL[2];
+
+                            //*-----------------------------根据右侧棱和法向量计算坐标系另一方向
+                            if (0 != (int(hv_Line == HTuple("Right"))))
+                            {
+                                CrossMultFunc(hv_lineVecRight, hv_VectorX, &hv_VectorY2);
+                                //**单位化法向量:实际为箱体X轴方向
+                                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
+                                UnitVector(hv_VectorY2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
+                                //*叉乘计算
+                                CrossMultFunc(hv_VectorX, hv_VectorY, &hv_VectorZ1);
+                                UnitVector(hv_VectorZ1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
+                            }
+                            else if (0 != (int(hv_Line == HTuple("Up"))))
+                            {
+                                CrossMultFunc(hv_lineVecUp, hv_VectorX, &hv_VectorZ2);
+                                //**单位化法向量:实际为箱体X轴方向
+                                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
+                                UnitVector(hv_VectorZ2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
+                                //*叉乘计算
+                                CrossMultFunc(hv_VectorX, hv_VectorZ, &hv_VectorY1);
+                                UnitVector(hv_VectorY1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
+                            }
+                            else if (0 != (int(hv_Line == HTuple("Down"))))
+                            {
+                                CrossMultFunc(hv_lineVecDown, hv_VectorX, &hv_VectorZ2);
+                                //**单位化法向量:实际为箱体X轴方向
+                                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
+                                UnitVector(hv_VectorZ2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
+                                //*叉乘计算
+                                CrossMultFunc(hv_VectorX, hv_VectorZ, &hv_VectorY1);
+                                UnitVector(hv_VectorY1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
+                            }
+                            else if (0 != (int(hv_Line == HTuple("Left"))))
+                            {
+                                CrossMultFunc(hv_lineVecRight, hv_VectorX, &hv_VectorY2);
+                                //**单位化法向量:实际为箱体X轴方向
+                                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
+                                UnitVector(hv_VectorY2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
+                                //*叉乘计算
+                                CrossMultFunc(hv_VectorX, hv_VectorY, &hv_VectorZ1);
+                                UnitVector(hv_VectorZ1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
+                            }
+                            if (0 != (int(HTuple(hv_VectorX[2]) > 0)))
+                            {
+                                hv_VectorX = -hv_VectorX;
+                            }
+                            if (0 != (int(HTuple(hv_VectorY[1]) > 0)))
+                            {
+                                hv_VectorY = -hv_VectorY;
+                            }
+                            if (0 != (int(HTuple(hv_VectorZ[0]) > 0)))
+                            {
+                                hv_VectorZ = -hv_VectorZ;
+                            }
+
+                            double *X = hv_VectorX.ToDArr();
+                            double *Y = hv_VectorY.ToDArr();
+                            double *Z = hv_VectorZ.ToDArr();
+                            VectorPosition[0] = X[0];
+                            VectorPosition[1] = X[1];
+                            VectorPosition[2] = X[2];
+
+                            VectorPosition[3] = Y[0];
+                            VectorPosition[4] = Y[1];
+                            VectorPosition[5] = Y[2];
+
+                            VectorPosition[6] = Z[0];
+                            VectorPosition[7] = Z[1];
+                            VectorPosition[8] = Z[2];
+                            Result = "1, 运行成功";
+                            // VectorPosition={X[0], X[1], X[2], Y[0], Y[1], Y[2], Z[0], Z[1], Z[2]};
+                        }
+                    }
+                    else
+                    {
+                        Result = "-1, 调平的目标点云区域为空";
+                    }
+                }
+
+                else
+                {
+                    Result = "-1, 目标点云区域数量不对";
+                }
             }
             else
             {
-                hv_Line = "Right";
+                Result = "-1, 未提取出箱体";
             }
-            //*
-
-            //*计算两条三维直线的交点
-            LineIntersec3D(hv_MeanPointUp, hv_lineVecUp, hv_MeanPointRight, hv_lineVecRight,
-                           &hv_RightPoint, &(hv_Result));
-            LineIntersec3D(hv_MeanPointUp, hv_lineVecUp, hv_MeanPointLeft, hv_lineVecLeft,
-                           &hv_IntersecPonitUL, &(hv_Result));
-            LineIntersec3D(hv_MeanPointDown, hv_lineVecDown, hv_MeanPointRight, hv_lineVecRight,
-                           &hv_IntersecPonitDR, &(hv_Result));
-            LineIntersec3D(hv_MeanPointDown, hv_lineVecDown, hv_MeanPointLeft, hv_lineVecLeft,
-                           &hv_IntersecPonitDL, &(hv_Result));
-
-            double *PonitUR = hv_RightPoint.ToDArr();
-            double *PonitUL = hv_IntersecPonitUL.ToDArr();
-            double *PonitDR = hv_IntersecPonitDR.ToDArr();
-            double *PonitDL = hv_IntersecPonitDL.ToDArr();
-
-            IntersecPonitUR[0] = PonitUR[0];
-            IntersecPonitUR[1] = PonitUR[1];
-            IntersecPonitUR[2] = PonitUR[2];
-            IntersecPonitUL[0] = PonitUL[0];
-            IntersecPonitUL[1] = PonitUL[1];
-            IntersecPonitUL[2] = PonitUL[2];
-
-            IntersecPonitDR[0] = PonitDR[0];
-            IntersecPonitDR[1] = PonitDR[1];
-            IntersecPonitDR[2] = PonitDR[2];
-            IntersecPonitDL[0] = PonitDL[0];
-            IntersecPonitDL[1] = PonitDL[1];
-            IntersecPonitDL[2] = PonitDL[2];
-            //*-----------------------------根据右侧棱和法向量计算坐标系另一方向
-
-            if (0 != (int(hv_Line == HTuple("Right"))))
-            {
-                CrossMultFunc(hv_lineVecRight, hv_VectorX, &hv_VectorY2);
-                //**单位化法向量:实际为箱体X轴方向
-                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
-                UnitVector(hv_VectorY2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
-                //*叉乘计算
-                CrossMultFunc(hv_VectorX, hv_VectorY, &hv_VectorZ1);
-                UnitVector(hv_VectorZ1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
-            }
-            else if (0 != (int(hv_Line == HTuple("Up"))))
-            {
-                CrossMultFunc(hv_lineVecUp, hv_VectorX, &hv_VectorZ2);
-                //**单位化法向量:实际为箱体X轴方向
-                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
-                UnitVector(hv_VectorZ2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
-                //*叉乘计算
-                CrossMultFunc(hv_VectorX, hv_VectorZ, &hv_VectorY1);
-                UnitVector(hv_VectorY1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
-            }
-            else if (0 != (int(hv_Line == HTuple("Down"))))
-            {
-                CrossMultFunc(hv_lineVecDown, hv_VectorX, &hv_VectorZ2);
-                //**单位化法向量:实际为箱体X轴方向
-                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
-                UnitVector(hv_VectorZ2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
-                //*叉乘计算
-                CrossMultFunc(hv_VectorX, hv_VectorZ, &hv_VectorY1);
-                UnitVector(hv_VectorY1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
-            }
-            else if (0 != (int(hv_Line == HTuple("Left"))))
-            {
-                CrossMultFunc(hv_lineVecRight, hv_VectorX, &hv_VectorY2);
-                //**单位化法向量:实际为箱体X轴方向
-                UnitVector(hv_VectorX, ((HTuple(0).Append(0)).Append(0)), &hv_VectorX);
-                UnitVector(hv_VectorY2, ((HTuple(0).Append(0)).Append(0)), &hv_VectorY);
-                //*叉乘计算
-                CrossMultFunc(hv_VectorX, hv_VectorY, &hv_VectorZ1);
-                UnitVector(hv_VectorZ1, ((HTuple(0).Append(0)).Append(0)), &hv_VectorZ);
-            }
-            if (0 != (int(HTuple(hv_VectorX[2]) > 0)))
-            {
-                hv_VectorX = -hv_VectorX;
-            }
-            if (0 != (int(HTuple(hv_VectorY[1]) > 0)))
-            {
-                hv_VectorY = -hv_VectorY;
-            }
-            if (0 != (int(HTuple(hv_VectorZ[0]) > 0)))
-            {
-                hv_VectorZ = -hv_VectorZ;
-            }
-
-            double *X = hv_VectorX.ToDArr();
-            double *Y = hv_VectorY.ToDArr();
-            double *Z = hv_VectorZ.ToDArr();
-            VectorPosition[0] = X[0];
-            VectorPosition[1] = X[1];
-            VectorPosition[2] = X[2];
-
-            VectorPosition[3] = Y[0];
-            VectorPosition[4] = Y[1];
-            VectorPosition[5] = Y[2];
-
-            VectorPosition[6] = Z[0];
-            VectorPosition[7] = Z[1];
-            VectorPosition[8] = Z[2];
-            *Result = 1;
-            // VectorPosition={X[0], X[1], X[2], Y[0], Y[1], Y[2], Z[0], Z[1], Z[2]};
         }
-        else
+        catch (HException &HDevExpDefaultException)
         {
-            *Result = -1;
+            HDevExpDefaultException.ToHTuple(&hv_Exception);
+            Result = "-1, 程序运行异常";
         }
         return;
     }

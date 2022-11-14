@@ -20,7 +20,7 @@
 // #include <Eigen/Dense>
 using namespace HalconCpp;
 // using namespace Eigen;
-using namespace std;
+// using namespace std;
 
 namespace PCLlibs
 {
@@ -39,7 +39,7 @@ namespace PCLlibs
     /// @param LineQuali 四条边直线质量的方差结果：上侧边、下侧边、右侧边、左侧边
     /// @param Result 是否运行成功
     void HeightAndPoseVector(HTuple hv_CamParam, double hv_SetParas[6], HTuple hv_ObjectModel3D, double &MedianHeight, double &MedianWidth, double *VectorPosition, double *IntersecPonitUR,
-                             double *IntersecPonitUL, double *IntersecPonitDR, double *IntersecPonitDL, double *LineQuali, int *Result);
+                             double *IntersecPonitUL, double *IntersecPonitDR, double *IntersecPonitDL, double *LineQuali, std::string &Result);
 
     /// @brief 箱体长度测量算法
     /// @param Vector 编码器标定方向
@@ -53,45 +53,14 @@ namespace PCLlibs
     void CalBoxLength(double Vector[3], double s2, double s1, double LeftUpPoint[3],
                       double LeftDownPoint[3], double RightUpPoint[3], double RightDownPoint[3], double &boxLength);
 
-    /// @brief 根据标定矩阵计算箱体在机械手下的姿态
-    /// @param VectorX 输入箱体在相机下X轴单位向量
-    /// @param VectorY 输入箱体在相机下Y轴单位向量
-    /// @param VectorZ 输入箱体在相机下Z轴单位向量
-    /// @param RightUpPoint 箱体右上角坐标
-    /// @param boxSize 箱体尺寸：高度、长度、深度
-    /// @param VectorX1 相机和机械手的标定矩阵：X轴方向向量
-    /// @param VectorY1 相机和机械手的标定矩阵：Y轴方向向量
-    /// @param VectorZ1 相机和机械手的标定矩阵：Z轴方向向量
-    /// @param Quater 输出箱体在机械手下的四元数
-    /// @param CenterPoint 输出箱体中心坐标
-
-    /// @brief 根据标定矩阵计算箱体在机械手下的姿态
-    /// @param VectorX 输入箱体在相机下X轴单位向量
-    /// @param VectorY 输入箱体在相机下Y轴单位向量
-    /// @param VectorZ 输入箱体在相机下Z轴单位向量
-    /// @param RightUpPoint 箱体右上角坐标
-    /// @param boxSize 箱体尺寸：高度、长度、深度
-    /// @param VectorX1 相机和机械手的标定矩阵：X轴方向向量
-    /// @param VectorY1 相机和机械手的标定矩阵：Y轴方向向量
-    /// @param VectorZ1 相机和机械手的标定矩阵：Z轴方向向量
-    /// @param CalibPoint  相机和机械手的标定矩阵：标定矩阵偏移量
-    /// @param Quater 输出箱体在机械手下的四元数
-    /// @param CenterPoint 输出箱体中心坐标
-    void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint);
-
-
-    /// @brief 根据标定矩阵计算箱体在机械手下的姿态
-    /// @param VectorX 输入箱体在相机下X轴单位向量
-    /// @param VectorY 输入箱体在相机下Y轴单位向量
-    /// @param VectorZ 输入箱体在相机下Z轴单位向量
-    /// @param RightUpPoint 箱体右上角坐标
-    /// @param boxSize 箱体尺寸：高度、长度、深度
-    /// @param CalibPose 相机和机械手的标定矩阵
-    /// @param Quater 输出箱体在机械手下的四元数
-    /// @param CenterPoint 输出箱体中心坐标
-    void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
+/// @brief 根据标定矩阵计算箱体在机械手下的姿态
+/// @param VectorPosition 坐标系三个方向单位向量数组，顺序为：X轴方向向量3个参数(箱体表面法向量)、Y轴方向向量3个参数、Z轴方向向量3个参数、
+/// @param RightUpPoint 箱体右上角坐标
+/// @param boxSize 箱体尺寸：高度、长度、深度
+/// @param CalibPose 相机和机械手的标定矩阵
+/// @param Quater 输出箱体在机械手下的四元数
+/// @param CenterPoint 输出箱体中心坐标
+void CalcuCameraRobot(double VectorPosition[9], double RightUpPoint[3],   double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
 
 
      /// @brief 测量箱体深度
@@ -104,7 +73,34 @@ namespace PCLlibs
     /// @param deepth 输出箱体深度
     void CalBoxDeepth(double SensorDis, double SensorDis1, double SensorDis2, double holeDis, double MatRot[9], double NormalVec[3], double &deepth);
 
- 
+ /// @brief 根据标定矩阵计算箱体在机械手下的姿态
+    /// @param VectorX 输入箱体在相机下X轴单位向量
+    /// @param VectorY 输入箱体在相机下Y轴单位向量
+    /// @param VectorZ 输入箱体在相机下Z轴单位向量
+    /// @param RightUpPoint 箱体右上角坐标
+    /// @param boxSize 箱体尺寸：高度、长度、深度
+    /// @param VectorX1 相机和机械手的标定矩阵：X轴方向向量
+    /// @param VectorY1 相机和机械手的标定矩阵：Y轴方向向量
+    /// @param VectorZ1 相机和机械手的标定矩阵：Z轴方向向量
+    /// @param CalibPoint  相机和机械手的标定矩阵：标定矩阵偏移量
+    /// @param Quater 输出箱体在机械手下的四元数
+    /// @param CenterPoint 输出箱体中心坐标
+    // void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
+    //                       double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint);
+
+
+    /// @brief 根据标定矩阵计算箱体在机械手下的姿态
+    /// @param VectorX 输入箱体在相机下X轴单位向量
+    /// @param VectorY 输入箱体在相机下Y轴单位向量
+    /// @param VectorZ 输入箱体在相机下Z轴单位向量
+    /// @param RightUpPoint 箱体右上角坐标
+    /// @param boxSize 箱体尺寸：高度、长度、深度
+    /// @param CalibPose 相机和机械手的标定矩阵
+    /// @param Quater 输出箱体在机械手下的四元数
+    /// @param CenterPoint 输出箱体中心坐标
+    // void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
+    //                       double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
+
 }
 
 #endif

@@ -95,7 +95,7 @@ QList<std::shared_ptr<CameraOperator> > DeviceManager::cameraList()
 
 std::shared_ptr<CameraOperator> DeviceManager::getCamera(int index)
 {
-    if(cameras.count()>index+1){
+    if(cameras.count()>=index+1){
         return cameras.at(index);
     }
     else{
@@ -161,7 +161,7 @@ QList<std::shared_ptr<RobotOperator> > DeviceManager::robotList()
 
 std::shared_ptr<RobotOperator> DeviceManager::getRobot(int index)
 {
-    if(robots.count()>index+1){
+    if(robots.count()>=index+1){
         return robots.at(index);
     }
     else{

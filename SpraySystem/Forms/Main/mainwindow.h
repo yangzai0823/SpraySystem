@@ -12,7 +12,10 @@
 #include "Bussiness/mainprocess.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui
+{
+    class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -22,7 +25,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(std::shared_ptr<User> user);
     ~MainWindow();
-    void closeEvent(QCloseEvent* event);
+    void closeEvent(QCloseEvent *event);
 private slots:
     void on_actQuit_triggered();
 
@@ -40,28 +43,30 @@ private slots:
 
     void on_btn_System_clicked();
 
-    void deviceConnectError_slot(QString device,int state);
+    void deviceConnectError_slot(QString device, int state);
     void on_btn_EStop_clicked();
 
 signals:
     void startMonitorDevice_signal();
+
 private:
     Ui::MainWindow *ui;
     bool isRun;
     QTimer *timer;
+    MainProcess::CameraCallbackData *camera1CallbackData;
 
-//    Robot *robot1;
-//    Robot *robot2;
-//    Camera *camera1;
-//    Camera *camera2;
-//    PLC *plc;
+    //    Robot *robot1;
+    //    Robot *robot2;
+    //    Camera *camera1;
+    //    Camera *camera2;
+    //    PLC *plc;
 
-//    DeviceMonitor *devicemonitor; //监听所有设备状态
-//    QThread *devicemonitorThread;
+    //    DeviceMonitor *devicemonitor; //监听所有设备状态
+    //    QThread *devicemonitorThread;
     MainProcess *mainprocess = nullptr;
 
     void startDevices();
-    void updateDeviceState(QPushButton* sender,int state);
+    void updateDeviceState(QPushButton *sender, int state);
     void judgeAuthority();
 };
 #endif // MAINWINDOW_H
