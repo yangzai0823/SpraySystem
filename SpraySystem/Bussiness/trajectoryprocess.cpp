@@ -147,7 +147,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos >= Pu && last_pos < Pu) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(1000, -3000-Lu/2.0, 1000 + 1200));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Lu/2.0, 1000 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -162,7 +162,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos>= Pu + Lu && last_pos < Pu + Lu) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(1000, -3000+Lu/2.0, 1000 + 1200));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Lu/2.0, 1000 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -180,7 +180,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if(current_pos>= Pd && last_pos < Pd){
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(1000, -3000-Ld/2.0, 1000));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Ld/2.0, 1000));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -195,7 +195,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if(current_pos>= Pd + Ld && last_pos < Pd + Ld){
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(1000, -3000+Ld/2.0, 1000));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Ld/2.0, 1000));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -326,6 +326,12 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
       generator->AddBoxEnvirInfo(
           boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo.rotation()),
           (QString("box") + QString::number(i)).toStdString());
+      // 添加挂钩对应碰撞体，use a thin(x) long(z) box to simulate the hook
+      double hook_h = 400;
+
+      generator->AddBoxHookEnvirInfo(
+          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo.rotation()), hook_h,
+          (QString("box_hook") + QString::number(i)).toStdString());
     }
 
     boxCenter[1] += diff;

@@ -131,6 +131,20 @@ void TrajectoryGenerator::GenerateEnvirInfo()
    Eigen::Quaterniond(1,0,0,0), "floor");
 }
 
+void TrajectoryGenerator::AddBoxHookEnvirInfo(Eigen::Vector3d boxcenter,
+                                          Eigen::Vector3d boxsize,
+                                          Eigen::Quaterniond boxq,
+                                          double hook_height,
+                                          const std::string &name)
+{
+  AddBoxEnvirInfo(
+          boxcenter + Eigen::Vector3d(0, 0, boxsize[2]/2 + hook_height/2),
+          Eigen::Vector3d(50, boxsize[1] - 200, hook_height),
+          boxq,
+          name);
+}
+
+
 void TrajectoryGenerator::AddBoxEnvirInfo(Eigen::Vector3d boxcenter,
                                           Eigen::Vector3d boxsize,
                                           Eigen::Quaterniond boxq,

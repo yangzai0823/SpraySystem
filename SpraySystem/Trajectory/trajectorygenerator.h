@@ -26,9 +26,12 @@ public:
      */
     void AddBoxEnvirInfo(Eigen::Vector3d boxcenter,Eigen::Vector3d boxsize,Eigen::Quaterniond boxq, const std::string &name);
 
+    void AddBoxHookEnvirInfo(Eigen::Vector3d boxcenter, Eigen::Vector3d boxsize,
+                             Eigen::Quaterniond boxq, double hook_height,
+                             const std::string &name);
     /**
-     * @brief 
-     * 
+     * @brief
+     *
      * @param start         起始关节角
      * @param end           结束关节角
      * @param nsteps        规划步数
