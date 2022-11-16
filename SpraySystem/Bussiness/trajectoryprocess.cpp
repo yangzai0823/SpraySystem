@@ -74,6 +74,25 @@ Eigen::Quaterniond getPaintOrientation(){
   return quat;
 }
 
+Eigen::Quaterniond getSeamPaintOrientation(bool front){
+  Eigen::Matrix3d rot;
+  // rot 对应矩阵为旋转矩阵，每一列对应
+  if(front){
+    rot << 1, 0, 0, // 
+    0, 0, -1, // 
+    0, 1, 0;
+  }else{
+    rot << 1, 0, 0, // 
+    0, 0, 1, // 
+    0, -1, 0;
+    // rot = rot * Eigen::AngleAxisd(M_PI / 4.0, Eigen::Vector3d::UnitY());
+  }
+    rot = rot * Eigen::AngleAxisd(M_PI / 4.0, Eigen::Vector3d::UnitY());
+
+  Eigen::Quaterniond quat(rot);
+  return quat;
+}
+
 void AbbRbt(Eigen::VectorXd planRet, RobotTask &tk)
 {
   int cnt = 0;
@@ -154,7 +173,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     info.lz = H;
     info.face = 0;
     info.encoder = init_encoder - (Pu * units);
-    info.diff = 300;
+    info.diff = 0;
     info.flag = 1;
     vdata->GetPlanTaskInfo(1)->push_back(info);
     std::cout << "push up 0: " << info.encoder << std::endl;
@@ -169,7 +188,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     info.lz = H;
     info.face = 1;
     info.encoder = init_encoder - ((Pu + Lu) * units);
-    info.diff = 300;
+    info.diff = 0;
     info.flag = 1;
     vdata->GetPlanTaskInfo(1)->push_back(info);
     genUp = true;
@@ -187,7 +206,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     info.lz = H;
     info.face = 0;
     info.encoder = init_encoder - (Pd * units);
-    info.diff = 300;
+    info.diff = 0;
     info.flag = 0;
     vdata->GetPlanTaskInfo(0)->push_back(info);
     std::cout << "push bottom 0: " << info.encoder << std::endl;
@@ -202,7 +221,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     info.lz = H;
     info.face = 1;
     info.encoder = init_encoder - ((Pd + Ld) * units);
-    info.diff = 300;
+    info.diff = 0;
     info.flag = 0;
     vdata->GetPlanTaskInfo(0)->push_back(info);
     std::cout << "push bottom 1: " << info.encoder << std::endl;
@@ -307,6 +326,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     int ndof = 6;
 
     auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
+    p1 = boxInfo.rotation() * p1;
     float dest_y = -task.diff;
     if (!((task.face == 0) ^ invert)) {
       p1[1] = p1[1] - boxSize[1];
@@ -324,20 +344,24 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
       auto boxCenter_1 = boxInfo_1.translation();
       boxCenter_1[1] += diff + diff_mm;
       generator->AddBoxEnvirInfo(
-          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo.rotation()),
+          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo_1.rotation()),
           (QString("box") + QString::number(i)).toStdString());
       // 添加挂钩对应碰撞体，use a thin(x) long(z) box to simulate the hook
       double hook_h = 400;
 
       generator->AddBoxHookEnvirInfo(
-          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo.rotation()), hook_h,
+          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo_1.rotation()), hook_h,
           (QString("box_hook") + QString::number(i)).toStdString());
     }
 
     boxCenter[1] += diff;
-    generator->GeneratePaintConstraint(
+    generator->GenerateShrinkedPaintConstraint(
         boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
-        getPaintOrientation(), task.face == 0, invert, p, ori);
+        getPaintOrientation(), 0, boxSize[2] / 2.0 - 50, task.face == 0, invert, 0,
+        p, ori);
+    // generator->GeneratePaintConstraint(
+    //     boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
+    //     getPaintOrientation(), task.face == 0, invert, p, ori);
     bool ret = generator->GeneratePaintTrajectory(init_dof, p, ori, traj, ndof);
 
     int N = traj.size() / ndof;

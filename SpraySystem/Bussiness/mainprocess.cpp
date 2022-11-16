@@ -172,7 +172,7 @@ int64_t MainProcess::getChainEncoder() const
     return val[1];
 #else
     static uint64_t en = 1e8;
-    en -= 50;
+    en -= 200;
     return en;
 #endif
 }
@@ -185,7 +185,7 @@ float MainProcess::getChainUnits() const
 Eigen::VectorXd MainProcess::getRobotWaitPose() const
 {
     Eigen::VectorXd val(6);
-    val << 1.5, 0, 0, 0, 0, 0;
+    val << 0, -20/180.0*M_PI, 20/180.0*M_PI, 0, 0, -M_PI / 2.0;
     std::cout << "getRobotWaitPose: " << val[0] << std::endl;
     return val;
 }

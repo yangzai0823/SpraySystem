@@ -122,7 +122,7 @@ void TrajectoryGenerator::GenerateEnvirInfo()
     robot = GetRobot(*pt->env);
     //设置工具坐标系
     pt->addManipulator(robot, "tool", "base", "link_flange", manip_rot,
-                       Eigen::Vector3d(0.00, 0.2, 0.285));
+                       Eigen::Vector3d(0.00, 0.1, 0.800));
       //  // 添加墙面
    pt->addBox(Eigen::Vector3d(-1, 0, 1), Eigen::Vector3d(0.01, 5, 2),
    Eigen::Quaterniond(1,0,0,0), "wall");
@@ -186,6 +186,131 @@ void TrajectoryGenerator::clearEnv(){
     boxes_.clear();
 }
 
+
+// void TrajectoryGenerator::GenerateSeamPaintConstraint(Eigen::Vector3d boxCenterPoint,
+//                                              Eigen::Vector3d boxSize,
+//                                              Eigen::Quaterniond boxq,
+//                                              Eigen::Quaterniond painter_ori,
+//                                              bool front, bool invert,
+//                                              Eigen::VectorXd &p, Eigen::VectorXd &ori){
+//       //计算喷涂的路径约束
+
+//   Eigen::Vector3d p1, p2;
+//   // 生成喷涂路线，这里通过 p1,p2,p3 三个点来控制位置，ori_dn来控制姿态，
+//   // 实际调试时需要更改
+//   // 最终需要通过柜体的位姿生成
+//   boxCenterPoint = boxCenterPoint / 1000.0;
+//   boxSize = boxSize / 1000.0;
+
+//   p1 = topnearpoint(boxCenterPoint, boxSize);  
+
+//   p2 = bottomnearpont(boxCenterPoint, boxSize);
+
+//   if(invert){
+//     if(front){
+//       p1[1] = p1[1] - boxSize[1];
+//       p2[1] = p2[1] - boxSize[1];
+
+//     }
+//   }
+//   // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
+//   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
+//   if(!(front ^ invert)){
+//     p1[1] = p1[1] - boxSize[1];
+//     p2[1] = p2[1] - boxSize[1];
+
+//     painter_ori =
+//         Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
+//   }
+//   Eigen::Quaterniond quat(painter_ori);
+//   quat = boxq * quat;
+//   Eigen::Vector4d ori_dn(quat.w(), quat.x(), quat.y(), quat.z());
+
+  
+//   // genInitPathForRect(p1, p2, p3, dn, p, dir);
+//   // genInitOrientedPathForRect(p1, p2, p3, ori_dn, p, ori);
+//   genInitOrientedPathForBoxPlane(p1, p2, p3, ori_dn,
+//                                  paint_dir,  // 0: x, 1: y
+//                                  0.2, 0.15, 0.1, 0.1, 1, p, ori);
+//   p = p * 1000.0;
+// }
+
+
+
+void TrajectoryGenerator::GenerateShrinkedPaintConstraint(Eigen::Vector3d boxCenterPoint,
+                                             Eigen::Vector3d boxSize,
+                                             Eigen::Quaterniond boxq,
+                                             Eigen::Quaterniond painter_ori,
+                                             float shrink_size_x, float shrink_size_z,
+                                             bool front, bool invert,
+                                             int paint_dir, // 0: x, 1: z
+                                             Eigen::VectorXd &p, Eigen::VectorXd &ori){
+      //计算喷涂的路径约束
+
+  Eigen::Vector3d p1, p2, p3;
+  shrink_size_x =
+      shrink_size_x > (boxSize[0] / 2.0) ? boxSize[0] / 2.0 : shrink_size_x;
+  shrink_size_z =
+      shrink_size_z > (boxSize[2] / 2.0) ? boxSize[2] / 2.0 : shrink_size_z;
+
+  // 生成喷涂路线，这里通过 p1,p2,p3 三个点来控制位置，ori_dn来控制姿态，
+  // 实际调试时需要更改
+  // 最终需要通过柜体的位姿生成
+  boxCenterPoint = boxCenterPoint / 1000.0;
+  boxSize = boxSize / 1000.0;
+  shrink_size_x /= 1000.0;
+  shrink_size_z /= 1000.0;
+  std::cout << "shrink x: " << shrink_size_x << std::endl;
+  std::cout << "shrink z: " << shrink_size_z << std::endl;
+  p1 = topfarpoint(boxCenterPoint, boxSize);
+  std::cout <<"p1 : " << p1.transpose() << std::endl;
+  p1[0] -= shrink_size_x;
+  p1[2] -= shrink_size_z;
+  p2 = topnearpoint(boxCenterPoint, boxSize);  
+  std::cout <<"p2 : " << p2.transpose() << std::endl;
+  p2[0] += shrink_size_x;
+  p2[2] -= shrink_size_z;
+  p3 = bottomnearpont(boxCenterPoint, boxSize);
+  std::cout <<"p3 : " << p3.transpose() << std::endl;
+  p3[0] += shrink_size_x;
+  p3[2] += shrink_size_z;
+  Eigen::Quaterniond box2world = boxq.inverse();
+  p1 = boxq * (p1 - boxCenterPoint) + boxCenterPoint;
+  p2 = boxq * (p2 - boxCenterPoint) + boxCenterPoint;
+  p3 = boxq * (p3 - boxCenterPoint) + boxCenterPoint;
+  std::cout <<"p1 : " << p1.transpose() << std::endl;
+  std::cout <<"p2 : " << p2.transpose() << std::endl;
+  std::cout <<"p3 : " << p3.transpose() << std::endl;
+
+  // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
+  // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
+  Eigen::Vector3d dy = Eigen::Vector3d(0, boxSize[1], 0);
+  dy = boxq * dy;
+  std::cout <<"dy : " << dy << std::endl;
+  if (!(front ^ invert)) {
+    // p1[1] = p1[1] - boxSize[1];
+    // p2[1] = p2[1] - boxSize[1];
+    // p3[1] = p3[1] - boxSize[1];
+    p1 = p1 - dy;
+    p2 = p2 - dy;
+    p3 = p3 - dy;
+    painter_ori =
+        Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
+  }
+  Eigen::Quaterniond quat(painter_ori);
+  quat = boxq * quat;
+  Eigen::Vector4d ori_dn(quat.w(), quat.x(), quat.y(), quat.z());
+
+  
+  // genInitPathForRect(p1, p2, p3, dn, p, dir);
+  // genInitOrientedPathForRect(p1, p2, p3, ori_dn, p, ori);
+  genInitOrientedPathForBoxPlane(p1, p2, p3, ori_dn,
+                                 paint_dir,  // 0: x, 1: y
+                                 0.05, 0.15, 0.1, 0.1, 1, p, ori);
+  p = p * 1000.0;
+}
+
+
 void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint,
                                              Eigen::Vector3d boxSize,
                                              Eigen::Quaterniond boxq,
@@ -206,15 +331,22 @@ void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint
   //      p3 = c + Eigen::Vector3d(-dx, dy, -dz);
   boxCenterPoint = boxCenterPoint / 1000.0;
   boxSize = boxSize / 1000.0;
-  p1 = topfarpoint(boxCenterPoint, boxSize);
+  p1 = topfarpoint(boxCenterPoint, boxSize) ;
   p2 = topnearpoint(boxCenterPoint, boxSize);
   p3 = bottomnearpont(boxCenterPoint, boxSize);
+  Eigen::Quaterniond box2world = boxq.inverse();
+  p1 = boxq * (p1 - boxCenterPoint) + boxCenterPoint;
+  p2 = boxq * (p2 - boxCenterPoint) + boxCenterPoint;
+  p3 = boxq * (p3 - boxCenterPoint) + boxCenterPoint;
+
   // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
+  Eigen::Vector3d dy = Eigen::Vector3d(0, boxSize[1], 0);
+  dy = boxq * dy;
   if(!(front ^ invert)){
-    p1[1] = p1[1] - boxSize[1];
-    p2[1] = p2[1] - boxSize[1];
-    p3[1] = p3[1] - boxSize[1];
+    p1 = p1 - dy;
+    p2 = p2 - dy;
+    p3 = p3 - dy;
     painter_ori =
         Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
   }
@@ -226,7 +358,7 @@ void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint
   // genInitPathForRect(p1, p2, p3, dn, p, dir);
   // genInitOrientedPathForRect(p1, p2, p3, ori_dn, p, ori);
   genInitOrientedPathForBoxPlane(p1, p2, p3, ori_dn,
-                                 1,  // 0: x, 1: y
+                                 0,  // 0: x, 1: y
                                  0.2, 0.15, 0.1, 0.1, 1, p, ori);
   p = p * 1000.0;
 }
@@ -299,7 +431,7 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       //             cnst_voil_cnt, elapsed_time, false);
       // }
       free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.2, free_traj, collision_cnt,
-                  cnst_voil_cnt, elapsed_time, false);
+                  cnst_voil_cnt, elapsed_time, true);
       
       float dist =pathDist(free_traj, ndof);
       if(cnst_voil_cnt == 0 && collision_cnt ==0){
@@ -380,6 +512,7 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   } else {
     return true;
   }
+  
 
 
 #endif

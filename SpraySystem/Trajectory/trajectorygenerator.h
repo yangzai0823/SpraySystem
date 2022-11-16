@@ -77,6 +77,28 @@ public:
         Eigen::Vector3d boxCenterPoint, Eigen::Vector3d boxSize,
         Eigen::Quaterniond boxq, Eigen::Quaterniond painter_ori, bool front,
         bool invert, Eigen::VectorXd &p, Eigen::VectorXd &ori);
+
+    /**
+     * @brief 利用箱体信息，生成喷涂约束
+     * 
+     * @param boxCenterPoint            箱子中心点，单位：mm
+     * @param boxSize                   箱子尺寸：单位：mm
+     * @param boxq                      箱子姿态：四元数
+     * @param painter_ori               喷涂姿态：四元数，箱子坐标系下的喷涂姿态，箱子坐标系同机器人基坐标系
+     * @param front                     是否喷涂箱子前方，true：前方，false：后方
+     * @param invert                    箱子行进方向是否与机器人基坐标系的y正方向相反，true：相反，false：相同
+     * @param shrink_size_x             x方向缩减的喷涂距离
+     * @param shrink_size_z             z方向缩减的喷涂距离
+     * @param paint_dir                 主喷涂方向： 0-X方向喷涂，1-Z方向喷涂
+     * @param p                         输出的位置约束：单位：mm
+     * @param ori                       输出的姿态约束：四元数
+     */
+    void GenerateShrinkedPaintConstraint(
+        Eigen::Vector3d boxCenterPoint, Eigen::Vector3d boxSize,
+        Eigen::Quaterniond boxq, Eigen::Quaterniond painter_ori,
+        float shrink_size_x, float shrink_size_z, bool front, bool invert,
+        int paint_dir,  // 0: x, 1: z
+        Eigen::VectorXd &p, Eigen::VectorXd &ori);
     /**
      * @brief 生成机器人喷涂任务
      */
