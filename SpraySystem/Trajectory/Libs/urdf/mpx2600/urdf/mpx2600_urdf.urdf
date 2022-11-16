@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="mpx2600_urdf">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="-0.21161 -0.00027468 0.14869"
+        rpy="0 0 0" />
+      <mass
+        value="62.105" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/base_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/base_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="0.100550518197811 0.11278029328022 0.692884292535611"
+        rpy="0 0 0" />
+      <mass
+        value="197.801159157614" />
+      <inertia
+        ixx="85.9358215804806"
+        ixy="2.66965069038124"
+        ixz="-17.5631283460795"
+        iyy="97.7811466002533"
+        iyz="-1.76118864808995"
+        izz="25.0239199642271" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link1_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link1_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="-0.15844 0 0.2515"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.618"
+      upper="2.618"
+      effort="0"
+      velocity="2.09" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="-0.018821581796957 0.214982233598283 0.373624107586771"
+        rpy="0 0 0" />
+      <mass
+        value="60.9385112970589" />
+      <inertia
+        ixx="8.99174916146676"
+        ixy="0.0295096353897653"
+        ixz="0.22578670873624"
+        iyy="9.19753922732271"
+        iyz="-0.0126905130930041"
+        izz="0.640222144552644" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link2_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link2_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="0 0.1237 0.3485"
+      rpy="0 0 0" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.1345"
+      upper="2.2689"
+      effort="0"
+      velocity="2.09" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="0.221992139930053 -0.097587400326997 -0.0163315224933083"
+        rpy="0 0 0" />
+      <mass
+        value="64.5889433070104" />
+      <inertia
+        ixx="0.96238430150691"
+        ixy="0.38674341302379"
+        ixz="0.306488094070346"
+        iyy="6.03399258317655"
+        iyz="-0.0539659562610906"
+        izz="6.28041916351432" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link3_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link3_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0 0 1"
+      rpy="0 0 0" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.1345"
+      upper="2.618"
+      effort="0"
+      velocity="2.18" />
+  </joint>
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="0.180056949062147 2.66408457513358E-07 -0.00716798581734612"
+        rpy="0 0 0" />
+      <mass
+        value="6.99309200755702" />
+      <inertia
+        ixx="0.0290038583588204"
+        ixy="-8.05668401239725E-08"
+        ixz="0.0036508439282193"
+        iyy="0.0555239614100292"
+        iyz="-4.64344659972015E-07"
+        izz="0.0565313534301717" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link4_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link4_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="0.7645 -0.1237 0"
+      rpy="0 0 0" />
+    <parent
+      link="link3" />
+    <child
+      link="link4" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-12.5664"
+      upper="12.5664"
+      effort="0"
+      velocity="6.28" />
+  </joint>
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="0.00234270241431556 -4.51152484748326E-06 -0.0122899714939753"
+        rpy="0 0 0" />
+      <mass
+        value="2.22595712958037" />
+      <inertia
+        ixx="0.00668008429804144"
+        ixy="-7.29711911571044E-07"
+        ixz="-9.5133896031486E-05"
+        iyy="0.00455551022613854"
+        iyz="-3.13626298438085E-07"
+        izz="0.00507498522747563" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link5_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link5_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0.27492 0 -0.06828"
+      rpy="0 0 0" />
+    <parent
+      link="link4" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0.5 0 -0.86603" />
+    <limit
+      lower="-12.5664"
+      upper="12.5664"
+      effort="0"
+      velocity="6.28" />
+  </joint>
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="0.0483438109187909 -1.46523687388685E-09 1.04890239531752E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.949931809539064" />
+      <inertia
+        ixx="0.00181650889140842"
+        ixy="-7.82778163203027E-12"
+        ixz="-1.90214713797836E-07"
+        iyy="0.00154750944017363"
+        iyz="-1.97672404178808E-09"
+        izz="0.0015493048988787" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link6_convhull.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/link6_convhull.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0.044584 0 -0.030447"
+      rpy="0 0 0" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-12.5664"
+      upper="12.5664"
+      effort="0"
+      velocity="6.28" />
+  </joint>
+  <link
+    name="link_flange">
+  </link>
+  <joint
+    name="joint_flange"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 1.57 0" />
+    <parent
+      link="link6" />
+    <child
+      link="link_flange" />
+  </joint>
+  <link
+    name="link_painter">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/painter.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://../urdf/mpx2600/meshes/painter.STL" />
+          <!-- <box size="0.05 0.05 0.5"/> -->
+      </geometry>
+    </collision>
+  </link>
+<joint
+    name="joint_painter"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_flange" />
+    <child
+      link="link_painter" />
+  </joint>
+</robot>

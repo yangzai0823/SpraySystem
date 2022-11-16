@@ -112,10 +112,10 @@ void TrajectoryGenerator::GenerateEnvirInfo()
     // 初始化环境
     // URDFTest pt;
       pt = new VwsPlanEnv(
-        "../urdf/abb_irb1410_urdf/urdf/"
-        "abb_irb1410_urdf.urdf",
-        "../urdf/abb_irb1410_urdf/urdf/"
-        "abb_irb1410_urdf.srdf");
+        "../urdf/mpx2600/urdf/"
+        "mpx2600_urdf.urdf",
+        "../urdf/mpx2600/urdf/"
+        "mpx2600_urdf.srdf");
     auto manip_rot =   Eigen::AngleAxisd(M_PI, Vector3d::UnitZ()) *
                                Eigen::AngleAxisd(-M_PI / 2, Vector3d::UnitY()) *
                                Eigen::AngleAxisd(M_PI / 2.0, Vector3d::UnitX());
