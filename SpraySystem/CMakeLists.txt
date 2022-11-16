@@ -24,6 +24,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_PREFIX_PATH /opt/Qt5.12.8/5.12.8/gcc_64/lib/cmake/)
 find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
 
 
