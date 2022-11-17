@@ -42,7 +42,15 @@ typedef std::priority_queue<
     PairFirstLess<PlanTask>>
     SortedTaskQ;
 
+enum TrajectoryType { 
+  PaintTraj,
+  TransitionTraj
+};
 
+struct TrajectoryInfo{
+  Eigen::VectorXd traj_;
+  TrajectoryType type_;
+};
 class TrajectoryProcess : public QObject
 {
     Q_OBJECT
@@ -55,6 +63,47 @@ public:
                             int64_t encoder_off1, int64_t encoder_off2,
                             int64_t current_encoder, bool isIncrease,
                             float units);
+    SortedTaskQ PrepareTaskInfoOneByOne(
+        std::vector<vws::PlanTaskInfo> *upper_task_q,
+        std::vector<vws::PlanTaskInfo> *bottom_task_q, int64_t current_encoder,
+        int64_t bottom_2_upper, bool isIncrease, float units,
+        int64_t plan_delay);
+
+
+    
+    PlanTask tryGetPlanTaskInTwoLayer(vws::PlanTaskInfo *task,
+                                      std::vector<vws::PlanTaskInfo> &q1,
+                                      std::vector<vws::PlanTaskInfo> &q2,
+                                      int64_t encoder_off1,
+                                      int64_t encoder_off2,
+                                      int64_t current_encoder, bool isIncrease,
+                                      float units);
+    SortedTaskQ PrepareTaskInfoTwoLayers(
+        std::vector<vws::PlanTaskInfo> *upper_task_q,
+        std::vector<vws::PlanTaskInfo> *bottom_task_q, int64_t current_encoder,
+        int64_t bottom_2_upper, bool isIncrease, float units,
+        int64_t plan_delay);
+
+
+    /**
+     * @brief 对一层进行规划信息的准备。
+     * 
+     * @param q1                    需要规划的队列
+     * @param q2                    另一层队列
+     * @param current_encoder       当前编码器值
+     * @param q1_offset             q1队列编码器修正值
+     * @param q2_offset             q2队列编码器修正值
+     * @param isIncrease            
+     * @param units 
+     * @param plan_delay 
+     * @return SortedTaskQ 
+     */
+    SortedTaskQ PrepareTaskInfoOneLayer(std::vector<vws::PlanTaskInfo> *q1,
+                                        std::vector<vws::PlanTaskInfo> *q2,
+                                        int64_t current_encoder,
+                                        int64_t q1_offset, int64_t q2_offset,
+                                        bool isIncrease, float units,
+                                        int64_t plan_delay);
 
    private:
     std::shared_ptr<VisionContext> visionContext;
