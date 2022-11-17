@@ -28,8 +28,12 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 
     if (cameraCallbackData->up_or_bottom == 0)
     {
+
         QVariant vData;
         vData.setValue(data);
+#ifdef _STATEPRINT_
+        std::cout << "emit sendImgData_u" << std::endl;
+#endif
         emit mainProcess->sendImgData_u(vData);
     }
     else
@@ -37,6 +41,9 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
         // std::cout << "获得下相机图像" << std::endl;
         QVariant vData;
         vData.setValue(data);
+#ifdef _STATEPRINT_
+        std::cout << "emit sendImgData_b" << std::endl;
+#endif
         emit mainProcess->sendImgData_b(vData);
     }
 }
@@ -185,7 +192,7 @@ float MainProcess::getChainUnits() const
 Eigen::VectorXd MainProcess::getRobotWaitPose() const
 {
     Eigen::VectorXd val(6);
-    val << 0, -20/180.0*M_PI, 20/180.0*M_PI, 0, 0, -M_PI / 2.0;
+    val << 0, -20 / 180.0 * M_PI, 20 / 180.0 * M_PI, 0, 0, -M_PI / 2.0;
     std::cout << "getRobotWaitPose: " << val[0] << std::endl;
     return val;
 }

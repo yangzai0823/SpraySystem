@@ -68,22 +68,37 @@ ContextStateMachine::~ContextStateMachine()
 void ContextStateMachine::checkHeadLaserAndImg()
 {
     _mutex.lock();
+#ifdef _STATEPRINT_
+    std::cout << "enter checkHeadLaserAndImg" << std::endl;
+#endif
     // std::cout << "箱体： " << Name.toStdString() << ", 检查头部图像和信号" << std::endl;
     if (Context.flag_laser == true && Context.flag_img_head == true)
     {
         std::cout << "箱体： " << Name.toStdString() << "感应信号和图像齐全" << std::endl;
         emit laserSignalOnAndImgReady();
     }
+    else
+    {
+        std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
+    }
     _mutex.unlock();
 }
 
 void ContextStateMachine::checkTrailLaserAndImg()
 {
+#ifdef _STATEPRINT_
+    std::cout << "enter checkTrailLaserAndImg" << std::endl;
+#endif
     _mutex.lock();
     // std::cout << "箱体： " << Name.toStdString() << "，检查尾部图像和信号" << std::endl;
     if (!Context.flag_camera && Context.flag_img_trail)
     {
+        std::cout << "箱体： " << Name.toStdString() << "感应信号和图像齐全" << std::endl;
         emit cameraSignalOffAndImgReady();
+    }
+    else
+    {
+        std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
     }
     _mutex.unlock();
 }
