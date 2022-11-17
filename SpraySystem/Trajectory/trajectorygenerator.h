@@ -99,6 +99,14 @@ public:
         float shrink_size_x, float shrink_size_z, bool front, bool invert,
         int paint_dir,  // 0: x, 1: z
         Eigen::VectorXd &p, Eigen::VectorXd &ori);
+
+    void GenerateSeamPaintConstraint(Eigen::Vector3d boxCenterPoint,
+                                     Eigen::Vector3d boxSize,
+                                     Eigen::Quaterniond boxq,
+                                     Eigen::Quaterniond painter_ori,
+                                     float weld_y_offset, float shrink_z,
+                                     bool front, bool invert,
+                                     Eigen::VectorXd &p, Eigen::VectorXd &ori);
     /**
      * @brief 生成机器人喷涂任务
      */

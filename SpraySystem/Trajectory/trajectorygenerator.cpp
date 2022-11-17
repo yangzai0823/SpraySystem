@@ -187,53 +187,59 @@ void TrajectoryGenerator::clearEnv(){
 }
 
 
-// void TrajectoryGenerator::GenerateSeamPaintConstraint(Eigen::Vector3d boxCenterPoint,
-//                                              Eigen::Vector3d boxSize,
-//                                              Eigen::Quaterniond boxq,
-//                                              Eigen::Quaterniond painter_ori,
-//                                              bool front, bool invert,
-//                                              Eigen::VectorXd &p, Eigen::VectorXd &ori){
-//       //计算喷涂的路径约束
+void TrajectoryGenerator::GenerateSeamPaintConstraint(Eigen::Vector3d boxCenterPoint,
+                                             Eigen::Vector3d boxSize,
+                                             Eigen::Quaterniond boxq,
+                                             Eigen::Quaterniond painter_ori,
+                                             float weld_y_offset, float shrink_z,
+                                             bool front, bool invert,
+                                             Eigen::VectorXd &p, Eigen::VectorXd &ori){
+      //计算喷涂的路径约束
+ shrink_z =
+      shrink_z > (boxSize[2] / 2.0) ? boxSize[0] / 2.0 : shrink_z;
 
-//   Eigen::Vector3d p1, p2;
-//   // 生成喷涂路线，这里通过 p1,p2,p3 三个点来控制位置，ori_dn来控制姿态，
-//   // 实际调试时需要更改
-//   // 最终需要通过柜体的位姿生成
-//   boxCenterPoint = boxCenterPoint / 1000.0;
-//   boxSize = boxSize / 1000.0;
+  Eigen::Vector3d p1, p2;
+  // 生成喷涂路线，这里通过 p1,p2,p3 三个点来控制位置，ori_dn来控制姿态，
+  // 实际调试时需要更改
+  // 最终需要通过柜体的位姿生成
+  boxCenterPoint = boxCenterPoint / 1000.0;
+  boxSize = boxSize / 1000.0;
+  shrink_z /= 1000.0;
+  weld_y_offset /= 1000.0;
+  p1 = topnearpoint(boxCenterPoint, boxSize);
+  p1[1] -= weld_y_offset;
+  p1[2] -= shrink_z;
+  p2 = bottomnearpont(boxCenterPoint, boxSize);
+  p2[1] -= weld_y_offset;
+  p2[2] += shrink_z;
 
-//   p1 = topnearpoint(boxCenterPoint, boxSize);  
-
-//   p2 = bottomnearpont(boxCenterPoint, boxSize);
-
-//   if(invert){
-//     if(front){
-//       p1[1] = p1[1] - boxSize[1];
-//       p2[1] = p2[1] - boxSize[1];
-
-//     }
-//   }
-//   // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
-//   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
-//   if(!(front ^ invert)){
-//     p1[1] = p1[1] - boxSize[1];
-//     p2[1] = p2[1] - boxSize[1];
-
-//     painter_ori =
-//         Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
-//   }
-//   Eigen::Quaterniond quat(painter_ori);
-//   quat = boxq * quat;
-//   Eigen::Vector4d ori_dn(quat.w(), quat.x(), quat.y(), quat.z());
+  // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
+  // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
+  if(!(front ^ invert)){
+    p1[1] = p1[1] - boxSize[1] + 2 * weld_y_offset;
+    p2[1] = p2[1] - boxSize[1] + 2 * weld_y_offset;
+  }
+  p1 = boxq * (p1 - boxCenterPoint) + boxCenterPoint;
+  p2 = boxq * (p2 - boxCenterPoint) + boxCenterPoint;
+  // if(!(front ^ invert)){
+  //   painter_ori =
+  //        painter_ori* Eigen::AngleAxisd(M_PI/2.0, Eigen::Vector3d::UnitY()) 
+  //        * Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) ;
+  // }
+  Eigen::Quaterniond quat(painter_ori);
+  quat = boxq * quat;
+  Eigen::Vector4d ori_dn(quat.w(), quat.x(), quat.y(), quat.z());
 
   
-//   // genInitPathForRect(p1, p2, p3, dn, p, dir);
-//   // genInitOrientedPathForRect(p1, p2, p3, ori_dn, p, ori);
-//   genInitOrientedPathForBoxPlane(p1, p2, p3, ori_dn,
-//                                  paint_dir,  // 0: x, 1: y
-//                                  0.2, 0.15, 0.1, 0.1, 1, p, ori);
-//   p = p * 1000.0;
-// }
+  // genInitPathForRect(p1, p2, p3, dn, p, dir);
+  // genInitOrientedPathForRect(p1, p2, p3, ori_dn, p, ori);
+  Eigen::Isometry3d tf = Eigen::Isometry3d::Identity();
+  tf.rotate(Eigen::AngleAxisd(-M_PI / 4.0, Eigen::Vector3d::UnitY()));
+  genInitOrientedPathForLine(p1, p2, ori_dn,
+                             tf,  // 0: x, 1: y
+                             0.2, 0.15, p, ori);
+  p = p * 1000.0;
+}
 
 
 

@@ -140,11 +140,16 @@ Eigen::Quaterniond getPaintOrientation(){
   Eigen::Quaterniond quat(rot);
   return quat;
 }
-
-Eigen::Quaterniond getSeamPaintOrientation(bool front){
+/**
+ * @brief Get the Seam Paint Orientation object
+ * 
+ * @param mode          true : 模式1, front，并且同向，false : 模式2,
+ * @return Eigen::Quaterniond 
+ */
+Eigen::Quaterniond getSeamPaintOrientation(bool mode){
   Eigen::Matrix3d rot;
   // rot 对应矩阵为旋转矩阵，每一列对应
-  if(front){
+  if(!mode){
     rot << 1, 0, 0, // 
     0, 0, -1, // 
     0, 1, 0;
@@ -377,7 +382,14 @@ SortedTaskQ TrajectoryProcess::PrepareTaskInfoTwoLayers(
 }
 
 
-
+/**
+ * @brief Create a Plan Scene object
+ * 
+ * @param generator 
+ * @param task_info 
+ * @param units 
+ * @param invert 
+ */
 void createPlanScene(TrajectoryGenerator *generator, PlanTask& task_info, float units,
 bool invert){
   // 生成喷涂约束
@@ -431,20 +443,34 @@ bool invert){
   }
 }
 
+/**
+ * @brief 规划任务信息中的第一个任务。任务信息中包含场景信息和规划目标信息。只规划其中第一个目标的喷涂路径
+ * 
+ * @param generator 
+ * @param task_info 
+ * @param init_dof 
+ * @param res 
+ * @param mc_data 
+ * @param units 
+ * @param isIncrease 
+ * @param invert 
+ * @return true 
+ * @return false 
+ */
 bool planOneTask(TrajectoryGenerator *generator,
                                         PlanTask &task_info,
                                         const Eigen::VectorXd &init_dof,
-                                        std::vector<TrajectoryInfo> & res,
+                                        std::vector<TrajectoryInfo> & out_traj,
                                         std::vector<float> & mc_data,
-                                        float units,bool isIncrease, bool invert){
+                                        float units,bool isIncrease, bool invert, bool plane_first = true){
   TrajectoryInfo single_traj;
   auto task = task_info.targets_.front();
   int64_t ref_encoder = task.encoder;
   auto boxInfo = task.boxInfo;
   auto boxSize = Eigen::Vector3d(task.lx, task.ly, task.lz);
   auto boxCenter = boxInfo.translation();
-  Eigen::VectorXd p, ori;
-  Eigen::VectorXd traj, entry_traj, quit_traj;
+  Eigen::VectorXd p, ori, p_weld, ori_weld;
+  Eigen::VectorXd traj, traj_weld, traj_transite, entry_traj, quit_traj;
   int ndof = 6;
   auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
   p1 = boxInfo.rotation() * p1;
@@ -455,48 +481,73 @@ bool planOneTask(TrajectoryGenerator *generator,
   }
   float diff = dest_y - p1[1];
 
-    boxCenter[1] += diff;
-    generator->GenerateShrinkedPaintConstraint(
-        boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
-        getPaintOrientation(), 0, boxSize[2] / 2.0 - 50, task.face == 0, invert, 0,
-        p, ori);
-    // generator->GeneratePaintConstraint(
-    //     boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
-    //     getPaintOrientation(), task.face == 0, invert, p, ori);
-    bool ret = generator->GeneratePaintTrajectory(init_dof, p, ori, traj, ndof);
+  boxCenter[1] += diff;
+  generator->GenerateShrinkedPaintConstraint(
+      boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
+      getPaintOrientation(), 0, boxSize[2] / 2.0 - 50, task.face == 0, invert, 0,
+      p, ori);
+  generator->GenerateSeamPaintConstraint(
+      boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
+      getSeamPaintOrientation((task.face == 0 ^ invert)), 20, boxSize[2] - 200, task.face == 0, invert,
+      p_weld, ori_weld);
 
-    int N = traj.size() / ndof;
-    if (ret) {
-      ret = generator->GenerateEntryTrajectory(
-          init_dof, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3);
+  std::vector<Eigen::VectorXd> plan_path, plan_ori;
+  if(plane_first){
+    plan_path.push_back(p);
+    plan_ori.push_back(ori);
+    plan_path.push_back(p_weld);
+    plan_ori.push_back(ori_weld);
+  }else{
+    plan_path.push_back(p_weld);
+    plan_ori.push_back(ori_weld);
+    plan_path.push_back(p);
+    plan_ori.push_back(ori);
+  }
+
+  auto init_pose = init_dof;
+  bool ret;
+  for (int i = 0; i < plan_path.size(); i++) {
+    ret = generator->GeneratePaintTrajectory(init_pose, plan_path[i], plan_ori[i], traj, ndof);
+    if(ret){
+      int N = traj.size() / ndof;
+      Eigen::VectorXd paint_start, paint_end;
+      paint_start = traj.block(0, 0, ndof, 1);
+      ret &= generator->GenerateEntryTrajectory(
+        init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3);
       if(ret){
         single_traj.traj_ = entry_traj;
         single_traj.type_ = TransitionTraj;
-        res.push_back(single_traj);
+        out_traj.push_back(single_traj);
         single_traj.traj_ = traj;
         single_traj.type_ = PaintTraj;
-        res.push_back(single_traj);
+        out_traj.push_back(single_traj);
+      }else{
+        return false;
       }
 
-      if (ret) {
-        ret = generator->GenerateEntryTrajectory(
-            traj.block(ndof * (N - 1), 0, ndof, 1), init_dof, 20, quit_traj,
-            ndof, 3);
-        if(ret){
-          single_traj.traj_ = quit_traj;
-          single_traj.type_ = TransitionTraj;
-          res.push_back(single_traj);
-
-        }
-      }
+      init_pose = traj.block(ndof * (N - 1), 0, ndof, 1);
+    }else{
+      return false;
     }
-    mc_data =
-        generator->calChainZeroPoint(p1, 0, task.encoder, isIncrease);
-    mc_data[1] = task.face == 0 ? -task.diff : task.diff;     // 前提是机器人正方向和箱体允许方向相同，否则取负号
-    std::cout << "task encoder: " << task.encoder << std::endl;
-    std::cout << "p1 pos: " << p1[0] << ", "<< p1[1] << ", "<< p1[2] << std::endl;
-    std::cout <<"mc data: " << mc_data[0] << "," << mc_data[1] << std::endl;
-    return ret;
+  }
+  ret = generator->GenerateEntryTrajectory(
+        init_pose, init_dof, 20, quit_traj, ndof, 3);
+  if(ret){
+      single_traj.traj_ = quit_traj;
+      single_traj.type_ = TransitionTraj;
+      out_traj.push_back(single_traj);
+  }
+
+  mc_data =
+      generator->calChainZeroPoint(p1, 0, task.encoder, isIncrease);
+  mc_data[1] = task.face == 0 ? -task.diff : task.diff;     // 前提是机器人正方向和箱体允许方向相同，否则取负号
+  std::cout << "task encoder: " << task.encoder << std::endl;
+  std::cout << "p1 pos: " << p1[0] << ", "<< p1[1] << ", "<< p1[2] << std::endl;
+  std::cout <<"mc data: " << mc_data[0] << "," << mc_data[1] << std::endl;
+
+
+
+  return ret;
 }
 
 std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &traj_info){
@@ -596,7 +647,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     createPlanScene(generator, task_info, units, invert);
     std::vector<TrajectoryInfo> traj_info;
     bool ret = planOneTask(generator, task_info, init_dof, traj_info, mc_data, units,
-                           isIncrease, invert);
+                           isIncrease, invert, task_info.targets_.front().face == 0);
 
     generator->clearEnv();
     if (!ret) {
