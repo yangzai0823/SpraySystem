@@ -21,14 +21,14 @@ int RobotOperator::start()
 
 void RobotOperator::close()
 {
-    if(vwsRobot==nullptr)
+    if (vwsRobot == nullptr)
         return;
     auto ret = vwsRobot->close();
 }
 
 int RobotOperator::getState()
 {
-    if(vwsRobot==nullptr)
+    if (vwsRobot == nullptr)
         return -1;
     auto ret = vwsRobot->state();
     return ret;
@@ -50,4 +50,3 @@ QString RobotOperator::getName()
 {
     return name;
 }
-

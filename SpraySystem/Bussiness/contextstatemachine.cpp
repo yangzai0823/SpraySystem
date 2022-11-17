@@ -21,12 +21,12 @@ ContextStateMachine::ContextStateMachine()
     tranWaitSignal = stateIDLE->addTransition(this, SIGNAL(cameraSignalOn()), waitLaserSignal);
 
     tranProcessHeadImg = waitLaserSignal->addTransition(this, SIGNAL(laserSignalOnAndImgReady()), processHeadImg);
-    tranHeadImgTimeout = waitLaserSignal->addTransition(this,SIGNAL(headImgTimeout()),stateIDLE);
+    tranHeadImgTimeout = waitLaserSignal->addTransition(this, SIGNAL(headImgTimeout()), stateIDLE);
 
     tranHeadProcessDone = processHeadImg->addTransition(this, SIGNAL(headDone()), headProcessDone);
 
     tranProcessTrailImg = headProcessDone->addTransition(this, SIGNAL(cameraSignalOffAndImgReady()), processTrailImg);
-    tranTrailImgTimeout = headProcessDone->addTransition(this,SIGNAL(trailImgTimeout()),stateIDLE);
+    tranTrailImgTimeout = headProcessDone->addTransition(this, SIGNAL(trailImgTimeout()), stateIDLE);
 
     tranIDLE = processTrailImg->addTransition(this, SIGNAL(trailDone()), stateIDLE);
 
@@ -39,9 +39,9 @@ ContextStateMachine::ContextStateMachine()
     this->setInitialState(stateIDLE);
 
     timer_img_head = new QTimer();
-    connect(timer_img_head,SIGNAL(timeout()),this,SLOT(headTimer_Slot()));
+    connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
     timer_img_trail = new QTimer();
-     connect(timer_img_trail,SIGNAL(timeout()),this,SLOT(trailTimer_Slot()));
+    connect(timer_img_trail, SIGNAL(timeout()), this, SLOT(trailTimer_Slot()));
 }
 
 ContextStateMachine::~ContextStateMachine()
@@ -71,7 +71,7 @@ void ContextStateMachine::checkHeadLaserAndImg()
     // std::cout << "箱体： " << Name.toStdString() << ", 检查头部图像和信号" << std::endl;
     if (Context.flag_laser == true && Context.flag_img_head == true)
     {
-        std::cout << "箱体： " << Name.toStdString()<<"感应信号和图像齐全"<<std::endl;
+        std::cout << "箱体： " << Name.toStdString() << "感应信号和图像齐全" << std::endl;
         emit laserSignalOnAndImgReady();
     }
     _mutex.unlock();
@@ -93,7 +93,7 @@ void ContextStateMachine::sendPlcData_Slot(QVariant vData)
     SMContext data = vData.value<SMContext>();
     if (data.flag_camera)
     {
-        //Context.flag_laser = true;
+        // Context.flag_laser = true;
         Context.laserCouple1 = data.laserCouple1;
         Context.laserCouple2 = data.laserCouple2;
 
@@ -120,6 +120,8 @@ void ContextStateMachine::sendImgData_Slot(QVariant vData)
     VWSCamera::ImageData img = vData.value<VWSCamera::ImageData>();
     if (!Context.flag_img_head)
     {
+        std::cout << "sendImgData_Slot"
+                  << "headImg" << std::endl;
         Context.flag_img_head = true;
         Context.img_head = img;
         checkHeadLaserAndImg();
@@ -154,7 +156,7 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 void ContextStateMachine::enteredProcessHeadImg_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理头部图像******" << std::endl;
-     timer_img_head->stop();
+    timer_img_head->stop();
     Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[0];
 
     emit beginVision_Singal(this, true);
@@ -185,9 +187,9 @@ void ContextStateMachine::enteredIDLE_Slot()
 }
 
 void ContextStateMachine::headTimer_Slot()
-{   
-    time_head+= this->interval;
-    if(time_head>timeout)
+{
+    time_head += this->interval;
+    if (time_head > timeout)
     {
         std::cout << "箱体： " << Name.toStdString() << "，头部图像反馈超时" << std::endl;
         timer_img_head->stop();
@@ -196,14 +198,12 @@ void ContextStateMachine::headTimer_Slot()
 }
 void ContextStateMachine::timeoutHeadImg_Slot()
 {
-    
 }
 void ContextStateMachine::trailTimer_Slot()
-{   
-    std::cout<<"timeout"<<std::endl;
+{
+    std::cout << "timeout" << std::endl;
 }
 void ContextStateMachine::timeoutTrailImg_Slot()
 {
-     std::cout << "箱体： " << Name.toStdString() << "，尾部图像反馈超时" << std::endl;
-
+    std::cout << "箱体： " << Name.toStdString() << "，尾部图像反馈超时" << std::endl;
 }

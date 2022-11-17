@@ -72,7 +72,7 @@ void MainProcess::recevieData_Slot(QVariant data)
     ContextStateMachine::SMContext context_u;
     context_u.flag_laser = plcdata.flag_laser_u;
     context_u.flag_camera = plcdata.flag_camera_u;
-    context_u.laserCouple1 = {plcdata.laser3,plcdata.laser4};
+    context_u.laserCouple1 = {plcdata.laser3, plcdata.laser4};
     QVariant vdata_u;
     vdata_u.setValue(context_u);
     emit sendPlcData_u(vdata_u);
@@ -102,8 +102,8 @@ MainProcess::MainProcess()
     camera2CallbackData_u->up_or_bottom = 0;
     camera2CallbackData_u->mainProcess = this;
 
-   camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
-    camera2->RegisterFrameCallBack(imgFunc_b,(void *)(camera2CallbackData_u));
+    camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
+    camera2->RegisterFrameCallBack(imgFunc_b, (void *)(camera2CallbackData_u));
 
     visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();

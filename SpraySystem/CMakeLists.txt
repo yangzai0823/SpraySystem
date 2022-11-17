@@ -175,7 +175,7 @@ add_custom_command(TARGET SpraySystem
     COMMAND ${CMAKE_COMMAND} -E
     copy_if_different ${libfiles} ${EXECUTABLE_OUTPUT_PATH}
     COMMAND ${CMAKE_COMMAND} -E
-    copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Data/Data/  ${CMAKE_BINARY_DIR}/Data
+    copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Data/Data/  ${EXECUTABLE_OUTPUT_PATH}/Data
     )
 
 

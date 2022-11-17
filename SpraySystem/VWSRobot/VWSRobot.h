@@ -1,19 +1,19 @@
-#ifndef VWSROBOT_H
-#define VWSROBOT_H
-#include <Poco/Net/NetException.h>
-#include <Poco/Net/ServerSocket.h>
-#include <Poco/Net/StreamSocket.h>
-#include <Poco/Net/TCPServer.h>
-#include "Lib/rws_state_machine_interface.h"
-class VWSRobot {
-private:
-    abb::rws::RWSStateMachineInterface *abbObj_ = nullptr;
-    int netState_ = 0;
-    std::string selfIp_;
+#ifndef YASKAWA_H
+#define YASKAWA_H
+#include "tcpClient.h"
+#include <vector>
+#include <unordered_map>
+class VWSRobot
+{
 public:
-    VWSRobot(/* args */);
-    ~VWSRobot();
-    enum TaskType{
+    struct RobotPosition
+    {
+        float RobJoint[6];
+        float pos[3];
+        float orient[4];
+    };
+    enum TaskType
+    {
         IO = 1,
         MOVEL = 2,
         MOVEJ = 3,
@@ -23,30 +23,64 @@ public:
     struct RobotTask
     {
         TaskType task;
-        float speed[2]; //第一位： 线速度mm/s 第二位：角速度  度/s
-        std::vector<std::array<float,7>> track;//mm/s
-        int IO;//IO号
-        int Singal;//IO操作
+        float speed[2];                          //第一位： 线速度mm/s 第二位：角速度  度/s
+        std::vector<std::array<float, 7>> track; // mm/s
+        int IO;                                  // IO号
+        int Singal;                              // IO操作
     };
 
-    struct RobotPosition
+private:
+    struct OrderName
     {
-        float RobJoint[6];
-        float pos[3];
-        float orient[4];
+        static const std::string CONNECT;
+        static const std::string CONNECTALIVE;
+        static const std::string ClEARALARM;
+        static const std::string STARTJOB;
+        static const std::string PROGRAMCALL;
+        static const std::string SERVOON;
+        static const std::string SERVOOFF;
+        static const std::string GETPOS;
+        static const std::string GETJOINT;
+        static const std::string WRITEVAR;
+        static const std::string IOWRITE;
     };
-    
-    
-    int Init(std::string ip,int port = abb::rws::SystemConstants::General::DEFAULT_PORT_NUMBER);
+
+    struct RespondVar
+    {
+        static const std::string CONNECT;
+        static const std::string CONNECTALIVE;
+        static const std::string ClEARALARM;
+        static const std::string STARTJOB;
+        static const std::string PROGRAMCALL;
+        static const std::string SERVOON;
+        static const std::string SERVOOFF;
+        static const std::string GETPOS;
+        static const std::string GETJOINT;
+        static const std::string WRITEVAR;
+        static const std::string IOWRITE;
+        /* data */
+    };
+    static const std::string PROGRAMNAME;
+    std::unordered_map<std::string, std::string> map;
+    std::string ip;
+    int port = 80;
+
+private:
+    bool orderOK(TcpClient &tcp, const std::string &str);
+    std::vector<double> getNumFromStr(const std::string &str);
+    int orderExe(TcpClient &tcp, const std::string &order, bool needSure = true);
+    int orderExe(TcpClient &tcp, const std::string &req, const std::string &order, bool needSure = true);
+    int createFile(std::string &fileData, const std::vector<RobotTask> &taskData);
+
+public:
+    VWSRobot(/* args */);
+    ~VWSRobot();
+    int Init(const std::string &ip, int port = 80);
     int state();
     int start();
     int close();
-    int sendData(std::vector<RobotTask>taskData);
-    int getRobotPosition(RobotPosition & data);
-
-private:
-    std::string getIp();
-    Poco::Net::ServerSocket *serverSocket;
-    Poco::Net::StreamSocket streamSocket;
+    int sendData(const std::vector<RobotTask> &taskData);
+    int getRobotPosition(RobotPosition &data, int coordNum = 0, int tcpNum = 0);
 };
-#endif  // VWSROBOT_H
+
+#endif // YASKAWA_H
