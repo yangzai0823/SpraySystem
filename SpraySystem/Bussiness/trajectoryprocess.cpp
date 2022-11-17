@@ -15,13 +15,13 @@ bool ahead(int64_t a, int64_t relative, bool dir){
     }
 }
 
-std::vector<vws::PlanTaskInfo> TrajectoryProcess::tryGetPlanTask(MainProcess* vdata, vws::PlanTaskInfo *task,
+PlanTask TrajectoryProcess::tryGetPlanTask(MainProcess* vdata, vws::PlanTaskInfo *task,
                                                 std::vector<vws::PlanTaskInfo> &q1,
                                                 std::vector<vws::PlanTaskInfo> &q2,
                                                 int64_t encoder_off1, int64_t encoder_off2,int64_t current_encoder,
                                                 bool dir){
-    std::vector<vws::PlanTaskInfo> env_info;
-     float valid_range = 3000;       //mm
+    PlanTask env_info;
+    float valid_range = 3000;       //mm
     bool isIncrease = vdata->getChainEncoderDir();
     float units = vdata->getChainUnits();
 //    float speed = vdata->getChainSpeed();  // mm/s
@@ -42,7 +42,7 @@ std::vector<vws::PlanTaskInfo> TrajectoryProcess::tryGetPlanTask(MainProcess* vd
     for (int i = 0; i < q2.size(); i++) {
       vws::PlanTaskInfo btask = q2[i];
       if (plan_range > llabs(btask.encoder + encoder_off2 - encoder)) {
-        env_info.push_back(btask);
+        env_info.envs_.push_back(btask);
       } 
     }
     for (int i = 0; i < q1.size(); i++) {
@@ -50,14 +50,14 @@ std::vector<vws::PlanTaskInfo> TrajectoryProcess::tryGetPlanTask(MainProcess* vd
       if (utask.encoder + encoder_off1 == encoder) continue;
       if (ahead(utask.encoder + encoder_off1, encoder, isIncrease) && utask.face == 1 &&
           plan_range > llabs(utask.encoder + encoder_off1 - encoder)) {
-        env_info.push_back(utask);
+        env_info.envs_.push_back(utask);
       } else if (!ahead(utask.encoder + encoder_off1, encoder, isIncrease) &&
                   utask.face == 0 &&
                   plan_range > llabs(utask.encoder + encoder_off1 - encoder)) {
-        env_info.push_back(utask);
+        env_info.envs_.push_back(utask);
       }
     }
-    env_info.push_back(*task);
+    env_info.targets_.push_back(*task);
     task->flag = true;
     return env_info;
 }
@@ -174,7 +174,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     info.face = 0;
     info.encoder = init_encoder - (Pu * units);
     info.diff = 0;
-    info.flag = 1;
+    info.flag = 0;
     vdata->GetPlanTaskInfo(1)->push_back(info);
     std::cout << "push up 0: " << info.encoder << std::endl;
   }
@@ -189,7 +189,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     info.face = 1;
     info.encoder = init_encoder - ((Pu + Lu) * units);
     info.diff = 0;
-    info.flag = 1;
+    info.flag = 0;
     vdata->GetPlanTaskInfo(1)->push_back(info);
     genUp = true;
     // genBottom = (((float)rand() / RAND_MAX - 0.5) > 0.5);
@@ -229,6 +229,13 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   last_pos = current_pos;
 }
 
+// void TrajectoryProcess::PrepareTaskInfo(MainProcess* vdata, int64_t current_encoder,
+//   bool isIncrease,
+//   float units){
+
+// }
+
+
 void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
 {
 #ifdef PLAN_FAKE_DATA
@@ -254,7 +261,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
 
   SortedTaskQ taskQ;
   //
-  std::vector<vws::PlanTaskInfo> env_info;
+  PlanTask env_info;
   for (int i = 0; i < upper_task_q->size(); i++) {
     auto task = &(*upper_task_q)[i];
     if (task->flag == false && (task->encoder - current_encoder) > plan_delay) {
@@ -315,7 +322,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     auto task_info = taskQ.top().second;
     taskQ.pop();
     // 生成喷涂约束
-    auto task = task_info.back();
+    auto task = task_info.targets_.front();
     int64_t ref_encoder = task.encoder;
     auto boxInfo = task.boxInfo;
     auto boxSize = Eigen::Vector3d(task.lx, task.ly, task.lz);
@@ -334,25 +341,36 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     }
     float diff = dest_y - p1[1];
     // 创建环境
-    for (int i = 0; i < task_info.size(); i++) {
-      int64_t diff_encoder = task_info[i].encoder - ref_encoder;
-      float diff_mm = diff_encoder / units;
-      diff_mm = invert ? -diff_mm : diff_mm;
-      auto boxInfo_1 = task_info[i].boxInfo;
-      auto boxSize_1 =
-          Eigen::Vector3d(task_info[i].lx, task_info[i].ly, task_info[i].lz);
-      auto boxCenter_1 = boxInfo_1.translation();
-      boxCenter_1[1] += diff + diff_mm;
-      generator->AddBoxEnvirInfo(
-          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo_1.rotation()),
-          (QString("box") + QString::number(i)).toStdString());
-      // 添加挂钩对应碰撞体，use a thin(x) long(z) box to simulate the hook
-      double hook_h = 400;
+    std::vector<vws::PlanTaskInfo> ptask_vector[2];
+    ptask_vector[0] = (task_info.envs_);
+    ptask_vector[1] = (task_info.targets_);
+    for (int np = 0; np < 2; np++){
+      std::vector<vws::PlanTaskInfo> ptask_info = ptask_vector[np];
+      for (int i = 0; i < ptask_info.size(); i++) {
+        int64_t diff_encoder = (ptask_info)[i].encoder - ref_encoder;
+        float diff_mm = diff_encoder / units;
+        diff_mm = invert ? -diff_mm : diff_mm;
+        auto boxInfo_1 = (ptask_info)[i].boxInfo;
+        auto boxSize_1 =
+            Eigen::Vector3d((ptask_info)[i].lx, (ptask_info)[i].ly,
+                            (ptask_info)[i].lz);
+        auto boxCenter_1 = boxInfo_1.translation();
+        boxCenter_1[1] += diff + diff_mm;
+        generator->AddBoxEnvirInfo(
+            boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo_1.rotation()),
+            (QString("box_") + QString::number(np) + QString("_")+ QString::number(i)).toStdString());
+        // 添加挂钩对应碰撞体，use a thin(x) long(z) box to simulate the hook
+        double hook_h = 400;
 
-      generator->AddBoxHookEnvirInfo(
-          boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo_1.rotation()), hook_h,
-          (QString("box_hook") + QString::number(i)).toStdString());
+        generator->AddBoxHookEnvirInfo(
+            boxCenter_1, boxSize_1, Eigen::Quaterniond(boxInfo_1.rotation()),
+            hook_h, (QString("box_hook_")+ QString::number(np) + QString("_")+ QString::number(i)).toStdString());
+      }
+
     }
+
+    // 创建目标
+
 
     boxCenter[1] += diff;
     generator->GenerateShrinkedPaintConstraint(

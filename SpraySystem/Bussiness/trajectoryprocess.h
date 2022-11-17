@@ -21,24 +21,6 @@ using VisionData = vws::VisionData;
 
 Q_DECLARE_METATYPE(RobotTask) //注册结构体
 class MainProcess;
-class TrajectoryProcess : public QObject
-{
-    Q_OBJECT
-public:
-    TrajectoryProcess();
-
-    std::vector<vws::PlanTaskInfo> tryGetPlanTask(
-        MainProcess *vdata, vws::PlanTaskInfo *task,
-        std::vector<vws::PlanTaskInfo> &q1, std::vector<vws::PlanTaskInfo> &q2,
-        int64_t encoder_off1, int64_t encoder_off2, int64_t current_encoder, bool dir);
-
-private:
-    std::shared_ptr<VisionContext> visionContext;
-private slots:
-    void begintraj_Slot(MainProcess *vdata);
-signals:
-    void traj_Signal(QVariant varmc, QVariant varrbt);
-};
 
 
 template<typename _Tp>
@@ -50,10 +32,36 @@ template<typename _Tp>
       { return __x.first < __y.first; }
     };
 
-typedef std::priority_queue<std::pair<int, std::vector<vws::PlanTaskInfo>>,
-                              std::vector<std::pair<int, std::vector<vws::PlanTaskInfo>>>,
-                              PairFirstLess<std::vector<vws::PlanTaskInfo>>>
-SortedTaskQ;
+struct PlanTask{
+    std::vector<vws::PlanTaskInfo> envs_;
+    std::vector<vws::PlanTaskInfo> targets_;
+};
+typedef std::priority_queue<
+    std::pair<int, PlanTask>,
+    std::vector<std::pair<int, PlanTask>>,
+    PairFirstLess<PlanTask>>
+    SortedTaskQ;
+
+
+class TrajectoryProcess : public QObject
+{
+    Q_OBJECT
+public:
+    TrajectoryProcess();
+
+    PlanTask tryGetPlanTask(MainProcess *vdata, vws::PlanTaskInfo *task,
+                            std::vector<vws::PlanTaskInfo> &q1,
+                            std::vector<vws::PlanTaskInfo> &q2,
+                            int64_t encoder_off1, int64_t encoder_off2,
+                            int64_t current_encoder, bool dir);
+
+   private:
+    std::shared_ptr<VisionContext> visionContext;
+private slots:
+    void begintraj_Slot(MainProcess *vdata);
+signals:
+    void traj_Signal(QVariant varmc, QVariant varrbt);
+};
 
 
 #endif // TRAJECTORYPROCESS_H
