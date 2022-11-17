@@ -49,11 +49,12 @@ class TrajectoryProcess : public QObject
 public:
     TrajectoryProcess();
 
-    PlanTask tryGetPlanTask(MainProcess *vdata, vws::PlanTaskInfo *task,
+    PlanTask tryGetPlanTask(vws::PlanTaskInfo *task,
                             std::vector<vws::PlanTaskInfo> &q1,
                             std::vector<vws::PlanTaskInfo> &q2,
                             int64_t encoder_off1, int64_t encoder_off2,
-                            int64_t current_encoder, bool dir);
+                            int64_t current_encoder, bool isIncrease,
+                            float units);
 
    private:
     std::shared_ptr<VisionContext> visionContext;

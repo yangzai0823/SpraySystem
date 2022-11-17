@@ -15,16 +15,16 @@ bool ahead(int64_t a, int64_t relative, bool dir){
     }
 }
 
-PlanTask TrajectoryProcess::tryGetPlanTask(MainProcess* vdata, vws::PlanTaskInfo *task,
-                                                std::vector<vws::PlanTaskInfo> &q1,
-                                                std::vector<vws::PlanTaskInfo> &q2,
-                                                int64_t encoder_off1, int64_t encoder_off2,int64_t current_encoder,
-                                                bool dir){
-    PlanTask env_info;
-    float valid_range = 3000;       //mm
-    bool isIncrease = vdata->getChainEncoderDir();
-    float units = vdata->getChainUnits();
-//    float speed = vdata->getChainSpeed();  // mm/s
+PlanTask TrajectoryProcess::tryGetPlanTask(vws::PlanTaskInfo *task,
+                                           std::vector<vws::PlanTaskInfo> &q1,
+                                           std::vector<vws::PlanTaskInfo> &q2,
+                                           int64_t encoder_off1,
+                                           int64_t encoder_off2,
+                                           int64_t current_encoder,
+                                           bool isIncrease, float units){
+  PlanTask env_info;
+  float valid_range = 3000;  // mm
+  //    float speed = vdata->getChainSpeed();  // mm/s
 
     float expire_t = 4 * 1000;
     int64_t expire_en = expire_t * units;
@@ -229,12 +229,37 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   last_pos = current_pos;
 }
 
-// void TrajectoryProcess::PrepareTaskInfo(MainProcess* vdata, int64_t current_encoder,
-//   bool isIncrease,
-//   float units){
+// SortedTaskQ TrajectoryProcess::PrepareTaskInfo(
+//     MainProcess *vdata, std::vector<vws::PlanTaskInfo> *upper_task_q,
+//     std::vector<vws::PlanTaskInfo> *bottom_task_q, int64_t current_encoder,int64_t bottom_2_upper,
+//     bool isIncrease, float units, int64_t plan_delay){
+//   SortedTaskQ taskQ;
+//   //
+//   PlanTask env_info;
+//   for (int i = 0; i < upper_task_q->size(); i++) {
+//     auto task = &(*upper_task_q)[i];
+//     if (task->flag == false && (task->encoder - current_encoder) > plan_delay) {
+//       env_info = tryGetPlanTask(&(*upper_task_q)[i], *upper_task_q,
+//                                 *bottom_task_q, 0, bottom_2_upper, current_encoder, isIncrease, units);
+//       std::cout << "taskQ : push up " << task->encoder << ", " << (task->face == 0
+//           ? "head "
+//           : "tail") << std::endl;
+//       taskQ.push(std::make_pair(task->encoder, env_info));
+//     }
+//   }
+//   for (int i = 0; i < bottom_task_q->size(); i++) {
+//     auto task = &(*bottom_task_q)[i];
+//     if (task->flag == false && (task->encoder - current_encoder) > plan_delay) {
+//       env_info = tryGetPlanTask(&(*bottom_task_q)[i], *bottom_task_q, *upper_task_q,
+//                       bottom_2_upper, 0, current_encoder,isIncrease, units);
+//       std::cout << "taskQ : push bottom " << task->encoder << ", " << (task->face == 0
+//         ? "head "
+//         : "tail" )<< std::endl;
 
+//       taskQ.push(std::make_pair(task->encoder + bottom_2_upper, env_info));
+//     }
+//   }
 // }
-
 
 void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
 {
@@ -265,8 +290,8 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   for (int i = 0; i < upper_task_q->size(); i++) {
     auto task = &(*upper_task_q)[i];
     if (task->flag == false && (task->encoder - current_encoder) > plan_delay) {
-      env_info = tryGetPlanTask(vdata, &(*upper_task_q)[i], *upper_task_q,
-                                *bottom_task_q, 0, bottom_2_upper, current_encoder, isIncrease);
+      env_info = tryGetPlanTask(&(*upper_task_q)[i], *upper_task_q,
+                                *bottom_task_q, 0, bottom_2_upper, current_encoder, isIncrease, units);
       std::cout << "taskQ : push up " << task->encoder << ", " << (task->face == 0
           ? "head "
           : "tail") << std::endl;
@@ -276,8 +301,8 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   for (int i = 0; i < bottom_task_q->size(); i++) {
     auto task = &(*bottom_task_q)[i];
     if (task->flag == false && (task->encoder - current_encoder) > plan_delay) {
-      env_info = tryGetPlanTask(vdata, &(*bottom_task_q)[i], *bottom_task_q, *upper_task_q,
-                      bottom_2_upper, 0, current_encoder,isIncrease);
+      env_info = tryGetPlanTask(&(*bottom_task_q)[i], *bottom_task_q, *upper_task_q,
+                      bottom_2_upper, 0, current_encoder,isIncrease, units);
       std::cout << "taskQ : push bottom " << task->encoder << ", " << (task->face == 0
         ? "head "
         : "tail" )<< std::endl;
