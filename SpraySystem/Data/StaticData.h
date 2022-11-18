@@ -38,7 +38,7 @@ namespace vws {
 
 
         /// @brief 喷涂偏差值
-        static uint64_t diff = 300; 
+        static uint64_t diff = 0; 
 
         //机器人空闲位置
 

@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Version: 1.0
  * @Autor: joker
  * @Date: 2022-11-07 09:17:17
@@ -7,6 +7,7 @@
  * @LastEditTime: 2022-11-11 10:33:32
  */
 #include "tcpClient.h"
+#include <fcntl.h>
 #include <iostream>
 #define BUFFER_SIZE 1024
 TcpClient::TcpClient(/* args */) {
@@ -32,14 +33,29 @@ int TcpClient::toConnect(std::string ip, int port) {
     server.sin_port = htons(port);
     server.sin_addr.s_addr = inet_addr(ip.c_str());
     int retr = -1;
-    if (connect(client_fd_, (struct sockaddr *)&server, saddrlen) < 0) {
-        printf("connect failed!  %d\n", retr);
+
+    int flags;
+    if ((flags = fcntl(client_fd_, F_GETFL, 0)) < 0) {
         return -1;
+    }
+    //下面设置套接字为非阻塞
+    if (fcntl(client_fd_, F_SETFL, flags | O_NONBLOCK) < 0) {
+        return -1;
+    }
+    int retcode;
+    if ((retcode = connect(client_fd_, (struct sockaddr *)&server, saddrlen) && errno != EINPROGRESS)) {
+        return -1;
+    }
+    if (0 == retcode) {  //如果connect()返回0则连接已建立
+        //下面恢复套接字阻塞状态
+        if (fcntl(client_fd_, F_SETFL, flags) < 0) {
+            return -1;
+        }
     }
     /*把可读文件描述符的集合清空*/
     FD_ZERO(&rfds_);
     /*把标准输入的文件描述符加入到集合中*/
-    FD_SET(0, &rfds_);
+    //FD_SET(0, &rfds_);
     maxfd_ = 0;
     /*把当前连接的文件描述符加入到集合中*/
     FD_SET(client_fd_, &rfds_);
@@ -47,22 +63,47 @@ int TcpClient::toConnect(std::string ip, int port) {
     if (maxfd_ < client_fd_)
         maxfd_ = client_fd_;
     /*设置超时时间*/
-    tv_.tv_sec = 0;
-    tv_.tv_usec = 1000000;
-    // thd = new std::thread(tcpClientRun, std::ref(tcpOver), client_fd_);
-    // thd->detach();
+    tv_.tv_sec = 1;
+    tv_.tv_usec = 0;
+    auto tv = tv_;
+    retcode = select(maxfd_ + 1, NULL, &rfds_,NULL, &tv);
+    if (retcode < 0) {  
+        return -1;
+    } else if (0 == retcode) {  // select 超时???
+        std::cout<<"超时  "<<std::endl;
+        //超时处理
+        return -1;
+    } else {
+        //套接字已经准备好
+        if (FD_ISSET(client_fd_, &rfds_) == 0) {
+            return -1;
+        }
+        int err;
+		socklen_t len = sizeof(err);
+        if (getsockopt(client_fd_, SOL_SOCKET, SO_ERROR, &err, &len) < 0) {
+            return -1;
+        }
+        if (err != 0) {
+            return -1;
+        }
+        //到这里说明connect()正确返回
+        //下面恢复套接字阻塞状态
+        if (fcntl(client_fd_, F_SETFL, flags) < 0) {
+            return -1;
+        }
+    }
     return 1;
 }
 int TcpClient::sendData(const void *buf, int datalen) {
-    //printf("%s\n",buf);
+    // printf("%s\n",buf);
     return send(client_fd_, buf, datalen, 0) == datalen ? datalen : -1;
 }
 int TcpClient::sendData(const std::string &buf) {
-    //std::cout<<buf<<std::endl;
+    //std::cout<<"send    "<<buf<<std::endl;
     int datalen = buf.size();
     return send(client_fd_, buf.c_str(), datalen, 0) == datalen ? datalen : -1;
 }
-int TcpClient::receiveData(char* &buf, int &datalen) {
+int TcpClient::receiveData(char *&buf, int &datalen) {
     memset(revBuf, 0, sizeof(char) * BUFFER_SIZE);
     auto tv = tv_;
     retval_ = select(maxfd_ + 1, &rfds_, NULL, NULL, &tv);
@@ -79,7 +120,7 @@ int TcpClient::receiveData(char* &buf, int &datalen) {
         }
     }
     int len = recv(client_fd_, revBuf, BUFFER_SIZE, 0);
-    //std::cout<<revBuf<<std::endl;
+    //std::cout<<"rev   "<<revBuf<<std::endl;
     if (len <= 0)
         return -1;
     buf = revBuf;

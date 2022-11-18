@@ -21,12 +21,12 @@ ContextStateMachine::ContextStateMachine()
     tranWaitSignal = stateIDLE->addTransition(this, SIGNAL(cameraSignalOn()), waitLaserSignal);
 
     tranProcessHeadImg = waitLaserSignal->addTransition(this, SIGNAL(laserSignalOnAndImgReady()), processHeadImg);
-    tranHeadImgTimeout = waitLaserSignal->addTransition(this, SIGNAL(headImgTimeout()), stateIDLE);
+    //tranHeadImgTimeout = waitLaserSignal->addTransition(this, SIGNAL(headImgTimeout()), stateIDLE);
 
     tranHeadProcessDone = processHeadImg->addTransition(this, SIGNAL(headDone()), headProcessDone);
 
     tranProcessTrailImg = headProcessDone->addTransition(this, SIGNAL(cameraSignalOffAndImgReady()), processTrailImg);
-    tranTrailImgTimeout = headProcessDone->addTransition(this, SIGNAL(trailImgTimeout()), stateIDLE);
+    //tranTrailImgTimeout = headProcessDone->addTransition(this, SIGNAL(trailImgTimeout()), stateIDLE);
 
     tranIDLE = processTrailImg->addTransition(this, SIGNAL(trailDone()), stateIDLE);
 
@@ -108,6 +108,7 @@ void ContextStateMachine::sendPlcData_Slot(QVariant vData)
     SMContext data = vData.value<SMContext>();
     if (data.flag_camera)
     {
+        std::cout<< Name.toStdString()  << "， 第一次拍照触发信息号" << std::endl;
         // Context.flag_laser = true;
         Context.laserCouple1 = data.laserCouple1;
         Context.laserCouple2 = data.laserCouple2;

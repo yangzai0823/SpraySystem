@@ -38,8 +38,14 @@ int MCOperator::start()
     // auto ret = socketclient->connectServer(ip,port);
     emit connect_Signal(ip, port);
 
-    sendData(8, 0, 0);
+   
     return 1;
+}
+
+
+void MCOperator::startReceive()
+{
+    sendData(8, 0, 0);
 }
 
 void MCOperator::close()

@@ -188,9 +188,9 @@ int saveToFile1(std::string fileName,const VWSCamera::ImageData &data){
 void VisionContext::visionProcessFunc(const VWSCamera::ImageData &data, vws::VisionData &visionData)
 {
 
-//    static int index = 0;
-//     saveToFile1("/home/vws/Demo/1/"+std::to_string(index),data);
-//     index++;
+    static int index = 0;
+    saveToFile1("/home/vws/Demo/1/"+std::to_string(index),data);
+    index++;
     
     HTuple hv_CamParam, hv_ObjectModel3D, hv_Status;
     double hv_Result, hv_MedianHeight, hv_MedianWidth;
@@ -277,13 +277,17 @@ void VisionContext::visionProcessFunc(const VWSCamera::ImageData &data, vws::Vis
         std::cout << "VectorUnit:  [  " << VectorPosition[0] << ",   " << VectorPosition[1] << ",   " << VectorPosition[2] << ",   " << VectorPosition[3] << ",   " << VectorPosition[4] << ",   " << VectorPosition[5] << ",   " << VectorPosition[6] << ",   " << VectorPosition[7] << ",   " << VectorPosition[8] << "]  " << std::endl; //左侧棱长向量
         std::cout << "LineQuality:  [  " << LineQuali[0] << ",   " << LineQuali[1] << ",   " << LineQuali[2] << ",   " << LineQuali[3] << "]  " << std::endl;                                                                                                                                                                               //法向量
     }
+    else{
+        std::cout<<"点云处理失败"<<std::endl;
+        return;
+    }
 
     std::cout << "Quater:  [  " << Quater1[0] << ",   " << Quater1[1] << ",   " << Quater1[2] << ",   " << Quater1[3] << "]  " << std::endl; //四元数
     std::cout << "centerPoint:  [  " << centerPoint1[0] << ",   " << centerPoint1[1] << ",   " << centerPoint1[2] << "] " << std::endl;      //中心坐标
 
     visionData.robotpose.push_back(centerPoint1[0]);
     visionData.robotpose.push_back(centerPoint1[1]);
-    visionData.robotpose.push_back(centerPoint1[2]);
+    visionData.robotpose.push_back(centerPoint1[2]); //TODO： 
     visionData.robotpose.push_back(Quater1[0]);
     visionData.robotpose.push_back(Quater1[1]);
     visionData.robotpose.push_back(Quater1[2]);

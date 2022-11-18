@@ -40,7 +40,7 @@ const std::string VWSRobot::RespondVar::GETJOINT = "OK: RPOSJ\r\n";
 const std::string VWSRobot::RespondVar::WRITEVAR = "OK: LOADV\r\n";
 const std::string VWSRobot::RespondVar::IOWRITE = "OK: IOREAD\r\n";
 
-const std::string VWSRobot::PROGRAMNAME = "RUNCOM";
+const std::string VWSRobot::PROGRAMNAME = "MAIN";
 VWSRobot::VWSRobot(/* args */) {
     map[OrderName::CONNECT] = RespondVar::CONNECT;
     map[OrderName::CONNECTALIVE] = RespondVar::CONNECTALIVE;
@@ -181,7 +181,7 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
     fileData += "///ATTR SC,RW\r\n";
     fileData += "///GROUP1 RB1\r\n";
     fileData += "NOP\r\n";
-    fileData += "DOUT OT#(1) ON\r\n";
+    fileData += "DOUT OT#(0473) ON\r\n";
     fileData += "'P NUMBER\r\n";
     fileData += "SET I1021 0\r\n";
     // fileData += "SET I1020 100\r\n";
@@ -199,16 +199,16 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
     fileData += "WHILEEXP I1021<I1020\r\n";
     fileData += "MOVJ P[I1021] VJ=D[I1021]\r\n";
     fileData += "IFTHENEXP B[I1021]=1\r\n";
-    fileData += "	DOUT OT#(2) ON\r\n";
+    fileData += "	DOUT OT#(0474) ON\r\n";
     fileData += "	SET B[I1021] 0\r\n";
     fileData += "ENDIF\r\n";
     fileData += "IFTHENEXP B[I1021]=2\r\n";
-    fileData += "	DOUT OT#(2) OFF\r\n";
+    fileData += "	DOUT OT#(0474) OFF\r\n";
     fileData += "	SET B[I1021] 0\r\n";
     fileData += "ENDIF\r\n";
     fileData += "ADD I1021 1\r\n";
     fileData += "ENDWHILE\r\n";
-    fileData += "DOUT OT#(1) OFF\r\n";
+    fileData += "DOUT OT#(0473) OFF\r\n";
     fileData += "END\r\n";
     return 1;
 }
@@ -270,8 +270,8 @@ int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
     }
     if (ftp.uploadFile("RUNCOM.JBI", taskStr) < 0)
         return -1;
-    if (this->start() < 0)
-        return -1;
+    // if (this->start() < 0)
+    //     return -1;
     return 1;
     // time (&tim2);
     // std::cout<<"time   "<<tim2 - timep<<std::endl;

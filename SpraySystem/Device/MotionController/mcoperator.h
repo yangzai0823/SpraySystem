@@ -25,6 +25,8 @@ public:
     int start();
     void close();
     int getState();
+    /** @brief 开始接受运动控制器信号*/
+    void startReceive();
 
     void sendTrajParam(float zeropoint, float offset);
     std::vector<float> getChainEncoders();

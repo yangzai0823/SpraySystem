@@ -2396,7 +2396,7 @@ namespace PCLlibs
                                     (hv_GenParamValue.TupleMax()) + 50, &hv_ObjectModel3DSelected);
                 TupleLength(hv_ObjectModel3DSelected, &hv_Length3);
 
-                if (0 != (int(hv_Length3 != 1)))
+                if (0 != (int(hv_Length3 == 1)))
                 {
 
                     //显示去噪后的目标区域
@@ -2667,7 +2667,7 @@ namespace PCLlibs
                         Line3D_Angle(hv_lineVecLeft, hv_lineVecUp, &hv_AngleUL);
                         Line3D_Angle(hv_lineVecLeft, hv_lineVecDown, &hv_AngleDL);
 
-                        if (0 != (HTuple(HTuple(HTuple(int(((hv_AngleUR - 90).TupleAbs()) < 10)).TupleOr(int(((hv_AngleDR - 90).TupleAbs()) < 10))).TupleOr(int(((hv_AngleUL - 90).TupleAbs()) < 10))).TupleOr(int(((hv_AngleDL - 90).TupleAbs()) < 10))))
+                        if (0 != (HTuple(HTuple(HTuple(int(((hv_AngleUR - 90).TupleAbs()) > 10)).TupleOr(int(((hv_AngleDR - 90).TupleAbs()) > 10))).TupleOr(int(((hv_AngleUL - 90).TupleAbs()) > 10))).TupleOr(int(((hv_AngleDL - 90).TupleAbs()) > 10))))
                         {
                             Result = "-1, 直线拟合结果异常，请确认";
                             return;

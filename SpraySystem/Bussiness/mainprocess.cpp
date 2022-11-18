@@ -29,7 +29,7 @@ int saveToFile(std::string fileName,const VWSCamera::ImageData &data){
 
 void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 {
-    std::cout<<"相机回调2"<<std::endl;
+    // std::cout<<"相机回调2"<<std::endl;
     MainProcess::CameraCallbackData *cameraCallbackData = (MainProcess::CameraCallbackData *)pUser;
     auto mainProcess = cameraCallbackData->mainProcess;
     auto cameraOperator = cameraCallbackData->camera;
@@ -64,10 +64,10 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
         vData.setValue(data);
         emit mainProcess->sendImgData_b(vData);
     }
-    std::cout<<"保存"<<std::endl;
-    static int index = 0;
-    saveToFile("/home/vws/Demo/0/"+std::to_string(index),data);
-    index++;
+    // std::cout<<"保存"<<std::endl;
+    // static int index = 0;
+    // saveToFile("/home/vws/Demo/0/"+std::to_string(index),data);
+    // index++;
 }
 
 
@@ -173,6 +173,7 @@ MainProcess::MainProcess()
     //运动控制器
     auto mc = deviceManager->getMC();
     connect(mc, SIGNAL(getTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
+    mc->startReceive();
 
     //相机
     auto camera1 = deviceManager->getCamera("相机下");
@@ -311,6 +312,11 @@ void MainProcess::getTrajParam_Slot()
 
 void MainProcess::beginVision_Slot(ContextStateMachine *sm, bool ishead)
 {
+    #ifdef YASKAWA_ZERO_OFFSET
+    double zero_offset = 600;
+    #else
+    double zero_offset = 0;
+    #endif
     std::cout << "开始视觉处理" << std::endl;
 
     int index = 0;
@@ -336,28 +342,28 @@ void MainProcess::beginVision_Slot(ContextStateMachine *sm, bool ishead)
     planTaskInfo.face = ishead ? 0 : 1;
     planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
 
-    std::cout << "四元数: " << visionData.robotpose[3] << ", " << visionData.robotpose[4] << ", " << visionData.robotpose[5] << "," << visionData.robotpose[6] << std::endl;
-    planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(visionData.robotpose[3], visionData.robotpose[4], visionData.robotpose[5], visionData.robotpose[6]));
+    std::cout << "四元数: " << sm->Context.visionData.robotpose[3] << ", " << sm->Context.visionData.robotpose[4] << ", " << sm->Context.visionData.robotpose[5] << "," << sm->Context.visionData.robotpose[6] << std::endl;
+    planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose[3], sm->Context.visionData.robotpose[4], sm->Context.visionData.robotpose[5], sm->Context.visionData.robotpose[6]));
 
-    std::cout << "坐标： " << visionData.robotpose[0] << ", " << visionData.robotpose[1] << ", " << visionData.robotpose[2] << std::endl;
-    planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(visionData.robotpose[0], visionData.robotpose[1], visionData.robotpose[2]));
+    std::cout << "坐标： " << sm->Context.visionData.robotpose[0] << ", " << sm->Context.visionData.robotpose[1] << ", " << sm->Context.visionData.robotpose[2] << std::endl;
+    planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose[0], sm->Context.visionData.robotpose[1], sm->Context.visionData.robotpose[2]+zero_offset));
 
     //根据状态机判断底层/顶层
     if (sm->Name == "Bottom")
     {
-        std::cout << "顶层箱子参数进入队列" << std::endl;
-        qPlanTaskInfoTop.push_back(planTaskInfo);
+        std::cout << "底层箱子参数进入队列" << std::endl;
+        qPlanTaskInfoBottom.push_back(planTaskInfo);
         emit finishVision_Signal_b(ishead);
     }
     else
     {
-        std::cout << "底层箱子参数进入队列" << std::endl;
-        qPlanTaskInfoBottom.push_back(planTaskInfo);
+        std::cout << "顶层箱子参数进入队列" << std::endl;
+        qPlanTaskInfoTop.push_back(planTaskInfo);
         emit finishVision_Signal_u(ishead);
     }
     std::cout << "视觉处理结束，触发轨迹规划信号" << std::endl;
 
-    // emit begintraj_Singal(this);
+    emit begintraj_Singal(this);
 }
 
 void MainProcess::beginVision_head_Slot(ContextStateMachine *sm)
@@ -404,7 +410,7 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
     {
         // getTrajParam_Slot();
         std::cout << "运动控制器请求过数据，但未发送" << std::endl;
-        // emit sendTrajParam_Signal();
+        emit sendTrajParam_Signal();
     }
 }
 

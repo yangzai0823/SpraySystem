@@ -403,12 +403,12 @@ bool invert){
   int ndof = 6;
 
   auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
-  p1 = boxInfo.rotation() * p1;
   float dest_y = -task.diff;
   if (!((task.face == 0) ^ invert)) {
     p1[1] = p1[1] - boxSize[1];
     dest_y = -dest_y;
   }
+  p1 = boxInfo.rotation() * (p1 - boxCenter) + boxCenter;
   float diff = dest_y - p1[1];
   // 创建环境
   std::vector<vws::PlanTaskInfo> ptask_vector[2];
@@ -473,12 +473,12 @@ bool planOneTask(TrajectoryGenerator *generator,
   Eigen::VectorXd traj, traj_weld, traj_transite, entry_traj, quit_traj;
   int ndof = 6;
   auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
-  p1 = boxInfo.rotation() * p1;
   float dest_y = -task.diff;
   if (!((task.face == 0) ^ invert)) {
     p1[1] = p1[1] - boxSize[1];
     dest_y = -dest_y;
   }
+  p1 = boxInfo.rotation() * (p1 - boxCenter) + boxCenter;
   float diff = dest_y - p1[1];
 
   boxCenter[1] += diff;
@@ -637,7 +637,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   //*                           规划任务
   //*       从队列中取出头部数据，根据箱体信息生成场景，然后依次规划路径
   //*************************************************************************
-  bool invert = false;
+  bool invert = true;
   while (!taskQ.empty()) {
     auto task_info = taskQ.top().second;
     taskQ.pop();
