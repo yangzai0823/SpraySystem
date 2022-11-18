@@ -92,7 +92,7 @@ void PLCDataPaser::DataPaser(QByteArray buf)
         {
             if (plcdata->flag_laser_u == true && pre_laser_u == false)
             {
-                std::cout << "上箱体检测信息号" << std::endl;
+                // std::cout << "上箱体检测信息号" << std::endl;
                 isemit = true;
             }
             pre_laser_u = plcdata->flag_laser_u;
@@ -101,7 +101,7 @@ void PLCDataPaser::DataPaser(QByteArray buf)
         {
             if (plcdata->flag_laser_b == true && pre_laser_b == false)
             {
-                // std::cout << "下箱体检测信息号" << std::endl;
+                std::cout << "下箱体检测信息号" << std::endl;
                 isemit = true;
             }
             pre_laser_b = plcdata->flag_laser_b;

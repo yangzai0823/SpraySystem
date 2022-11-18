@@ -79,16 +79,16 @@ void MainWindow::startDevices()
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
     auto plc = deviceManager->getPlc();
-    plc->start();
+    auto retplc = plc->start();
 
     //运动控制器
     auto mc = deviceManager->getMC();
     mc->start();
 
     //机器人
-    auto rbt = deviceManager->getRobot(0);
-    rbt->init();
-    rbt->start();
+    // auto rbt = deviceManager->getRobot(0);
+    // rbt->init();
+    // rbt->start();
 
     //相机
     auto camera1 = deviceManager->getCamera(0);
@@ -97,7 +97,7 @@ void MainWindow::startDevices()
     std::cout << "camera1 init: " << ret << std::endl;
     ret = camera1->start();
     std::cout << "camera1 start: " << ret << std::endl;
-    camera1->RegisterFrameCallBack(imgfunc,(void*)(&camera1));
+    //camera1->RegisterFrameCallBack(imgfunc,(void*)(&camera1));
 
 
     auto camera2 = deviceManager->getCamera(1);
@@ -105,7 +105,7 @@ void MainWindow::startDevices()
      std::cout << "camera2 init: " << ret << std::endl;
     ret = camera2->start();
     std::cout << "camera2 start: " << ret << std::endl;
-        camera2->RegisterFrameCallBack(imgfunc,(void*)(&camera2));
+    //camera2->RegisterFrameCallBack(imgfunc,(void*)(&camera2));
 }
 
 void MainWindow::updateDeviceState(QPushButton *sender, int state)

@@ -104,9 +104,26 @@ private slots:
     void getTrajParam_Slot();
 
     /**
-     * @brief 开始视觉处理
+     * @brief 开始视觉处理，
      */
     void beginVision_Slot(ContextStateMachine *sm, bool ishead);
+
+     /**
+     * @brief 开始视觉处理，头部
+     */
+    void beginVision_head_Slot(ContextStateMachine *sm);
+
+    /**
+     * @brief 结束头部处理，使用固定长度计算箱体中心
+    */
+    void finsihVision_head_Slot(ContextStateMachine *sm);
+
+     /**
+     * @brief 开始视觉处理，尾部部
+     */
+    void beginVision_trail_Slot(ContextStateMachine *sm);
+
+
 signals:
     void begintraj_Singal(MainProcess *data);
 

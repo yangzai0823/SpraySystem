@@ -26,6 +26,11 @@ public:
         VWSCamera::ImageData img_trail;
         float encoder_img_head;
         float encoder_img_trail;
+
+        vws::VisionData visionData;
+
+        /** @brief 相机拍照编码器数值在寄存器中索引， 下相机：0，上相机：1*/
+        int index = 0;
     };
     SMContext Context;
     ContextStateMachine();

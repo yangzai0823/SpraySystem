@@ -22,8 +22,16 @@ namespace vws {
          * @brief 箱子理论高度, 单位mm
          */
        static int64_t BoxHeight = 800;
+    
+        /*** @brief 上相机+机器人1手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_b_rbt1;
+        /*** @brief 下相机+机器人1手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_u_rbt1;
 
-        static Eigen::Isometry3d handEyeMatrix;
+        /*** @brief 上相机+机器人2手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_b_rbt2;
+        /*** @brief 下相机+机器人2手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_u_rbt2;
 
         static int32_t LaserUp = 2047;
         static int32_t LaserBottom = 0;
@@ -34,25 +42,40 @@ namespace vws {
 
         //机器人空闲位置
 
-        //
+        /*** @brief 头部运动最远距离 mm*/
+        static int64_t HeadMoveMaxLength = 1000;
 
      class DataInit{
      public:
          static void Init(){
-             vws::handEyeMatrix.affine().block(0,0,3,4)
-                     <<  -0.03743671625852585,
-                     -0.001139160362072289,
-                     -0.9992983341217041,
-                     2654.87060546875,
-                     0.009748989716172219,
-                     -0.9999521374702454,
-                     0.0007746600895188749,
-                     -1332.0638427734376,
-                     -0.9992514252662659,
-                     -0.009713122621178627,
-                     0.03744605928659439,
-                     481.78564453125;
-         }
+             vws::handEyeMatrix_b_rbt1.affine().block(0,0,3,4)
+                     <<  0.047927375882864,
+                        0.029266173020005226,
+                        0.9984219670295715,
+                        469.2415771484375,
+                        0.005496096797287464,
+                        0.9995478391647339,
+                        -0.029563141986727715,
+                        2466.051025390625,
+                        -0.9988358020782471,
+                        0.006904320791363716,
+                        0.04774487391114235,
+                        -532.5537719726563;
+         
+                 vws::handEyeMatrix_u_rbt1.affine().block(0,0,3,4)
+                     <<  -0.0150250699,
+                        -0.118890852,
+                        0.992793739,
+                        519.98938,
+                        0.0130119231,
+                        0.992798448,
+                        0.11908827,
+                        2632.92798,
+                        -0.999802351,
+                        0.0147074759,
+                        -0.0133698536,
+                        668.73468;
+     }
      };
 
 }

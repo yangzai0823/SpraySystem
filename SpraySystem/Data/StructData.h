@@ -85,12 +85,16 @@ namespace vws
         float width;
         float height;
         std::vector<float> imgpose;
-        std::vector<float> robotpose;
-        std::vector<float> righttop;
-        std::vector<float> rightbottom;
-        std::vector<float> lefttop;
-        std::vector<float> leftbottom;
-        double* normalvector; /*前三位为法向量*/
+        std::vector<double> robotpose;
+
+        std::vector<float> imgpose_trail;
+        std::vector<double> robotpose_trail;
+        
+        std::vector<double> righttop;
+        std::vector<double> rightbottom;
+        std::vector<double> lefttop;
+        std::vector<double> leftbottom;
+        std::vector<double> normalvector; /*前三位为法向量*/
     };
     /**
      * @brief 轨迹规划参数

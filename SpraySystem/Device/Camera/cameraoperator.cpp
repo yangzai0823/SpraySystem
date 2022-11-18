@@ -1,5 +1,5 @@
 #include "cameraoperator.h"
-
+#include <iostream>
 
 CameraOperator::CameraOperator(std::shared_ptr<Camera> camera)
 {
@@ -39,11 +39,13 @@ int CameraOperator::getState()
 //        return -1;
 //   auto ret = vwsCamera->state();
 //   return ret;
+    return 0;
 }
 
 int CameraOperator::RegisterFrameCallBack(GetImageCallBack func, void *pUser)
 {
-    vwsCamera->RegisterFrameCallBack(func,pUser);
+    std::cout <<"reg camera ip: " << vwsCamera->ip_ << std::endl;
+    return vwsCamera->RegisterFrameCallBack(func,pUser); 
 }
 
 int CameraOperator::deleteImage(const ImageData &data)

@@ -5,8 +5,31 @@
 #include "Data/StaticData.h"
 
 std::mutex MainProcess::_mutex;
+int saveToFile(std::string fileName,const VWSCamera::ImageData &data){
+    std::string ply = fileName+".ply";
+    std::ofstream outFile;
+    //打开文件
+    outFile.open(ply);
+    int nPointNum = data.PointCloudImage.nDataLen / (sizeof(float) * 3);
+    float* pSrcValue = (float*)(data.PointCloudImage.pData);
+    outFile<<"ply"<<std::endl;
+    outFile << "format ascii 1.0" << std::endl;
+    outFile << "comment author:hik-robot" << std::endl;
+    outFile << "element vertex "<< nPointNum << std::endl;
+    outFile << "property float x" << std::endl;
+    outFile << "property float y" << std::endl;
+    outFile << "property float z" << std::endl;
+    outFile << "end_header" << std::endl;
+    for (int nPntIndex = 0; nPntIndex < nPointNum; ++nPntIndex) {
+        outFile<<pSrcValue[nPntIndex * 3 + 0]<<" "<<pSrcValue[nPntIndex * 3 + 1]<<" "<<pSrcValue[nPntIndex * 3 + 2]<<std::endl;
+    }
+    outFile.close();
+}
+
+
 void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 {
+    std::cout<<"相机回调2"<<std::endl;
     MainProcess::CameraCallbackData *cameraCallbackData = (MainProcess::CameraCallbackData *)pUser;
     auto mainProcess = cameraCallbackData->mainProcess;
     auto cameraOperator = cameraCallbackData->camera;
@@ -28,7 +51,51 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 
     if (cameraCallbackData->up_or_bottom == 0)
     {
+        std::cout << "获得上相机图像" << std::endl;
 
+        QVariant vData;
+        vData.setValue(data);
+        emit mainProcess->sendImgData_u(vData);
+    }
+    else
+    {
+        std::cout << "获得下相机图像" << std::endl;
+        QVariant vData;
+        vData.setValue(data);
+        emit mainProcess->sendImgData_b(vData);
+    }
+    std::cout<<"保存"<<std::endl;
+    static int index = 0;
+    saveToFile("/home/vws/Demo/0/"+std::to_string(index),data);
+    index++;
+}
+
+
+void imgFunc_u(const VWSCamera::ImageData &data, void *pUser)
+{
+    std::cout<<"相机回调2"<<std::endl;
+    MainProcess::CameraCallbackData *cameraCallbackData = (MainProcess::CameraCallbackData *)pUser;
+    auto mainProcess = cameraCallbackData->mainProcess;
+    auto cameraOperator = cameraCallbackData->camera;
+    static int64_t q = data.RGB8PlanarImage.nTimeStamp;
+    static int i = 0;
+    std::cout << ++i << "  " << data.RGB8PlanarImage.nTimeStamp << "      " << data.RGB8PlanarImage.nTimeStamp - q << std::endl;
+    q = data.RGB8PlanarImage.nTimeStamp;
+
+    if (mainProcess->q_img.size() == 20)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            auto rm_img = mainProcess->q_img.dequeue();
+            DeviceManager::getInstance()->getCamera(0)->deleteImage(rm_img);
+        }
+    }
+    mainProcess->q_img.enqueue(data);
+    VisionData v;
+
+    if (cameraCallbackData->up_or_bottom == 0)
+    {
+        std::cout << "获得上相机图像" << std::endl;
         QVariant vData;
         vData.setValue(data);
 #ifdef _STATEPRINT_
@@ -38,7 +105,7 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
     }
     else
     {
-        // std::cout << "获得下相机图像" << std::endl;
+        std::cout << "获得下相机图像" << std::endl;
         QVariant vData;
         vData.setValue(data);
 #ifdef _STATEPRINT_
@@ -46,6 +113,15 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 #endif
         emit mainProcess->sendImgData_b(vData);
     }
+    std::cout<<"保存"<<std::endl;
+    static int index = 0;
+    saveToFile("/home/vws/Demo/0/"+std::to_string(index),data);
+    index++;
+}
+
+void imgFunc(const VWSCamera::ImageData &data, void *pUser)
+{
+     std::cout<<"相机回调2"<<std::endl;
 }
 
 void MainProcess::Test(PLCData data)
@@ -76,13 +152,13 @@ void MainProcess::recevieData_Slot(QVariant data)
     vdata.setValue(context_b);
     emit sendPlcData_b(vdata);
 
-    ContextStateMachine::SMContext context_u;
-    context_u.flag_laser = plcdata.flag_laser_u;
-    context_u.flag_camera = plcdata.flag_camera_u;
-    context_u.laserCouple1 = {plcdata.laser3, plcdata.laser4};
-    QVariant vdata_u;
-    vdata_u.setValue(context_u);
-    emit sendPlcData_u(vdata_u);
+    // ContextStateMachine::SMContext context_u;
+    // context_u.flag_laser = plcdata.flag_laser_u;
+    // context_u.flag_camera = plcdata.flag_camera_u;
+    // context_u.laserCouple1 = {plcdata.laser3,plcdata.laser4};
+    // QVariant vdata_u;
+    // vdata_u.setValue(context_u);
+    // emit sendPlcData_u(vdata_u);
 }
 
 MainProcess::MainProcess()
@@ -99,18 +175,22 @@ MainProcess::MainProcess()
     connect(mc, SIGNAL(getTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
 
     //相机
-    auto camera1 = deviceManager->getCamera(0);
+    auto camera1 = deviceManager->getCamera("相机下");
     camera1CallbackData_b = new CameraCallbackData();
     camera1CallbackData_b->up_or_bottom = 1;
     camera1CallbackData_b->mainProcess = this;
 
-    auto camera2 = deviceManager->getCamera(1);
+    auto camera2 = deviceManager->getCamera("相机上");
     camera2CallbackData_u = new CameraCallbackData();
     camera2CallbackData_u->up_or_bottom = 0;
     camera2CallbackData_u->mainProcess = this;
 
-    camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
-    camera2->RegisterFrameCallBack(imgFunc_b, (void *)(camera2CallbackData_u));
+
+   camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
+   camera2->RegisterFrameCallBack(imgFunc_b,(void *)(camera2CallbackData_u));
+    // auto c1 = camera1->RegisterFrameCallBack(imgFunc, (void *)(NULL));
+
+    // auto c2 = camera2->RegisterFrameCallBack(imgFunc,(void *)(NULL));
 
     visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();
@@ -127,15 +207,17 @@ MainProcess::MainProcess()
     connect(sm_bottom, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
     connect(this, SIGNAL(finishVision_Signal_b(bool)), sm_bottom, SLOT(finishVision_Slot(bool)));
     sm_bottom->Name = "Bottom";
+    sm_bottom->Context.index = 0;
     sm_bottom->start();
 
-    sm_top = new ContextStateMachine();
-    connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
-    connect(this, SIGNAL(sendImgData_u(QVariant)), sm_top, SLOT(sendImgData_Slot(QVariant)));
-    connect(sm_top, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
-    connect(this, SIGNAL(finishVision_Signal_u(bool)), sm_top, SLOT(finishVision_Slot(bool)));
-    sm_top->Name = "Top";
-    sm_top->start();
+    // sm_top = new ContextStateMachine();
+    // connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
+    // connect(this, SIGNAL(sendImgData_u(QVariant)), sm_top, SLOT(sendImgData_Slot(QVariant)));
+    // connect(sm_top, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
+    // connect(this, SIGNAL(finishVision_Signal_u(bool)), sm_top, SLOT(finishVision_Slot(bool)));
+    // sm_top->Name = "Top";
+    // sm_top->Context.index = 0;
+    // sm_top->start();
 }
 
 MainProcess::~MainProcess()
@@ -217,7 +299,7 @@ void MainProcess::getTrajParam_Slot()
         std::cout << "运动控制发送信息: " << zeropoint << std::endl;
         mc->sendTrajParam(zeropoint, offset);
 
-        sendtorbt();
+        //sendtorbt();
         mcRequest = false;
     }
     else
@@ -237,8 +319,12 @@ void MainProcess::beginVision_Slot(ContextStateMachine *sm, bool ishead)
         index = 1;
     }
 
+    auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
+ 
     vws::VisionData visionData;
-    visionContext->work(ishead ? sm->Context.img_head : sm->Context.img_trail, vws::handEyeMatrix, visionData);
+    visionContext->work(ishead ? sm->Context.img_head : sm->Context.img_trail
+    , handEyeMatrix_ub
+    , sm->Context.visionData);
     // DeviceManager::getInstance()->getCamera(0)->deleteImage(data.image[index]);
 
     vws::PlanTaskInfo planTaskInfo;
@@ -272,6 +358,40 @@ void MainProcess::beginVision_Slot(ContextStateMachine *sm, bool ishead)
     std::cout << "视觉处理结束，触发轨迹规划信号" << std::endl;
 
     // emit begintraj_Singal(this);
+}
+
+void MainProcess::beginVision_head_Slot(ContextStateMachine *sm)
+{
+    std::cout << "头部开始视觉处理" << std::endl;
+
+    auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
+ 
+    vws::VisionData visionData;
+    visionContext->work_head(sm->Context.img_head
+    , sm->Context.laserCouple1
+    ,  sm->Context.visionData);
+}
+
+void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
+{
+   std::cout << "尾部开始视觉处理" << std::endl;
+
+    auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
+ 
+    vws::VisionData visionData;
+    visionContext->work_trail(sm->Context.img_trail
+    , sm->Context.laserCouple1
+    ,  sm->Context.visionData);
+}
+
+void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
+{
+    std::cout << "使用固定长度处理头部" << std::endl;
+     auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
+ 
+    vws::VisionData visionData;
+
+    // visionContext->RobotCenterPose(sm->Context.visionData,handEyeMatrix_ub,(vws::HeadMoveMaxLength).matrix().data());
 }
 
 void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks)

@@ -117,7 +117,7 @@ void ContextStateMachine::sendPlcData_Slot(QVariant vData)
 
     if (data.flag_laser)
     {
-        // std::cout << "检测到" << Name.toStdString() << "箱体" << std::endl;
+        std::cout << "检测到" << Name.toStdString() << "箱体" << std::endl;
         Context.flag_laser = true;
         checkHeadLaserAndImg();
     }
@@ -139,12 +139,14 @@ void ContextStateMachine::sendImgData_Slot(QVariant vData)
                   << "headImg" << std::endl;
         Context.flag_img_head = true;
         Context.img_head = img;
+        std::cout<<"收到头部图像信号"<<std::endl;
         checkHeadLaserAndImg();
     }
     else
     {
         Context.flag_img_trail = true;
         Context.img_trail = img;
+        std::cout<<"收到尾部图像信号"<<std::endl;
         checkTrailLaserAndImg();
     }
 }
@@ -164,6 +166,10 @@ void ContextStateMachine::finishVision_Slot(bool ishead)
 void ContextStateMachine::enteredWaitLaserSignal_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待箱体感应信号******" << std::endl;
+
+    //读取拍照时刻编码器数值
+     Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+
     //开启计时器
     timer_img_head->start(interval);
 }
@@ -171,22 +177,25 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 void ContextStateMachine::enteredProcessHeadImg_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理头部图像******" << std::endl;
-    timer_img_head->stop();
-    Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[0];
-
+     timer_img_head->stop();
+   
     emit beginVision_Singal(this, true);
 }
 
 void ContextStateMachine::enterdHeadProcessDone_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 头部处理完成******" << std::endl;
+    //TODO：启动线程监控是否超过规定距离，超过则按规定距离作为箱体长度计算头部信息
+  
 }
 
 void ContextStateMachine::enteredProcessTrailImg_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理尾部图像******" << std::endl;
-    Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[1];
+    //TODO： 停止距离监控线程
 
+
+    Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
     emit beginVision_Singal(this, false);
 }
 
