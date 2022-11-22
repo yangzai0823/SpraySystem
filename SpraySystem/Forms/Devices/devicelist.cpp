@@ -209,15 +209,15 @@ void DeviceList::on_btn_RobotConnect_clicked()
     QString name = ui->lst_Robot->selectedItems().at(0)->text();
     auto robot = devicemanager->getRobot(name);
 
-    if(isrbtconnected){
-        robot->close();
-        success=1;
-    }
-    else
+    // if(isrbtconnected){
+    //     robot->close();
+    //     success=1;
+    // }
+    // else
     {
-        success = robot->init();
-        if(success>0){
-            success = robot->start();
+        //success = robot->init();
+        //if(success>0){
+           // success = robot->start();
 
             VWSRobot::RobotPosition p;
             robot->getRobotPosition(p);
@@ -227,7 +227,7 @@ void DeviceList::on_btn_RobotConnect_clicked()
             msg+=QString("Pos: %f %f %f \n").arg(p.pos[0]).arg(p.pos[1]).arg(p.pos[2]);
             msg+=QString("Orient: %f %f %f %f \n").arg(p.orient[0]).arg(p.orient[1]).arg(p.orient[2]).arg(p.orient[3]);
             ShowRbtMessage(msg,true);
-        }
+        //}
     }
 
     if(success>=0)

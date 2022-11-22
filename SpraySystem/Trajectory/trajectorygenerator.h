@@ -43,7 +43,7 @@ public:
      */
     bool GenerateEntryTrajectory(
         Eigen::VectorXd start, Eigen::VectorXd end, int nsteps,
-        Eigen::VectorXd &entry_traj, int ndof = 6, int plan_total_num = 3);
+        Eigen::VectorXd &entry_traj, int ndof = 6, int plan_total_num = 3, bool vis = false);
 
     /**
      * @brief 
@@ -100,6 +100,21 @@ public:
         int paint_dir,  // 0: x, 1: z
         Eigen::VectorXd &p, Eigen::VectorXd &ori);
 
+
+/**
+ * @brief 
+ * 
+ * @param boxCenterPoint 
+ * @param boxSize 
+ * @param boxq 
+ * @param painter_ori               box坐标系下的喷涂姿态，box坐标系与模式1（悬挂链运行方向与机器人y正方向一致）下的机器人坐标系一致。
+ * @param weld_y_offset 
+ * @param shrink_z 
+ * @param front 
+ * @param invert 
+ * @param p 
+ * @param ori 
+ */
     void GenerateSeamPaintConstraint(Eigen::Vector3d boxCenterPoint,
                                      Eigen::Vector3d boxSize,
                                      Eigen::Quaterniond boxq,
@@ -128,12 +143,12 @@ public:
     /**
      * @brief 计算悬挂链0点
      */
-    std::vector<float> calChainZeroPoint(TrajParam param);
+    std::vector<float> calChainZeroPoint(TrajParam param, bool invert);
 
     void clearEnv();
-    Eigen::Vector3d topfarpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize);
-    Eigen::Vector3d topnearpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize);
-    Eigen::Vector3d bottomnearpont(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize);
+    Eigen::Vector3d topfarpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert);
+    Eigen::Vector3d topnearpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert);
+    Eigen::Vector3d bottomnearpont(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert);
 
    private:
     static std::mutex _mutex;
@@ -147,7 +162,7 @@ public:
      */
     float chainFactor =0.4198727819755431f; //25/600;
     Eigen::Vector3d robotBeltDirection;
-    Eigen::Isometry3d handEyeMatrix;
+
     Eigen::Vector3d extraAxisDirection;
 
     std::vector<OpenRAVE::KinBodyPtr> boxes_;

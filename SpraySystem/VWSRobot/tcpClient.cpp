@@ -63,7 +63,7 @@ int TcpClient::toConnect(std::string ip, int port) {
     if (maxfd_ < client_fd_)
         maxfd_ = client_fd_;
     /*设置超时时间*/
-    tv_.tv_sec = 1;
+    tv_.tv_sec = 5;
     tv_.tv_usec = 0;
     auto tv = tv_;
     retcode = select(maxfd_ + 1, NULL, &rfds_,NULL, &tv);

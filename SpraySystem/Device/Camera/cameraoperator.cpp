@@ -1,5 +1,6 @@
 #include "cameraoperator.h"
 #include <iostream>
+#include <unistd.h>
 
 CameraOperator::CameraOperator(std::shared_ptr<Camera> camera)
 {
@@ -16,13 +17,27 @@ CameraOperator::~CameraOperator()
 int CameraOperator::init()
 {
     vwsCamera  = std::make_shared<VWSCamera>();
-    int ret = vwsCamera->Init(ip.toStdString(),port);
+    int ret = -1;
+    for(int i=0;i<3;i++){
+        ret = vwsCamera->Init(ip.toStdString(),port);
+        if(ret>0){
+            break;
+        }
+        usleep(30);
+    }
     return ret;
 }
 
 int CameraOperator::start()
-{
-    auto ret = vwsCamera->connect();
+{   
+    int ret = -1;
+    for(int i=0;i<3;i++){
+        ret = vwsCamera->connect();
+        if(ret>0){
+            break;
+        }
+        usleep(30);
+    }
     return ret;
 }
 
@@ -44,7 +59,7 @@ int CameraOperator::getState()
 
 int CameraOperator::RegisterFrameCallBack(GetImageCallBack func, void *pUser)
 {
-    std::cout <<"reg camera ip: " << vwsCamera->ip_ << std::endl;
+    // std::cout <<"reg camera ip: " << vwsCamera->ip_ << std::endl;
     return vwsCamera->RegisterFrameCallBack(func,pUser); 
 }
 

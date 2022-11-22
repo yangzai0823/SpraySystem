@@ -1543,7 +1543,7 @@ QToolButton:pressed{background-color:#404040;border-style: inset;}</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="lbl_Msg">
             <property name="font">
              <font>
               <pointsize>12</pointsize>

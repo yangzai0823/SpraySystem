@@ -1,6 +1,6 @@
 #include "trajectoryprocess.h"
 #include "mainprocess.h"
-
+#include "Data/StaticData.h"
 TrajectoryProcess::TrajectoryProcess()
 {
     visionContext = std::make_shared<VisionContext>();
@@ -131,12 +131,26 @@ PlanTask TrajectoryProcess::tryGetPlanTaskInTwoLayer(vws::PlanTaskInfo *task,
 }
 
 
-Eigen::Quaterniond getPaintOrientation(){
+Eigen::Quaterniond getPaintOrientation(bool front, bool invert){
   Eigen::Matrix3d rot;
-  // rot 对应矩阵为旋转矩阵，每一列对应
-  rot << 1, 0, 0, // 
-  0, 0, -1, // 
-  0, 1, 0;
+  if(!invert && front){
+    // rot 对应矩阵为旋转矩阵，每一列对应
+    rot << 1, 0, 0, // 
+    0, 0, -1, // 
+    0, 1, 0;
+  }else if(!invert && !front){
+    rot << 1, 0, 0, // 
+    0, 0, 1, // 
+    0, -1, 0;
+  }else if(invert && front){
+    rot << -1, 0, 0, // 
+    0, 0, -1, // 
+    0, -1, 0;
+  }else{
+    rot << -1, 0, 0, // 
+    0, 0, 1, // 
+    0, 1, 0;
+  }
   Eigen::Quaterniond quat(rot);
   return quat;
 }
@@ -146,20 +160,28 @@ Eigen::Quaterniond getPaintOrientation(){
  * @param mode          true : 模式1, front，并且同向，false : 模式2,
  * @return Eigen::Quaterniond 
  */
-Eigen::Quaterniond getSeamPaintOrientation(bool mode){
+Eigen::Quaterniond getSeamPaintOrientation(bool front, bool invert){
   Eigen::Matrix3d rot;
   // rot 对应矩阵为旋转矩阵，每一列对应
-  if(!mode){
-    rot << 1, 0, 0, // 
-    0, 0, -1, // 
-    0, 1, 0;
-  }else{
+  if(front && !invert){
     rot << 1, 0, 0, // 
     0, 0, 1, // 
     0, -1, 0;
+  }else if (!front && !invert){
+    rot << 1, 0, 0, // 
+    0, 0, -1, // 
+    0, 1, 0;
     // rot = rot * Eigen::AngleAxisd(M_PI / 4.0, Eigen::Vector3d::UnitY());
+  }else if(invert && front){
+    rot << -1, 0, 0, // 
+    0, 0, 1, // 
+    0, 1, 0;
+  }else{
+    rot << -1, 0, 0, // 
+    0, 0, -1, // 
+    0, -1, 0;
   }
-    rot = rot * Eigen::AngleAxisd(M_PI / 4.0, Eigen::Vector3d::UnitY());
+  rot = rot * Eigen::AngleAxisd(M_PI / 4.0, Eigen::Vector3d::UnitY());
 
   Eigen::Quaterniond quat(rot);
   return quat;
@@ -174,9 +196,11 @@ void AbbRbt(Eigen::VectorXd planRet, RobotTask &tk)
        for(int n = 0; n < 6; n++){
            jv[n] = planRet[cnt++] / M_PI * 180.0;
            // IRB 1410机器人3轴和2轴耦合，因此需要添加下面的补偿
+#ifdef ABB1410_JOINT_CONVERT
            if(n == 2){
                jv[n] += jv[n-1];
            }
+#endif
            std::cout << jv[n] << ", ";
        }
        std::cout << std::endl;
@@ -238,7 +262,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos >= Pu && last_pos < Pu) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Lu/2.0, 1000 + 1200));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Lu/2.0, 100 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -253,7 +277,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos>= Pu + Lu && last_pos < Pu + Lu) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Lu/2.0, 1000 + 1200));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Lu/2.0, 100 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -271,7 +295,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if(current_pos>= Pd && last_pos < Pd){
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Ld/2.0, 1000));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Ld/2.0, 100));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -286,7 +310,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if(current_pos>= Pd + Ld && last_pos < Pd + Ld){
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Ld/2.0, 1000));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Ld/2.0, 100));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -402,9 +426,9 @@ bool invert){
   Eigen::VectorXd init_dof, traj, entry_traj, quit_traj;
   int ndof = 6;
 
-  auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
+  auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize, invert);
   float dest_y = -task.diff;
-  if (!((task.face == 0) ^ invert)) {
+  if (!((task.face == 0))) {
     p1[1] = p1[1] - boxSize[1];
     dest_y = -dest_y;
   }
@@ -443,9 +467,72 @@ bool invert){
   }
 }
 
+
+bool planTwoLayersTask(TrajectoryGenerator *generator, PlanTask &task_info,
+                 const Eigen::VectorXd &init_dof,
+                 std::vector<TrajectoryInfo> &out_traj,
+                 std::vector<float> &mc_data, float units, bool isIncrease,
+                 bool invert, bool plane_first = true, bool plan_weld = true){
+  bool front = task_info.targets_.front().face == 0;
+  TrajectoryInfo single_traj;
+  auto task = task_info.targets_.front();
+  int64_t ref_encoder = task.encoder;
+  auto boxInfo = task.boxInfo;
+  auto boxSize = Eigen::Vector3d(task.lx, task.ly, task.lz);
+  auto boxCenter = boxInfo.translation();
+  Eigen::VectorXd p, ori, p_weld, ori_weld;
+  Eigen::VectorXd traj, traj_weld, traj_transite, entry_traj, quit_traj;
+  int ndof = 6;
+
+  // 计算时首先在机器人坐标系下计算出左下方点p1，
+  // 然后根据偏移要求，计算偏移后的位置。
+  // 对于模式2,p1点的位置在箱体另一侧。
+  // dest_y 为跟随时p1点y分量在机器人坐标系下应该处于的位置。
+  // 前端面和后端面对应的偏移量符号相反。
+  auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize, invert);
+  float dest_y = -task.diff;
+  if (!((task.face == 0))) {
+    p1[1] = p1[1] - boxSize[1];
+    dest_y = -dest_y;
+  }
+  p1 = boxInfo.rotation() * (p1 - boxInfo.translation()) + boxInfo.translation();
+  float diff = dest_y - p1[1];
+
+  boxCenter[1] += diff;
+  
+  generator->GenerateShrinkedPaintConstraint(
+      boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
+      getPaintOrientation(task.face == 0, invert), 0, boxSize[2] / 2.0 - 50, task.face == 0, invert, 0,
+      p, ori);
+  generator->GenerateSeamPaintConstraint(
+      boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
+      getSeamPaintOrientation(task.face == 0, invert), 20, boxSize[2] - 200,
+      task.face == 0, invert, p_weld, ori_weld);
+
+  std::vector<Eigen::VectorXd> plan_path, plan_ori;
+  if(plane_first){
+    plan_path.push_back(p);
+    plan_ori.push_back(ori);
+    plan_path.push_back(p_weld);
+    plan_ori.push_back(ori_weld);
+  }else{
+    plan_path.push_back(p_weld);
+    plan_ori.push_back(ori_weld);
+    plan_path.push_back(p);
+    plan_ori.push_back(ori);
+  }
+
+
+  if (plan_weld) {
+    if(front){
+
+    }
+  }
+}
+
 /**
  * @brief 规划任务信息中的第一个任务。任务信息中包含场景信息和规划目标信息。只规划其中第一个目标的喷涂路径
- * 
+ *        目前规划一个面和一条边
  * @param generator 
  * @param task_info 
  * @param init_dof 
@@ -454,6 +541,7 @@ bool invert){
  * @param units 
  * @param isIncrease 
  * @param invert 
+ * @param plane_first     指示是否先喷面：true - 先喷面再喷焊缝， false - 先喷焊缝再喷面
  * @return true 
  * @return false 
  */
@@ -472,23 +560,26 @@ bool planOneTask(TrajectoryGenerator *generator,
   Eigen::VectorXd p, ori, p_weld, ori_weld;
   Eigen::VectorXd traj, traj_weld, traj_transite, entry_traj, quit_traj;
   int ndof = 6;
-  auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize);
+  auto p1 = generator->bottomnearpont(boxInfo.translation(), boxSize, invert);
+
   float dest_y = -task.diff;
-  if (!((task.face == 0) ^ invert)) {
+  if (!((task.face == 0))) {
     p1[1] = p1[1] - boxSize[1];
     dest_y = -dest_y;
   }
+
   p1 = boxInfo.rotation() * (p1 - boxCenter) + boxCenter;
+
   float diff = dest_y - p1[1];
 
   boxCenter[1] += diff;
   generator->GenerateShrinkedPaintConstraint(
       boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
-      getPaintOrientation(), 0, boxSize[2] / 2.0 - 50, task.face == 0, invert, 0,
+      getPaintOrientation(task.face == 0, invert), 0, boxSize[2] / 2.0 - 50, task.face == 0, invert, 0,
       p, ori);
   generator->GenerateSeamPaintConstraint(
       boxCenter, boxSize, Eigen::Quaterniond(boxInfo.rotation()),
-      getSeamPaintOrientation((task.face == 0 ^ invert)), 20, boxSize[2] - 200, task.face == 0, invert,
+      getSeamPaintOrientation(task.face == 0, invert), 20, boxSize[2] - 200, task.face == 0, invert,
       p_weld, ori_weld);
 
   std::vector<Eigen::VectorXd> plan_path, plan_ori;
@@ -507,11 +598,13 @@ bool planOneTask(TrajectoryGenerator *generator,
   auto init_pose = init_dof;
   bool ret;
   for (int i = 0; i < plan_path.size(); i++) {
+    std::cout << "Gen Paint Path " << i << std::endl;
     ret = generator->GeneratePaintTrajectory(init_pose, plan_path[i], plan_ori[i], traj, ndof);
     if(ret){
       int N = traj.size() / ndof;
       Eigen::VectorXd paint_start, paint_end;
       paint_start = traj.block(0, 0, ndof, 1);
+      std::cout << "Gen Entry Path " << i << std::endl;
       ret &= generator->GenerateEntryTrajectory(
         init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3);
       if(ret){
@@ -530,8 +623,9 @@ bool planOneTask(TrajectoryGenerator *generator,
       return false;
     }
   }
+  std::cout << "Gen Quit Path " << std::endl;
   ret = generator->GenerateEntryTrajectory(
-        init_pose, init_dof, 20, quit_traj, ndof, 3);
+        init_pose, init_dof, 20, quit_traj, ndof, 3, true);
   if(ret){
       single_traj.traj_ = quit_traj;
       single_traj.type_ = TransitionTraj;
@@ -544,8 +638,6 @@ bool planOneTask(TrajectoryGenerator *generator,
   std::cout << "task encoder: " << task.encoder << std::endl;
   std::cout << "p1 pos: " << p1[0] << ", "<< p1[1] << ", "<< p1[2] << std::endl;
   std::cout <<"mc data: " << mc_data[0] << "," << mc_data[1] << std::endl;
-
-
 
   return ret;
 }
@@ -569,20 +661,34 @@ std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &tra
     }
     RobotTask rbttask;
     rbttask.task = VWSRobot::TaskType::MOVEABSJ;
-    rbttask.speed[0] = 100;
-    rbttask.speed[1] = 100;
+    rbttask.speed[0] = vws::rbtspeed;
+    rbttask.speed[1] = vws::rbtspeed;
     AbbRbt(traj.traj_, rbttask);
     rbttasks.push_back(rbttask);
   }
   return rbttasks;
 }
 
+
+  void clearQueue(std::vector<vws::PlanTaskInfo> & q, int64_t current_encoder, int64_t expire_range){
+    int N = q.size();
+    std::vector<int> ind;
+    for(int i = 0; i < N; i++){
+      if(llabs(q[i].encoder - current_encoder) > expire_range){
+        ind.push_back(i);
+      }
+    }
+
+    for(int i = ind.size()-1; i >= 0; i--){
+      q.erase(q.begin() + ind[i]);
+    }
+  }
+
 void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
 {
 #ifdef PLAN_FAKE_DATA
   fakeData(vdata, vdata->getChainEncoder());
 #endif
-  std::cout << "开始规划" << std::endl;
 
   TrajectoryGenerator *generator = TrajectoryGenerator::Instance();
   BaseStrategy *planstrategy;
@@ -598,39 +704,19 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   int equal_th = 400;
   auto bottom_task_q = vdata->GetPlanTaskInfo(0);
   auto upper_task_q = vdata->GetPlanTaskInfo(1);
-  int64_t bottom_2_upper = 0;
+  int64_t bottom_2_upper = 270*units;
 
   SortedTaskQ taskQ =
       PrepareTaskInfoOneLayer(bottom_task_q, upper_task_q, current_encoder,
                               bottom_2_upper, 0, isIncrease, units, plan_delay);
-  // PrepareTaskInfoTwoLayers(upper_task_q, bottom_task_q, current_encoder,
+  // PrepareTaskInfoOneLayer(upper_task_q, bottom_task_q, current_encoder, 0,
   //                          bottom_2_upper, isIncrease, units, plan_delay);
   
 
     //todo:: 清理队列。把超过一定距离的task清除掉
-  auto ptask = upper_task_q->begin();
-  while(ptask != upper_task_q->end()){
-    if(llabs(ptask->encoder - current_encoder) > expire_range){
-      auto p = ptask;
-      ptask++;
-      upper_task_q->erase(p);
-      std::cout << "erase : up" << std::endl;
-    } else {
-      ptask++;
-    }
-  }
-
-  ptask = bottom_task_q->begin();
-  while(ptask != bottom_task_q->end()){
-    if(llabs(ptask->encoder - current_encoder) > expire_range){
-      auto p = ptask;
-      ptask++;
-      bottom_task_q->erase(p);
-      std::cout << "erase : bottom - " << bottom_task_q->size() << std::endl;
-    }else{
-      ptask++;
-    }
-  }
+    clearQueue(*upper_task_q, current_encoder, expire_range);
+    clearQueue(*bottom_task_q, current_encoder, expire_range);
+  
 
 
   //*************************************************************************
@@ -639,6 +725,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   //*************************************************************************
   bool invert = true;
   while (!taskQ.empty()) {
+    std::cout << "开始规划" << std::endl;
     auto task_info = taskQ.top().second;
     taskQ.pop();
     std::vector<float> mc_data;
@@ -655,6 +742,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     }
 
     if(ret){
+      std::cout << "规划成功" << std::endl;
       auto rbttasks = convertToRobotTask(traj_info);
 
       vdata->SetRobotTaskInfo(mc_data, rbttasks);

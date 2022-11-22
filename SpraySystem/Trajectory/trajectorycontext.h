@@ -24,7 +24,7 @@ public:
      */
     RobotTask  Work(vws::PlanTaskInfo* param);
 
-    std::vector<float> calChainZeroPoint(TrajParam param);
+    // std::vector<float> calChainZeroPoint(TrajParam param);
 private:
     BaseStrategy* planstrategy;
     BaseStrategy* sevenstrategy;

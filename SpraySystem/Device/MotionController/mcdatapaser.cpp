@@ -38,6 +38,7 @@ void mcdatapaser::DataPaser(QByteArray buf, vws::MCData *data)
                 break;
             case 3:   //拍照时刻悬挂链
                 data->bchainencoder=true;
+                std::cout<<"拍照时刻悬挂链, 下相机： "<<std::to_string(d1)<<", 上相机: "<<std::to_string(d2)<<std::endl;
                 data->encoder1 = d1;
                 data->encoder2 = d2;
                 break;

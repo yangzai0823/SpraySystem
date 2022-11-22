@@ -1,4 +1,5 @@
 #include "robotoperator.h"
+#include <unistd.h>
 
 RobotOperator::RobotOperator(std::shared_ptr<Robot> robot)
 {
@@ -9,13 +10,28 @@ RobotOperator::RobotOperator(std::shared_ptr<Robot> robot)
 
 int RobotOperator::init()
 {
+    int ret = -1;
     vwsRobot = std::make_shared<VWSRobot>();
-    return vwsRobot->Init(ip.toStdString());
+    for(int i=0;i<3;i++){
+        ret = vwsRobot->Init(ip.toStdString());
+        if(ret>0){
+            break;
+        }
+        usleep(30);
+    }
+    return ret;
 }
 
 int RobotOperator::start()
 {
-    auto ret = vwsRobot->start();
+    int ret = -1;
+    for(int i=0;i<3;i++){
+        ret = vwsRobot->start();
+        if(ret>0){
+            break;
+        }
+        usleep(30);
+    }
     return ret;
 }
 

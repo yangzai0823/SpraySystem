@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <fstream>
+#include "Data/StaticData.h"
 //#include "halconcpp/HalconCpp.h"
 //#include "halconcpp/HDevThread.h"
 
@@ -33,9 +34,14 @@ void VisionContext::work(ImageData data, Eigen::Isometry3d handEyeMatrix, vws::V
 
 void VisionContext::work_head(ImageData data,std::vector<float> senorNums, vws::VisionData & VisionData)
 {   
-    float senorDistance;
+    float senorDistance =  vws::senorDistance;
      getPoseAndHeight(data,VisionData);
      getWidth(senorNums,senorDistance,VisionData);
+}
+void VisionContext::work_headWithLength(vws::VisionData & VisionData)
+{
+    double handEyeMatrix[12];
+    RobotCenterPose(VisionData,handEyeMatrix, vws::HeadMoveMaxLength);
 }
 void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws::VisionData & VisionData)
 {   
@@ -46,7 +52,6 @@ void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws:
 
      RobotCenterPose(VisionData, handEyeMatrix);
 }
-
 void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData)
 {
     HTuple hv_ObjectModel3D;
@@ -66,7 +71,6 @@ void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData
     memcpy(visionData.normalvector.data(),VectorPosition,9*sizeof(double));
     //TODO: 端点坐标
 }
-
 void VisionContext:: getWidth(std::vector<float> senorNums, float senorDistance, VisionData &visionData)
 {
     double sensorDis1 = senorNums[0];
@@ -79,7 +83,6 @@ void VisionContext:: getWidth(std::vector<float> senorNums, float senorDistance,
     PCLlibs::CalBoxDeepth(senorDistance,sensorDis1,sensorDis2,holeDis,matRot,normalvector,depth);
     visionData.width = depth;
 }
-
 void VisionContext::getLenght(std::vector<double> encoderVector, std::vector<float> encoderNums, VisionData &visionData)
 {
     double encoderHead = encoderNums[0];
@@ -91,8 +94,6 @@ void VisionContext::getLenght(std::vector<double> encoderVector, std::vector<flo
 
     visionData.length = length;
 }
-
-
 void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeMatrix[12])
 {
     double boxsize[] = {visionData.height,visionData.length,visionData.width};
@@ -112,6 +113,10 @@ void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeM
     visionData.robotpose.push_back(Quater1[1]);
     visionData.robotpose.push_back(Quater1[2]);
     visionData.robotpose.push_back(Quater1[3]);
+
+    if(!visionData.head_done){
+        visionData.robotpose_head = visionData.robotpose;
+    }
 }
 void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeMatrix[12],double length)
 {
@@ -125,17 +130,15 @@ void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeM
     double centerPoint1[3] = {0, 0, 0};
     PCLlibs::CalcuCameraRobot(visionData.normalvector.data(),visionData.righttop.data(),boxsize, handEyeMatrix, Quater1,centerPoint1);
     
-    visionData.robotpose.push_back(centerPoint1[0]);
-    visionData.robotpose.push_back(centerPoint1[1]);
-    visionData.robotpose.push_back(centerPoint1[2]);
-    visionData.robotpose.push_back(Quater1[0]);
-    visionData.robotpose.push_back(Quater1[1]);
-    visionData.robotpose.push_back(Quater1[2]);
-    visionData.robotpose.push_back(Quater1[3]);
+    visionData.robotpose_head.push_back(centerPoint1[0]);
+    visionData.robotpose_head.push_back(centerPoint1[1]);
+    visionData.robotpose_head.push_back(centerPoint1[2]);
+    visionData.robotpose_head.push_back(Quater1[0]);
+    visionData.robotpose_head.push_back(Quater1[1]);
+    visionData.robotpose_head.push_back(Quater1[2]);
+    visionData.robotpose_head.push_back(Quater1[3]);
+    visionData.head_done = true;
 }
-
-
-
 HTuple VisionContext::ImageConver(ImageData data)
 {
     HTuple hv_ObjectModel3D;
@@ -160,37 +163,12 @@ HTuple VisionContext::ImageConver(ImageData data)
 
     return hv_ObjectModel3D;
 }
-
-
-int saveToFile1(std::string fileName,const VWSCamera::ImageData &data){
-    std::string ply = fileName+".ply";
-    std::ofstream outFile;
-    //打开文件
-    outFile.open(ply);
-    int nPointNum = data.PointCloudImage.nDataLen / (sizeof(float) * 3);
-    float* pSrcValue = (float*)(data.PointCloudImage.pData);
-    outFile<<"ply"<<std::endl;
-    outFile << "format ascii 1.0" << std::endl;
-    outFile << "comment author:hik-robot" << std::endl;
-    outFile << "element vertex "<< nPointNum << std::endl;
-    outFile << "property float x" << std::endl;
-    outFile << "property float y" << std::endl;
-    outFile << "property float z" << std::endl;
-    outFile << "end_header" << std::endl;
-    for (int nPntIndex = 0; nPntIndex < nPointNum; ++nPntIndex) {
-        outFile<<pSrcValue[nPntIndex * 3 + 0]<<" "<<pSrcValue[nPntIndex * 3 + 1]<<" "<<pSrcValue[nPntIndex * 3 + 2]<<std::endl;
-    }
-    outFile.close();
-}
-
-
-
 void VisionContext::visionProcessFunc(const VWSCamera::ImageData &data, vws::VisionData &visionData)
 {
 
-    static int index = 0;
-    saveToFile1("/home/vws/Demo/1/"+std::to_string(index),data);
-    index++;
+    // static int index = 0;
+    // saveToFile1("/home/vws/Demo/1/"+std::to_string(index),data);
+    // index++;
     
     HTuple hv_CamParam, hv_ObjectModel3D, hv_Status;
     double hv_Result, hv_MedianHeight, hv_MedianWidth;
@@ -272,8 +250,46 @@ void VisionContext::visionProcessFunc(const VWSCamera::ImageData &data, vws::Vis
                                 -532.5537719726563};
     if (Result == "1, 运行成功")
     {
-        PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix, Quater1, centerPoint1);
+        if(visionData.top_or_bottom == 0){
+            double handEyeMatrix_u[12] = {-0.0150250699,
+                        -0.118890852,
+                        0.992793739,
+                        519.98938,
+                        0.0130119231,
+                        0.992798448,
+                        0.11908827,
+                        2632.92798,
+                        -0.999802351,
+                        0.0147074759,
+                        -0.0133698536,
+                        668.73468};
+            std::cout<<"顶层手眼， "<<std::to_string(handEyeMatrix_u[0])<<std::endl;
 
+            PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix_u, Quater1, centerPoint1);
+
+        }
+        else
+        {
+              double handEyeMatrix_b[12] = {0.047927375882864,
+                                0.029266173020005226,
+                                0.9984219670295715,
+                                469.2415771484375,
+                                0.005496096797287464,
+                                0.9995478391647339,
+                                -0.029563141986727715,
+                                2466.051025390625,
+                                -0.9988358020782471,
+                                0.006904320791363716,
+                                0.04774487391114235,
+                                -532.5537719726563};
+            std::cout<<"低层手眼， "<<std::to_string(handEyeMatrix_b[0])<<std::endl;
+
+            PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix_b, Quater1, centerPoint1);
+
+        }
+
+   
+        // PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix, Quater1, centerPoint1);
         std::cout << "VectorUnit:  [  " << VectorPosition[0] << ",   " << VectorPosition[1] << ",   " << VectorPosition[2] << ",   " << VectorPosition[3] << ",   " << VectorPosition[4] << ",   " << VectorPosition[5] << ",   " << VectorPosition[6] << ",   " << VectorPosition[7] << ",   " << VectorPosition[8] << "]  " << std::endl; //左侧棱长向量
         std::cout << "LineQuality:  [  " << LineQuali[0] << ",   " << LineQuali[1] << ",   " << LineQuali[2] << ",   " << LineQuali[3] << "]  " << std::endl;                                                                                                                                                                               //法向量
     }

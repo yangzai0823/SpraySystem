@@ -32,11 +32,11 @@ RobotTask  TrajectoryContext::Work(vws::PlanTaskInfo* param)
 }
 
 
-std::vector<float> TrajectoryContext::calChainZeroPoint(TrajParam param)
-{
-    auto ret = generator->calChainZeroPoint(param);
-    return ret;
-}
+// std::vector<float> TrajectoryContext::calChainZeroPoint(TrajParam param)
+// {
+//     auto ret = generator->calChainZeroPoint(param);
+//     return ret;
+// }
 
 
 Eigen::Vector3d TrajectoryContext::bottomnearpont(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize)

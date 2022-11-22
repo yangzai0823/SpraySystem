@@ -11,6 +11,7 @@
 #include "Util/Socket/socketclient.h"
 #include "Forms/global.h"
 #include <QAbstractButton>
+#include "Data/StaticData.h"
 
 MainWindow::MainWindow(std::shared_ptr<User> user)
     : ui(new Ui::MainWindow)
@@ -76,36 +77,61 @@ void MainWindow::startDevices()
     //    connect(devicemonitor,SIGNAL(deviceConnectError_signal(QString,int)),this, SLOT(deviceConnectError_slot(QString,int)));
     //    emit this->startMonitorDevice_signal();
 
+    QString msg;
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
     auto plc = deviceManager->getPlc();
     auto retplc = plc->start();
+    msg = retplc>0?"PLC启动成功":"PLC启动失败";
+    showMsg(msg);
 
     //运动控制器
     auto mc = deviceManager->getMC();
-    mc->start();
-
+    auto retmc = mc->start();
+    msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
+    showMsg(msg);
+    
     //机器人
-    // auto rbt = deviceManager->getRobot(0);
-    // rbt->init();
-    // rbt->start();
+    auto rbt = deviceManager->getRobot(0);
+    auto retrbt = rbt->init();
+    if(retrbt>0){
+        std::cout << "robot1 init: " << retrbt << std::endl;
+        retrbt = rbt->start();
+        std::cout << "robot1 start: " << retrbt << std::endl;
+         msg = rbt->getName()+", 启动成功";
+    }else{
+        msg = rbt->getName()+", 启动失败";
+    }
+    showMsg(msg);
 
     //相机
     auto camera1 = deviceManager->getCamera(0);
 
     auto ret = camera1->init();
-    std::cout << "camera1 init: " << ret << std::endl;
-    ret = camera1->start();
-    std::cout << "camera1 start: " << ret << std::endl;
-    //camera1->RegisterFrameCallBack(imgfunc,(void*)(&camera1));
+    if(ret>0){
+        std::cout << "camera1 init: " << ret << std::endl;
+        ret = camera1->start();
+        std::cout << "camera1 start: " << ret << std::endl;
+         msg = camera1->getName()+"， 启动成功";
+    }
+    else{
+         msg = camera1->getName()+"， 启动失败";
 
+    }
+    showMsg(msg);
 
     auto camera2 = deviceManager->getCamera(1);
     ret= camera2->init();
-     std::cout << "camera2 init: " << ret << std::endl;
-    ret = camera2->start();
-    std::cout << "camera2 start: " << ret << std::endl;
-    //camera2->RegisterFrameCallBack(imgfunc,(void*)(&camera2));
+    if(ret>0){
+        std::cout << "camera2 init: " << ret << std::endl;
+        ret = camera2->start();
+        std::cout << "camera2 start: " << ret << std::endl;
+         msg = camera2->getName()+"， 启动成功";
+    }
+    else{
+         msg = camera2->getName()+"， 启动失败";
+    }
+    showMsg(msg);
 }
 
 void MainWindow::updateDeviceState(QPushButton *sender, int state)
@@ -146,6 +172,17 @@ void MainWindow::judgeAuthority()
             }
         }
     }
+}
+
+void MainWindow::showMsg(QString msg)
+{
+    QDateTime current_date_time =QDateTime::currentDateTime();
+    QString current_date =current_date_time.toString("yyyy.MM.dd hh:mm:ss");
+    msg = "<p>"+current_date+"</p>"+"<p>"+msg+"</p>";
+    msg  = ui->lbl_Msg->text()+msg;
+
+    ui->lbl_Msg->setText(msg);
+    ui->lbl_Msg->setTextFormat(Qt::RichText);
 }
 
 void MainWindow::on_actQuit_triggered()
@@ -288,4 +325,28 @@ void MainWindow::on_btn_EStop_clicked()
         i = 0;
     }
     //   mainprocess->sendtorbt();
+}
+
+void MainWindow::on_btn_Camera1_clicked()
+{
+    DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
+    DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
+}
+
+void MainWindow::on_btn_Camera2_clicked()
+{
+    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
+    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
+}
+
+void MainWindow::on_btn_Robot1_clicked()
+{
+    DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
+    DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
+}
+
+void MainWindow::on_btn_Robot2_clicked()
+{
+    DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
+    DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
 }

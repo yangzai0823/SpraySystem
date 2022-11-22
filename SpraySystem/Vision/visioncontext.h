@@ -20,7 +20,11 @@ public:
 
     void work(ImageData data,Eigen::Isometry3d handEyeMatrix,VisionData & visionData);
     void work_head(ImageData data,std::vector<float> senorNums, VisionData & VisionData);
-       void work_trail(ImageData data,std::vector<float> senorNums, VisionData & VisionData); 
+    /** @brief 按照固定长度计算箱体头部信息*/
+    void work_headWithLength(VisionData & VisionData);
+
+    void work_trail(ImageData data,std::vector<float> senorNums, VisionData & VisionData); 
+    
     void getPoseAndHeight(ImageData data, VisionData &visionData);
     /** @brief 计算深度
      * @param 测距传感器数值

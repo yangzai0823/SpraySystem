@@ -7,7 +7,7 @@
 #include <regex>
 
 #include "ftp.h"
-#define SPEEDRATIO (10000.0 / 120.0)
+#define SPEEDRATIO (100.0 / 120.0)
 #define JOINTDATIO0 1942.957577694336
 #define JOINTDATIO1 -1942.872296094253
 #define JOINTDATIO2 2410.385886166698
@@ -125,32 +125,33 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
         if (track.task == VWSRobot::TaskType::MOVEABSJ) {
             float speed = (track.task == VWSRobot::TaskType::MOVEABSJ) ? track.speed[0] : track.speed[1];
             speed = speed * SPEEDRATIO;
-            int posNum = 0;
             for (auto&& pos : track.track) {
-                posNum++;
-                if (posNum == 6)
-                    break;
                 num++;
                 std::string posStr = "P";
                 std::string speedtmpStr = "SET D";
                 if (num < 10) {
                     posStr += "0000" + std::to_string(num) + "=";
-                    speedtmpStr += "0000" + std::to_string(num) + " " + std::to_string(speed) + "\r\n";
+                    speedtmpStr += "0000" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
                 } else if (num >= 10 && num < 100) {
                     posStr += "000" + std::to_string(num) + "=";
-                    speedtmpStr += "000" + std::to_string(num) + " " + std::to_string(speed) + "\r\n";
+                    speedtmpStr += "000" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
                 } else if (num >= 100 && num < 1000) {
                     posStr += "00" + std::to_string(num) + "=";
-                    speedtmpStr += "00" + std::to_string(num) + " " + std::to_string(speed) + "\r\n";
+                    speedtmpStr += "00" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
                 } else if (num >= 1000 && num < 1024) {
                     posStr += "0" + std::to_string(num) + "=";
-                    speedtmpStr += "0" + std::to_string(num) + " " + std::to_string(speed) + "\r\n";
+                    speedtmpStr += "0" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
                 } else {
                     return -1;
                 }
                 int tmpf = 0;
+                int posNum = 0;
                 for (auto&& var : pos) {
-                    posStr += std::to_string(var * JOINTDATIO[tmpf]) + ",";
+                    posNum++;
+                    posStr += std::to_string(int(var * JOINTDATIO[tmpf]));
+                    if (posNum == 6)
+                        break;
+                    posStr +=  + ",";
                     tmpf++;
                 }
                 posStr += "\r\n";
@@ -199,12 +200,12 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
     fileData += "WHILEEXP I1021<I1020\r\n";
     fileData += "MOVJ P[I1021] VJ=D[I1021]\r\n";
     fileData += "IFTHENEXP B[I1021]=1\r\n";
-    fileData += "	DOUT OT#(0474) ON\r\n";
-    fileData += "	SET B[I1021] 0\r\n";
+    fileData += "\tDOUT OT#(0474) ON\r\n";
+    fileData += "\tSET B[I1021] 0\r\n";
     fileData += "ENDIF\r\n";
     fileData += "IFTHENEXP B[I1021]=2\r\n";
-    fileData += "	DOUT OT#(0474) OFF\r\n";
-    fileData += "	SET B[I1021] 0\r\n";
+    fileData += "\tDOUT OT#(0474) OFF\r\n";
+    fileData += "\tSET B[I1021] 0\r\n";
     fileData += "ENDIF\r\n";
     fileData += "ADD I1021 1\r\n";
     fileData += "ENDWHILE\r\n";
@@ -260,16 +261,27 @@ int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
     // time (&timep);
     std::string taskStr;
     if (createFile(taskStr, taskData) < 0)
-        return -1;
-    MyFFTP ftp;
-    if (ftp.loginToServer(ip, "ftp", "") < 0) {
+    {
+        std::cout<<"createFile fail"<<std::endl;
         return -1;
     }
-    if (ftp.delFile("RUNCOM.JBI") < 0) {
+    //std::cout<<taskStr<<std::endl;
+    MyFFTP ftp;
+    if (ftp.loginToServer(ip, "ftp", "") < 0) 
+    {
+        std::cout<<"loginToServer fail"<<std::endl;
         return -1;
+    }
+    if (ftp.delFile("RUNCOM.JBI") < 0) 
+    {
+        std::cout<<"delFile fail"<<std::endl;
+        //return -1;
     }
     if (ftp.uploadFile("RUNCOM.JBI", taskStr) < 0)
+    {
+        std::cout<<"uploadFile fail"<<std::endl;
         return -1;
+    }
     // if (this->start() < 0)
     //     return -1;
     return 1;

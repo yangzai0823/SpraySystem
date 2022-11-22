@@ -6,7 +6,7 @@
 //#include "Device/Robot/robot.h"
 //#include "Device/Camera/camera.h"
 //#include "Device/PLC/plc.h"
-//#include "Bussiness/devicemonitor.h"
+#include "devicemonitor.h"
 #include "./ui_mainwindow.h"
 #include "DataAccess/Models/User/user.h"
 #include "Bussiness/mainprocess.h"
@@ -45,7 +45,10 @@ private slots:
 
     void deviceConnectError_slot(QString device, int state);
     void on_btn_EStop_clicked();
-
+    void on_btn_Camera1_clicked();
+    void on_btn_Camera2_clicked();
+    void on_btn_Robot1_clicked();
+    void on_btn_Robot2_clicked();
 signals:
     void startMonitorDevice_signal();
 
@@ -61,12 +64,13 @@ private:
     //    Camera *camera2;
     //    PLC *plc;
 
-    //    DeviceMonitor *devicemonitor; //监听所有设备状态
-    //    QThread *devicemonitorThread;
+       DeviceMonitor *devicemonitor; //监听所有设备状态
+       QThread *devicemonitorThread;
     MainProcess *mainprocess = nullptr;
 
     void startDevices();
     void updateDeviceState(QPushButton *sender, int state);
     void judgeAuthority();
+    void showMsg(QString msg);
 };
 #endif // MAINWINDOW_H

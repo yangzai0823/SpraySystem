@@ -5,6 +5,11 @@
 #include <Eigen/Geometry>
 
 namespace vws {
+        static QString Camera_top ="相机上";
+        static QString Camera_bottom = "相机下";
+        static QString Robot1= "机器人1";
+        static QString Robot2 = "机器人2";
+
         /**
          * @brief PLC出发信号超时时间，单位毫秒
          */
@@ -22,16 +27,6 @@ namespace vws {
          * @brief 箱子理论高度, 单位mm
          */
        static int64_t BoxHeight = 800;
-    
-        /*** @brief 上相机+机器人1手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_b_rbt1;
-        /*** @brief 下相机+机器人1手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_u_rbt1;
-
-        /*** @brief 上相机+机器人2手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_b_rbt2;
-        /*** @brief 下相机+机器人2手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_u_rbt2;
 
         static int32_t LaserUp = 2047;
         static int32_t LaserBottom = 0;
@@ -44,6 +39,26 @@ namespace vws {
 
         /*** @brief 头部运动最远距离 mm*/
         static int64_t HeadMoveMaxLength = 1000;
+
+        static double rbtspeed = 20 * 20 * 3;
+
+        /** @brief 编码器数值与距离转换关系  encoder/mm*/
+        static float chainFactor = 0.4198727819755431f;
+        /****************标定参数********************/
+
+        /*** @brief 下相机+机器人1手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_b_rbt1;
+        /*** @brief 上相机+机器人1手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_u_rbt1;
+
+        /*** @brief 上相机+机器人2手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_b_rbt2;
+        /*** @brief 下相机+机器人2手眼转换 */
+        static Eigen::Isometry3d handEyeMatrix_u_rbt2;
+
+        /** @brief 传感器相对距离*/
+        static double senorDistance  = 1200;  //mm
+        /************************************/
 
      class DataInit{
      public:

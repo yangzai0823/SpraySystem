@@ -52,6 +52,7 @@ void PLCDataPaser::DataPaser(QByteArray buf)
     //监测信号变化，触发plc信号； 注意：箱体晃动可能导致信号多次触发，通过上层状态转换避免重复操作
     if (!init)
     {
+        std::cout<<"plc 数据初始化"<<std::endl;
         init = true;
         pre_camera_b = plcdata->flag_camera_b;
         pre_camera_u = plcdata->flag_camera_u;
@@ -110,7 +111,7 @@ void PLCDataPaser::DataPaser(QByteArray buf)
 
     if (isemit)
     {
-        // std::cout << "触发plc信号" << std::endl;
+        std::cout << "触发plc信号" << std::endl;
         emit readyRead_Signal();
     }
 }

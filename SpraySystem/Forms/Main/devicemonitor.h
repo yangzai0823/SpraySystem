@@ -12,17 +12,10 @@ class DeviceMonitor : public QObject
 {
     Q_OBJECT
 public:
-//    explicit DeviceMonitor(Robot* robot1, Robot* robot2, Camera* camera1, Camera* camera2, PLC* plc);
-
     void stopWork();
 public slots:
     void  startMonitorDevice_slot();
 private:
-//    Robot *robot1;
-//    Robot *robot2;
-//    Camera *camera1;
-//    Camera *camera2;
-//    PLC *plc;
 
     int robot1State =-1;
     int robot2State = -1;

@@ -8,6 +8,9 @@
 #include "mutex"
 #include "VWSCamera/VWSCamera.h"
 #include "Data/StructData.h"
+#include <QThread>
+#include "HeadDistanceMonitor.h"
+
 
 class ContextStateMachine : public QStateMachine
 {
@@ -49,16 +52,23 @@ private:
     //    VisionContext *visionContext;
     /**状态**/
     QState *stateIDLE;
+    /** @brief 等待感应开关*/
     QState *waitLaserSignal;
+    /** @brief 处理头部图像*/
     QState *processHeadImg;
-    QState *headProcessDone;
+    /** @brief  编码器超限*/
+    QState *encoderOutofLimit;
+    /** @brief 等待尾部相机事件*/
+    QState *waitTrailProcess;
+    /** @brief 处理尾部图像*/
     QState *processTrailImg;
     /**状态end**/
 
     /**Transition**/
     QSignalTransition *tranWaitSignal;
     QSignalTransition *tranProcessHeadImg;
-    QSignalTransition *tranHeadProcessDone;
+    QSignalTransition *tranWaiTrailProcess;
+    QSignalTransition *tranEncoderOutofLimit;
     QSignalTransition *tranProcessTrailImg;
     QSignalTransition *tranIDLE;
 
@@ -66,8 +76,16 @@ private:
     QSignalTransition *tranTrailImgTimeout;
     /**Transition end**/
 
+    /***子线程***/
+    /** @brief 距离监控子线程*/
+    QThread *thread_distance;
+    HeadDistanceMonitor *headDisMonitor;
+    /***子线程end***/
+
+
     int interval = 100;  //计时器间隔时间 mm
-    int timeout = 30*1000; //超时时间 30m
+    int timeout_head = 30*1000; //超时时间 30m
+    int timeout_trail = 60*1000;
     QTimer *timer_img_head;
     int time_head =0;  //head计数
     QTimer *timer_img_trail;
@@ -75,11 +93,17 @@ private:
 signals:
     //外部信号
     void beginVision_Singal(ContextStateMachine *context, bool ishead);
+    /** @brief 开始监听头部运行距离*/
+    void beginMonitroDis_Signal(float camera_encoder);
+    void beginVision_Head_Signal(ContextStateMachine *context);
+    void finishVision_Head_Signal(ContextStateMachine *context);
+    void beginVision_Trail_Signal(ContextStateMachine *context);
 
     //内部信号
     void cameraSignalOn();
     void laserSignalOnAndImgReady();
     void headDone();
+    void outOfLimt();
     void cameraSignalOffAndImgReady();
     void trailDone();
     void headImgTimeout();
@@ -89,18 +113,21 @@ public slots:
     void sendPlcData_Slot(QVariant vData);
     void sendImgData_Slot(QVariant vData);
     void finishVision_Slot(bool ishead);
+    void outOfLimit_Slot();
 
     //内部事件
     void enteredWaitLaserSignal_Slot();
+    void exitWaitLaserSignal_Slot();
+
     void enteredProcessHeadImg_Slot();
-    void enterdHeadProcessDone_Slot();
+    void enteredEncoderOutofLimit_Slot();
+    void enterdWaitTrailProcess_Slot();
+    void exitWaitTrailProcess_Slot();
     void enteredProcessTrailImg_Slot();
     void enteredIDLE_Slot();
 
     void headTimer_Slot();
-    void timeoutHeadImg_Slot();
     void trailTimer_Slot();
-    void timeoutTrailImg_Slot();
 };
 Q_DECLARE_METATYPE(VWSCamera::ImageData)
 Q_DECLARE_METATYPE(ContextStateMachine::SMContext)

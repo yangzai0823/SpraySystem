@@ -119,7 +119,7 @@ private slots:
     void finsihVision_head_Slot(ContextStateMachine *sm);
 
      /**
-     * @brief 开始视觉处理，尾部部
+     * @brief 开始视觉处理，尾部
      */
     void beginVision_trail_Slot(ContextStateMachine *sm);
 

@@ -153,10 +153,10 @@
     <child
       link="link2" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 -1 0" />
     <limit
-      lower="-1.1345"
-      upper="2.2689"
+      lower="-2.26892"
+      upper="1.1344"
       effort="0"
       velocity="2.09" />
   </joint>
@@ -211,10 +211,10 @@
     <child
       link="link3" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 -1 0" />
     <limit
-      lower="-1.1345"
-      upper="2.618"
+      lower="-1.0646"
+      upper="2.6179"
       effort="0"
       velocity="2.18" />
   </joint>
@@ -271,8 +271,8 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-12.5664"
-      upper="12.5664"
+      lower="-5.0000"
+      upper="5.0000"
       effort="0"
       velocity="6.28" />
   </joint>
@@ -329,8 +329,8 @@
     <axis
       xyz="0.5 0 -0.86603" />
     <limit
-      lower="-12.5664"
-      upper="12.5664"
+      lower="-5.0000"
+      upper="5.0000"
       effort="0"
       velocity="6.28" />
   </joint>
@@ -387,8 +387,8 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-12.5664"
-      upper="12.5664"
+      lower="-5.0000"
+      upper="5.0000"
       effort="0"
       velocity="6.28" />
   </joint>
@@ -399,7 +399,7 @@
     name="joint_flange"
     type="fixed">
     <origin
-      xyz="0 0 0"
+      xyz="0.1 0 0"
       rpy="0 1.57 0" />
     <parent
       link="link6" />
@@ -415,6 +415,7 @@
       <geometry>
         <mesh
           filename="file://../urdf/mpx2600/meshes/painter.STL" />
+          <!-- <box size="0.6 0.1 0.6"/> -->
       </geometry>
       <material
         name="">
@@ -430,7 +431,7 @@
       <geometry>
         <mesh
           filename="file://../urdf/mpx2600/meshes/painter.STL" />
-          <!-- <box size="0.05 0.05 0.5"/> -->
+          <!-- <box size="0.6 0.1 0.6"/> -->
       </geometry>
     </collision>
   </link>

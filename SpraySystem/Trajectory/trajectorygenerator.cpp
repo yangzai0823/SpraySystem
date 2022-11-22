@@ -52,6 +52,7 @@
 
 #include "planner/ompl_planning_class.h"
 #include <mutex>
+#include "Data/StaticData.h"
 
 namespace po = boost::program_options;
 namespace ob = ompl::base;
@@ -69,19 +70,7 @@ std::mutex TrajectoryGenerator::_mutex;
 TrajectoryGenerator::TrajectoryGenerator()
 {
     robotBeltDirection = Eigen::Vector3d( -0.00321569, -0.419444, -0.001071);
-    handEyeMatrix.affine().block(0,0,3,4)
-          <<  -0.03743671625852585,
-            -0.001139160362072289,
-            -0.9992983341217041,
-            2654.87060546875,
-            0.009748989716172219,
-            -0.9999521374702454,
-            0.0007746600895188749,
-            -1332.0638427734376,
-            -0.9992514252662659,
-            -0.009713122621178627,
-            0.03744605928659439,
-            481.78564453125;
+
     extraAxisDirection = Eigen::Vector3d( 0, -0.0002153165405616164,0);
     GenerateEnvirInfo();
 }
@@ -122,12 +111,12 @@ void TrajectoryGenerator::GenerateEnvirInfo()
     robot = GetRobot(*pt->env);
     //设置工具坐标系
     pt->addManipulator(robot, "tool", "base", "link_flange", manip_rot,
-                       Eigen::Vector3d(0.00, 0.1, 0.800));
+                       Eigen::Vector3d(0.00, 0.1, 0.8));
       //  // 添加墙面
-   pt->addBox(Eigen::Vector3d(-1, 0, 1), Eigen::Vector3d(0.01, 5, 2),
+   pt->addBox(Eigen::Vector3d(-1.5, 0, 1), Eigen::Vector3d(0.01, 5, 2),
    Eigen::Quaterniond(1,0,0,0), "wall");
          //  // 添加地面
-   pt->addBox(Eigen::Vector3d(0, 0, -0.3), Eigen::Vector3d(5, 5, 0.01),
+   pt->addBox(Eigen::Vector3d(0, 0, -1.5), Eigen::Vector3d(5, 5, 0.01),
    Eigen::Quaterniond(1,0,0,0), "floor");
 }
 
@@ -206,16 +195,16 @@ void TrajectoryGenerator::GenerateSeamPaintConstraint(Eigen::Vector3d boxCenterP
   boxSize = boxSize / 1000.0;
   shrink_z /= 1000.0;
   weld_y_offset /= 1000.0;
-  p1 = topnearpoint(boxCenterPoint, boxSize);
+  p1 = topnearpoint(boxCenterPoint, boxSize, invert);
   p1[1] -= weld_y_offset;
   p1[2] -= shrink_z;
-  p2 = bottomnearpont(boxCenterPoint, boxSize);
+  p2 = bottomnearpont(boxCenterPoint, boxSize, invert);
   p2[1] -= weld_y_offset;
   p2[2] += shrink_z;
 
   // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
-  if(!(front ^ invert)){
+  if(!(front)){
     p1[1] = p1[1] - boxSize[1] + 2 * weld_y_offset;
     p2[1] = p2[1] - boxSize[1] + 2 * weld_y_offset;
   }
@@ -268,18 +257,29 @@ void TrajectoryGenerator::GenerateShrinkedPaintConstraint(Eigen::Vector3d boxCen
   shrink_size_z /= 1000.0;
   std::cout << "shrink x: " << shrink_size_x << std::endl;
   std::cout << "shrink z: " << shrink_size_z << std::endl;
-  p1 = topfarpoint(boxCenterPoint, boxSize);
+  p1 = topfarpoint(boxCenterPoint, boxSize, invert);
   std::cout <<"p1 : " << p1.transpose() << std::endl;
-  p1[0] -= shrink_size_x;
-  p1[2] -= shrink_size_z;
-  p2 = topnearpoint(boxCenterPoint, boxSize);  
+  p2 = topnearpoint(boxCenterPoint, boxSize, invert);  
   std::cout <<"p2 : " << p2.transpose() << std::endl;
-  p2[0] += shrink_size_x;
-  p2[2] -= shrink_size_z;
-  p3 = bottomnearpont(boxCenterPoint, boxSize);
+  p3 = bottomnearpont(boxCenterPoint, boxSize, invert);
   std::cout <<"p3 : " << p3.transpose() << std::endl;
-  p3[0] += shrink_size_x;
-  p3[2] += shrink_size_z;
+  if(invert == false){
+    p1[0] -= shrink_size_x;
+    p1[2] -= shrink_size_z;
+    p2[0] += shrink_size_x;
+    p2[2] -= shrink_size_z;
+    p3[0] += shrink_size_x;
+    p3[2] += shrink_size_z;
+  }else{
+    p1[0] += shrink_size_x;
+    p1[2] -= shrink_size_z;
+    p2[0] -= shrink_size_x;
+    p2[2] -= shrink_size_z;
+    p3[0] -= shrink_size_x;
+    p3[2] += shrink_size_z;
+  }
+
+
   Eigen::Quaterniond box2world = boxq.inverse();
   p1 = boxq * (p1 - boxCenterPoint) + boxCenterPoint;
   p2 = boxq * (p2 - boxCenterPoint) + boxCenterPoint;
@@ -293,15 +293,15 @@ void TrajectoryGenerator::GenerateShrinkedPaintConstraint(Eigen::Vector3d boxCen
   Eigen::Vector3d dy = Eigen::Vector3d(0, boxSize[1], 0);
   dy = boxq * dy;
   std::cout <<"dy : " << dy << std::endl;
-  if (!(front ^ invert)) {
+  if (!(front)) {
     // p1[1] = p1[1] - boxSize[1];
     // p2[1] = p2[1] - boxSize[1];
     // p3[1] = p3[1] - boxSize[1];
     p1 = p1 - dy;
     p2 = p2 - dy;
     p3 = p3 - dy;
-    painter_ori =
-        Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
+    // painter_ori =
+    //     Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
   }
   Eigen::Quaterniond quat(painter_ori);
   quat = boxq * quat;
@@ -337,9 +337,9 @@ void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint
   //      p3 = c + Eigen::Vector3d(-dx, dy, -dz);
   boxCenterPoint = boxCenterPoint / 1000.0;
   boxSize = boxSize / 1000.0;
-  p1 = topfarpoint(boxCenterPoint, boxSize) ;
-  p2 = topnearpoint(boxCenterPoint, boxSize);
-  p3 = bottomnearpont(boxCenterPoint, boxSize);
+  p1 = topfarpoint(boxCenterPoint, boxSize, invert) ;
+  p2 = topnearpoint(boxCenterPoint, boxSize, invert);
+  p3 = bottomnearpont(boxCenterPoint, boxSize, invert);
   Eigen::Quaterniond box2world = boxq.inverse();
   p1 = boxq * (p1 - boxCenterPoint) + boxCenterPoint;
   p2 = boxq * (p2 - boxCenterPoint) + boxCenterPoint;
@@ -349,12 +349,12 @@ void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint
   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
   Eigen::Vector3d dy = Eigen::Vector3d(0, boxSize[1], 0);
   dy = boxq * dy;
-  if(!(front ^ invert)){
+  if(!(front)){
     p1 = p1 - dy;
     p2 = p2 - dy;
     p3 = p3 - dy;
-    painter_ori =
-        Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
+    // painter_ori =
+    //     Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) * painter_ori;
   }
   Eigen::Quaterniond quat(painter_ori);
   quat = boxq * quat;
@@ -379,7 +379,7 @@ float pathDist(const Eigen::VectorXd &traj, int ndof){
 
 bool TrajectoryGenerator::GenerateEntryTrajectory(
     Eigen::VectorXd start, Eigen::VectorXd end, int nsteps, Eigen::VectorXd &entry_traj, 
-    int ndof, int plan_total_num){
+    int ndof, int plan_total_num, bool vis){
     int plan_no = 0;
     std::vector<Eigen::VectorXd> trajs;
     float min_dist = 1E10;
@@ -437,7 +437,7 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       //             cnst_voil_cnt, elapsed_time, false);
       // }
       free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.2, free_traj, collision_cnt,
-                  cnst_voil_cnt, elapsed_time, true);
+                  cnst_voil_cnt, elapsed_time, vis);
       
       float dist =pathDist(free_traj, ndof);
       if(cnst_voil_cnt == 0 && collision_cnt ==0){
@@ -506,14 +506,14 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   std::vector<double> dofvalues;
   auto init_pos2 =
       planOrientedPathFixed(pt->env, "tool", p, ori, 0, 0.1, init_pos,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
   traj =
       planOrientedPathFixed(pt->env, "tool", p, ori, 100, 0.1, init_pos2,
                             collision_cnt, cnst_voil_cnt, elapsed_time, false);
   std::cout << "voil_cnt " << cnst_voil_cnt << ", collision cnt "
             << collision_cnt << std::endl;
   if (collision_cnt ||
-      !checkPath(robot, "tool", traj, p, ori, 0.002, 5.0 / 180.0 * M_PI)) {
+      !checkPath(robot, "tool", traj, p, ori, 0.010, 5.0 / 180.0 * M_PI)) {
     return false;
   } else {
     return true;
@@ -554,7 +554,8 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
   float sevenEncoder, int64_t encoder, bool is_increase){
 
     // 编码器系数，单位：mm/unit
-    chainFactor = 0.4198727819755431f;
+    // chainFactor = 0.4198727819755431f;
+    chainFactor = vws::chainFactor;
 //    std::cout<<"系数： "<<chainFactor<<std::endl;
 
     //1. 相机坐标系下箱子中心坐标转机器人坐标系
@@ -584,16 +585,17 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
     return result;
 }
 
-std::vector<float> TrajectoryGenerator::calChainZeroPoint(TrajParam param)
+std::vector<float> TrajectoryGenerator::calChainZeroPoint(TrajParam param, bool invert)
 {
 
-    chainFactor = 0.4198727819755431f;
+    // chainFactor = 0.4198727819755431f;
+    chainFactor = vws::chainFactor;
 //    std::cout<<"系数： "<<chainFactor<<std::endl;
 
     //1. 相机坐标系下箱子中心坐标转机器人坐标系
     //auto rbtBoxCenter = handEyeMatrix*param.boxCenterPoint;
     //2. 计算箱子左下角（靠近机器人方向）顶点（P1）坐标
-    auto p1= bottomnearpont(param.boxCenterPoint, param.boxSize);
+    auto p1= bottomnearpont(param.boxCenterPoint, param.boxSize, invert);
     //3. 计算（p1）距离机器人原点（p2）距离 l2
     Eigen::Vector3d robotZeroPoint = extraAxisDirection*param.sevenEncoder;
     double l2 = robotZeroPoint[1] - p1[1];
@@ -611,32 +613,62 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(TrajParam param)
     return result;
 }
 
-Eigen::Vector3d TrajectoryGenerator::topfarpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize)
+Eigen::Vector3d TrajectoryGenerator::topfarpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert)
 {
+  if(invert == false){
     double x= boxCenterPoint[0] + boxSize[0]/2;
     double y =boxCenterPoint[1] + boxSize[1]/2;
     double z= boxCenterPoint[2] + boxSize[2]/2;
     Eigen::Vector3d p1(x,y,z);
 
-    return p1;
-}
-
-Eigen::Vector3d TrajectoryGenerator::topnearpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize)
-{
+    return p1;    
+  }else{
     double x= boxCenterPoint[0] - boxSize[0]/2;
     double y =boxCenterPoint[1] + boxSize[1]/2;
     double z= boxCenterPoint[2] + boxSize[2]/2;
     Eigen::Vector3d p1(x,y,z);
 
-    return p1;
+    return p1;   
+  }
+
 }
 
-Eigen::Vector3d TrajectoryGenerator::bottomnearpont(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize)
+Eigen::Vector3d TrajectoryGenerator::topnearpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert)
 {
+  if(invert == false){
+    double x= boxCenterPoint[0] - boxSize[0]/2;
+    double y =boxCenterPoint[1] + boxSize[1]/2;
+    double z= boxCenterPoint[2] + boxSize[2]/2;
+    Eigen::Vector3d p1(x,y,z);
+
+    return p1;    
+  }else{
+    double x= boxCenterPoint[0] + boxSize[0]/2;
+    double y =boxCenterPoint[1] + boxSize[1]/2;
+    double z= boxCenterPoint[2] + boxSize[2]/2;
+    Eigen::Vector3d p1(x,y,z);
+
+    return p1;    
+  }
+
+}
+
+Eigen::Vector3d TrajectoryGenerator::bottomnearpont(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert)
+{
+  if(invert == false){
     double x= boxCenterPoint[0] - boxSize[0]/2;
     double y =boxCenterPoint[1] + boxSize[1]/2;
     double z= boxCenterPoint[2] - boxSize[2]/2;
     Eigen::Vector3d p1(x,y,z);
 
-    return p1;
+    return p1;    
+  }else{
+    double x= boxCenterPoint[0] + boxSize[0]/2;
+    double y =boxCenterPoint[1] + boxSize[1]/2;
+    double z= boxCenterPoint[2] - boxSize[2]/2;
+    Eigen::Vector3d p1(x,y,z);
+
+    return p1;  
+  }
+
 }

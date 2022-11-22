@@ -19,8 +19,6 @@ int PLCOperator::init()
     dataparser->plcdata = &plcData;
     socketclient = new QtSocketClient(dataparser);
 
-
-    // connect(socketclient,SIGNAL(readyRead_Signal(QByteArray)),this,SLOT(readyRead_Slot(QByteArray)));
     connect(dataparser,SIGNAL(readyRead_Signal()),this,SLOT(readyRead_Slot()));
     return 1;
 }
