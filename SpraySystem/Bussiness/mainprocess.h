@@ -59,7 +59,7 @@ public:
 
     void SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks);
 
-    void sendtorbt();
+    bool sendtorbt();
     void Test(PLCData data);
     void TestImg();
 

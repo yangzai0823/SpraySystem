@@ -457,7 +457,7 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       // step 2.2: 生成优化后的路径
 
       auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.2, init_pos_ompl, collision_cnt,
-                  cnst_voil_cnt, elapsed_time, false);
+                  cnst_voil_cnt, elapsed_time, true);
       // for (int i = 1; i < 10; i ++){
       //   free_traj = planFreePathJoint(pt.env, "tool", goal, nsteps, i*10, 0.2, free_traj, collision_cnt,
       //             cnst_voil_cnt, elapsed_time, false);
@@ -532,7 +532,7 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   std::vector<double> dofvalues;
   auto init_pos2 =
       planOrientedPathFixed(pt->env, "tool", p, ori, 0, 0.1, init_pos,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
   traj =
       planOrientedPathFixed(pt->env, "tool", p, ori, 100, 0.1, init_pos2,
                             collision_cnt, cnst_voil_cnt, elapsed_time, true);

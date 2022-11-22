@@ -61,17 +61,28 @@ void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws:
     if(VisionData.top_or_bottom == 0)
     {
         //顶
+        std::cout<<"上相机手眼"<<std::endl;
         handEyeMatrix = vws::handEyeMatrix_u_rbt1.data();
     }
     else
     {
         //底
+        std::cout<<"下相机手眼"<<std::endl;
         handEyeMatrix = vws::handEyeMatrix_b_rbt1.data();
     }
 
-     getPoseAndHeight(data,VisionData);
-     getWidth(senorNums,senorDistance,VisionData);
-
+     getPoseANdHeight_Trail(data,VisionData);
+     
+     //getWidth(senorNums,senorDistance,VisionData);
+    //  getLenght(vws::senorRotationMatrix_b.data(), senorNums,VisionData);
+    //TODO: Length
+    if(VisionData.top_or_bottom == 1)
+    {
+        VisionData.length = 800;
+    }
+    else{
+        VisionData.length = 1200;
+    }
      RobotCenterPose(VisionData, handEyeMatrix);
 }
 void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData)
@@ -94,16 +105,40 @@ void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData
     visionData.normalvector.resize(9);
     memcpy(visionData.normalvector.data(),VectorPosition,9*sizeof(double));
     //端点坐标
-    visionData.lefttop.resize(3);
-    memcpy(visionData.lefttop.data(),IntersecPonitUL,3*sizeof(double));
-    visionData.leftbottom.resize(3);
-    memcpy(visionData.leftbottom.data(),IntersecPonitDL,3*sizeof(double));
-
+    //头部
     visionData.righttop.resize(3);
     memcpy(visionData.righttop.data(),IntersecPonitUR,3*sizeof(double));
     visionData.rightbottom.resize(3);
     memcpy(visionData.rightbottom.data(),IntersecPonitDR,3*sizeof(double));
 }
+void VisionContext::getPoseANdHeight_Trail(ImageData data, vws::VisionData &visionData)
+{
+    HTuple hv_ObjectModel3D;
+    double hv_Result, hv_MedianHeight, hv_MedianWidth;
+    double IntersecPonitUL[3], IntersecPonitDR[3], IntersecPonitDL[3], IntersecPonitUR[3];
+    // double LineQuali, VectorPosition, MedianHeight, MedianWidth;
+    double LineQuali[4];
+    double VectorPosition[9];
+    double MedianHeight, MedianWidth;
+     std::string Result = "0";
+    hv_ObjectModel3D = ImageConver(data);
+      PCLlibs::HeightAndPoseVector(hv_CamParam, hv_SetParas, hv_ObjectModel3D, MedianHeight, MedianWidth, VectorPosition, IntersecPonitUR,
+                        IntersecPonitUL, IntersecPonitDR, IntersecPonitDL, LineQuali, Result);
+
+
+    std::cout<<"视觉结果： 箱体高度, "<<std::to_string(MedianHeight)<<std::endl;
+    visionData.height = MedianHeight;
+    visionData.normalvector.resize(9);
+    memcpy(visionData.normalvector.data(),VectorPosition,9*sizeof(double));
+    //端点坐标
+    //尾部
+    visionData.lefttop.resize(3);
+    memcpy(visionData.lefttop.data(),IntersecPonitUL,3*sizeof(double));
+    visionData.leftbottom.resize(3);
+    memcpy(visionData.leftbottom.data(),IntersecPonitDL,3*sizeof(double));
+}
+
+
 void VisionContext:: getWidth(std::vector<float> senorNums, float senorDistance, VisionData &visionData)
 {
     double sensorDis1 = senorNums[0];
@@ -114,9 +149,14 @@ void VisionContext:: getWidth(std::vector<float> senorNums, float senorDistance,
     double v1[] = {visionData.normalvector[0],visionData.normalvector[1],visionData.normalvector[2]};
     double* normalvector = v1;
     double depth; //输出结果
+    if(visionData.top_or_bottom==1){
     PCLlibs::CalBoxDeepth(senorDistance,sensorDis1,sensorDis2,holeDis,matRot,normalvector,depth);
     visionData.width = depth;
-    std::cout<<"视觉结果： 箱体深度, "<<std::to_string(depth)<<std::endl;
+    }
+    else{
+        visionData.width = 640;
+    }
+    std::cout<<"视觉结果： 箱体深度, "<<std::to_string(visionData.width)<<std::endl;
 
 }
 void VisionContext::getLenght(std::vector<double> encoderVector, std::vector<float> encoderNums, VisionData &visionData)
@@ -125,10 +165,18 @@ void VisionContext::getLenght(std::vector<double> encoderVector, std::vector<flo
     double encoderTrail = encoderNums[1];
 
     double length;
-    PCLlibs::CalBoxLength(encoderVector.data(),encoderTrail,encoderHead,
-    visionData.lefttop.data(),visionData.leftbottom.data(),visionData.righttop.data(),visionData.rightbottom.data(),length);
 
-    visionData.length = length;
+    if(visionData.top_or_bottom==1)
+    {
+        PCLlibs::CalBoxLength(encoderVector.data(),encoderTrail,encoderHead,
+        visionData.lefttop.data(),visionData.leftbottom.data(),visionData.righttop.data(),visionData.rightbottom.data(),length);
+
+        visionData.length = length;
+    }
+    else
+    {
+        visionData.length = 1300;
+    }
     std::cout<<"视觉结果： 箱体长度, "<<std::to_string(length)<<std::endl;
 
 }
@@ -171,6 +219,7 @@ void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeM
     double centerPoint1[3] = {0, 0, 0};
     PCLlibs::CalcuCameraRobot(visionData.normalvector.data(),visionData.righttop.data(),boxsize, handEyeMatrix, Quater1,centerPoint1);
     
+    visionData.length = length;
     visionData.robotpose_head.push_back(centerPoint1[0]);
     visionData.robotpose_head.push_back(centerPoint1[1]);
     visionData.robotpose_head.push_back(centerPoint1[2]);

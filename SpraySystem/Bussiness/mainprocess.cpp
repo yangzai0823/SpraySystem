@@ -149,6 +149,7 @@ MainProcess::MainProcess()
     connect(this, SIGNAL(sendPlcData_b(QVariant)), sm_bottom, SLOT(sendPlcData_Slot(QVariant)));
     connect(this, SIGNAL(sendImgData_b(QVariant)), sm_bottom, SLOT(sendImgData_Slot(QVariant)));
     connect(sm_bottom, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
+   
     connect(sm_bottom, SIGNAL(beginVision_Head_Signal(ContextStateMachine *)), this, SLOT(beginVision_head_Slot(ContextStateMachine *)));
     connect(sm_bottom,SIGNAL(finishVision_Head_Signal(ContextStateMachine *)),this,SLOT(finsihVision_head_Slot(ContextStateMachine *)));
     connect(sm_bottom,SIGNAL(beginVision_Trail_Signal(ContextStateMachine *)),this,SLOT(beginVision_trail_Slot(ContextStateMachine *)));
@@ -159,15 +160,21 @@ MainProcess::MainProcess()
     sm_bottom->Context.visionData.top_or_bottom = 1; 
     sm_bottom->start();
 
-    // sm_top = new ContextStateMachine();
-    // connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
-    // connect(this, SIGNAL(sendImgData_u(QVariant)), sm_top, SLOT(sendImgData_Slot(QVariant)));
-    // connect(sm_top, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
-    // connect(this, SIGNAL(finishVision_Signal_u(bool)), sm_top, SLOT(finishVision_Slot(bool)));
-    // sm_top->Name = "Top";
-    // sm_top->Context.index = 1;
-    // sm_top->Context.visionData.top_or_bottom = 0;
-    // sm_top->start();
+    sm_top = new ContextStateMachine();
+    connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
+    connect(this, SIGNAL(sendImgData_u(QVariant)), sm_top, SLOT(sendImgData_Slot(QVariant)));
+    connect(sm_top, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
+    
+    connect(sm_top, SIGNAL(beginVision_Head_Signal(ContextStateMachine *)), this, SLOT(beginVision_head_Slot(ContextStateMachine *)));
+    connect(sm_top,SIGNAL(finishVision_Head_Signal(ContextStateMachine *)),this,SLOT(finsihVision_head_Slot(ContextStateMachine *)));
+    connect(sm_top,SIGNAL(beginVision_Trail_Signal(ContextStateMachine *)),this,SLOT(beginVision_trail_Slot(ContextStateMachine *)));
+    
+
+    connect(this, SIGNAL(finishVision_Signal_u(bool)), sm_top, SLOT(finishVision_Slot(bool)));
+    sm_top->Name = "Top";
+    sm_top->Context.index = 1;
+    sm_top->Context.visionData.top_or_bottom = 0;
+    sm_top->start();
 }
 
 MainProcess::~MainProcess()
@@ -237,7 +244,7 @@ bool MainProcess::getChainEncoderDir() const
 
 void MainProcess::getTrajParam_Slot()
 {
-    return;
+    // return;
     auto mc = DeviceManager::getInstance()->getMC();
 
     if (mcQueue.count() > 0)
@@ -247,11 +254,13 @@ void MainProcess::getTrajParam_Slot()
         auto offset = param[1];
         // offset = -1;
 
-        std::cout << "运动控制发送信息: " << zeropoint << std::endl;
-        mc->sendTrajParam(zeropoint, offset);
+        if(sendtorbt())
+        {
+            std::cout << "运动控制发送信息: " << zeropoint << std::endl;
+            mc->sendTrajParam(zeropoint, offset);
 
-        sendtorbt();
-        mcRequest = false;
+            mcRequest = false;
+        }
     }
     else
     {
@@ -339,13 +348,78 @@ void MainProcess::beginVision_head_Slot(ContextStateMachine *sm)
 
 void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
 {
+    #ifdef YASKAWA_ZERO_OFFSET
+    double zero_offset = 600;
+    #else
+    double zero_offset = 0;
+    #endif
+
    std::cout << "尾部开始视觉处理" << std::endl;
 
     visionContext->work_trail(sm->Context.img_trail
     , sm->Context.laserCouple1
     ,  sm->Context.visionData);
 
-    //根据状态机判断底层/顶层, 尾部处理结束
+
+    //参数入规划队列, 头部如果未入队列，将头部也入队列
+    vws::PlanTaskInfo planTaskInfo;
+    planTaskInfo.diff = vws::diff;
+    planTaskInfo.lx = sm->Context.visionData.width;
+    planTaskInfo.ly = sm->Context.visionData.length;
+    planTaskInfo.lz = sm->Context.visionData.height;
+    planTaskInfo.encoder =  sm->Context.encoder_img_trail;
+    planTaskInfo.face =  1;
+    planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
+
+    std::cout << "四元数: " << sm->Context.visionData.robotpose[3] << ", " << sm->Context.visionData.robotpose[4] << ", " << sm->Context.visionData.robotpose[5] << "," << sm->Context.visionData.robotpose[6] << std::endl;
+    planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose[3], sm->Context.visionData.robotpose[4], sm->Context.visionData.robotpose[5], sm->Context.visionData.robotpose[6]));
+    std::cout << "坐标： " << sm->Context.visionData.robotpose[0] << ", " << sm->Context.visionData.robotpose[1] << ", " << sm->Context.visionData.robotpose[2] << std::endl;
+    planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose[0], sm->Context.visionData.robotpose[1], sm->Context.visionData.robotpose[2]+zero_offset));
+
+      //根据状态机判断底层/顶层
+    if (sm->Name == "Bottom")
+    {
+        std::cout << "底层箱子尾部参数进入队列" << std::endl;
+        qPlanTaskInfoBottom.push_back(planTaskInfo);
+        emit finishVision_Signal_b(0);
+    }
+    else
+    {
+        std::cout << "顶层箱子尾部被参数进入队列" << std::endl;
+        qPlanTaskInfoTop.push_back(planTaskInfo);
+        emit finishVision_Signal_u(0);
+    }
+
+    if(!sm->Context.visionData.head_done){
+        vws::PlanTaskInfo planTaskInfo;
+        planTaskInfo.diff = vws::diff;
+        planTaskInfo.lx = sm->Context.visionData.width;
+        planTaskInfo.ly = sm->Context.visionData.length;
+        planTaskInfo.lz = sm->Context.visionData.height;
+        planTaskInfo.encoder =  sm->Context.encoder_img_head;
+        planTaskInfo.face =  0;
+        planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
+
+        std::cout << "四元数: " << sm->Context.visionData.robotpose_head[3] << ", " << sm->Context.visionData.robotpose_head[4] << ", " << sm->Context.visionData.robotpose_head[5] << "," << sm->Context.visionData.robotpose_head[6] << std::endl;
+        planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose_head[3], sm->Context.visionData.robotpose_head[4], sm->Context.visionData.robotpose_head[5], sm->Context.visionData.robotpose_head[6]));
+        std::cout << "坐标： " << sm->Context.visionData.robotpose_head[0] << ", " << sm->Context.visionData.robotpose_head[1] << ", " << sm->Context.visionData.robotpose_head[2] << std::endl;
+        planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose_head[0], sm->Context.visionData.robotpose_head[1], sm->Context.visionData.robotpose_head[2]+zero_offset));
+
+        //根据状态机判断底层/顶层
+        if (sm->Name == "Bottom")
+        {
+            std::cout << "底层箱子头部参数进入队列" << std::endl;
+            qPlanTaskInfoBottom.push_back(planTaskInfo);
+            emit finishVision_Signal_b(1);
+        }
+        else
+        {
+            std::cout << "顶层箱子头部被参数进入队列" << std::endl;
+            qPlanTaskInfoTop.push_back(planTaskInfo);
+            emit finishVision_Signal_u(1);
+        }
+    }
+       //根据状态机判断底层/顶层, 尾部处理结束
     if (sm->Name == "Bottom")
     {
         emit finishVision_Signal_b(false);
@@ -354,16 +428,52 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
     {
         emit finishVision_Signal_u(false);
     }
-    //TODO: 参数入规划队列, 头部如果未入队列，将头部也入队列
 
+    std::cout << "视觉处理结束，触发轨迹规划信号" << std::endl;
+    emit begintraj_Singal(this);
 }
 
 void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
 {
+        #ifdef YASKAWA_ZERO_OFFSET
+    double zero_offset = 600;
+    #else
+    double zero_offset = 0;
+    #endif
+
     std::cout << "使用固定长度处理头部" << std::endl;
      auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
  
     visionContext->work_headWithLength(sm->Context.visionData);
+
+    vws::PlanTaskInfo planTaskInfo;
+    planTaskInfo.diff = vws::diff;
+    planTaskInfo.lx = sm->Context.visionData.width;
+    planTaskInfo.ly = sm->Context.visionData.length;
+    planTaskInfo.lz = sm->Context.visionData.height;
+    planTaskInfo.encoder =  sm->Context.encoder_img_head;
+    planTaskInfo.face =  0;
+    planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
+
+    std::cout << "四元数: " << sm->Context.visionData.robotpose_head[3] << ", " << sm->Context.visionData.robotpose_head[4] << ", " << sm->Context.visionData.robotpose_head[5] << "," << sm->Context.visionData.robotpose_head[6] << std::endl;
+    planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose_head[3], sm->Context.visionData.robotpose_head[4], sm->Context.visionData.robotpose_head[5], sm->Context.visionData.robotpose_head[6]));
+    std::cout << "坐标： " << sm->Context.visionData.robotpose_head[0] << ", " << sm->Context.visionData.robotpose_head[1] << ", " << sm->Context.visionData.robotpose_head[2] << std::endl;
+    planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose_head[0], sm->Context.visionData.robotpose_head[1], sm->Context.visionData.robotpose_head[2]+zero_offset));
+   
+     //根据状态机判断底层/顶层
+    if (sm->Name == "Bottom")
+    {
+        std::cout << "底层箱子头部参数进入队列" << std::endl;
+        qPlanTaskInfoBottom.push_back(planTaskInfo);
+        emit finishVision_Signal_b(1);
+    }
+    else
+    {
+        std::cout << "顶层箱子头部被参数进入队列" << std::endl;
+        qPlanTaskInfoTop.push_back(planTaskInfo);
+        emit finishVision_Signal_u(1);
+    }
+
     //根据状态机判断底层/顶层, 尾部处理结束
     if (sm->Name == "Bottom")
     {
@@ -373,7 +483,8 @@ void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
     {
         emit finishVision_Signal_u(false);
     }
-    //TODO: 参数入规划队列
+    
+    emit begintraj_Singal(this);
 }
 
 void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks)
@@ -390,7 +501,7 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
     }
 }
 
-void MainProcess::sendtorbt()
+bool MainProcess::sendtorbt()
 {
     static std::vector<VWSRobot::RobotTask> staticTask;
 
@@ -412,8 +523,10 @@ void MainProcess::sendtorbt()
     auto ret =rbt->sendData(rbtparam);
     if(ret>0){
         std::cout << "机器人发送任务成功" << std::endl;
+        return true;
     }
     else{
         std::cout << "机器人发送任务失败" << std::endl;
+        return false;
     }
 }

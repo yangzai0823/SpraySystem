@@ -26,6 +26,7 @@ public:
     void work_trail(ImageData data,std::vector<float> senorNums, VisionData & VisionData); 
     
     void getPoseAndHeight(ImageData data, VisionData &visionData);
+    void getPoseANdHeight_Trail(ImageData data,VisionData &VisionData);
     /** @brief 计算深度
      * @param 测距传感器数值
      * @param 传感器相对距离,标定参数

@@ -45,6 +45,7 @@ int MCOperator::start()
 
 void MCOperator::startReceive()
 {
+    std::cout<<"启动运动控制器接收消息"<<std::endl;
     sendData(8, 0, 0);
 }
 

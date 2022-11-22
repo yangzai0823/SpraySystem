@@ -36,9 +36,9 @@ namespace vws {
     //机器人空闲位置
 
     /*** @brief 头部运动最远距离 mm*/
-    int64_t HeadMoveMaxLength = 1000;
+    int64_t HeadMoveMaxLength = 1500;
 
-    double rbtspeed = 20 * 20 * 3;
+    double rbtspeed = 20 * 20;
 
     /** @brief 编码器数值与距离转换关系  encoder/mm*/
     float chainFactor = 0.4198727819755431f;

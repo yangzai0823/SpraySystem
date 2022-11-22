@@ -61,9 +61,9 @@ ContextStateMachine::ContextStateMachine()
     connect(headDisMonitor,SIGNAL(outOfLimit_Signal()),this,SLOT(outOfLimit_Slot()));
     thread_distance = new QThread();
     headDisMonitor->moveToThread(thread_distance);
-    if(!thread_distance->isRunning()){
-        thread_distance->start();
-    }
+    // if(!thread_distance->isRunning()){
+    //     thread_distance->start();
+    // }
 }
 
 ContextStateMachine::~ContextStateMachine()

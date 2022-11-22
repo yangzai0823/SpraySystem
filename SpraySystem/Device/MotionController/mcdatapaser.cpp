@@ -27,8 +27,8 @@ void mcdatapaser::DataPaser(QByteArray buf, vws::MCData *data)
 
             auto v1 = buff2.data();
             DDD* pd = (DDD*)v1;            
-            auto d1 = bswap_32(pd->a1);
-            auto d2 = bswap_32(pd->a2);
+            int32_t d1 = bswap_32(pd->a1);
+            int32_t d2 = bswap_32(pd->a2);
 
             // std::cout<<"MC head: "<<(int)(pd->head)<<std::endl;
 

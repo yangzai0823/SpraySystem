@@ -30,6 +30,7 @@ public:
 private:
     QtSocketClient *socketclient;
     PLCDataPaser* dataparser;
+
 private slots:
     void readyRead_Slot();
 signals:
