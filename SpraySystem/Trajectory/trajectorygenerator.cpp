@@ -388,7 +388,8 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
     int collision_cnt, cnst_voil_cnt;
     double elapsed_time = 0;
     int try_no = 0;
-    while ( try_no < 5) {
+    bool init_loop = true;
+    while (try_no < 5) {
       if(plan_no == plan_total_num){
         break;
       }
@@ -397,16 +398,41 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
 
       Eigen::VectorXd init_pos(nsteps * ndof);
       init_pos = Eigen::VectorXd::Zero(nsteps * ndof);
+      Eigen::VectorXd ddof = (end - start) / (nsteps - 1);
       for (int i = 0; i < nsteps; i++) {
         for (int n = 0; n < ndof; n++){
-          init_pos[ndof * i + n] = start[n];
+          init_pos[ndof * i + n] = start[n] + i * ddof[n];
         }
       }
-
 
       // pt.viewer->Idle();
       std::cout << "stage 1" << std::endl;
       ProblemConstructionInfo pci(pt->env);
+
+
+      if (init_loop){
+        init_loop = false;
+
+        // step 2.0: 生成优化后的路径
+
+        auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.2, init_pos, collision_cnt,
+                    cnst_voil_cnt, elapsed_time, vis);
+        // for (int i = 1; i < 10; i ++){
+        //   free_traj = planFreePathJoint(pt.env, "tool", goal, nsteps, i*10, 0.2, free_traj, collision_cnt,
+        //             cnst_voil_cnt, elapsed_time, false);
+        // }
+        free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.2, free_traj, collision_cnt,
+                    cnst_voil_cnt, elapsed_time, false);
+        
+        float dist =pathDist(free_traj, ndof);
+        if(cnst_voil_cnt == 0 && collision_cnt ==0){
+          if(min_dist > dist){
+            min_dist = dist;
+            trajs.push_back(free_traj);
+          }
+        }
+      }
+
 
   #if 1
       
@@ -443,8 +469,8 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       if(cnst_voil_cnt == 0 && collision_cnt ==0){
         if(min_dist > dist){
           min_dist = dist;
+          trajs.push_back(free_traj);
         }
-        trajs.push_back(free_traj);
       }else{
         plan_no--;
         try_no++;
@@ -509,7 +535,7 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
                             collision_cnt, cnst_voil_cnt, elapsed_time, false);
   traj =
       planOrientedPathFixed(pt->env, "tool", p, ori, 100, 0.1, init_pos2,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
   std::cout << "voil_cnt " << cnst_voil_cnt << ", collision cnt "
             << collision_cnt << std::endl;
   if (collision_cnt ||

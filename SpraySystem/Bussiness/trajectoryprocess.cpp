@@ -723,7 +723,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   //*                           规划任务
   //*       从队列中取出头部数据，根据箱体信息生成场景，然后依次规划路径
   //*************************************************************************
-  bool invert = true;
+  bool invert = false;
   while (!taskQ.empty()) {
     std::cout << "开始规划" << std::endl;
     auto task_info = taskQ.top().second;
