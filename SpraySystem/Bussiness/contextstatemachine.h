@@ -90,6 +90,8 @@ private:
     int time_head =0;  //head计数
     QTimer *timer_img_trail;
     int time_trail = 0;  //trail计数
+
+    std::vector<float> tmplaserdata; //暂存测距
 signals:
     //外部信号
     void beginVision_Singal(ContextStateMachine *context, bool ishead);

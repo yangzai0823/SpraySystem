@@ -68,21 +68,6 @@ ContextStateMachine::ContextStateMachine()
 
 ContextStateMachine::~ContextStateMachine()
 {
-    //    delete visionContext;
-
-    delete stateIDLE;
-    delete waitLaserSignal;
-    delete processHeadImg;
-    delete waitTrailProcess;
-    delete processTrailImg;
-    delete stateIDLE;
-
-    delete tranWaitSignal;
-    delete tranProcessHeadImg;
-    delete tranWaiTrailProcess;
-    delete tranProcessTrailImg;
-    delete tranIDLE;
-
     delete timer_img_head;
     delete timer_img_trail;
 }
@@ -96,12 +81,12 @@ void ContextStateMachine::checkHeadLaserAndImg()
     // std::cout << "箱体： " << Name.toStdString() << ", 检查头部图像和信号" << std::endl;
     if (Context.flag_laser == true && Context.flag_img_head == true)
     {
-        std::cout << "箱体： " << Name.toStdString() << "头部感应信号和图像齐全" << std::endl;
+        // std::cout << "箱体： " << Name.toStdString() << "头部感应信号和图像齐全" << std::endl;
         emit laserSignalOnAndImgReady();
     }
     else
     {
-        std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
+        // std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
     }
     _mutex.unlock();
 }
@@ -112,15 +97,14 @@ void ContextStateMachine::checkTrailLaserAndImg()
     std::cout << "enter checkTrailLaserAndImg" << std::endl;
 #endif
     _mutex.lock();
-    // std::cout << "箱体： " << Name.toStdString() << "，检查尾部图像和信号" << std::endl;
     if (!Context.flag_camera && Context.flag_img_trail)
     {
-        std::cout << "箱体： " << Name.toStdString() << "尾部感应信号和图像齐全" << std::endl;
+        // std::cout << "箱体： " << Name.toStdString() << "尾部感应信号和图像齐全" << std::endl;
         emit cameraSignalOffAndImgReady();
     }
     else
     {
-        std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
+        // std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
     }
     _mutex.unlock();
 }
@@ -132,9 +116,7 @@ void ContextStateMachine::sendPlcData_Slot(QVariant vData)
     {
         std::cout<< Name.toStdString()  << "， 第一次拍照触发信息号" << std::endl;
         // Context.flag_laser = true;
-        Context.laserCouple1 = data.laserCouple1;
-        Context.laserCouple2 = data.laserCouple2;
-
+        tmplaserdata =  data.laserCouple1;
         emit cameraSignalOn();
     }
 
@@ -194,6 +176,9 @@ void ContextStateMachine::outOfLimit_Slot(){
 void ContextStateMachine::enteredWaitLaserSignal_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待箱体感应信号******" << std::endl;
+    Context.laserCouple1 = tmplaserdata;
+    // Context.laserCouple2 = data.laserCouple2;
+    std::cout<<"测距： "<<std::to_string(Context.laserCouple1[0])<<", "<<std::to_string(Context.laserCouple1[1])<<std::endl;
 
     //读取拍照时刻编码器数值
      Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
@@ -222,9 +207,9 @@ void ContextStateMachine::enteredProcessHeadImg_Slot()
      //开始监听悬挂链运行距离
     emit beginMonitroDis_Signal(Context.encoder_img_head);
 
-    emit beginVision_Singal(this, true);
-    //TODO: 
-    // emit beginVision_Head_Signal(this);
+    // emit beginVision_Singal(this, true);
+    //视觉处理头部
+    emit beginVision_Head_Signal(this);
 }
 
 void ContextStateMachine::enterdWaitTrailProcess_Slot()
@@ -248,9 +233,9 @@ void ContextStateMachine::enteredProcessTrailImg_Slot()
     Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
     std::cout << "编码器数值： " << Context.encoder_img_trail << std::endl;
 
-    emit beginVision_Singal(this, false);
-    //TODO:
-    // emit beginVision_Trail_Signal(this);
+    // emit beginVision_Singal(this, false);
+    //视觉处理尾部
+    emit beginVision_Trail_Signal(this);
 }
 
 void ContextStateMachine::enteredIDLE_Slot()

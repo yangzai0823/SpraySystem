@@ -19,10 +19,10 @@ namespace vws
     struct PLCData
     {
         int heart;
-        float laser1 = 0;
-        float laser2 = 0;
-        float laser3 = 0;
-        float laser4 = 0;
+        float laser_up_head = 0;
+        float laser_up_behind = 0;
+        float laser_bottom_head = 0;
+        float laser_bottom_behind = 0;
         /**
          * @brief 上层箱体感应信号
          */

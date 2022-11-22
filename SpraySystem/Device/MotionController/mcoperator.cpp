@@ -64,7 +64,7 @@ void MCOperator::sendTrajParam(float zeropoint, float offset)
 
 std::vector<float> MCOperator::getChainEncoders()
 {
-    // std::vector<float> v = {0, 0};
+    // std::vector<float> v = {1000, 1000};
     // return v;
 
     sendData(1, 0, 0);

@@ -18,7 +18,7 @@ public:
 
     VisionContext();
 
-    void work(ImageData data,Eigen::Isometry3d handEyeMatrix,VisionData & visionData);
+    void work(ImageData data,VisionData & visionData);
     void work_head(ImageData data,std::vector<float> senorNums, VisionData & VisionData);
     /** @brief 按照固定长度计算箱体头部信息*/
     void work_headWithLength(VisionData & VisionData);

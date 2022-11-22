@@ -5,92 +5,70 @@
 #include <Eigen/Geometry>
 
 namespace vws {
-        static QString Camera_top ="相机上";
-        static QString Camera_bottom = "相机下";
-        static QString Robot1= "机器人1";
-        static QString Robot2 = "机器人2";
+        extern QString Camera_top;
+        extern QString Camera_bottom;
+        extern QString Robot1;
+        extern QString Robot2;
 
         /**
          * @brief PLC出发信号超时时间，单位毫秒
          */
-        static int64_t BottomSingalTimeOut = 60 * 1000;
+        extern int64_t BottomSingalTimeOut;
         /**
          * @brief PLC出发信号超时时间，单位毫秒
          */
-        static int64_t TopSingalTimeOut = 60 * 1000;
+        extern int64_t TopSingalTimeOut;
         /**
          * @brief 箱子理论长度，单位mm
          */
-        static int64_t BoxLenght = 500;
+        extern int64_t BoxLenght;
 
         /**
          * @brief 箱子理论高度, 单位mm
          */
-       static int64_t BoxHeight = 800;
+       extern int64_t BoxHeight;
 
-        static int32_t LaserUp = 2047;
-        static int32_t LaserBottom = 0;
+        extern int32_t LaserUp;
+        extern int32_t LaserBottom;
 
 
         /// @brief 喷涂偏差值
-        static uint64_t diff = 0; 
+        extern uint64_t diff; 
 
         //机器人空闲位置
 
         /*** @brief 头部运动最远距离 mm*/
-        static int64_t HeadMoveMaxLength = 1000;
+        extern int64_t HeadMoveMaxLength;
 
-        static double rbtspeed = 20 * 20 * 3;
+        extern double rbtspeed;
 
         /** @brief 编码器数值与距离转换关系  encoder/mm*/
-        static float chainFactor = 0.4198727819755431f;
+        extern float chainFactor;
         /****************标定参数********************/
 
         /*** @brief 下相机+机器人1手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_b_rbt1;
+        extern std::array<double,12>  handEyeMatrix_b_rbt1;
         /*** @brief 上相机+机器人1手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_u_rbt1;
+        extern std::array<double,12>  handEyeMatrix_u_rbt1;
 
         /*** @brief 上相机+机器人2手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_b_rbt2;
+        extern std::array<double,12>  handEyeMatrix_b_rbt2;
         /*** @brief 下相机+机器人2手眼转换 */
-        static Eigen::Isometry3d handEyeMatrix_u_rbt2;
+        extern std::array<double,12>  handEyeMatrix_u_rbt2;
 
         /** @brief 传感器相对距离*/
-        static double senorDistance  = 1200;  //mm
+        extern double senorDistance_b;  //mm
+
+        /** @brief 工装孔距*/
+        extern double holeDistance; //mm
+
+        /** @brief 编码器旋转矩阵*/
+        extern std::array<double,9> senorRotationMatrix_b;
         /************************************/
 
      class DataInit{
      public:
-         static void Init(){
-             vws::handEyeMatrix_b_rbt1.affine().block(0,0,3,4)
-                     <<  0.047927375882864,
-                        0.029266173020005226,
-                        0.9984219670295715,
-                        469.2415771484375,
-                        0.005496096797287464,
-                        0.9995478391647339,
-                        -0.029563141986727715,
-                        2466.051025390625,
-                        -0.9988358020782471,
-                        0.006904320791363716,
-                        0.04774487391114235,
-                        -532.5537719726563;
-         
-                 vws::handEyeMatrix_u_rbt1.affine().block(0,0,3,4)
-                     <<  -0.0150250699,
-                        -0.118890852,
-                        0.992793739,
-                        519.98938,
-                        0.0130119231,
-                        0.992798448,
-                        0.11908827,
-                        2632.92798,
-                        -0.999802351,
-                        0.0147074759,
-                        -0.0133698536,
-                        668.73468;
-     }
+         static void Init();
      };
 
 }

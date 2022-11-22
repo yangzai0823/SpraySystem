@@ -340,7 +340,7 @@ void DeviceList::on_btn_PLCSend_clicked()
 void DeviceList::receiveData_Slot(QVariant varData)
 {
     PLCData data= varData.value<PLCData>();
-    QString msg= QString("测距仪1： %1,  测距仪2： %2， 测距仪3：%3， 测距仪4：%4 \n").arg(data.laser1).arg(data.laser2).arg(data.laser3).arg(data.laser4);
+    QString msg= QString("测距仪1： %1,  测距仪2： %2， 测距仪3：%3， 测距仪4：%4 \n").arg(data.laser_up_head).arg(data.laser_up_behind).arg(data.laser_bottom_head).arg(data.laser_bottom_behind);
     ShowPlcMessage(msg,true);
 }
 

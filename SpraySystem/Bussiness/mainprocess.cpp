@@ -92,7 +92,7 @@ void MainProcess::recevieData_Slot(QVariant data)
     ContextStateMachine::SMContext context_b;
     context_b.flag_laser = plcdata.flag_laser_b;
     context_b.flag_camera = plcdata.flag_camera_b;
-    context_b.laserCouple1 = {plcdata.laser1, plcdata.laser2};
+    context_b.laserCouple1 = {plcdata.laser_bottom_head, plcdata.laser_bottom_behind};
 
     QVariant vdata;
     vdata.setValue(context_b);
@@ -101,7 +101,7 @@ void MainProcess::recevieData_Slot(QVariant data)
     ContextStateMachine::SMContext context_u;
     context_u.flag_laser = plcdata.flag_laser_u;
     context_u.flag_camera = plcdata.flag_camera_u;
-    context_u.laserCouple1 = {plcdata.laser3,plcdata.laser4};
+    context_u.laserCouple1 = {plcdata.laser_up_behind,plcdata.laser_up_behind};
     QVariant vdata_u;
     vdata_u.setValue(context_u);
     emit sendPlcData_u(vdata_u);
@@ -109,7 +109,7 @@ void MainProcess::recevieData_Slot(QVariant data)
 
 MainProcess::MainProcess()
 {
-    vws::DataInit::Init();
+    // vws::DataInit::Init();
 
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
@@ -149,21 +149,25 @@ MainProcess::MainProcess()
     connect(this, SIGNAL(sendPlcData_b(QVariant)), sm_bottom, SLOT(sendPlcData_Slot(QVariant)));
     connect(this, SIGNAL(sendImgData_b(QVariant)), sm_bottom, SLOT(sendImgData_Slot(QVariant)));
     connect(sm_bottom, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
+    connect(sm_bottom, SIGNAL(beginVision_Head_Signal(ContextStateMachine *)), this, SLOT(beginVision_head_Slot(ContextStateMachine *)));
+    connect(sm_bottom,SIGNAL(finishVision_Head_Signal(ContextStateMachine *)),this,SLOT(finsihVision_head_Slot(ContextStateMachine *)));
+    connect(sm_bottom,SIGNAL(beginVision_Trail_Signal(ContextStateMachine *)),this,SLOT(beginVision_trail_Slot(ContextStateMachine *)));
+    
     connect(this, SIGNAL(finishVision_Signal_b(bool)), sm_bottom, SLOT(finishVision_Slot(bool)));
     sm_bottom->Name = "Bottom";
     sm_bottom->Context.index = 0;
     sm_bottom->Context.visionData.top_or_bottom = 1; 
     sm_bottom->start();
 
-    sm_top = new ContextStateMachine();
-    connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
-    connect(this, SIGNAL(sendImgData_u(QVariant)), sm_top, SLOT(sendImgData_Slot(QVariant)));
-    connect(sm_top, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
-    connect(this, SIGNAL(finishVision_Signal_u(bool)), sm_top, SLOT(finishVision_Slot(bool)));
-    sm_top->Name = "Top";
-    sm_top->Context.index = 1;
-    sm_top->Context.visionData.top_or_bottom = 0;
-    sm_top->start();
+    // sm_top = new ContextStateMachine();
+    // connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
+    // connect(this, SIGNAL(sendImgData_u(QVariant)), sm_top, SLOT(sendImgData_Slot(QVariant)));
+    // connect(sm_top, SIGNAL(beginVision_Singal(ContextStateMachine *, bool)), this, SLOT(beginVision_Slot(ContextStateMachine *, bool)));
+    // connect(this, SIGNAL(finishVision_Signal_u(bool)), sm_top, SLOT(finishVision_Slot(bool)));
+    // sm_top->Name = "Top";
+    // sm_top->Context.index = 1;
+    // sm_top->Context.visionData.top_or_bottom = 0;
+    // sm_top->start();
 }
 
 MainProcess::~MainProcess()
@@ -233,6 +237,7 @@ bool MainProcess::getChainEncoderDir() const
 
 void MainProcess::getTrajParam_Slot()
 {
+    return;
     auto mc = DeviceManager::getInstance()->getMC();
 
     if (mcQueue.count() > 0)
@@ -276,7 +281,6 @@ void MainProcess::beginVision_Slot(ContextStateMachine *sm, bool ishead)
  
     vws::VisionData visionData;
     visionContext->work(ishead ? sm->Context.img_head : sm->Context.img_trail
-    , handEyeMatrix_ub
     , sm->Context.visionData);
     // DeviceManager::getInstance()->getCamera(0)->deleteImage(data.image[index]);
 
@@ -317,24 +321,41 @@ void MainProcess::beginVision_head_Slot(ContextStateMachine *sm)
 {
     std::cout << "头部开始视觉处理" << std::endl;
 
-    //auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
- 
-    vws::VisionData visionData;
     visionContext->work_head(sm->Context.img_head
     , sm->Context.laserCouple1
     ,  sm->Context.visionData);
+
+     //根据状态机判断底层/顶层, 头部处理结束
+    if (sm->Name == "Bottom")
+    {
+        emit finishVision_Signal_b(true);
+    }
+    else
+    {
+        emit finishVision_Signal_u(true);
+    }
+
 }
 
 void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
 {
    std::cout << "尾部开始视觉处理" << std::endl;
 
-    auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
- 
-    vws::VisionData visionData;
     visionContext->work_trail(sm->Context.img_trail
     , sm->Context.laserCouple1
     ,  sm->Context.visionData);
+
+    //根据状态机判断底层/顶层, 尾部处理结束
+    if (sm->Name == "Bottom")
+    {
+        emit finishVision_Signal_b(false);
+    }
+    else
+    {
+        emit finishVision_Signal_u(false);
+    }
+    //TODO: 参数入规划队列, 头部如果未入队列，将头部也入队列
+
 }
 
 void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
@@ -342,9 +363,17 @@ void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
     std::cout << "使用固定长度处理头部" << std::endl;
      auto handEyeMatrix_ub = sm->Name=="Bottom"?vws::handEyeMatrix_b_rbt1:vws::handEyeMatrix_b_rbt1;
  
-    vws::VisionData visionData;
-
-    // visionContext->RobotCenterPose(sm->Context.visionData,handEyeMatrix_ub,(vws::HeadMoveMaxLength).matrix().data());
+    visionContext->work_headWithLength(sm->Context.visionData);
+    //根据状态机判断底层/顶层, 尾部处理结束
+    if (sm->Name == "Bottom")
+    {
+        emit finishVision_Signal_b(false);
+    }
+    else
+    {
+        emit finishVision_Signal_u(false);
+    }
+    //TODO: 参数入规划队列
 }
 
 void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks)

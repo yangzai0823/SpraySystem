@@ -12,10 +12,10 @@ void PLCDataPaser::DataPaser(QByteArray buf, vws::PLCData *data)
 #pragma pack(1)
     struct DDD
     {
-        int16_t laser1;
-        int16_t laser2;
-        int16_t laser3;
-        int16_t laser4;
+        int16_t laser_u_head;
+        int16_t laser_u_behind;
+        int16_t laser_bottom_head;
+        int16_t laser_bottom_behind;
         int16_t laser5;
         int16_t laser6;
         int16_t laser7;
@@ -24,6 +24,7 @@ void PLCDataPaser::DataPaser(QByteArray buf, vws::PLCData *data)
         uint8_t flag2 : 1;
         uint8_t flag_camera_b : 1;
         uint8_t flag_cmaera_u : 1;
+        uint8_t heart:1;
     };
 #pragma pack()
 
@@ -31,15 +32,17 @@ void PLCDataPaser::DataPaser(QByteArray buf, vws::PLCData *data)
     DDD *pd = (DDD *)v1;
     if (data != nullptr)
     {
-        data->laser1 = pd->laser1;
-        data->laser2 = pd->laser2;
-        data->laser3 = pd->laser3;
-        data->laser4 = pd->laser4;
+        data->laser_up_head = pd->laser_u_head;
+        data->laser_up_behind = pd->laser_u_behind;
+        data->laser_bottom_head = pd->laser_bottom_head;
+        data->laser_bottom_behind = pd->laser_bottom_behind;
 
         data->flag_laser_u = (bool)pd->flag1;
         data->flag_laser_b = (bool)pd->flag2;
         data->flag_camera_b = (bool)pd->flag_camera_b;
         data->flag_camera_u = (bool)pd->flag_cmaera_u;
+
+        data->heart = (bool)pd->heart;
     }
 }
 
@@ -65,7 +68,6 @@ void PLCDataPaser::DataPaser(QByteArray buf)
         if (plcdata->flag_camera_b == true && pre_camera_b == false)
         {
             // std::cout << "下相机，低-> 高" << std::endl;
-
             pre_camera_b = plcdata->flag_camera_b; //更新
             isemit = true;
         }

@@ -16,6 +16,7 @@
 MainWindow::MainWindow(std::shared_ptr<User> user)
     : ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     this->showMaximized();
 
@@ -30,6 +31,8 @@ MainWindow::MainWindow(std::shared_ptr<User> user)
     ui->btn_LoginUser->setMenu(userMenu);
 
     isRun = false;
+
+    vws::DataInit::Init();
 
     update();
     timer = new QTimer(this);
@@ -82,14 +85,15 @@ void MainWindow::startDevices()
     // PLC
     auto plc = deviceManager->getPlc();
     auto retplc = plc->start();
-    msg = retplc>0?"PLC启动成功":"PLC启动失败";
-    showMsg(msg);
+    // msg = retplc>0?"PLC启动成功":"PLC启动失败";
+    // showMsg(msg);
 
     //运动控制器
     auto mc = deviceManager->getMC();
     auto retmc = mc->start();
-    msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
-    showMsg(msg);
+
+    // msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
+    // showMsg(msg);
     
     //机器人
     auto rbt = deviceManager->getRobot(0);
@@ -98,11 +102,10 @@ void MainWindow::startDevices()
         std::cout << "robot1 init: " << retrbt << std::endl;
         retrbt = rbt->start();
         std::cout << "robot1 start: " << retrbt << std::endl;
-         msg = rbt->getName()+", 启动成功";
     }else{
         msg = rbt->getName()+", 启动失败";
+        showMsg(msg);
     }
-    showMsg(msg);
 
     //相机
     auto camera1 = deviceManager->getCamera(0);
@@ -112,13 +115,11 @@ void MainWindow::startDevices()
         std::cout << "camera1 init: " << ret << std::endl;
         ret = camera1->start();
         std::cout << "camera1 start: " << ret << std::endl;
-         msg = camera1->getName()+"， 启动成功";
     }
     else{
          msg = camera1->getName()+"， 启动失败";
-
+        showMsg(msg);
     }
-    showMsg(msg);
 
     auto camera2 = deviceManager->getCamera(1);
     ret= camera2->init();
@@ -126,12 +127,11 @@ void MainWindow::startDevices()
         std::cout << "camera2 init: " << ret << std::endl;
         ret = camera2->start();
         std::cout << "camera2 start: " << ret << std::endl;
-         msg = camera2->getName()+"， 启动成功";
     }
     else{
          msg = camera2->getName()+"， 启动失败";
+        showMsg(msg);
     }
-    showMsg(msg);
 }
 
 void MainWindow::updateDeviceState(QPushButton *sender, int state)
@@ -292,7 +292,7 @@ void MainWindow::on_btn_EStop_clicked()
 {
     if (i == 0)
     {
-        mainprocess->plcdata.laser1 = mainprocess->plcdata.laser2 = mainprocess->plcdata.laser3 = mainprocess->plcdata.laser4 = 100;
+        mainprocess->plcdata.laser_up_head = mainprocess->plcdata.laser_up_behind = mainprocess->plcdata.laser_bottom_head = mainprocess->plcdata.laser_bottom_behind = 100;
         mainprocess->plcdata.flag_camera_b = 1;
         mainprocess->Test(mainprocess->plcdata);
     }
