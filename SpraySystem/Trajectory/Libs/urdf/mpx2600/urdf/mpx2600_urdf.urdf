@@ -8,17 +8,17 @@
     name="base">
     <inertial>
       <origin
-        xyz="-0.21161 -0.00027468 0.14869"
+        xyz="-0.053172 -0.00027468 -0.45131"
         rpy="0 0 0" />
       <mass
         value="62.105" />
       <inertia
-        ixx="0"
-        ixy="0"
-        ixz="0"
-        iyy="0"
-        iyz="0"
-        izz="0" />
+        ixx="1.6859"
+        ixy="-0.0028624"
+        ixz="-0.12294"
+        iyy="1.4945"
+        iyz="0.00066975"
+        izz="2.2688" />
     </inertial>
     <visual>
       <origin
@@ -88,7 +88,7 @@
     name="joint1"
     type="revolute">
     <origin
-      xyz="-0.15844 0 0.2515"
+      xyz="0 0 -0.3485"
       rpy="0 0 0" />
     <parent
       link="base" />
@@ -271,10 +271,10 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-6.28"
-      upper="6.28"
+      lower="-6.283185307"
+      upper="6.283185307"
       effort="0"
-      velocity="6.28" />
+      velocity="6.283185307" />
   </joint>
   <link
     name="link5">
@@ -329,10 +329,10 @@
     <axis
       xyz="0.5 0 -0.86603" />
     <limit
-      lower="-6.28"
-      upper="6.28"
+      lower="-6.283185307"
+      upper="6.283185307"
       effort="0"
-      velocity="6.28" />
+      velocity="6.283185307" />
   </joint>
   <link
     name="link6">
@@ -387,10 +387,10 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-6.28"
-      upper="6.28"
+      lower="-6.283185307"
+      upper="6.283185307"
       effort="0"
-      velocity="6.28" />
+      velocity="6.283185307" />
   </joint>
   <link
     name="link_flange">

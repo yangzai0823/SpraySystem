@@ -231,7 +231,7 @@ float MainProcess::getChainUnits() const
 Eigen::VectorXd MainProcess::getRobotWaitPose() const
 {
     Eigen::VectorXd val(6);
-    val << 0, 45 / 180.0 * M_PI, -45 / 180.0 * M_PI, 0, 0, -M_PI / 2.0;
+    val << 20/180.0*M_PI, -47 / 180.0 * M_PI, -43 / 180.0 * M_PI,158/180.0*M_PI,-108/180.0*M_PI, -234/180.0*M_PI;
     std::cout << "getRobotWaitPose: " << val[0] << std::endl;
     return val;
 }

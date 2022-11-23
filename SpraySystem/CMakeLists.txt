@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(SpraySystem LANGUAGES CXX)
-# add_definitions(-DPLAN_FAKE_DATA)
+add_definitions(-DPLAN_FAKE_DATA)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_definitions(-D_STATEPRINT_)
-add_definitions(-DYASKAWA_ZERO_OFFSET)
+# add_definitions(-DYASKAWA_ZERO_OFFSET)
 # add_definitions(-DABB1410_JOINT_CONVERT)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.

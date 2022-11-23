@@ -145,6 +145,8 @@ public:
      */
     std::vector<float> calChainZeroPoint(TrajParam param, bool invert);
 
+    float pathDist(const Eigen::VectorXd &traj, int ndof);
+
     void clearEnv();
     Eigen::Vector3d topfarpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert);
     Eigen::Vector3d topnearpoint(Eigen::Vector3d boxCenterPoint,Eigen::Vector3d boxSize, bool invert);
@@ -152,7 +154,7 @@ public:
 
    private:
     static std::mutex _mutex;
-
+    
     static TrajectoryGenerator *_instance;
     VwsPlanEnv *pt;
     OpenRAVE::RobotBasePtr robot;

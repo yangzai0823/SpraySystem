@@ -105,13 +105,21 @@ public:
                                         bool isIncrease, float units,
                                         int64_t plan_delay);
 
+
+    bool planOneTask(TrajectoryGenerator *generator, PlanTask &task_info,
+                     const Eigen::VectorXd &init_dof,
+                     std::vector<TrajectoryInfo> &out_traj,
+                     std::vector<float> &mc_data, float units, bool isIncrease,
+                     bool invert, bool plane_first = true);
+
    private:
     std::shared_ptr<VisionContext> visionContext;
 private slots:
     void begintraj_Slot(MainProcess *vdata);
 signals:
     void traj_Signal(QVariant varmc, QVariant varrbt);
+private:
+ std::ofstream logfile_;
 };
-
 
 #endif // TRAJECTORYPROCESS_H

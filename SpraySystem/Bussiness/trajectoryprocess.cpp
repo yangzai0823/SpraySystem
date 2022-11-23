@@ -4,8 +4,8 @@
 TrajectoryProcess::TrajectoryProcess()
 {
     visionContext = std::make_shared<VisionContext>();
+    logfile_.open("log.txt", std::ios_base::trunc);
 }
-
 
 bool ahead(int64_t a, int64_t relative, bool dir){
     if(dir){
@@ -262,7 +262,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos >= Pu && last_pos < Pu) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Lu/2.0, 100 + 1200));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Lu/2.0, -500 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -277,7 +277,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos>= Pu + Lu && last_pos < Pu + Lu) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Lu/2.0, 100 + 1200));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Lu/2.0, -500 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -295,7 +295,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if(current_pos>= Pd && last_pos < Pd){
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Ld/2.0, 100));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000-Ld/2.0, -500));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -310,7 +310,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if(current_pos>= Pd + Ld && last_pos < Pd + Ld){
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Ld/2.0, 100));
+    info.boxInfo.translate(Eigen::Vector3d(2200, -3000+Ld/2.0, -500));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -545,12 +545,12 @@ bool planTwoLayersTask(TrajectoryGenerator *generator, PlanTask &task_info,
  * @return true 
  * @return false 
  */
-bool planOneTask(TrajectoryGenerator *generator,
+bool TrajectoryProcess::planOneTask(TrajectoryGenerator *generator,
                                         PlanTask &task_info,
                                         const Eigen::VectorXd &init_dof,
                                         std::vector<TrajectoryInfo> & out_traj,
                                         std::vector<float> & mc_data,
-                                        float units,bool isIncrease, bool invert, bool plane_first = true){
+                                        float units,bool isIncrease, bool invert, bool plane_first){
   TrajectoryInfo single_traj;
   auto task = task_info.targets_.front();
   int64_t ref_encoder = task.encoder;
@@ -601,6 +601,8 @@ bool planOneTask(TrajectoryGenerator *generator,
     std::cout << "Gen Paint Path " << i << std::endl;
     ret = generator->GeneratePaintTrajectory(init_pose, plan_path[i], plan_ori[i], traj, ndof);
     if(ret){
+      logfile_ << "Paint Path dist " << traj.size() / ndof << " - " << generator->pathDist(traj, ndof)
+                << std::endl;
       int N = traj.size() / ndof;
       Eigen::VectorXd paint_start, paint_end;
       paint_start = traj.block(0, 0, ndof, 1);
@@ -608,6 +610,8 @@ bool planOneTask(TrajectoryGenerator *generator,
       ret &= generator->GenerateEntryTrajectory(
         init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3);
       if(ret){
+        logfile_ << "Entry Path dist " << " - " << generator->pathDist(entry_traj, ndof)
+                << std::endl;
         single_traj.traj_ = entry_traj;
         single_traj.type_ = TransitionTraj;
         out_traj.push_back(single_traj);
@@ -623,21 +627,25 @@ bool planOneTask(TrajectoryGenerator *generator,
       return false;
     }
   }
+
   std::cout << "Gen Quit Path " << std::endl;
   ret = generator->GenerateEntryTrajectory(
         init_pose, init_dof, 20, quit_traj, ndof, 3, true);
   if(ret){
-      single_traj.traj_ = quit_traj;
-      single_traj.type_ = TransitionTraj;
-      out_traj.push_back(single_traj);
+    logfile_ << "Quit Path dist "
+              << " - " << generator->pathDist(quit_traj, ndof) << std::endl << std::endl;
+    single_traj.traj_ = quit_traj;
+    single_traj.type_ = TransitionTraj;
+    out_traj.push_back(single_traj);
   }
-
-  mc_data =
-      generator->calChainZeroPoint(p1, 0, task.encoder, isIncrease);
-  mc_data[1] = task.face == 0 ? -task.diff : task.diff;     // 前提是机器人正方向和箱体允许方向相同，否则取负号
-  std::cout << "task encoder: " << task.encoder << std::endl;
-  std::cout << "p1 pos: " << p1[0] << ", "<< p1[1] << ", "<< p1[2] << std::endl;
-  std::cout <<"mc data: " << mc_data[0] << "," << mc_data[1] << std::endl;
+  if(ret){
+    mc_data =
+        generator->calChainZeroPoint(p1, 0, task.encoder, isIncrease);
+    mc_data[1] = task.face == 0 ? -task.diff : task.diff;     // 前提是机器人正方向和箱体允许方向相同，否则取负号
+    std::cout << "task encoder: " << task.encoder << std::endl;
+    std::cout << "p1 pos: " << p1[0] << ", "<< p1[1] << ", "<< p1[2] << std::endl;
+    std::cout <<"mc data: " << mc_data[0] << "," << mc_data[1] << std::endl;
+  }
 
   return ret;
 }
@@ -724,6 +732,9 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   //*       从队列中取出头部数据，根据箱体信息生成场景，然后依次规划路径
   //*************************************************************************
   bool invert = true;
+  #ifdef PLAN_FAKE_DATA
+  invert = false;
+#endif
   while (!taskQ.empty()) {
     std::cout << "开始规划" << std::endl;
     auto task_info = taskQ.top().second;

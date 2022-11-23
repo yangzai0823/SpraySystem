@@ -6,7 +6,7 @@
 #include <openrave/environment.h>
 #include <openrave/openrave.h>
 #include <planner/ompl_planning_class.h>
-//#include <planner/utils.h>
+#include <planner/utils.h>
 
 #include <Eigen/Eigen>
 #include <deque>
@@ -17,8 +17,6 @@
 
 // ompl includes
 #include <ompl/base/spaces/RealVectorStateSpace.h>
-
-class RobotCollisionStateChecker;
 
 typedef ompl::base::RealVectorStateSpace JointConfigSpace;
 typedef std::shared_ptr<JointConfigSpace> JointConfigSpacePtr;
@@ -201,3 +199,18 @@ Eigen::VectorXd planFreePathJoint(
     const Eigen::VectorXd& goal, int nsteps, double collision_penalty_coeffs,
     double safety_dist, const Eigen::VectorXd& init_pos, int& collision_cnt,
     int& cnst_voil_cnt, double& elapsed_time, bool plotting);
+
+
+/**
+ * @brief 对输入关节角进行插值，使得相邻两组关节角之差最大分量不超过max_joint_dist.
+ * 
+ * @param j                     输入的原始关节角
+ * @param max_joint_dist        允许的最大关节角差值        单位：弧度
+ * @param ndof                  机器人的关节自由度
+ * @return Eigen::VectorXd      返回值：插值后的关节角度
+ */
+Eigen::VectorXd jointInterplot(const Eigen::VectorXd & j, double max_joint_dist, int ndof = 6);
+
+Eigen::VectorXd jointInterplot(const std::vector<std::vector<double>> & j, double max_joint_dist, int ndof = 6);
+
+

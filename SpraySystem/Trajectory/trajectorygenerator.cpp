@@ -118,6 +118,12 @@ void TrajectoryGenerator::GenerateEnvirInfo()
          //  // 添加地面
    pt->addBox(Eigen::Vector3d(0, 0, -1.5), Eigen::Vector3d(5, 5, 0.01),
    Eigen::Quaterniond(1,0,0,0), "floor");
+    // 添加滑轨
+   pt->addBox(Eigen::Vector3d(0, 0, -1.005), Eigen::Vector3d(0.50, 5, 0.4),
+   Eigen::Quaterniond(1,0,0,0), "slider");
+       // 添加放碰撞块
+   pt->addBox(Eigen::Vector3d(0.50, 0, -0.5), Eigen::Vector3d(0.01, 0.2, 0.2),
+   Eigen::Quaterniond(1,0,0,0), "fixer");
 }
 
 void TrajectoryGenerator::AddBoxHookEnvirInfo(Eigen::Vector3d boxcenter,
@@ -369,7 +375,7 @@ void TrajectoryGenerator::GeneratePaintConstraint(Eigen::Vector3d boxCenterPoint
   p = p * 1000.0;
 }
 
-float pathDist(const Eigen::VectorXd &traj, int ndof){
+float TrajectoryGenerator::pathDist(const Eigen::VectorXd &traj, int ndof){
   Eigen::VectorXd diff = traj.block(0, 0, traj.size() - ndof, 1) -
                              traj.block(ndof, 0, traj.size() - ndof, 1);
   float dist = diff.lpNorm<1>();
@@ -409,19 +415,18 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       std::cout << "stage 1" << std::endl;
       ProblemConstructionInfo pci(pt->env);
 
-
       if (init_loop){
         init_loop = false;
 
         // step 2.0: 生成优化后的路径
 
-        auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.2, init_pos, collision_cnt,
+        auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.1, init_pos, collision_cnt,
                     cnst_voil_cnt, elapsed_time, vis);
         // for (int i = 1; i < 10; i ++){
         //   free_traj = planFreePathJoint(pt.env, "tool", goal, nsteps, i*10, 0.2, free_traj, collision_cnt,
         //             cnst_voil_cnt, elapsed_time, false);
         // }
-        free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.2, free_traj, collision_cnt,
+        free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, free_traj, collision_cnt,
                     cnst_voil_cnt, elapsed_time, false);
         
         float dist =pathDist(free_traj, ndof);
@@ -444,7 +449,25 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
         j1.push_back(start[i]);
         j2.push_back(end[i]);
       }
+
+
+      // 重试最多5次，找到最优随机解
       auto traj = planFreePathWithOMPL(robot, pt->env, "tool", j1, j2,1);
+      auto interp_traj = jointInterplot(traj, 30 / 180.0 * M_PI, ndof);
+      int retry_cnt = 0;
+      int opt_joint_steps = interp_traj.size();
+      auto opt_traj = traj;
+      while (interp_traj.size() / ndof > 20 && retry_cnt < 5) {
+        traj = planFreePathWithOMPL(robot, pt->env, "tool", j1, j2, 1);
+        interp_traj = jointInterplot(traj, 30 / 180.0 * M_PI, ndof);
+        retry_cnt++;
+        int joint_steps = interp_traj.size();
+        if(joint_steps < opt_joint_steps){
+          opt_joint_steps = joint_steps;
+          opt_traj = traj;
+        }
+      }
+      traj = opt_traj;
       int N = traj.size() * traj[0].size();
       Eigen::VectorXd init_pos_ompl;
       init_pos_ompl.resize(N);
@@ -456,13 +479,13 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       }
       // step 2.2: 生成优化后的路径
 
-      auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.2, init_pos_ompl, collision_cnt,
+      auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.1, init_pos_ompl, collision_cnt,
                   cnst_voil_cnt, elapsed_time, true);
       // for (int i = 1; i < 10; i ++){
       //   free_traj = planFreePathJoint(pt.env, "tool", goal, nsteps, i*10, 0.2, free_traj, collision_cnt,
       //             cnst_voil_cnt, elapsed_time, false);
       // }
-      free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.2, free_traj, collision_cnt,
+      free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, free_traj, collision_cnt,
                   cnst_voil_cnt, elapsed_time, vis);
       
       float dist =pathDist(free_traj, ndof);
