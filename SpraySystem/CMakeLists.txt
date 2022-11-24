@@ -17,6 +17,12 @@ add_definitions(-D_STATEPRINT_)
 # add_definitions(-DYASKAWA_ZERO_OFFSET)
 # add_definitions(-DABB1410_JOINT_CONVERT)
 
+find_program(CCACHE_FOUND ccache)
+
+if(CCACHE_FOUND)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
+endif(CCACHE_FOUND)
+
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
 # They need to be set before the find_package(Qt5 ...) call.
