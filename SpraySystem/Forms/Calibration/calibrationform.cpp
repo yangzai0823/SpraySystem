@@ -152,6 +152,7 @@ void calibrationform::updateBeltPosition(MCOperator *motionController,
 void calibrationform::onUpdateTreeView(const QByteArray &arr) {
   auto model = new QJsonModel(arr);
   ui->treeView->setModel(model);
+  ui->treeView->expandToDepth(1);
 }
 
 void calibrationform::saveExtraAxisData() {}
