@@ -52,9 +52,9 @@ ContextStateMachine::ContextStateMachine()
     this->setInitialState(stateIDLE);
 
     timer_img_head = new QTimer();
-    //connect(timer_img_head, SIGNAL(timeout_head()), this, SLOT(headTimer_Slot()));
+    connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
     timer_img_trail = new QTimer();
-    //connect(timer_img_trail, SIGNAL(timeout_head()), this, SLOT(trailTimer_Slot()));
+    connect(timer_img_trail, SIGNAL(timeout()), this, SLOT(trailTimer_Slot()));
 
     headDisMonitor = new HeadDistanceMonitor();
     connect(this,SIGNAL(beginMonitroDis_Signal(float)),headDisMonitor,SLOT(Work_Slot(float)));
@@ -76,7 +76,7 @@ void ContextStateMachine::checkHeadLaserAndImg()
 {
     _mutex.lock();
 #ifdef _STATEPRINT_
-    std::cout << "enter checkHeadLaserAndImg" << std::endl;
+    // std::cout << "enter checkHeadLaserAndImg" << std::endl;
 #endif
     // std::cout << "箱体： " << Name.toStdString() << ", 检查头部图像和信号" << std::endl;
     if (Context.flag_laser == true && Context.flag_img_head == true)
@@ -94,7 +94,7 @@ void ContextStateMachine::checkHeadLaserAndImg()
 void ContextStateMachine::checkTrailLaserAndImg()
 {
 #ifdef _STATEPRINT_
-    std::cout << "enter checkTrailLaserAndImg" << std::endl;
+    // std::cout << "enter checkTrailLaserAndImg" << std::endl;
 #endif
     _mutex.lock();
     if (!Context.flag_camera && Context.flag_img_trail)
@@ -241,6 +241,12 @@ void ContextStateMachine::enteredProcessTrailImg_Slot()
 void ContextStateMachine::enteredIDLE_Slot()
 {
     std::cout << "******箱体： " << Name.toStdString() << "，进入状态： IDLE******" << std::endl;
+    if(timer_img_head->isActive()){
+        timer_img_head->stop();
+    }
+    if(timer_img_trail){
+        timer_img_trail->stop();
+    }
     Context.flag_laser = false;
     Context.flag_camera = false;
     Context.flag_img_head = false;

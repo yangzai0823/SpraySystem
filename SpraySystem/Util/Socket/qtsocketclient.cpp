@@ -98,5 +98,8 @@ void QtSocketClient::readyRead_Slot()//定义接收信号的槽
 void QtSocketClient::send_Slot(QByteArray msg)
 {
     auto ret = tcpsocket->write(msg);
-    std::cout<<"发送成功，字节书: "<<ret<<std::endl;
+    if(ret<0){
+        std::cout<<"socket 发送失败"<<std::endl;
+    }
+    // std::cout<<"发送成功，字节书: "<<ret<<std::endl;
 }
