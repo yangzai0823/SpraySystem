@@ -35,11 +35,12 @@ public:
     void* pUser_;
     GetImageCallBack func_;
     void imageProcess(MV3D_RGBD_FRAME_DATA *stFrameData,ImageData &data);
-//private:
+private:
     int netState_ = 0;
     std::string ip_ = "";
     MV3D_RGBD_DEVICE_INFO devInfo_;
     void* handle_ = NULL;
+    bool grabState = false;//取流状态，ture:正在取流，false：不在取流
 public:
     VWSCamera(/* args */);
     ~VWSCamera();
@@ -76,6 +77,7 @@ public:
     int getExposure_Depth(float &time);
     int getGain_Depth(float &dB);
     
+    bool getGrabState();
     int coordChanged();
 
 };

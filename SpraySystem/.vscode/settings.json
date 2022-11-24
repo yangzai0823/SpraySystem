@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "bufferobject": "cpp",
-        "readerwriter": "cpp"
+        "readerwriter": "cpp",
+        "fstream": "cpp"
     }
 }
