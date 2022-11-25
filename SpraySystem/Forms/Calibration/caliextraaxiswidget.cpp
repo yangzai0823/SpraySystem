@@ -308,7 +308,7 @@ void caliExtraAxisWidget::on_btn_record_clicked() {
     // FIXME
 #if 1
     std::array<float, 4> data;
-    if (0 != readData(data)) {
+    if (0 != readDeviceData(data)) {
       std::cout << "read data error" << std::endl;
       return;
     }
