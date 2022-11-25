@@ -1,46 +1,58 @@
 {
     "Robot": {
-        "ndof" : "6",
-        "YInvert" : true,
+        "ndof": "6",
+        "YInvert": true,
         "TeachPose": {
-            "dright_plane" : {
-                "desc" : "下后焊缝+下前面",
-                "joints" : [-22.78, -55.83, -36.50, 104.54, -113.47, -53.68]
+            "dright_plane": {
+                "desc": "下后焊缝+下前面",
+                "joints": [
+                    -22.78,
+                    -55.83,
+                    -36.50,
+                    104.54,
+                    -113.47,
+                    -53.68
+                ]
             },
-            "dleft_plane":{
-                "desc" : "下后面+下前焊缝",
-                "joints" : [18.96, -49.50, -40.05, 143.447, -107.986, 123.79]
+            "dleft_plane": {
+                "desc": "下后面+下前焊缝",
+                "joints": [
+                    18.96,
+                    -49.50,
+                    -40.05,
+                    143.447,
+                    -107.986,
+                    123.79
+                ]
             }
         },
-        "Transition" : {
-            "dright_plane-dleft_plane" : [
-            ]
+        "Transition": {
+            "dright_plane-dleft_plane": []
         },
-        "speed" :{
-            "plane_paint" : 20,
-            "seam_paint" : 20,
-            "move" : 80   
+        "speed": {
+            "plane_paint": 20,
+            "seam_paint": 20,
+            "move": 80
         },
-        "PlanTactic":[
+        "PlanTactic": [
             {
-                "name" : "downfront",
-                "work" : "dright_plane-pdf-dright_plane-dleft_plane-sdf-dleft_plane",
-                "cancle" : "dright_plane-dleft_plane",
-                "follow" : "df"
+                "name": "downfront",
+                "work": "dright_plane-pdf-dright_plane-dleft_plane-sdf-dleft_plane",
+                "cancle": "dright_plane-dleft_plane",
+                "follow": "d"
             },
             {
-                "name" : "downback",
-                "work" : "dright_plane-sdf-dright_plane-dleft_plane-pdf-dleft_plane",
-                "cancle" : "dright_plane-dleft_plane",
-                "follow" : "db"
+                "name": "downback",
+                "work": "dright_plane-sdf-dright_plane-dleft_plane-pdf-dleft_plane",
+                "cancle": "dright_plane-dleft_plane",
+                "follow": "d"
             }
-
         ],
-        "Stragety":{
-            "single-down-front" : "downfront",
-            "single-down-back " : "downback",
-            "multi-front" : "front two seams",
-            "multi-back" : "whole back"
+        "Stragety": {
+            "single-down-front": "downfront",
+            "single-down-back ": "downback",
+            "multi-front": "front two seams",
+            "multi-back": "whole back"
         }
     }
 }

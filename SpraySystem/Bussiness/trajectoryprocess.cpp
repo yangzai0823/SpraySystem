@@ -881,11 +881,11 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
   }
   std::cout << "tactic : " << work_tactic << ", " << cancle_tactic << std::endl;
 
-  bool isfollowfront = follow[1] == 'f';
   bool isfollowup = follow[0] == 'u';
   vws::PlanTaskInfo follow_info;
   Eigen::Vector3d p1;
   getTaskInfo(task_info, isfollowup, follow_info);
+  bool isfollowfront = follow_info.face == 0;
   int64_t follow_encoder = follow_info.encoder;
   // diff need to be added to boxcenter[1]
   double diff = computeDiff(follow_info, generator, p1, invert);
@@ -1279,8 +1279,10 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     bool ret = planTaskUsingTactic(generator, task_info, stragety2_, safe_traj,
                         unsafe_traj, mc_data, units, isIncrease, 6);
 #else
-    bool ret = planOneTask(generator, task_info, init_dof, traj_info, mc_data, units,
-                           isIncrease, invert, task_info.targets_.front().face == 0);
+    bool ret = planTaskUsingTactic(generator, task_info, stragety1_, safe_traj,
+                        unsafe_traj, mc_data, units, isIncrease, 6);
+    // bool ret = planOneTask(generator, task_info, init_dof, traj_info, mc_data, units,
+    //                        isIncrease, invert, task_info.targets_.front().face == 0);
 #endif
     generator->clearEnv();
     if (!ret) {
