@@ -7,7 +7,7 @@ namespace vws {
     QString Camera_bottom = "相机下";
     QString Robot1= "机器人1";
     QString Robot2 = "机器人2";
-
+    QString PLC ="PLC";
     /**
      * @brief PLC出发信号超时时间，单位毫秒
      */
@@ -38,7 +38,7 @@ namespace vws {
     /*** @brief 头部运动最远距离 mm*/
     int64_t HeadMoveMaxLength = 1500;
 
-    double rbtspeed = 20 * 20 * 3;
+    double rbtspeed = 20 * 20 * 5;
 
     /** @brief 编码器数值与距离转换关系  encoder/mm*/
     float chainFactor = 0.4198727819755431f;

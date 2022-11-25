@@ -63,6 +63,12 @@ void MCOperator::sendTrajParam(float zeropoint, float offset)
     sendData(0, zeropoint, offset);
 }
 
+void MCOperator::reset()
+{
+     std::cout<<"重置运动控制器状态"<<std::endl;
+    sendData(-1, 0, 0);
+}
+
 std::vector<float> MCOperator::getChainEncoders()
 {
     // std::vector<float> v = {1000, 1000};
@@ -141,4 +147,20 @@ void MCOperator::getTrajParam_Slot()
 {
     std::cout<<"MC, 请求数据"<<std::endl;
     emit getTrajParam_Signal();
+}
+
+void MCOperator::checkState_Slot()
+{
+    if(preheart!=data.heart){
+        preheart = data.heart;
+        state=true;
+        if(failcount!=0){
+            failcount=0;
+        }
+    }else
+    {
+        if(++failcount>3){
+            state = false;
+        }
+    }
 }

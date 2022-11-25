@@ -18,7 +18,7 @@ public:
     };
     static bool createDir(QString dirPath);
 
-    static void log(CLOG_LEVEL nLevel, QString data);
+    static void log(QString data, CLog::CLOG_LEVEL nLevel = CLOG_LEVEL::RINFO);
 private:
     static std::mutex _mutex;
     static CLog *m_CLog;

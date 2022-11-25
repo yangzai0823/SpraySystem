@@ -387,7 +387,7 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
         if (sm->Name == "Bottom")
         {
             std::cout << "底层箱子头部参数进入队列" << std::endl;
-            // qPlanTaskInfoBottom.push_back(planTaskInfo_head);
+            qPlanTaskInfoBottom.push_back(planTaskInfo_head);
         }
         else
         {

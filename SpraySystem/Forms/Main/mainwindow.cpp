@@ -69,17 +69,6 @@ void imgfunc(const VWSCamera::ImageData &data, void *pUser){
 
 void MainWindow::startDevices()
 {
-    //    devicemonitor = new DeviceMonitor();
-    //    devicemonitorThread = new QThread();
-
-    //    devicemonitor->moveToThread(devicemonitorThread);
-    //    if(!devicemonitorThread->isRunning()){
-    //        devicemonitorThread->start();
-    //    }
-    //    connect(this,SIGNAL(startMonitorDevice_signal()),devicemonitor,SLOT(startMonitorDevice_slot()));
-    //    connect(devicemonitor,SIGNAL(deviceConnectError_signal(QString,int)),this, SLOT(deviceConnectError_slot(QString,int)));
-    //    emit this->startMonitorDevice_signal();
-
     QString msg;
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
@@ -132,12 +121,25 @@ void MainWindow::startDevices()
          msg = camera2->getName()+"， 启动失败";
         showMsg(msg);
     }
+
+    /***设备状态监控***/
+    devicemonitor = new DeviceMonitor();
+    devicemonitorThread = new QThread();
+
+    devicemonitor->moveToThread(devicemonitorThread);
+    if(!devicemonitorThread->isRunning()){
+        devicemonitorThread->start();
+    }
+    connect(this,SIGNAL(startMonitorDevice_signal()),devicemonitor,SLOT(startMonitorDevice_slot()));
+    connect(devicemonitor,SIGNAL(deviceConnectError_signal(QString,int)),this, SLOT(deviceConnectError_slot(QString,int)));
+    emit this->startMonitorDevice_signal();
+    /***设备状态监控***/
 }
 
 void MainWindow::updateDeviceState(QPushButton *sender, int state)
 {
     QIcon ico;
-    if (state == 1)
+    if (state >= 0)
     {
         ico.addFile("://Images/running.png");
     }
@@ -263,7 +265,7 @@ void MainWindow::deviceConnectError_slot(QString device, int state)
     {
         deviceList.append(item->getName());
     }
-    deviceList << "plc";
+    deviceList << vws::PLC;
 
     switch (deviceList.indexOf(device))
     {
@@ -330,23 +332,29 @@ void MainWindow::on_btn_EStop_clicked()
 void MainWindow::on_btn_Camera1_clicked()
 {
     DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
-    DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
+    DeviceManager::getInstance()->getCamera(vws::Camera_top)->start();
 }
 
 void MainWindow::on_btn_Camera2_clicked()
 {
     DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
-    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
+    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->start();
 }
 
 void MainWindow::on_btn_Robot1_clicked()
 {
     DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
-    DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
+    DeviceManager::getInstance()->getRobot(vws::Robot1)->start();
 }
 
 void MainWindow::on_btn_Robot2_clicked()
 {
     DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
-    DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
+    DeviceManager::getInstance()->getRobot(vws::Robot2)->start();
+}
+
+void MainWindow::on_btn_PLC_clicked()
+{
+    DeviceManager::getInstance()->getPlc()->init();
+    DeviceManager::getInstance()->getPlc()->start();
 }

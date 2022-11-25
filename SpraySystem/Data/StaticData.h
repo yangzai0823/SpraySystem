@@ -9,6 +9,7 @@ namespace vws {
         extern QString Camera_bottom;
         extern QString Robot1;
         extern QString Robot2;
+        extern QString PLC;
 
         /**
          * @brief PLC出发信号超时时间，单位毫秒

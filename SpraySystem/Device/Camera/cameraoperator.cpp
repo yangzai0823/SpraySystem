@@ -50,11 +50,10 @@ void CameraOperator::close()
 
 int CameraOperator::getState()
 {
-//    if(vwsCamera==nullptr)
-//        return -1;
-//   auto ret = vwsCamera->state();
-//   return ret;
-    return 0;
+   if(vwsCamera==nullptr)
+       return -1;
+    auto ret = vwsCamera->state();
+    return ret;
 }
 
 int CameraOperator::RegisterFrameCallBack(GetImageCallBack func, void *pUser)

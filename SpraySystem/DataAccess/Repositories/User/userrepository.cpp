@@ -139,7 +139,7 @@ int UserRepository::saveToFile()
         userProperty->save(c,productdata);
         ret = vws::properties::JsonSerializer::toJson(c,filename);
     } catch (QString ex) {
-        logger->log(CLog::REEROR, "用户添加失败， "+ex);
+        logger->log("用户添加失败， "+ex, CLog::REEROR);
         return -1;
     }
     return ret;

@@ -56,7 +56,7 @@ void LoginForm::on_btn_Login_clicked()
     //验证用户名密码
     auto user  = userRepository->identify(txtUser,txtPwd);
     if(user!=nullptr){
-        logger->log(CLog::CLOG_LEVEL::RINFO,QString("%1,登陆").arg(txtUser));
+        logger->log(QString("%1,登陆").arg(txtUser));
 
         //auto Main = std::make_shared<MainWindow>();
         MainWindow *Main = new MainWindow(user);

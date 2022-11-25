@@ -50,6 +50,7 @@ private slots:
     void on_btn_Robot1_clicked();
     void on_btn_Robot2_clicked();
     void on_btn_PLC_clicked();
+    
 signals:
     void startMonitorDevice_signal();
 

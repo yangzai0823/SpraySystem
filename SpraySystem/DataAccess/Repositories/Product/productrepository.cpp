@@ -110,7 +110,7 @@ int ProductRepository::saveToFile()
         productProperty->save(c,data);
         ret = vws::properties::JsonSerializer::toJson(c,filename);
     } catch (QString ex) {
-        logger->log(CLog::REEROR, "产品添加失败， "+ex);
+        logger->log("产品添加失败， "+ex, CLog::REEROR);
         return -1;
     }
     return ret;

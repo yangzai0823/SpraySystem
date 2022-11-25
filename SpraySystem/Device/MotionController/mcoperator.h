@@ -10,6 +10,7 @@
 #include "Util/Socket/qtsocketclient.h"
 #include "Device/MotionController/mcdatapaser.h"
 #include <QVariant>
+#include <QTimer>
 
 using MCData = vws::MCData;
 
@@ -28,6 +29,9 @@ public:
     /** @brief 开始接受运动控制器信号*/
     void startReceive();
 
+    /** @brief 重置运动控制状态*/
+    void reset();
+
     void sendTrajParam(float zeropoint, float offset);
     std::vector<float> getChainEncoders();
     std::vector<float> getRealTimeEncoder();
@@ -35,13 +39,19 @@ public:
 private:
     MCData data;
     QtSocketClient *socketclient;
-     mcdatapaser* dataparser;
+    mcdatapaser* dataparser;
+    QTimer timer;
+    int preheart;
+    int failcount=0;
+    bool state;
 
     void sendData(uint8_t head,float v1, float v2);
     void waitData(bool &flag);
 public slots:
     void readyRead_Slot(QByteArray buf);
     void getTrajParam_Slot();
+
+    void checkState_Slot();
 signals:
     void getTrajParam_Signal();
     void connect_Signal(QString ip,int port);

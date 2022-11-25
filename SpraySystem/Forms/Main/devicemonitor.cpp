@@ -43,10 +43,16 @@ void DeviceMonitor::startMonitorDevice_slot()
             robot1State = state;
             emit deviceConnectError_signal(vws::Robot1,state);
         }
-       state = DeviceManager::getInstance()->getRobot(vws::Robot2)->getState();
-        if(state!=robot2State){
-            robot2State = state;
-            emit deviceConnectError_signal(vws::Robot2,state);
+    //    state = DeviceManager::getInstance()->getRobot(vws::Robot2)->getState();
+    //     if(state!=robot2State){
+    //         robot2State = state;
+    //         emit deviceConnectError_signal(vws::Robot2,state);
+    //     }
+
+        state =DeviceManager::getInstance()->getPlc()->getState();
+        if(state!=plcState){
+            plcState=state;
+            emit deviceConnectError_signal(vws::PLC,state);
         }
         // QString strTime = QDateTime::currentDateTime().toString("hh:mm:ss");
         // qDebug() << strTime.toUtf8().data()<<"，检查设备状态";

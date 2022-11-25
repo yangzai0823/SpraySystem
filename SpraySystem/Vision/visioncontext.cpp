@@ -56,13 +56,16 @@ void VisionContext::work(ImageData data,  vws::VisionData & visionData)
 
 void VisionContext::work_head(ImageData data,std::vector<float> senorNums, vws::VisionData & VisionData)
 {   
-    // std::cout<<"work_head: "<<std::to_string(senorNums.at(0))<<", "<<std::to_string(senorNums.at(1))<<std::endl;
-    // std::string filename = "/home/vws/Demo/cloud/head_"+std::to_string(senorNums.at(0))+","+std::to_string(senorNums.at(1));
-    // saveToFile1(filename,data);
-
      float senorDistance =  vws::senorDistance_b;
      getPoseAndHeight(data,VisionData);
      getWidth(senorNums,senorDistance,VisionData);
+
+    // std::cout<<"work_head: "<<std::to_string(senorNums.at(0))<<", "<<std::to_string(senorNums.at(1))<<std::endl;
+    std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
+    auto righttop = toporbottom+"_top("+std::to_string(VisionData.righttop.at(0))+","+std::to_string(VisionData.righttop.at(1))+std::to_string(VisionData.righttop.at(2))+")";
+    auto rightbottom = ",bottom("+std::to_string(VisionData.rightbottom.at(0))+","+std::to_string(VisionData.rightbottom.at(1))+std::to_string(VisionData.rightbottom.at(2))+")";
+    std::string filename = "/home/vws/Demo/cloud/head_"+righttop+","+rightbottom;
+    saveToFile1(filename,data);
 }
 void VisionContext::work_headWithLength(vws::VisionData & VisionData)
 {
@@ -83,8 +86,7 @@ void VisionContext::work_headWithLength(vws::VisionData & VisionData)
 void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws::VisionData & VisionData)
 {   
     // std::cout<<"work_trail: "<<std::to_string(senorNums.at(0))<<", "<<std::to_string(senorNums.at(1))<<std::endl;
-    // std::string filename = "/home/vws/Demo/cloud/trail_"+std::to_string(senorNums.at(0))+","+std::to_string(senorNums.at(1));
-    // saveToFile1(filename,data);
+
 
     float senorDistance;
     double * handEyeMatrix;
@@ -103,8 +105,12 @@ void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws:
 
      getPoseANdHeight_Trail(data,VisionData);
      
-     //getWidth(senorNums,senorDistance,VisionData);
-    //  getLenght(vws::senorRotationMatrix_b.data(), senorNums,VisionData);
+    std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
+    auto lefttop = toporbottom+"_top("+std::to_string(VisionData.lefttop.at(0))+","+std::to_string(VisionData.lefttop.at(1))+std::to_string(VisionData.lefttop.at(2))+")";
+    auto leftbottom = ",bottom("+std::to_string(VisionData.leftbottom.at(0))+","+std::to_string(VisionData.leftbottom.at(1))+std::to_string(VisionData.leftbottom.at(2))+")";
+    std::string filename = "/home/vws/Demo/cloud/head_"+lefttop+","+leftbottom;
+    saveToFile1(filename,data);
+ 
     //TODO: Length
     if(VisionData.top_or_bottom == 1)
     {

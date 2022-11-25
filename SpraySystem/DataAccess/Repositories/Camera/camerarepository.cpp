@@ -115,7 +115,7 @@ int CameraRepository::saveToFile()
         cameraProperty->save(c,data);
         ret = vws::properties::JsonSerializer::toJson(c,filename);
     } catch (QString ex) {
-        logger->log(CLog::REEROR, "相机添加失败， "+ex);
+        logger->log("相机添加失败， "+ex,CLog::REEROR);
         return -1;
     }
     return ret;

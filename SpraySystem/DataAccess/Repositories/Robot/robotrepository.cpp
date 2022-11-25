@@ -24,7 +24,7 @@ int RobotRepository::saveToFile()
         robotProperty->save(c,data);
         ret = vws::properties::JsonSerializer::toJson(c,filename);
     } catch (QString ex) {
-        logger->log(CLog::REEROR, "机器人添加失败， "+ex);
+        logger->log("机器人添加失败， "+ex, CLog::REEROR);
         return -1;
     }
     return ret;

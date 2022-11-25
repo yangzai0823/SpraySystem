@@ -25,7 +25,7 @@ int PLCRepository::saveToFile()
         plcProperty->save(c,data);
         ret = vws::properties::JsonSerializer::toJson(c,filename);
     } catch (QString ex) {
-        logger->log(CLog::REEROR, "plc修改失败， "+ex);
+        logger->log("plc修改失败， "+ex, CLog::REEROR);
         return -1;
     }
     return ret;

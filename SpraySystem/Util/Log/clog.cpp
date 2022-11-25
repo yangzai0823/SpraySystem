@@ -45,7 +45,7 @@ bool CLog::createDir(QString dirPath)
 }
 
 
-void CLog::log(CLog::CLOG_LEVEL nLevel, QString data)
+void CLog::log(QString data, CLog::CLOG_LEVEL nLevel)
 {
     _mutex.lock();
 

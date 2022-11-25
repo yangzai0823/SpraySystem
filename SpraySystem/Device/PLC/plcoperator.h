@@ -8,6 +8,7 @@
 #include "plcdatapaser.h"
 #include "Data/StructData.h"
 #include <QVariant>
+#include <QTimer>
 
 using PLCData = vws::PLCData;
 
@@ -30,9 +31,13 @@ public:
 private:
     QtSocketClient *socketclient;
     PLCDataPaser* dataparser;
-
+    QTimer *timer;
+    bool preheart;
+    int failcount=0;
+    bool state;
 private slots:
     void readyRead_Slot();
+    void checkState_Slot();
 signals:
     void recevieData_Signal(QVariant data);
     void newConnection_Signal(QString ip,int port);
