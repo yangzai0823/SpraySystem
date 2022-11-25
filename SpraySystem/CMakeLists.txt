@@ -170,6 +170,7 @@ target_link_libraries(SpraySystem PRIVATE
     ${planlibs}
     MediaProcess
 ${OSGVIEWER_LIBRARY_RELEASE}
+    calibration
     )
 file(GLOB_RECURSE binfiles Trajectory/Libs/bin/*)
 file(GLOB_RECURSE libfiles Libs/* VWSCamera/Lib/*)

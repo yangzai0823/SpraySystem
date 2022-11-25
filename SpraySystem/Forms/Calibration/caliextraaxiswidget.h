@@ -33,13 +33,16 @@ class caliExtraAxisWidget : public QWidget {
  private:
   void ensureFileExist();
   int ensureJsonStruct();
-  void readJson();
-  void writeJson();
-  int readData(std::array<float, 4>& data);
+  void readData();
+  void writeData();
+  int readDeviceData(std::array<float, 4>& data);
+  void clearResult();
+  void writeResult();
+
   void recordData(const std::array<float, 4>& data);
   void deleteLastItem();
-  void clearItems();
   void updateTreeView();
+  void calculate();
   void dumpJson();
 
  signals:
@@ -49,8 +52,6 @@ class caliExtraAxisWidget : public QWidget {
   void on_btn_record_clicked();
 
   void on_btn_calculate_clicked();
-
-  void on_btn_save_clicked();
 
   void on_btn_delete_clicked();
 
@@ -64,7 +65,10 @@ class caliExtraAxisWidget : public QWidget {
   QString _resFilePath;
   // QJsonDoc
   QString _jsonPrefix;
-  std::unique_ptr<rapidjson::Document> _doc;
+  QString _dataMainKey;
+  QString _resultMainKey;
+  std::unique_ptr<rapidjson::Document> _dataDoc;
+  std::unique_ptr<rapidjson::Document> _resultDoc;
 };
 
 #endif  // CALIEXTRAAXISWIDGET_H

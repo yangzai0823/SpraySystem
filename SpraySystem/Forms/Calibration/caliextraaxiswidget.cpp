@@ -1,10 +1,12 @@
 #include "caliextraaxiswidget.h"
 
+#include <calibration.h>
 #include <rapidjson/allocators.h>
 #include <rapidjson/document.h>
 #include <rapidjson/prettywriter.h>
 #include <rapidjson/stringbuffer.h>
 
+#include <Eigen/Core>
 #include <QDir>
 #include <QFile>
 #include <QString>
@@ -21,13 +23,19 @@ QString DATA_FOLDER_NAME = "Data";
 caliExtraAxisWidget::caliExtraAxisWidget(QWidget* parent)
     : QWidget(parent),
       ui(new Ui::caliExtraAxisWidget),
-      _doc(new rapidjson::Document()) {
+      _jsonPrefix(""),
+      _dataMainKey("ExtraAxisCaliDatas"),
+      _resultMainKey("ExtraAxisCalibration"),
+      _dataDoc(new rapidjson::Document()),
+      _resultDoc(new rapidjson::Document()) {
   ui->setupUi(this);
   // other
-  ensureFileExist();
-  readJson();
-  // DELETEME
-  // QtConcurrent::run([this]() { writeJson(); });
+  QtConcurrent::run([this]() {
+    ensureFileExist();
+    ensureJsonStruct();
+    readData();
+    updateTreeView();
+  });
 }
 
 caliExtraAxisWidget::~caliExtraAxisWidget() { delete ui; }
@@ -68,49 +76,87 @@ void caliExtraAxisWidget::ensureFileExist() {
 }
 
 int caliExtraAxisWidget::ensureJsonStruct() {
-  if (_doc->IsNull()) {
-    _doc->SetObject();
+  //// data json
+  if (_dataDoc->IsNull()) {
+    _dataDoc->SetObject();
   }
-  if (!_doc->IsObject()) {
-    std::cout << "json format error" << std::endl;
+  if (!_dataDoc->IsObject()) {
+    std::cout << "data json format error" << std::endl;
     return -1;
   }
   // main
-  auto& allocator = _doc->GetAllocator();
-  std::string mainKey = _jsonPrefix.toStdString() + "ExtraAxisCaliDatas";
-  if (!_doc->GetObject().HasMember(mainKey.c_str())) {
+  auto& allocatorData = _dataDoc->GetAllocator();
+  std::string dataMainKey =
+      _jsonPrefix.toStdString() + _dataMainKey.toStdString();
+  if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
     rapidjson::Value obj(rapidjson::kObjectType);
-    _doc->AddMember(rapidjson::Value(mainKey.c_str(), allocator), obj,
-                    allocator);
+    _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
+                        obj, allocatorData);
   }
   // data
-  auto& main = (*_doc)[mainKey.c_str()];
+  auto& main = (*_dataDoc)[dataMainKey.c_str()];
   if (!main.HasMember("datas")) {
-    main.AddMember(rapidjson::Value("datas", allocator),
-                   rapidjson::Value(rapidjson::kArrayType), allocator);
+    main.AddMember(rapidjson::Value("datas", allocatorData),
+                   rapidjson::Value(rapidjson::kArrayType), allocatorData);
+  }
+  //// result json
+  if (_resultDoc->IsNull()) {
+    _resultDoc->SetObject();
+  }
+  if (!_resultDoc->IsObject()) {
+    std::cout << "data json format error" << std::endl;
+    return -1;
+  }
+  // main
+  auto& allocatorResult = _dataDoc->GetAllocator();
+  std::string resultMainKey =
+      _jsonPrefix.toStdString() + _resultMainKey.toStdString();
+  if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
+    _resultDoc->AddMember(
+        rapidjson::Value(resultMainKey.c_str(), allocatorResult),
+        rapidjson::Value(rapidjson::kObjectType), allocatorResult);
+  }
+  // direction
+  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+  if (!resultMain.HasMember("direction")) {
+    resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
+                         rapidjson::Value(rapidjson::kArrayType),
+                         allocatorResult);
   }
 }
 
-void caliExtraAxisWidget::readJson() {
+void caliExtraAxisWidget::readData() {
   QFile file(_dataFilePath);
   file.open(QIODevice::ReadOnly | QIODevice::Text);
   auto str = file.readAll().toStdString();
   file.close();
 
-  _doc->Parse(str.c_str(), str.size());
+  _dataDoc->Parse(str.c_str(), str.size());
 }
 
-void caliExtraAxisWidget::writeJson() {
+void caliExtraAxisWidget::writeData() {
+  // data
   QFile file(_dataFilePath);
   file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
   rapidjson::StringBuffer sb;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _doc->Accept(w);
+  _dataDoc->Accept(w);
   file.write(sb.GetString(), sb.GetSize());
   file.close();
 }
 
-int caliExtraAxisWidget::readData(std::array<float, 4>& data) {
+void caliExtraAxisWidget::writeResult() {
+  // result
+  QFile file(_resFilePath);
+  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
+  rapidjson::StringBuffer sb;
+  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
+  _resultDoc->Accept(w);
+  file.write(sb.GetString(), sb.GetSize());
+  file.close();
+}
+
+int caliExtraAxisWidget::readDeviceData(std::array<float, 4>& data) {
   // data:{position, x, y, z}
   try {
     VWSRobot::RobotPosition pose;
@@ -129,14 +175,21 @@ int caliExtraAxisWidget::readData(std::array<float, 4>& data) {
   }
 }
 
+void caliExtraAxisWidget::clearResult() {
+  ensureJsonStruct();
+  std::string resultMainKey =
+      _jsonPrefix.toStdString() + _resultMainKey.toStdString();
+  (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
+}
+
 void caliExtraAxisWidget::recordData(const std::array<float, 4>& data) {
   if (0 != ensureJsonStruct()) {
     return;
   };
 
-  std::string mainKey = _jsonPrefix.toStdString() + "ExtraAxisCaliDatas";
-  auto& datas = (*_doc)[mainKey.c_str()]["datas"];
-  auto& allocator = _doc->GetAllocator();
+  std::string mainKey = _jsonPrefix.toStdString() + _dataMainKey.toStdString();
+  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
+  auto& allocator = _dataDoc->GetAllocator();
   {
     rapidjson::Value obj__(rapidjson::kObjectType);
     rapidjson::Value arr__(rapidjson::kArrayType);
@@ -151,52 +204,88 @@ void caliExtraAxisWidget::recordData(const std::array<float, 4>& data) {
 }
 
 void caliExtraAxisWidget::deleteLastItem() {
-  // if (_doc->isEmpty()) {
-  //   _doc->setObject(QJsonObject());
-  // }
-  // if (!_doc->isObject()) {
-  //   std::cout << "json format error" << std::endl;
-  //   return;
-  // }
-  // // main
-  // auto root = _doc->object();
-  // QString mainKey = _jsonPrefix + "ExtraAxisCaliDatas";
-  // if (!root.contains(mainKey)) {
-  //   root.insert(mainKey, QJsonObject());
-  // }
-  // auto main = root[mainKey].toObject();
-  // // datas
-  // if (!main.contains("datas")) {
-  //   main.insert("datas", QJsonArray());
-  // }
-  // auto datas = main["datas"].toArray();
-  // {
-  //   QJsonObject obj__;
-  //   obj__.insert("robotPosition", QJsonArray({data[1], data[2], data[3]}));
-  //   obj__.insert("extraAxisPosition", data[0]);
-  //   datas.append(obj__);
-  // }
-  // // assign
-  // main["datas"] = datas;
-  // root[mainKey] = main;
-  // _doc->setObject(root);
+  if (0 != ensureJsonStruct()) {
+    return;
+  };
+
+  std::string mainKey = _jsonPrefix.toStdString() + _dataMainKey.toStdString();
+  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
+  if (!datas.Empty()) {
+    datas.PopBack();
+  }
 }
-void caliExtraAxisWidget::clearItems() {}
+
+void caliExtraAxisWidget::calculate() {
+  // _API_ int getExtraAxisDirection(
+  // const std::vector<Eigen::Vector3f> points,
+  // const std::vector<float> positions,
+  // Eigen::Vector3f& extraAxisDirection);
+
+  try {
+    ensureJsonStruct();
+    std::string mainKey =
+        _jsonPrefix.toStdString() + _dataMainKey.toStdString();
+    auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
+    if (datas.Size() < 3) {
+      std::cout << "data size less than 3, recod more data" << std::endl;
+      return;
+    }
+    std::vector<Eigen::Vector3f> points;
+    std::vector<float> positions;
+    for (auto i = datas.Begin(); i != datas.End(); i++) {
+      positions.push_back((*i)["extraAxisPosition"].GetFloat());
+      auto& points__ = (*i)["robotPosition"];
+      points.emplace_back(points__[0].GetFloat(), points__[1].GetFloat(),
+                          points__[2].GetFloat());
+    }
+    Eigen::Vector3f dir;
+    if (0 != getExtraAxisDirection(points, positions, dir)) {
+      return;
+    }
+    // TODO save results json
+    std::string resultMainKey =
+        _jsonPrefix.toStdString() + _resultMainKey.toStdString();
+    auto& allocator = _resultDoc->GetAllocator();
+    auto& direction = (*_resultDoc)[resultMainKey.c_str()]["direction"];
+    direction.Clear();
+    direction.PushBack(dir[0], allocator);
+    direction.PushBack(dir[1], allocator);
+    direction.PushBack(dir[2], allocator);
+
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+  }
+}
 
 void caliExtraAxisWidget::updateTreeView() {
-  std::string mainKey = _jsonPrefix.toStdString() + "ExtraAxisCaliDatas";
-  auto& main = (*_doc)[mainKey.c_str()];
-  auto& allocator = _doc->GetAllocator();
-  // copy main domain
-  rapidjson::Document doc__(&allocator);
+  rapidjson::Document doc__;
+  auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
-  for (auto it = main.MemberBegin(); it < main.MemberEnd(); it++) {
+  // copy main domain
+  std::string dataMainKey =
+      _jsonPrefix.toStdString() + _dataMainKey.toStdString();
+  auto& dataMain = (*_dataDoc)[dataMainKey.c_str()];
+  for (auto it = dataMain.MemberBegin(); it < dataMain.MemberEnd(); it++) {
     // copy
     rapidjson::Value key, value;
     key.CopyFrom(it->name, allocator);
     value.CopyFrom(it->value, allocator);
     doc__.AddMember(key, value, allocator);
   }
+  // copy result
+  std::string resultMainKey =
+      _jsonPrefix.toStdString() + _resultMainKey.toStdString();
+  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+  doc__.AddMember("results", rapidjson::Value(rapidjson::kObjectType),
+                  allocator);
+  for (auto it = resultMain.MemberBegin(); it < resultMain.MemberEnd(); it++) {
+    // copy
+    rapidjson::Value key, value;
+    key.CopyFrom(it->name, allocator);
+    value.CopyFrom(it->value, allocator);
+    doc__["results"].AddMember(key, value, allocator);
+  }
+
   // to qbytearray
   rapidjson::StringBuffer sb;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
@@ -208,31 +297,49 @@ void caliExtraAxisWidget::updateTreeView() {
 void caliExtraAxisWidget::dumpJson() {
   rapidjson::StringBuffer sb;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _doc->Accept(w);
+  _dataDoc->Accept(w);
   std::cout << sb.GetString() << std::endl;
 }
 
 void caliExtraAxisWidget::on_btn_record_clicked() {
   QtConcurrent::run([this]() {
-  // FIXME
-#if 0
-  std::array<float, 4> data;
-  if (0 != readData(data)) {
-    std::cout << "read data error" << std::endl;
-    return;
-  }
-   recordData(data);
+    clearResult();
+    writeResult();
+    // FIXME
+#if 1
+    std::array<float, 4> data;
+    if (0 != readData(data)) {
+      std::cout << "read data error" << std::endl;
+      return;
+    }
+    recordData(data);
 #else
     recordData({1, 2, 3, 4});
+    recordData({2, 3, 4, 5});
+    recordData({3, 4, 5, 6});
 #endif
-    writeJson();
+    writeData();
     // update  tree
     updateTreeView();
   });
 }
 
-void caliExtraAxisWidget::on_btn_calculate_clicked() { ensureJsonStruct(); }
+void caliExtraAxisWidget::on_btn_calculate_clicked() {
+  QtConcurrent::run([this]() {
+    clearResult();
+    writeResult();
+    calculate();
+    writeResult();
+    updateTreeView();
+  });
+}
 
-void caliExtraAxisWidget::on_btn_save_clicked() {}
-
-void caliExtraAxisWidget::on_btn_delete_clicked() {}
+void caliExtraAxisWidget::on_btn_delete_clicked() {
+  QtConcurrent::run([this]() {
+    clearResult();
+    writeResult();
+    deleteLastItem();
+    writeData();
+    updateTreeView();
+  });
+}
