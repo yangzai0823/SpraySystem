@@ -30,9 +30,9 @@
             "dright_plane-dleft_plane": []
         },
         "speed": {
-            "plane_paint": 400,
-            "seam_paint": 400,
-            "move": 400
+            "plane_paint": 800,
+            "seam_paint": 800,
+            "move": 1600
         },
         "PlanTactic": [
             {

@@ -756,6 +756,9 @@ bool getStragety(PlanTask &task_info, PlanStragety &stragety,
 
 
 bool validCancleTactic(const PlanStragety &stragety, const std::string & tactic){
+  if(tactic == ""){
+    return true;
+  }
   QString qs = QString::fromStdString(tactic);
   auto names = qs.split("-");
   Eigen::VectorXd pose;
@@ -1335,6 +1338,7 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   SortedTaskQ taskQ =
       PrepareTaskInfoOneLayer(bottom_task_q, upper_task_q, current_encoder,
                               bottom_2_upper, 0, isIncrease, units, plan_delay);
+    // 规划上层
   // PrepareTaskInfoOneLayer(upper_task_q, bottom_task_q, current_encoder, 0,
   //                          bottom_2_upper, isIncrease, units, plan_delay);
   
@@ -1405,4 +1409,3 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     }
   }
 }
-

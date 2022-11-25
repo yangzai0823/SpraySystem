@@ -389,13 +389,13 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
         if (sm->Name == "Bottom")
         {
             std::cout << "底层箱子头部参数进入队列" << std::endl;
-            planTaskInfo.isup = false;
+            planTaskInfo_head.isup = false;
             qPlanTaskInfoBottom.push_back(planTaskInfo_head);
         }
         else
         {
             std::cout << "顶层箱子头部被参数进入队列" << std::endl;
-            planTaskInfo.isup = true;
+            planTaskInfo_head.isup = true;
             qPlanTaskInfoTop.push_back(planTaskInfo_head);
         }
     }
