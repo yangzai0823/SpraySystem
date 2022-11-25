@@ -122,7 +122,7 @@ void TrajectoryGenerator::GenerateEnvirInfo()
    pt->addBox(Eigen::Vector3d(0, 0, -1.005), Eigen::Vector3d(0.50, 5, 0.4),
    Eigen::Quaterniond(1,0,0,0), "slider");
        // 添加放碰撞块
-   pt->addBox(Eigen::Vector3d(0.50, 0, -0.5), Eigen::Vector3d(0.01, 0.2, 0.2),
+   pt->addBox(Eigen::Vector3d(0.45, 0, -0.5), Eigen::Vector3d(0.01, 0.2, 0.2),
    Eigen::Quaterniond(1,0,0,0), "fixer");
 }
 
@@ -427,7 +427,7 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
         //             cnst_voil_cnt, elapsed_time, false);
         // }
         free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, free_traj, collision_cnt,
-                    cnst_voil_cnt, elapsed_time, false);
+                    cnst_voil_cnt, elapsed_time, true);
         
         float dist =pathDist(free_traj, ndof);
         if(cnst_voil_cnt == 0 && collision_cnt ==0){

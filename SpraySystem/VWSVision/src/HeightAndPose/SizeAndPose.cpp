@@ -28,7 +28,7 @@
 #include "SizeAndPose.h"
 // #include <Eigen/Dense>
 
-using namespace HalconCpp;
+// using namespace HalconCpp;
 // // using namespace Eigen;
 // using namespace std;
 
@@ -95,205 +95,206 @@ namespace PCLlibs
 
     void Line3D_Angle(HTuple hv_lineVecRight, HTuple hv_lineVecUp, HTuple *hv_AngleUR);
 
-    void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint);
-    void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
+    // void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
+    //                       double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint);
+    // void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
+                        //   double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
     void CalcuCameraRobot(double VectorPosition[9], double RightUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
+void CalcuEndCameraRobot(double VectorPosition[9], double LeftUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
 
     // Procedures
-    void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint)
-    {
+    // void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
+    //                       double boxSize[3], double VectorX1[3], double VectorY1[3], double VectorZ1[3], double CalibPoint[3], double *Quater, double *CenterPoint)
+    // {
 
-        // Local control variables
-        HTuple hv_VectorX, hv_VectorY, hv_VectorZ;
-        HTuple hv_RightPoint, hv_Size;
-        HTuple hv_VectorX1, hv_VectorY1, hv_VectorZ1, hv_calibPoint;
-        HTuple hv_ProdX, hv_ProdY, hv_Sum1, hv_ProdZ;
-        HTuple hv_Sum2, hv_Trans, hv_HomMat3DIdentity, hv_HomMat3DTranslate2;
-        HTuple hv_Pose3, hv_HomMatCamera, hv_HomMat3DIdentity1;
-        HTuple hv_Pose, hv_HomMatCalib, hv_HomMat3DCompose, hv_HomMat3DTranslate;
-        HTuple hv_Quaternion, hv_Pose1;
-        hv_VectorX.Clear();
-        hv_VectorY.Clear();
-        hv_VectorZ.Clear();
-        hv_RightPoint.Clear();
-        hv_Size.Clear();
-        hv_VectorX1.Clear();
-        hv_VectorY1.Clear();
-        hv_VectorZ1.Clear();
-        hv_calibPoint.Clear();
-        hv_VectorX[0] = VectorX[0];
-        hv_VectorX[1] = VectorX[1];
-        hv_VectorX[2] = VectorX[2];
-        hv_VectorY[0] = VectorY[0];
-        hv_VectorY[1] = VectorY[1];
-        hv_VectorY[2] = VectorY[2];
-        hv_VectorZ[0] = VectorZ[0];
-        hv_VectorZ[1] = VectorZ[1];
-        hv_VectorZ[2] = VectorZ[2];
-        hv_RightPoint[0] = RightUpPoint[0];
-        hv_RightPoint[1] = RightUpPoint[1];
-        hv_RightPoint[2] = RightUpPoint[2];
-        hv_Size[0] = boxSize[0];
-        hv_Size[1] = boxSize[1];
-        hv_Size[2] = boxSize[2];
-        hv_VectorX1[0] = VectorX1[0];
-        hv_VectorX1[1] = VectorX1[1];
-        hv_VectorX1[2] = VectorX1[2];
-        hv_VectorY1[0] = VectorY1[0];
-        hv_VectorY1[1] = VectorY1[1];
-        hv_VectorY1[2] = VectorY1[2];
-        hv_VectorZ1[0] = VectorZ1[0];
-        hv_VectorZ1[1] = VectorZ1[1];
-        hv_VectorZ1[2] = VectorZ1[2];
-        hv_calibPoint[0] = CalibPoint[0];
-        hv_calibPoint[1] = CalibPoint[1];
-        hv_calibPoint[2] = CalibPoint[2];
-        TupleMult(-hv_VectorZ, HTuple(hv_Size[0]) / 2, &hv_ProdX);
-        TupleMult(-hv_VectorY, HTuple(hv_Size[1]) / 2, &hv_ProdY);
-        TupleAdd(hv_ProdX, hv_ProdY, &hv_Sum1);
-        TupleMult(-hv_VectorX, HTuple(hv_Size[2]) / 2, &hv_ProdZ);
-        TupleAdd(hv_Sum1, hv_ProdZ, &hv_Sum2);
-        TupleAdd(hv_Sum2, hv_RightPoint, &hv_Trans);
+    //     // Local control variables
+    //     HTuple hv_VectorX, hv_VectorY, hv_VectorZ;
+    //     HTuple hv_RightPoint, hv_Size;
+    //     HTuple hv_VectorX1, hv_VectorY1, hv_VectorZ1, hv_calibPoint;
+    //     HTuple hv_ProdX, hv_ProdY, hv_Sum1, hv_ProdZ;
+    //     HTuple hv_Sum2, hv_Trans, hv_HomMat3DIdentity, hv_HomMat3DTranslate2;
+    //     HTuple hv_Pose3, hv_HomMatCamera, hv_HomMat3DIdentity1;
+    //     HTuple hv_Pose, hv_HomMatCalib, hv_HomMat3DCompose, hv_HomMat3DTranslate;
+    //     HTuple hv_Quaternion, hv_Pose1;
+    //     hv_VectorX.Clear();
+    //     hv_VectorY.Clear();
+    //     hv_VectorZ.Clear();
+    //     hv_RightPoint.Clear();
+    //     hv_Size.Clear();
+    //     hv_VectorX1.Clear();
+    //     hv_VectorY1.Clear();
+    //     hv_VectorZ1.Clear();
+    //     hv_calibPoint.Clear();
+    //     hv_VectorX[0] = VectorX[0];
+    //     hv_VectorX[1] = VectorX[1];
+    //     hv_VectorX[2] = VectorX[2];
+    //     hv_VectorY[0] = VectorY[0];
+    //     hv_VectorY[1] = VectorY[1];
+    //     hv_VectorY[2] = VectorY[2];
+    //     hv_VectorZ[0] = VectorZ[0];
+    //     hv_VectorZ[1] = VectorZ[1];
+    //     hv_VectorZ[2] = VectorZ[2];
+    //     hv_RightPoint[0] = RightUpPoint[0];
+    //     hv_RightPoint[1] = RightUpPoint[1];
+    //     hv_RightPoint[2] = RightUpPoint[2];
+    //     hv_Size[0] = boxSize[0];
+    //     hv_Size[1] = boxSize[1];
+    //     hv_Size[2] = boxSize[2];
+    //     hv_VectorX1[0] = VectorX1[0];
+    //     hv_VectorX1[1] = VectorX1[1];
+    //     hv_VectorX1[2] = VectorX1[2];
+    //     hv_VectorY1[0] = VectorY1[0];
+    //     hv_VectorY1[1] = VectorY1[1];
+    //     hv_VectorY1[2] = VectorY1[2];
+    //     hv_VectorZ1[0] = VectorZ1[0];
+    //     hv_VectorZ1[1] = VectorZ1[1];
+    //     hv_VectorZ1[2] = VectorZ1[2];
+    //     hv_calibPoint[0] = CalibPoint[0];
+    //     hv_calibPoint[1] = CalibPoint[1];
+    //     hv_calibPoint[2] = CalibPoint[2];
+    //     TupleMult(-hv_VectorZ, HTuple(hv_Size[0]) / 2, &hv_ProdX);
+    //     TupleMult(-hv_VectorY, HTuple(hv_Size[1]) / 2, &hv_ProdY);
+    //     TupleAdd(hv_ProdX, hv_ProdY, &hv_Sum1);
+    //     TupleMult(-hv_VectorX, HTuple(hv_Size[2]) / 2, &hv_ProdZ);
+    //     TupleAdd(hv_Sum1, hv_ProdZ, &hv_Sum2);
+    //     TupleAdd(hv_Sum2, hv_RightPoint, &hv_Trans);
 
-        //*----------------------------------显示棱向量和法向量
-        HomMat3dIdentity(&hv_HomMat3DIdentity);
-        HomMat3dTranslate(hv_HomMat3DIdentity, HTuple(hv_Trans[0]), HTuple(hv_Trans[1]),
-                          HTuple(hv_Trans[2]), &hv_HomMat3DTranslate2);
+    //     //*----------------------------------显示棱向量和法向量
+    //     HomMat3dIdentity(&hv_HomMat3DIdentity);
+    //     HomMat3dTranslate(hv_HomMat3DIdentity, HTuple(hv_Trans[0]), HTuple(hv_Trans[1]),
+    //                       HTuple(hv_Trans[2]), &hv_HomMat3DTranslate2);
 
-        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX[0]).TupleConcat(HTuple(hv_VectorY[0]))).TupleConcat(HTuple(hv_VectorZ[0]));
-        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX[1]).TupleConcat(HTuple(hv_VectorY[1]))).TupleConcat(HTuple(hv_VectorZ[1]));
-        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX[2]).TupleConcat(HTuple(hv_VectorY[2]))).TupleConcat(HTuple(hv_VectorZ[2]));
-        HomMat3dToPose(hv_HomMat3DTranslate2, &hv_Pose3);
-        PoseToHomMat3d(hv_Pose3, &hv_HomMatCamera);
+    //     hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX[0]).TupleConcat(HTuple(hv_VectorY[0]))).TupleConcat(HTuple(hv_VectorZ[0]));
+    //     hv_HomMat3DTranslate2[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX[1]).TupleConcat(HTuple(hv_VectorY[1]))).TupleConcat(HTuple(hv_VectorZ[1]));
+    //     hv_HomMat3DTranslate2[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX[2]).TupleConcat(HTuple(hv_VectorY[2]))).TupleConcat(HTuple(hv_VectorZ[2]));
+    //     HomMat3dToPose(hv_HomMat3DTranslate2, &hv_Pose3);
+    //     PoseToHomMat3d(hv_Pose3, &hv_HomMatCamera);
 
-        HomMat3dIdentity(&hv_HomMat3DIdentity1);
-        HomMat3dTranslate(hv_HomMat3DIdentity1, HTuple(hv_calibPoint[0]), HTuple(hv_calibPoint[1]),
-                          HTuple(hv_calibPoint[2]), &hv_HomMat3DTranslate);
-        hv_HomMat3DTranslate[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX1[0]).TupleConcat(HTuple(hv_VectorY1[0]))).TupleConcat(HTuple(hv_VectorZ1[0]));
-        hv_HomMat3DTranslate[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX1[1]).TupleConcat(HTuple(hv_VectorY1[1]))).TupleConcat(HTuple(hv_VectorZ1[1]));
-        hv_HomMat3DTranslate[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX1[2]).TupleConcat(HTuple(hv_VectorY1[2]))).TupleConcat(HTuple(hv_VectorZ1[2]));
-        HomMat3dToPose(hv_HomMat3DTranslate, &hv_Pose);
-        PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
+    //     HomMat3dIdentity(&hv_HomMat3DIdentity1);
+    //     HomMat3dTranslate(hv_HomMat3DIdentity1, HTuple(hv_calibPoint[0]), HTuple(hv_calibPoint[1]),
+    //                       HTuple(hv_calibPoint[2]), &hv_HomMat3DTranslate);
+    //     hv_HomMat3DTranslate[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX1[0]).TupleConcat(HTuple(hv_VectorY1[0]))).TupleConcat(HTuple(hv_VectorZ1[0]));
+    //     hv_HomMat3DTranslate[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX1[1]).TupleConcat(HTuple(hv_VectorY1[1]))).TupleConcat(HTuple(hv_VectorZ1[1]));
+    //     hv_HomMat3DTranslate[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX1[2]).TupleConcat(HTuple(hv_VectorY1[2]))).TupleConcat(HTuple(hv_VectorZ1[2]));
+    //     HomMat3dToPose(hv_HomMat3DTranslate, &hv_Pose);
+    //     PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
 
-        HomMat3dCompose(hv_HomMatCalib, hv_HomMatCamera, &hv_HomMat3DCompose);
+    //     HomMat3dCompose(hv_HomMatCalib, hv_HomMatCamera, &hv_HomMat3DCompose);
 
-        //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX1[0]).TupleConcat(HTuple(hv_VectorY1[0]))).TupleConcat(HTuple(hv_VectorZ1[0]));
-        //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX1[1]).TupleConcat(HTuple(hv_VectorY1[1]))).TupleConcat(HTuple(hv_VectorZ1[1]));
-        //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX1[2]).TupleConcat(HTuple(hv_VectorY1[2]))).TupleConcat(HTuple(hv_VectorZ1[2]));
-        //     HomMat3dToPose(hv_HomMat3DIdentity1, &hv_Pose);
-        //     PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
-        //   HomMat3dTranslate (hv_HomMatCalib, HTuple(hv_calibPoint[0]), HTuple(hv_calibPoint[1]),
-        //                       HTuple(hv_calibPoint[2]), &hv_HomMat3DTranslate3);
-        //     HomMat3dCompose(hv_HomMat3DTranslate3, hv_HomMatCamera, &hv_HomMat3DCompose);
-        HomMat3dToPose(hv_HomMat3DCompose, &hv_Pose1);
-        PoseToQuat(hv_Pose1, &hv_Quaternion);
+    //     //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX1[0]).TupleConcat(HTuple(hv_VectorY1[0]))).TupleConcat(HTuple(hv_VectorZ1[0]));
+    //     //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX1[1]).TupleConcat(HTuple(hv_VectorY1[1]))).TupleConcat(HTuple(hv_VectorZ1[1]));
+    //     //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX1[2]).TupleConcat(HTuple(hv_VectorY1[2]))).TupleConcat(HTuple(hv_VectorZ1[2]));
+    //     //     HomMat3dToPose(hv_HomMat3DIdentity1, &hv_Pose);
+    //     //     PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
+    //     //   HomMat3dTranslate (hv_HomMatCalib, HTuple(hv_calibPoint[0]), HTuple(hv_calibPoint[1]),
+    //     //                       HTuple(hv_calibPoint[2]), &hv_HomMat3DTranslate3);
+    //     //     HomMat3dCompose(hv_HomMat3DTranslate3, hv_HomMatCamera, &hv_HomMat3DCompose);
+    //     HomMat3dToPose(hv_HomMat3DCompose, &hv_Pose1);
+    //     PoseToQuat(hv_Pose1, &hv_Quaternion);
 
-        double *tmpQuater = hv_Quaternion.ToDArr();
-        Quater[0] = tmpQuater[0];
-        Quater[1] = tmpQuater[1];
-        Quater[2] = tmpQuater[2];
-        Quater[3] = tmpQuater[3];
+    //     double *tmpQuater = hv_Quaternion.ToDArr();
+    //     Quater[0] = tmpQuater[0];
+    //     Quater[1] = tmpQuater[1];
+    //     Quater[2] = tmpQuater[2];
+    //     Quater[3] = tmpQuater[3];
 
-        double *tmpPoint = hv_HomMat3DCompose.ToDArr();
-        CenterPoint[0] = tmpPoint[3];
-        CenterPoint[1] = tmpPoint[7];
-        CenterPoint[2] = tmpPoint[11];
-        return;
-    }
+    //     double *tmpPoint = hv_HomMat3DCompose.ToDArr();
+    //     CenterPoint[0] = tmpPoint[3];
+    //     CenterPoint[1] = tmpPoint[7];
+    //     CenterPoint[2] = tmpPoint[11];
+    //     return;
+    // }
 
-    void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
-                          double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint)
-    {
+    // void CalcuCameraRobot(double VectorX[3], double VectorY[3], double VectorZ[3], double RightUpPoint[3],
+    //                       double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint)
+    // {
 
-        // Local control variables
-        HTuple hv_VectorX, hv_VectorY, hv_VectorZ;
-        HTuple hv_RightPoint, hv_Size;
-        HTuple hv_calibPose;
-        // HTuple hv_VectorX1, hv_VectorY1, hv_VectorZ1, hv_calibPoint;
-        HTuple hv_ProdX, hv_ProdY, hv_Sum1, hv_ProdZ;
-        HTuple hv_Sum2, hv_Trans, hv_HomMat3DIdentity, hv_HomMat3DTranslate2;
-        HTuple hv_Pose3, hv_HomMatCamera, hv_HomMat3DIdentity1;
-        HTuple hv_Pose, hv_HomMatCalib, hv_HomMat3DCompose, hv_HomMat3DTranslate;
-        HTuple hv_Quaternion, hv_Pose1;
-        hv_VectorX.Clear();
-        hv_VectorY.Clear();
-        hv_VectorZ.Clear();
-        hv_RightPoint.Clear();
-        hv_Size.Clear();
-        // hv_VectorX1.Clear();
-        // hv_VectorY1.Clear();
-        // hv_VectorZ1.Clear();
-        // hv_calibPoint.Clear();
-        hv_VectorX[0] = VectorX[0];
-        hv_VectorX[1] = VectorX[1];
-        hv_VectorX[2] = VectorX[2];
-        hv_VectorY[0] = VectorY[0];
-        hv_VectorY[1] = VectorY[1];
-        hv_VectorY[2] = VectorY[2];
-        hv_VectorZ[0] = VectorZ[0];
-        hv_VectorZ[1] = VectorZ[1];
-        hv_VectorZ[2] = VectorZ[2];
-        hv_RightPoint[0] = RightUpPoint[0];
-        hv_RightPoint[1] = RightUpPoint[1];
-        hv_RightPoint[2] = RightUpPoint[2];
-        hv_Size[0] = boxSize[0];
-        hv_Size[1] = boxSize[1];
-        hv_Size[2] = boxSize[2];
-        hv_calibPose[0] = CalibPose[0];
-        hv_calibPose[1] = CalibPose[1];
-        hv_calibPose[2] = CalibPose[2];
-        hv_calibPose[3] = CalibPose[3];
-        hv_calibPose[4] = CalibPose[4];
-        hv_calibPose[5] = CalibPose[5];
-        hv_calibPose[6] = CalibPose[6];
-        hv_calibPose[7] = CalibPose[7];
-        hv_calibPose[8] = CalibPose[8];
-        hv_calibPose[9] = CalibPose[9];
-        hv_calibPose[10] = CalibPose[10];
-        hv_calibPose[11] = CalibPose[11];
-        TupleMult(-hv_VectorZ, HTuple(hv_Size[0]) / 2, &hv_ProdX);
-        TupleMult(-hv_VectorY, HTuple(hv_Size[1]) / 2, &hv_ProdY);
-        TupleAdd(hv_ProdX, hv_ProdY, &hv_Sum1);
-        TupleMult(-hv_VectorX, HTuple(hv_Size[2]) / 2, &hv_ProdZ);
-        TupleAdd(hv_Sum1, hv_ProdZ, &hv_Sum2);
-        TupleAdd(hv_Sum2, hv_RightPoint, &hv_Trans);
+    //     // Local control variables
+    //     HTuple hv_VectorX, hv_VectorY, hv_VectorZ;
+    //     HTuple hv_RightPoint, hv_Size;
+    //     HTuple hv_calibPose;
+    //     // HTuple hv_VectorX1, hv_VectorY1, hv_VectorZ1, hv_calibPoint;
+    //     HTuple hv_ProdX, hv_ProdY, hv_Sum1, hv_ProdZ;
+    //     HTuple hv_Sum2, hv_Trans, hv_HomMat3DIdentity, hv_HomMat3DTranslate2;
+    //     HTuple hv_Pose3, hv_HomMatCamera, hv_HomMat3DIdentity1;
+    //     HTuple hv_Pose, hv_HomMatCalib, hv_HomMat3DCompose, hv_HomMat3DTranslate;
+    //     HTuple hv_Quaternion, hv_Pose1;
+    //     hv_VectorX.Clear();
+    //     hv_VectorY.Clear();
+    //     hv_VectorZ.Clear();
+    //     hv_RightPoint.Clear();
+    //     hv_Size.Clear();
+    //     // hv_VectorX1.Clear();
+    //     // hv_VectorY1.Clear();
+    //     // hv_VectorZ1.Clear();
+    //     // hv_calibPoint.Clear();
+    //     hv_VectorX[0] = VectorX[0];
+    //     hv_VectorX[1] = VectorX[1];
+    //     hv_VectorX[2] = VectorX[2];
+    //     hv_VectorY[0] = VectorY[0];
+    //     hv_VectorY[1] = VectorY[1];
+    //     hv_VectorY[2] = VectorY[2];
+    //     hv_VectorZ[0] = VectorZ[0];
+    //     hv_VectorZ[1] = VectorZ[1];
+    //     hv_VectorZ[2] = VectorZ[2];
+    //     hv_RightPoint[0] = RightUpPoint[0];
+    //     hv_RightPoint[1] = RightUpPoint[1];
+    //     hv_RightPoint[2] = RightUpPoint[2];
+    //     hv_Size[0] = boxSize[0];
+    //     hv_Size[1] = boxSize[1];
+    //     hv_Size[2] = boxSize[2];
+    //     hv_calibPose[0] = CalibPose[0];
+    //     hv_calibPose[1] = CalibPose[1];
+    //     hv_calibPose[2] = CalibPose[2];
+    //     hv_calibPose[3] = CalibPose[3];
+    //     hv_calibPose[4] = CalibPose[4];
+    //     hv_calibPose[5] = CalibPose[5];
+    //     hv_calibPose[6] = CalibPose[6];
+    //     hv_calibPose[7] = CalibPose[7];
+    //     hv_calibPose[8] = CalibPose[8];
+    //     hv_calibPose[9] = CalibPose[9];
+    //     hv_calibPose[10] = CalibPose[10];
+    //     hv_calibPose[11] = CalibPose[11];
+    //     TupleMult(-hv_VectorZ, HTuple(hv_Size[0]) / 2, &hv_ProdX);
+    //     TupleMult(-hv_VectorY, HTuple(hv_Size[1]) / 2, &hv_ProdY);
+    //     TupleAdd(hv_ProdX, hv_ProdY, &hv_Sum1);
+    //     TupleMult(-hv_VectorX, HTuple(hv_Size[2]) / 2, &hv_ProdZ);
+    //     TupleAdd(hv_Sum1, hv_ProdZ, &hv_Sum2);
+    //     TupleAdd(hv_Sum2, hv_RightPoint, &hv_Trans);
 
-        //*----------------------------------
-        HomMat3dIdentity(&hv_HomMat3DIdentity);
-        HomMat3dTranslate(hv_HomMat3DIdentity, HTuple(hv_Trans[0]), HTuple(hv_Trans[1]),
-                          HTuple(hv_Trans[2]), &hv_HomMat3DTranslate2);
-        // hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 11, 1)]=HTuple(hv_calibPose);
-        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX[0]).TupleConcat(HTuple(hv_VectorY[0]))).TupleConcat(HTuple(hv_VectorZ[0]));
-        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX[1]).TupleConcat(HTuple(hv_VectorY[1]))).TupleConcat(HTuple(hv_VectorZ[1]));
-        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX[2]).TupleConcat(HTuple(hv_VectorY[2]))).TupleConcat(HTuple(hv_VectorZ[2]));
-        HomMat3dToPose(hv_HomMat3DTranslate2, &hv_Pose3);
-        PoseToHomMat3d(hv_Pose3, &hv_HomMatCamera);
+    //     //*----------------------------------
+    //     HomMat3dIdentity(&hv_HomMat3DIdentity);
+    //     HomMat3dTranslate(hv_HomMat3DIdentity, HTuple(hv_Trans[0]), HTuple(hv_Trans[1]),
+    //                       HTuple(hv_Trans[2]), &hv_HomMat3DTranslate2);
+    //     // hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 11, 1)]=HTuple(hv_calibPose);
+    //     hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX[0]).TupleConcat(HTuple(hv_VectorY[0]))).TupleConcat(HTuple(hv_VectorZ[0]));
+    //     hv_HomMat3DTranslate2[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX[1]).TupleConcat(HTuple(hv_VectorY[1]))).TupleConcat(HTuple(hv_VectorZ[1]));
+    //     hv_HomMat3DTranslate2[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX[2]).TupleConcat(HTuple(hv_VectorY[2]))).TupleConcat(HTuple(hv_VectorZ[2]));
+    //     HomMat3dToPose(hv_HomMat3DTranslate2, &hv_Pose3);
+    //     PoseToHomMat3d(hv_Pose3, &hv_HomMatCamera);
 
-        HomMat3dIdentity(&hv_HomMat3DIdentity1);
-        hv_HomMat3DIdentity1[HTuple::TupleGenSequence(0, 11, 1)] = HTuple(hv_calibPose);
-        HomMat3dToPose(hv_HomMat3DIdentity1, &hv_Pose);
-        PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
+    //     HomMat3dIdentity(&hv_HomMat3DIdentity1);
+    //     hv_HomMat3DIdentity1[HTuple::TupleGenSequence(0, 11, 1)] = HTuple(hv_calibPose);
+    //     HomMat3dToPose(hv_HomMat3DIdentity1, &hv_Pose);
+    //     PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
 
-        HomMat3dCompose(hv_HomMatCalib, hv_HomMatCamera, &hv_HomMat3DCompose);
+    //     HomMat3dCompose(hv_HomMatCalib, hv_HomMatCamera, &hv_HomMat3DCompose);
 
-        HomMat3dToPose(hv_HomMat3DCompose, &hv_Pose1);
-        PoseToQuat(hv_Pose1, &hv_Quaternion);
+    //     HomMat3dToPose(hv_HomMat3DCompose, &hv_Pose1);
+    //     PoseToQuat(hv_Pose1, &hv_Quaternion);
 
-        double *tmpQuater = hv_Quaternion.ToDArr();
-        Quater[0] = tmpQuater[0];
-        Quater[1] = tmpQuater[1];
-        Quater[2] = tmpQuater[2];
-        Quater[3] = tmpQuater[3];
+    //     double *tmpQuater = hv_Quaternion.ToDArr();
+    //     Quater[0] = tmpQuater[0];
+    //     Quater[1] = tmpQuater[1];
+    //     Quater[2] = tmpQuater[2];
+    //     Quater[3] = tmpQuater[3];
 
-        double *tmpPoint = hv_HomMat3DCompose.ToDArr();
-        CenterPoint[0] = tmpPoint[3];
-        CenterPoint[1] = tmpPoint[7];
-        CenterPoint[2] = tmpPoint[11];
-        return;
-    }
+    //     double *tmpPoint = hv_HomMat3DCompose.ToDArr();
+    //     CenterPoint[0] = tmpPoint[3];
+    //     CenterPoint[1] = tmpPoint[7];
+    //     CenterPoint[2] = tmpPoint[11];
+    //     return;
+    // }
 
     void CalcuCameraRobot(double VectorPosition[9], double RightUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint)
     {
@@ -390,6 +391,103 @@ namespace PCLlibs
         CenterPoint[2] = tmpPoint[11];
         return;
     }
+
+ void CalcuEndCameraRobot(double VectorPosition[9], double LeftUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint)
+    {
+        CenterPoint[0] = 0;
+        CenterPoint[1] = 0;
+        CenterPoint[2] = 0;
+        Quater[0] = 0;
+        Quater[1] = 0;
+        Quater[2] = 0;
+        Quater[3] = 0;
+        // Local control variables
+        HTuple hv_VectorX, hv_VectorY, hv_VectorZ;
+        HTuple hv_LeftUpPoint, hv_Size;
+        HTuple hv_calibPose;
+        // HTuple hv_VectorX1, hv_VectorY1, hv_VectorZ1, hv_calibPoint;
+        HTuple hv_ProdX, hv_ProdY, hv_Sum1, hv_ProdZ;
+        HTuple hv_Sum2, hv_Trans, hv_HomMat3DIdentity, hv_HomMat3DTranslate2;
+        HTuple hv_Pose3, hv_HomMatCamera, hv_HomMat3DIdentity1;
+        HTuple hv_Pose, hv_HomMatCalib, hv_HomMat3DCompose, hv_HomMat3DTranslate;
+        HTuple hv_Quaternion, hv_Pose1;
+        hv_VectorX.Clear();
+        hv_VectorY.Clear();
+        hv_VectorZ.Clear();
+        hv_LeftUpPoint.Clear();
+        hv_Size.Clear();
+        // hv_VectorX1.Clear();
+        // hv_VectorY1.Clear();
+        // hv_VectorZ1.Clear();
+        // hv_calibPoint.Clear();
+        hv_VectorX[0] = VectorPosition[0];
+        hv_VectorX[1] = VectorPosition[1];
+        hv_VectorX[2] = VectorPosition[2];
+        hv_VectorY[0] = VectorPosition[3];
+        hv_VectorY[1] = VectorPosition[4];
+        hv_VectorY[2] = VectorPosition[5];
+        hv_VectorZ[0] = VectorPosition[6];
+        hv_VectorZ[1] = VectorPosition[7];
+        hv_VectorZ[2] = VectorPosition[8];
+        hv_LeftUpPoint[0] = LeftUpPoint[0];
+        hv_LeftUpPoint[1] = LeftUpPoint[1];
+        hv_LeftUpPoint[2] = LeftUpPoint[2];
+        hv_Size[0] = boxSize[0]; 
+        hv_Size[1] = -boxSize[1];//这里跟右上角计算不同
+        hv_Size[2] = boxSize[2];
+        hv_calibPose[0] = CalibPose[0];
+        hv_calibPose[1] = CalibPose[1];
+        hv_calibPose[2] = CalibPose[2];
+        hv_calibPose[3] = CalibPose[3];
+        hv_calibPose[4] = CalibPose[4];
+        hv_calibPose[5] = CalibPose[5];
+        hv_calibPose[6] = CalibPose[6];
+        hv_calibPose[7] = CalibPose[7];
+        hv_calibPose[8] = CalibPose[8];
+        hv_calibPose[9] = CalibPose[9];
+        hv_calibPose[10] = CalibPose[10];
+        hv_calibPose[11] = CalibPose[11];
+        TupleMult(-hv_VectorZ, HTuple(hv_Size[0]) / 2, &hv_ProdX);
+        TupleMult(-hv_VectorY, HTuple(hv_Size[1]) / 2, &hv_ProdY);
+        TupleAdd(hv_ProdX, hv_ProdY, &hv_Sum1);
+        TupleMult(-hv_VectorX, HTuple(hv_Size[2]) / 2, &hv_ProdZ);
+        TupleAdd(hv_Sum1, hv_ProdZ, &hv_Sum2);
+        TupleAdd(hv_LeftUpPoint,hv_Sum2,  &hv_Trans);
+
+        //*----------------------------------
+        HomMat3dIdentity(&hv_HomMat3DIdentity);
+        HomMat3dTranslate(hv_HomMat3DIdentity, HTuple(hv_Trans[0]), HTuple(hv_Trans[1]),
+                          HTuple(hv_Trans[2]), &hv_HomMat3DTranslate2);
+        // hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 11, 1)]=HTuple(hv_calibPose);
+        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(0, 2, 1)] = (HTuple(hv_VectorX[0]).TupleConcat(HTuple(hv_VectorY[0]))).TupleConcat(HTuple(hv_VectorZ[0]));
+        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(4, 6, 1)] = (HTuple(hv_VectorX[1]).TupleConcat(HTuple(hv_VectorY[1]))).TupleConcat(HTuple(hv_VectorZ[1]));
+        hv_HomMat3DTranslate2[HTuple::TupleGenSequence(8, 10, 1)] = (HTuple(hv_VectorX[2]).TupleConcat(HTuple(hv_VectorY[2]))).TupleConcat(HTuple(hv_VectorZ[2]));
+        HomMat3dToPose(hv_HomMat3DTranslate2, &hv_Pose3);
+        PoseToHomMat3d(hv_Pose3, &hv_HomMatCamera);
+
+        HomMat3dIdentity(&hv_HomMat3DIdentity1);
+        hv_HomMat3DIdentity1[HTuple::TupleGenSequence(0, 11, 1)] = HTuple(hv_calibPose);
+        HomMat3dToPose(hv_HomMat3DIdentity1, &hv_Pose);
+        PoseToHomMat3d(hv_Pose, &hv_HomMatCalib);
+
+        HomMat3dCompose(hv_HomMatCalib, hv_HomMatCamera, &hv_HomMat3DCompose);
+
+        HomMat3dToPose(hv_HomMat3DCompose, &hv_Pose1);
+        PoseToQuat(hv_Pose1, &hv_Quaternion);
+
+        double *tmpQuater = hv_Quaternion.ToDArr();
+        Quater[0] = tmpQuater[0];
+        Quater[1] = tmpQuater[1];
+        Quater[2] = tmpQuater[2];
+        Quater[3] = tmpQuater[3];
+
+        double *tmpPoint = hv_HomMat3DCompose.ToDArr();
+        CenterPoint[0] = tmpPoint[3];
+        CenterPoint[1] = tmpPoint[7];
+        CenterPoint[2] = tmpPoint[11];
+        return;
+    }
+
 
     // Procedures
     void Cal2Norm(HTuple hv_RightLineVector, HTuple *hv_NormS2)

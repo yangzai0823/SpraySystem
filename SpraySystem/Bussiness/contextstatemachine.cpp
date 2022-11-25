@@ -182,7 +182,7 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 
     //读取拍照时刻编码器数值
      Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
-    std::cout << "编码器数值： " << Context.encoder_img_head << std::endl;
+    std::cout << "StateMachine, 编码器数值： " << Context.encoder_img_head << std::endl;
 
     //开启计时器    
     timer_img_head->start(interval);
@@ -231,7 +231,7 @@ void ContextStateMachine::enteredProcessTrailImg_Slot()
     timer_img_trail->stop();
 
     Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
-    std::cout << "编码器数值： " << Context.encoder_img_trail << std::endl;
+    std::cout << Name.toStdString()<< "StateMachine, 编码器数值, head: "<<Context.encoder_img_head <<" ,trail: " << Context.encoder_img_trail << std::endl;
 
     // emit beginVision_Singal(this, false);
     //视觉处理尾部

@@ -53,8 +53,8 @@ namespace PCLlibs
     void CalBoxLength(double Vector[3], double s2, double s1, double LeftUpPoint[3],
                       double LeftDownPoint[3], double RightUpPoint[3], double RightDownPoint[3], double &boxLength);
 
-/// @brief 根据标定矩阵计算箱体在机械手下的姿态
-/// @param VectorPosition 坐标系三个方向单位向量数组，顺序为：X轴方向向量3个参数(箱体表面法向量)、Y轴方向向量3个参数、Z轴方向向量3个参数、
+/// @brief 以首次触发拍照上侧点为基准, 根据标定矩阵计算箱体在机械手下的姿态
+/// @param VectorPosition 相机坐标系下三个方向单位向量数组，顺序为：X轴方向向量3个参数(箱体表面法向量)、Y轴方向向量3个参数、Z轴方向向量3个参数、
 /// @param RightUpPoint 箱体右上角坐标
 /// @param boxSize 箱体尺寸：高度、长度、深度
 /// @param CalibPose 相机和机械手的标定矩阵
@@ -62,6 +62,14 @@ namespace PCLlibs
 /// @param CenterPoint 输出箱体中心坐标
 void CalcuCameraRobot(double VectorPosition[9], double RightUpPoint[3],   double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
 
+/// @brief 以末次触发拍照上侧点为基准, 根据标定矩阵计算箱体在机械手下的姿态
+/// @param VectorPosition 相机坐标系下三个方向单位向量数组，顺序为：X轴方向向量3个参数(箱体表面法向量)、Y轴方向向量3个参数、Z轴方向向量3个参数、
+/// @param LeftUpPoint 箱体左上角坐标
+/// @param boxSize 箱体尺寸：高度、长度、深度
+/// @param CalibPose 相机和机械手的标定矩阵
+/// @param Quater 输出箱体在机械手下的四元数
+/// @param CenterPoint 输出箱体中心坐标
+void CalcuEndCameraRobot(double VectorPosition[9], double LeftUpPoint[3], double boxSize[3], double CalibPose[12], double *Quater, double *CenterPoint);
 
      /// @brief 测量箱体深度
     /// @param SensorDis  一对传感器的距离值

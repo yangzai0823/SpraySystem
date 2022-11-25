@@ -82,6 +82,7 @@ namespace vws
     struct VisionData
     {
         float length;
+        float length_head;
         float width;
         float height;
         /** @brief 头部信息是否已使用固定长度计算*/
@@ -99,6 +100,7 @@ namespace vws
         std::vector<double> lefttop;
         std::vector<double> leftbottom;
         std::vector<double> normalvector; /*前三位为法向量*/
+        std::vector<double> normalvector_head;
 
         /** @brief 0: top, 1: bottom*/
         bool top_or_bottom; 

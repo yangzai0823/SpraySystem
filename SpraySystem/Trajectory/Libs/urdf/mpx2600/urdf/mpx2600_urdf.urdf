@@ -271,8 +271,8 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-6.283185307"
-      upper="6.283185307"
+      lower="-12.56636"
+      upper="12.56636"
       effort="0"
       velocity="6.283185307" />
   </joint>
@@ -329,8 +329,8 @@
     <axis
       xyz="0.5 0 -0.86603" />
     <limit
-      lower="-6.283185307"
-      upper="6.283185307"
+      lower="-12.56636"
+      upper="12.56636"
       effort="0"
       velocity="6.283185307" />
   </joint>
@@ -387,8 +387,8 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-6.283185307"
-      upper="6.283185307"
+      lower="-12.56636"
+      upper="12.56636"
       effort="0"
       velocity="6.283185307" />
   </joint>
@@ -410,12 +410,12 @@
     name="link_painter">
     <visual>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.375"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="file://../urdf/mpx2600/meshes/painter.STL" />
-          <!-- <box size="0.6 0.1 0.6"/> -->
+        <!-- <mesh
+          filename="file://../urdf/mpx2600/meshes/painter.STL" /> -->
+          <box size="0.85 0.1 0.75"/>
       </geometry>
       <material
         name="">
@@ -426,12 +426,12 @@
     <collision>
       <origin
 
-        xyz="0 0 0"
+        xyz="0 0 0.375"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="file://../urdf/mpx2600/meshes/painter.STL" />
-          <!-- <box size="0.6 0.1 0.6"/> -->
+        <!-- <mesh
+          filename="file://../urdf/mpx2600/meshes/painter.STL" /> -->
+          <box size="0.85 0.1 0.75"/>
       </geometry>
     </collision>
   </link>

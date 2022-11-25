@@ -139,5 +139,6 @@ void MCOperator::readyRead_Slot(QByteArray buf)
 
 void MCOperator::getTrajParam_Slot()
 {
+    std::cout<<"MC, 请求数据"<<std::endl;
     emit getTrajParam_Signal();
 }

@@ -630,7 +630,7 @@ bool TrajectoryProcess::planOneTask(TrajectoryGenerator *generator,
 
   std::cout << "Gen Quit Path " << std::endl;
   ret = generator->GenerateEntryTrajectory(
-        init_pose, init_dof, 20, quit_traj, ndof, 3, true);
+        init_pose, init_dof, 20, quit_traj, ndof, 3, false);
   if(ret){
     logfile_ << "Quit Path dist "
               << " - " << generator->pathDist(quit_traj, ndof) << std::endl << std::endl;
