@@ -319,12 +319,14 @@ void MainProcess::beginVision_Slot(ContextStateMachine *sm, bool ishead)
     if (sm->Name == "Bottom")
     {
         std::cout << "底层箱子"<<strheadortrail<<"参数进入队列" << std::endl;
+        planTaskInfo.isup = false;
         qPlanTaskInfoBottom.push_back(planTaskInfo);
         emit finishVision_Signal_b(ishead);
     }
     else
     {
         std::cout << "顶层箱子"<<strheadortrail<<"参数进入队列" << std::endl;
+        planTaskInfo.isup = true;
         qPlanTaskInfoTop.push_back(planTaskInfo);
         emit finishVision_Signal_u(ishead);
     }
@@ -387,11 +389,13 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
         if (sm->Name == "Bottom")
         {
             std::cout << "底层箱子头部参数进入队列" << std::endl;
+            planTaskInfo.isup = false;
             qPlanTaskInfoBottom.push_back(planTaskInfo_head);
         }
         else
         {
             std::cout << "顶层箱子头部被参数进入队列" << std::endl;
+            planTaskInfo.isup = true;
             qPlanTaskInfoTop.push_back(planTaskInfo_head);
         }
     }
@@ -417,17 +421,18 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
     if (sm->Name == "Bottom")
     {
         std::cout << "底层箱子尾部参数进入队列" << std::endl;
+        planTaskInfo.isup = false;
         qPlanTaskInfoBottom.push_back(planTaskInfo);
         emit finishVision_Signal_b(0);
     }
     else
     {
         std::cout << "顶层箱子尾部被参数进入队列" << std::endl;
+        planTaskInfo.isup = true;
         qPlanTaskInfoTop.push_back(planTaskInfo);
         emit finishVision_Signal_u(0);
     }
 
-    //根据状态机判断底层/顶层, 尾部处理结束
     if (sm->Name == "Bottom")
     {
         emit finishVision_Signal_b(false);
@@ -473,12 +478,14 @@ void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
     if (sm->Name == "Bottom")
     {
         std::cout << "底层箱子头部参数进入队列" << std::endl;
+        planTaskInfo.isup = false;
         qPlanTaskInfoBottom.push_back(planTaskInfo);
         emit finishVision_Signal_b(1);
     }
     else
     {
         std::cout << "顶层箱子头部被参数进入队列" << std::endl;
+        planTaskInfo.isup = true;
         qPlanTaskInfoTop.push_back(planTaskInfo);
         emit finishVision_Signal_u(1);
     }

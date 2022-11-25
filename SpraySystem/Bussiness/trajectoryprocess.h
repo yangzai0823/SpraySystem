@@ -25,13 +25,13 @@ Q_DECLARE_METATYPE(RobotTask) //注册结构体
 class MainProcess;
 
 
-template<typename _Tp>
+template<typename _Tp, bool increase>
     struct PairFirstLess : public std::binary_function<std::pair<int, _Tp>, std::pair<int, _Tp>, bool>
     {
       _GLIBCXX14_CONSTEXPR
       bool
       operator()(const std::pair<int, _Tp>& __x, const std::pair<int, _Tp>& __y) const
-      { return __x.first < __y.first; }
+      { return increase ? __x.first < __y.first : __x.first >= __y.first; }
     };
 
 struct PlanTask{
@@ -41,7 +41,7 @@ struct PlanTask{
 typedef std::priority_queue<
     std::pair<int, PlanTask>,
     std::vector<std::pair<int, PlanTask>>,
-    PairFirstLess<PlanTask>>
+    PairFirstLess<PlanTask, false>>
     SortedTaskQ;
 
 enum TrajectoryType { 
@@ -77,10 +77,11 @@ public:
     bool transitionOf(const std::string &from, const std::string &to, Eigen::VectorXd &t) const;
     bool teachPoseOf(const std::string &key, Eigen::VectorXd &pose) const;
     bool tacticOf(const std::string &name, std::string &work_tactic,
-                  std::string &cancle_tactic, std::string &follow) const;
+                  std::string &cancle_tactic, std::string &follow, float &follow_offset) const;
     bool strategyOf(bool issingle, bool isup, bool isfront,
                     std::string &strategy) const;
     bool isInvert() const{return invert_;}
+    int getNdof() const { return ndof; }
 
    private:
     std::map<std::string, Eigen::VectorXd> teachPoseMap_;
