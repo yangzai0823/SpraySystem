@@ -32,7 +32,16 @@ class calibrationform : public QMainWindow {
  public slots:
   void saveExtraAxisData();
 
- private:
+private slots:
+  void on_btn_caliBeltDirection_clicked();
+
+  void on_btn_caliHandEye_clicked();
+
+  void on_btn_caliSensor_clicked();
+
+  void on_btn_caliSensor_2_clicked();
+
+private:
   struct caliDevice {
     RobotOperator *robot0;
     RobotOperator *robot1;

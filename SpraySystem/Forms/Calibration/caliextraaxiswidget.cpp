@@ -20,10 +20,10 @@ QString CALIBRATE_DATA_FILE = "calibrateDatas.json";
 QString CALIBRATE_RESULT_FILE = "calibrateResults.json";
 QString DATA_FOLDER_NAME = "Data";
 
-caliExtraAxisWidget::caliExtraAxisWidget(QWidget* parent)
+caliExtraAxisWidget::caliExtraAxisWidget(const QString& prefix, QWidget* parent)
     : QWidget(parent),
       ui(new Ui::caliExtraAxisWidget),
-      _jsonPrefix(""),
+      _jsonPrefix(prefix),
       _dataMainKey("ExtraAxisCaliDatas"),
       _resultMainKey("ExtraAxisCalibration"),
       _dataDoc(new rapidjson::Document()),
@@ -32,17 +32,16 @@ caliExtraAxisWidget::caliExtraAxisWidget(QWidget* parent)
   // other
   QtConcurrent::run([this]() {
     ensureFileExist();
-    ensureJsonStruct();
     readData();
+    readResult();
+    ensureJsonStruct();
+    clearResult();
     updateTreeView();
   });
 }
 
 caliExtraAxisWidget::~caliExtraAxisWidget() { delete ui; }
 
-void caliExtraAxisWidget::setJsonPrefix(const QString& prefix) {
-  _jsonPrefix = prefix;
-}
 void caliExtraAxisWidget::setDevice(RobotOperator* robot,
                                     MCOperator* motionController) {
   _robot = robot;
@@ -143,6 +142,15 @@ void caliExtraAxisWidget::writeData() {
   _dataDoc->Accept(w);
   file.write(sb.GetString(), sb.GetSize());
   file.close();
+}
+
+void caliExtraAxisWidget::readResult() {
+  QFile file(_resFilePath);
+  file.open(QIODevice::ReadOnly | QIODevice::Text);
+  auto str = file.readAll().toStdString();
+  file.close();
+
+  _resultDoc->Parse(str.c_str(), str.size());
 }
 
 void caliExtraAxisWidget::writeResult() {
@@ -295,10 +303,18 @@ void caliExtraAxisWidget::updateTreeView() {
 }
 
 void caliExtraAxisWidget::dumpJson() {
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _dataDoc->Accept(w);
-  std::cout << sb.GetString() << std::endl;
+  {
+    rapidjson::StringBuffer sb;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
+    _dataDoc->Accept(w);
+    std::cout << sb.GetString() << std::endl;
+  }
+  {
+    rapidjson::StringBuffer sb;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
+    _resultDoc->Accept(w);
+    std::cout << sb.GetString() << std::endl;
+  }
 }
 
 void caliExtraAxisWidget::on_btn_record_clicked() {
@@ -306,7 +322,7 @@ void caliExtraAxisWidget::on_btn_record_clicked() {
     clearResult();
     writeResult();
     // FIXME
-#if 1
+#if 0
     std::array<float, 4> data;
     if (0 != readDeviceData(data)) {
       std::cout << "read data error" << std::endl;
