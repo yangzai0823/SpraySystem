@@ -13,6 +13,8 @@
 #include "Trajectory/trajectorycontext.h"
 #include "Vision/visioncontext.h"
 #include "Data/StructData.h"
+#include "Include/Core/Config/jsonserializer.h"
+#include "Include/Core/Config/config.hpp"
 
 using RobotTask = VWSRobot::RobotTask;
 using ImageData = VWSCamera::ImageData;
@@ -43,21 +45,65 @@ typedef std::priority_queue<
     SortedTaskQ;
 
 enum TrajectoryType { 
-  PaintTraj,
-  TransitionTraj
+  SeamPaintTraj,                    // 喷涂焊缝的轨迹
+  PlanePaintTraj,                   // 喷涂面的轨迹
+  SafeTransitionTraj,               // 安全转移轨迹
+  UnsafeTransitionTraj             // 不安全转移轨迹
 };
 
 struct TrajectoryInfo{
   Eigen::VectorXd traj_;
   TrajectoryType type_;
 };
+
+using Config = vws::properties::Config;
+
+class PlanStragety
+{
+public:
+    PlanStragety(const std::string & filename);
+    // void save(Config c) const;
+    void load();
+    bool speedOf(const std::string &key, double & s) const;
+    /**
+     * @brief 获取从from到to的转移轨迹，其中轨迹包括to的关节角，不包括from的关节角
+     * 
+     * @param from 
+     * @param to 
+     * @param t 
+     * @return true 
+     * @return false 
+     */
+    bool transitionOf(const std::string &from, const std::string &to, Eigen::VectorXd &t) const;
+    bool teachPoseOf(const std::string &key, Eigen::VectorXd &pose) const;
+    bool tacticOf(const std::string &name, std::string &work_tactic,
+                  std::string &cancle_tactic, std::string &follow) const;
+    bool strategyOf(bool issingle, bool isup, bool isfront,
+                    std::string &strategy) const;
+    bool isInvert() const{return invert_;}
+
+   private:
+    std::map<std::string, Eigen::VectorXd> teachPoseMap_;
+    std::map<std::string, Eigen::VectorXd> transitionsMap_;
+    std::map<std::string, double> speedMap_;
+    std::map<std::string, std::string> strategiesMap_;
+    Config teachPose_;
+    Config transition_;
+    Config speed_;
+    Config tactic_;
+    Config strategies_;
+    int ndof;
+    std::string filename_;
+    bool invert_;
+};
+
 class TrajectoryProcess : public QObject
 {
     Q_OBJECT
 public:
     TrajectoryProcess();
 
-    PlanTask tryGetPlanTask(vws::PlanTaskInfo *task,
+    PlanTask tryGetPlanTask(vws::PlanTaskInfo *task, 
                             std::vector<vws::PlanTaskInfo> &q1,
                             std::vector<vws::PlanTaskInfo> &q2,
                             int64_t encoder_off1, int64_t encoder_off2,
@@ -114,7 +160,9 @@ public:
 
    private:
     std::shared_ptr<VisionContext> visionContext;
-private slots:
+    PlanStragety stragety1_;
+    PlanStragety stragety2_;
+   private slots:
     void begintraj_Slot(MainProcess *vdata);
 signals:
     void traj_Signal(QVariant varmc, QVariant varrbt);

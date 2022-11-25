@@ -56,6 +56,7 @@ namespace vws
         int face;        // 0：前面， 1：后面
         int64_t encoder; //拍照时刻
         float diff;      //偏移
+        bool isup;          // true: 上层， false ： 下层
     };
 
     /**

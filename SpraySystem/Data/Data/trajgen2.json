@@ -1,0 +1,45 @@
+{
+    "Robot": {
+        "ndof" : "6",
+        "YInvert" : false,
+        "TeachPose": {
+            "dright_plane" : {
+                "desc" : "下前焊缝+下后面",
+                "joints" : [-22.78, -55.83, -36.50, 104.54, -113.47, -53.68]
+            },
+            "dleft_plane":{
+                "desc" : "下前面+下后焊缝",
+                "joints" : [18.96, -49.50, -40.05, 143.447, -107.986, 123.79]
+            }
+        },
+        "Transition" : {
+            "dright_plane-dleft_plane" : [
+            ]
+        },
+        "speed" :{
+            "plane_paint" : 20,
+            "seam_paint" : 20,
+            "move" : 80   
+        },
+        "PlanTactic":[
+            {
+                "name" : "downfront",
+                "work" : "dleft_plane-pdf-dleft_plane-dright_plane-sdf-dright_plane",
+                "cancle" : "dleft_plane-dright_plane",
+                "follow" : "df"
+            },
+            {
+                "name" : "downback",
+                "work" : "dleft_plane-sdf-dleft_plane-dright_plane-pdf-dright_plane",
+                "cancle" : "dleft_plane-dright_plane",
+                "follow" : "db"
+            }
+        ],
+        "Stragety":{
+            "single-down-front" : "downfront",
+            "single-down-back " : "downback",
+            "multi-front" : "front two seams",
+            "multi-back" : "whole back"
+        }
+    }
+}
