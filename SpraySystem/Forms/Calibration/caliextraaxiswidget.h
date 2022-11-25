@@ -25,10 +25,10 @@ class caliExtraAxisWidget : public QWidget {
   Q_OBJECT
 
  public:
-  explicit caliExtraAxisWidget(QWidget* parent = nullptr);
+  explicit caliExtraAxisWidget(const QString& prefix,
+                               QWidget* parent = nullptr);
   ~caliExtraAxisWidget();
   void setDevice(RobotOperator* robot, MCOperator* _motionController);
-  void setJsonPrefix(const QString& prefix);
 
  private:
   void ensureFileExist();
@@ -36,6 +36,7 @@ class caliExtraAxisWidget : public QWidget {
   void readData();
   void writeData();
   int readDeviceData(std::array<float, 4>& data);
+  void readResult();
   void clearResult();
   void writeResult();
 
