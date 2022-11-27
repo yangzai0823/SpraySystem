@@ -1,8 +1,8 @@
-#ifndef CALIEXTRAAXISWIDGET_H
-#define CALIEXTRAAXISWIDGET_H
+#pragma once
 
 #include <rapidjson/document.h>
 
+#include <Eigen/Dense>
 #include <QString>
 #include <QWidget>
 #include <array>
@@ -10,33 +10,34 @@
 #include <string>
 
 namespace Ui {
-class caliExtraAxisWidget;
+class caliBeltDirectionWidget;
 }
 
 class RobotOperator;
 class MCOperator;
 
 // TODO exception handler
-class caliExtraAxisWidget : public QWidget {
+// TODO handle nan
+class caliBeltDirectionWidget : public QWidget {
   Q_OBJECT
 
  public:
-  explicit caliExtraAxisWidget(const QString& prefix,
-                               QWidget* parent = nullptr);
-  ~caliExtraAxisWidget();
+  explicit caliBeltDirectionWidget(QWidget* parent = nullptr);
+  ~caliBeltDirectionWidget();
   void setDevice(RobotOperator* robot, MCOperator* _motionController);
 
  private:
   void ensureFileExist();
   int ensureJsonStruct();
+  void readCalibratedDatas();
   void readData();
   void writeData();
-  int readDeviceData(std::array<float, 4>& data);
+  int readDeviceData(std::array<float, 5>& data);
   void readResult();
   void clearResult();
   void writeResult();
 
-  void recordData(const std::array<float, 4>& data);
+  void recordData(const std::array<float, 5>& data);
   void deleteLastItem();
   void updateTreeView();
   void calculate();
@@ -53,7 +54,7 @@ class caliExtraAxisWidget : public QWidget {
   void on_btn_delete_clicked();
 
  public:
-  Ui::caliExtraAxisWidget* ui;
+  Ui::caliBeltDirectionWidget* ui;
   // device
   RobotOperator* _robot;
   MCOperator* _motionController;
@@ -61,11 +62,10 @@ class caliExtraAxisWidget : public QWidget {
   QString _dataFilePath;
   QString _resFilePath;
   // QJsonDoc
-  QString _jsonPrefix;
   QString _dataMainKey;
   QString _resultMainKey;
   std::unique_ptr<rapidjson::Document> _dataDoc;
   std::unique_ptr<rapidjson::Document> _resultDoc;
+  // data
+  std::unique_ptr<Eigen::Vector3f> _frontExtraAxisDirection;
 };
-
-#endif  // CALIEXTRAAXISWIDGET_H
