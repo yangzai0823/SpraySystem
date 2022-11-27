@@ -52,7 +52,7 @@ class caliExtraAxisWidget : public QWidget {
 
   void on_btn_delete_clicked();
 
- public:
+ private:
   Ui::caliExtraAxisWidget* ui;
   // device
   RobotOperator* _robot;
