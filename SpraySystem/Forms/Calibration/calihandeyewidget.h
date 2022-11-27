@@ -10,7 +10,7 @@
 #include <string>
 
 namespace Ui {
-class caliBeltDirectionWidget;
+class caliHandEyewWidget;
 }
 
 class RobotOperator;
@@ -18,12 +18,12 @@ class MCOperator;
 
 // TODO exception handler
 // TODO handle nan
-class caliBeltDirectionWidget : public QWidget {
+class caliHandEyewWidget : public QWidget {
   Q_OBJECT
 
  public:
-  explicit caliBeltDirectionWidget(QWidget* parent = nullptr);
-  ~caliBeltDirectionWidget();
+  explicit caliHandEyewWidget(const QString& prefix, QWidget* parent = nullptr);
+  ~caliHandEyewWidget();
   void setDevice(RobotOperator* robot, MCOperator* _motionController);
 
  private:
@@ -54,7 +54,7 @@ class caliBeltDirectionWidget : public QWidget {
   void on_btn_delete_clicked();
 
  private:
-  Ui::caliBeltDirectionWidget* ui;
+  Ui::caliHandEyewWidget* ui;
   // device
   RobotOperator* _robot;
   MCOperator* _motionController;

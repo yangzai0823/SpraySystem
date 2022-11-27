@@ -1,4 +1,4 @@
-#include "calibeltdirectionwidget.h"
+#include "calihandeyewidget.h"
 
 #include <calibration.h>
 #include <rapidjson/allocators.h>
@@ -14,17 +14,17 @@
 
 #include "Device/MotionController/mcoperator.h"
 #include "Device/Robot/robotoperator.h"
-#include "ui_calibeltdirectionwidget.h"
+#include "ui_calihandeyewidget.h"
 
 extern QString CALIBRATE_DATA_FILE;
 extern QString CALIBRATE_RESULT_FILE;
 extern QString DATA_FOLDER_NAME;
 
-caliBeltDirectionWidget::caliBeltDirectionWidget(QWidget* parent)
+caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
     : QWidget(parent),
-      ui(new Ui::caliBeltDirectionWidget),
-      _dataMainKey("beltDirectionCaliDatas"),
-      _resultMainKey("beltDirectionCalibration"),
+      ui(new Ui::caliHandEyewWidget),
+      _dataMainKey(prefix + "beltDirectionCaliDatas"),
+      _resultMainKey(prefix + "beltDirectionCalibration"),
       _dataDoc(new rapidjson::Document()),
       _resultDoc(new rapidjson::Document()),
       _frontExtraAxisDirection(nullptr) {
@@ -41,15 +41,15 @@ caliBeltDirectionWidget::caliBeltDirectionWidget(QWidget* parent)
   });
 }
 
-caliBeltDirectionWidget::~caliBeltDirectionWidget() { delete ui; }
+caliHandEyewWidget::~caliHandEyewWidget() { delete ui; }
 
-void caliBeltDirectionWidget::setDevice(RobotOperator* robot,
-                                        MCOperator* motionController) {
+void caliHandEyewWidget::setDevice(RobotOperator* robot,
+                                   MCOperator* motionController) {
   _robot = robot;
   _motionController = motionController;
 }
 
-void caliBeltDirectionWidget::ensureFileExist() {
+void caliHandEyewWidget::ensureFileExist() {
   auto folderPath = QDir::currentPath() + "/" + DATA_FOLDER_NAME;
   QDir dir;
   if (!dir.exists(folderPath)) {
@@ -75,7 +75,7 @@ void caliBeltDirectionWidget::ensureFileExist() {
   }
 }
 
-int caliBeltDirectionWidget::ensureJsonStruct() {
+int caliHandEyewWidget::ensureJsonStruct() {
   //// data json
   if (_dataDoc->IsNull()) {
     _dataDoc->SetObject();
@@ -123,10 +123,7 @@ int caliBeltDirectionWidget::ensureJsonStruct() {
   }
 }
 
-void caliBeltDirectionWidget::readCalibratedDatas() {
-  if (_resultDoc->IsNull()) {
-    return;
-  }
+void caliHandEyewWidget::readCalibratedDatas() {
   if (!_resultDoc->HasMember("frontExtraAxisCalibration") ||
       !(*_resultDoc)["frontExtraAxisCalibration"].HasMember("direction") ||
       (*_resultDoc)["frontExtraAxisCalibration"]["direction"].Size() != 3) {
@@ -140,7 +137,7 @@ void caliBeltDirectionWidget::readCalibratedDatas() {
   (*_frontExtraAxisDirection)[2] = arr[2].GetFloat();
 }
 
-void caliBeltDirectionWidget::readData() {
+void caliHandEyewWidget::readData() {
   QFile file(_dataFilePath);
   file.open(QIODevice::ReadOnly | QIODevice::Text);
   auto str = file.readAll().toStdString();
@@ -149,7 +146,7 @@ void caliBeltDirectionWidget::readData() {
   _dataDoc->Parse(str.c_str(), str.size());
 }
 
-void caliBeltDirectionWidget::writeData() {
+void caliHandEyewWidget::writeData() {
   // data
   QFile file(_dataFilePath);
   file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
@@ -160,7 +157,7 @@ void caliBeltDirectionWidget::writeData() {
   file.close();
 }
 
-void caliBeltDirectionWidget::readResult() {
+void caliHandEyewWidget::readResult() {
   QFile file(_resFilePath);
   file.open(QIODevice::ReadOnly | QIODevice::Text);
   auto str = file.readAll().toStdString();
@@ -169,7 +166,7 @@ void caliBeltDirectionWidget::readResult() {
   _resultDoc->Parse(str.c_str(), str.size());
 }
 
-void caliBeltDirectionWidget::writeResult() {
+void caliHandEyewWidget::writeResult() {
   // result
   QFile file(_resFilePath);
   file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
@@ -180,7 +177,7 @@ void caliBeltDirectionWidget::writeResult() {
   file.close();
 }
 
-int caliBeltDirectionWidget::readDeviceData(std::array<float, 5>& data) {
+int caliHandEyewWidget::readDeviceData(std::array<float, 5>& data) {
   // data:{position, x, y, z}
   try {
     VWSRobot::RobotPosition pose;
@@ -201,13 +198,13 @@ int caliBeltDirectionWidget::readDeviceData(std::array<float, 5>& data) {
   }
 }
 
-void caliBeltDirectionWidget::clearResult() {
+void caliHandEyewWidget::clearResult() {
   ensureJsonStruct();
   std::string resultMainKey = _resultMainKey.toStdString();
   (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
 }
 
-void caliBeltDirectionWidget::recordData(const std::array<float, 5>& data) {
+void caliHandEyewWidget::recordData(const std::array<float, 5>& data) {
   if (0 != ensureJsonStruct()) {
     return;
   };
@@ -230,7 +227,7 @@ void caliBeltDirectionWidget::recordData(const std::array<float, 5>& data) {
   }
 }
 
-void caliBeltDirectionWidget::deleteLastItem() {
+void caliHandEyewWidget::deleteLastItem() {
   if (0 != ensureJsonStruct()) {
     return;
   };
@@ -242,7 +239,7 @@ void caliBeltDirectionWidget::deleteLastItem() {
   }
 }
 
-void caliBeltDirectionWidget::calculate() {
+void caliHandEyewWidget::calculate() {
   // _API_ int getRobotBeltDirection(
   // 	const std::vector<Eigen::Vector3f> points,
   // 	const std::vector<float> beltPositions,
@@ -292,7 +289,7 @@ void caliBeltDirectionWidget::calculate() {
   }
 }
 
-void caliBeltDirectionWidget::updateTreeView() {
+void caliHandEyewWidget::updateTreeView() {
   rapidjson::Document doc__;
   auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
@@ -337,7 +334,7 @@ void caliBeltDirectionWidget::updateTreeView() {
   emit updateTreeView(arr);
 }
 
-void caliBeltDirectionWidget::dumpJson() {
+void caliHandEyewWidget::dumpJson() {
   {
     rapidjson::StringBuffer sb;
     rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
@@ -352,7 +349,7 @@ void caliBeltDirectionWidget::dumpJson() {
   }
 }
 
-void caliBeltDirectionWidget::on_btn_record_clicked() {
+void caliHandEyewWidget::on_btn_record_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
     writeResult();
@@ -375,7 +372,7 @@ void caliBeltDirectionWidget::on_btn_record_clicked() {
   });
 }
 
-void caliBeltDirectionWidget::on_btn_calculate_clicked() {
+void caliHandEyewWidget::on_btn_calculate_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
     writeResult();
@@ -385,7 +382,7 @@ void caliBeltDirectionWidget::on_btn_calculate_clicked() {
   });
 }
 
-void caliBeltDirectionWidget::on_btn_delete_clicked() {
+void caliHandEyewWidget::on_btn_delete_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
     writeResult();

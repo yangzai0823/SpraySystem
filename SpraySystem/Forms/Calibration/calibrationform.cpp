@@ -18,6 +18,7 @@
 #include "Device/devicemanager.h"
 #include "Forms/Calibration/calibeltdirectionwidget.h"
 #include "Forms/Calibration/caliextraaxiswidget.h"
+#include "Forms/Calibration/calihandeyewidget.h"
 #include "Util/QJsonModel/qjsonmodel.h"
 #include "ui_calibrationform.h"
 
@@ -188,7 +189,24 @@ void calibrationform::on_btn_caliBeltDirection_clicked() {
   ui->centralwidget->layout()->addWidget(_extendedWidget);
 }
 
-void calibrationform::on_btn_caliHandEye_clicked() {}
+void calibrationform::on_btn_caliHandEye_clicked() {
+  if (_extendedWidget != NULL) {
+    delete _extendedWidget;
+  }
+  caliHandEyewWidget *widget__ = NULL;
+  if (ui->comboBox_cameraType->currentText() == "up") {
+    widget__ = new caliHandEyewWidget("up", this);
+    widget__->setDevice(_device->robot0, _device->motionController);
+  } else if (ui->comboBox_cameraType->currentText() == "down") {
+    widget__ = new caliHandEyewWidget("down", this);
+    widget__->setDevice(_device->robot1, _device->motionController);
+  }
+  _extendedWidget = static_cast<QWidget *>(widget__);
+  connect(_extendedWidget, SIGNAL(updateTreeView(const QByteArray &)), this,
+          SLOT(onUpdateTreeView(const QByteArray &)));
+
+  ui->centralwidget->layout()->addWidget(_extendedWidget);
+}
 
 void calibrationform::on_btn_caliSensor_clicked() {}
 
