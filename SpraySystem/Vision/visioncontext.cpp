@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <fstream>
 #include "Data/StaticData.h"
+#include <thread>
 //#include "halconcpp/HalconCpp.h"
 //#include "halconcpp/HDevThread.h"
 
@@ -62,10 +63,14 @@ void VisionContext::work_head(ImageData data,std::vector<float> senorNums, vws::
 
     // std::cout<<"work_head: "<<std::to_string(senorNums.at(0))<<", "<<std::to_string(senorNums.at(1))<<std::endl;
     std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
-    auto righttop = toporbottom+"_top("+std::to_string(VisionData.righttop.at(0))+","+std::to_string(VisionData.righttop.at(1))+std::to_string(VisionData.righttop.at(2))+")";
-    auto rightbottom = ",bottom("+std::to_string(VisionData.rightbottom.at(0))+","+std::to_string(VisionData.rightbottom.at(1))+std::to_string(VisionData.rightbottom.at(2))+")";
-    std::string filename = "/home/vws/Demo/cloud/head_"+righttop+","+rightbottom;
-    saveToFile1(filename,data);
+    // auto righttop = toporbottom+"_top("+std::to_string(VisionData.righttop.at(0))+","+std::to_string(VisionData.righttop.at(1))+std::to_string(VisionData.righttop.at(2))+")";
+    // auto rightbottom = ",bottom("+std::to_string(VisionData.rightbottom.at(0))+","+std::to_string(VisionData.rightbottom.at(1))+std::to_string(VisionData.rightbottom.at(2))+")";
+    std::string filename = "/home/vws/Demo/cloud/"+toporbottom+"_head";
+    // std::thread newthread([](std::string filename,ImageData data){
+    //     std::cout<<"保存图像"<<std::endl;
+    //     saveToFile1(filename,data);
+    // },filename,data);
+    // newthread.join();
 }
 void VisionContext::work_headWithLength(vws::VisionData & VisionData)
 {
@@ -106,11 +111,16 @@ void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws:
      getPoseANdHeight_Trail(data,VisionData);
      
     std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
-    auto lefttop = toporbottom+"_top("+std::to_string(VisionData.lefttop.at(0))+","+std::to_string(VisionData.lefttop.at(1))+std::to_string(VisionData.lefttop.at(2))+")";
-    auto leftbottom = ",bottom("+std::to_string(VisionData.leftbottom.at(0))+","+std::to_string(VisionData.leftbottom.at(1))+std::to_string(VisionData.leftbottom.at(2))+")";
-    std::string filename = "/home/vws/Demo/cloud/head_"+lefttop+","+leftbottom;
-    saveToFile1(filename,data);
- 
+    // auto lefttop = toporbottom+"_top("+std::to_string(VisionData.lefttop.at(0))+","+std::to_string(VisionData.lefttop.at(1))+std::to_string(VisionData.lefttop.at(2))+")";
+    // auto leftbottom = ",bottom("+std::to_string(VisionData.leftbottom.at(0))+","+std::to_string(VisionData.leftbottom.at(1))+std::to_string(VisionData.leftbottom.at(2))+")";
+    auto strencoder = "encoder("+std::to_string(senorNums.at(0))+","+std::to_string(senorNums.at(1))+")";
+
+    std::string filename = "/home/vws/Demo/cloud/"+toporbottom+"_trail_"+strencoder;
+    // std::thread newthread([](std::string filename,ImageData data){
+    //     std::cout<<"保存图像"<<std::endl;
+    //     saveToFile1(filename,data);
+    // },filename,data);
+    // newthread.join();
     //TODO: Length
     if(VisionData.top_or_bottom == 1)
     {

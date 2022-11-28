@@ -3,6 +3,7 @@
 #include <Eigen/Geometry>
 #include "VWSRobot/VWSRobot.h"
 #include "Data/StaticData.h"
+#include "Util/Log/clog.h"
 
 std::mutex MainProcess::_mutex;
 int saveToFile(std::string fileName,const VWSCamera::ImageData &data){
@@ -110,6 +111,7 @@ void MainProcess::recevieData_Slot(QVariant data)
 MainProcess::MainProcess()
 {
     // vws::DataInit::Init();
+    CLog::getInstance()->log("启动程序");
 
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
@@ -119,6 +121,8 @@ MainProcess::MainProcess()
     //运动控制器
     auto mc = deviceManager->getMC();
     connect(mc, SIGNAL(getTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
+    connect(mc,SIGNAL(sendToRBT_Signal()),this,SLOT(sendToRBT_Slot()));
+
     mc->startReceive();
 
     //相机
@@ -249,7 +253,7 @@ void MainProcess::getTrajParam_Slot()
 
     if (mcQueue.count() > 0)
     {
-        std::cout<<"运动控制器队列: "<<std::endl;
+        CLog::getInstance()->log("运动控制器队列");
         for(int i=0;i<mcQueue.length();i++){
             auto tmp = mcQueue.at(i);
             std::cout<<std::to_string(tmp[0])<<", "<<std::endl;
@@ -260,19 +264,40 @@ void MainProcess::getTrajParam_Slot()
         auto offset = param[1];
         // offset = -1;
 
-        if(sendtorbt())
-        {
+        QString strlog = "运动控制发送信息"+QString::number(zeropoint);
+        CLog::getInstance()->log(strlog);
+        mc->sendTrajParam(zeropoint, offset);
 
-            std::cout << "运动控制发送信息: " << zeropoint << std::endl;
-            mc->sendTrajParam(zeropoint, offset);
-
-            mcRequest = false;
-        }
+        mcRequest = false;
     }
     else
     {
-        std::cout << "运动控制器请求数据，前队列为空" << std::endl;
+        CLog::getInstance()->log("运动控制器请求数据，前队列为空");
         mcRequest = true;
+    }
+}
+
+void MainProcess::sendToRBT_Slot()
+{
+    auto rbt = DeviceManager::getInstance()->getRobot(0);
+    rbt->start();
+    std::vector<VWSRobot::RobotTask> rbtparam;
+    if (trajQueue.count() > 0)
+    {
+        CLog::getInstance()->log("机器人发送信息");
+        rbtparam = trajQueue.dequeue();
+    }
+    else
+    {
+        CLog::getInstance()->log("机器人队列为空");
+    }
+
+    auto ret =rbt->sendData(rbtparam);
+    if(ret>0){
+        CLog::getInstance()->log("机器人发送任务成功, 点数： "+ QString::number(rbtparam.size()));
+    }
+    else{
+        CLog::getInstance()->log("机器人发送任务失败");
     }
 }
 
@@ -363,10 +388,11 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
     double zero_offset = 0;
     #endif
 
-   std::cout << "尾部开始视觉处理" << std::endl;
+   CLog::getInstance()->log("尾部开始视觉处理");
 
+    std::vector<float> senorNums = {sm->Context.encoder_img_head,sm->Context.encoder_img_trail};
     visionContext->work_trail(sm->Context.img_trail
-    , sm->Context.laserCouple1
+    , senorNums
     ,  sm->Context.visionData);
 
     if(!sm->Context.visionData.head_done){
@@ -411,23 +437,33 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
     planTaskInfo.face =  1;
     planTaskInfo.boxInfo = Eigen::Isometry3d::Identity();
 
-    std::cout << sm->Name.toStdString()<<"， 尾部， Plan Task, 编码器数值："<<std::to_string(planTaskInfo.encoder)<<std::endl;
-    std::cout  << sm->Name.toStdString()<< "， 尾部四元数: " << sm->Context.visionData.robotpose[3] << ", " << sm->Context.visionData.robotpose[4] << ", " << sm->Context.visionData.robotpose[5] << "," << sm->Context.visionData.robotpose[6] << std::endl;
+    QString strlog = sm->Name+"， 尾部， Plan Task, 编码器数值："+QString::number(planTaskInfo.encoder);
+    CLog::getInstance()->log(strlog);
+
+    strlog = sm->Name+ "， 尾部四元数: " +QString::number(sm->Context.visionData.robotpose[3])
+                + ", " +QString::number(sm->Context.visionData.robotpose[4])
+                + ", " + QString::number(sm->Context.visionData.robotpose[5])
+                + "," + QString::number(sm->Context.visionData.robotpose[6]);
+    CLog::getInstance()->log(strlog);            
+
     planTaskInfo.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose[3], sm->Context.visionData.robotpose[4], sm->Context.visionData.robotpose[5], sm->Context.visionData.robotpose[6]));
-    std::cout << sm->Name.toStdString() << "， 尾部坐标： " << sm->Context.visionData.robotpose[0] << ", " << sm->Context.visionData.robotpose[1] << ", " << sm->Context.visionData.robotpose[2] << std::endl;
+    
+    strlog = sm->Name+ "， 尾部坐标： " +QString::number(sm->Context.visionData.robotpose[0])
+                + ", " + QString::number(sm->Context.visionData.robotpose[1]) 
+                + ", " + QString::number(sm->Context.visionData.robotpose[2]);
     planTaskInfo.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose[0], sm->Context.visionData.robotpose[1], sm->Context.visionData.robotpose[2]+zero_offset));
 
     //根据状态机判断底层/顶层
     if (sm->Name == "Bottom")
     {
-        std::cout << "底层箱子尾部参数进入队列" << std::endl;
+        CLog::getInstance()->log("底层箱子尾部参数进入队列");
         planTaskInfo.isup = false;
         qPlanTaskInfoBottom.push_back(planTaskInfo);
         emit finishVision_Signal_b(0);
     }
     else
     {
-        std::cout << "顶层箱子尾部被参数进入队列" << std::endl;
+        CLog::getInstance()->log("顶层箱子尾部被参数进入队列");
         planTaskInfo.isup = true;
         qPlanTaskInfoTop.push_back(planTaskInfo);
         emit finishVision_Signal_u(0);
@@ -442,7 +478,7 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
         emit finishVision_Signal_u(false);
     }
 
-    std::cout << "视觉处理结束，触发轨迹规划信号" << std::endl;
+    CLog::getInstance()->log("视觉处理结束，触发轨迹规划信号");
     emit begintraj_Singal(this);
 }
 
@@ -505,42 +541,14 @@ void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
 
 void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks)
 {
-    std::cout << "规划结果写入队列" << std::endl;
+    CLog::getInstance()->log("规划结果入队列");
     mcQueue.push_back(mc_data);
     trajQueue.push_back(robotTasks);
 
     if (mcRequest)
     {
-        // getTrajParam_Slot();
-        std::cout << "运动控制器请求过数据，但未发送" << std::endl;
+        // std::cout << "运动控制器请求过数据，但未发送" << std::endl;
+        CLog::getInstance()->log("运动控制器请求过数据，但未发送");
         emit sendTrajParam_Signal();
-    }
-}
-
-bool MainProcess::sendtorbt()
-{
-    auto rbt = DeviceManager::getInstance()->getRobot(0);
-    rbt->start();
-    std::vector<VWSRobot::RobotTask> rbtparam;
-    if (trajQueue.count() > 0)
-    {
-        std::cout << "机器人发送信息: " << std::endl;
-        rbtparam = trajQueue.dequeue();
-    }
-    else
-    {
-        std::cout<<"机器人队列为空"<<std::endl;
-        // rbtparam = staticTask;
-        return false;
-    }
-
-    auto ret =rbt->sendData(rbtparam);
-    if(ret>0){
-        std::cout << "机器人发送任务成功" << std::endl;
-        return true;
-    }
-    else{
-        std::cout << "机器人发送任务失败" << std::endl;
-        return false;
     }
 }

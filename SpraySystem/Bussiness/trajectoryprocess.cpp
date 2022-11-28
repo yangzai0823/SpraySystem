@@ -1,6 +1,7 @@
 #include "trajectoryprocess.h"
 #include "mainprocess.h"
 #include "Data/StaticData.h"
+#include "Util/Log/clog.h"
 
 Eigen::VectorXd reverseVector(Eigen::VectorXd & v, int ndof){
   int N = v.size() / ndof;
@@ -393,10 +394,57 @@ void AbbRbt(Eigen::VectorXd planRet, RobotTask &tk)
            std::cout << jv[n] << ", ";
        }
        std::cout << std::endl;
-       tk.track.push_back(jv);
+       //tk.track.push_back(jv);  //TODO: 数据结构修改
    }
 }
 
+void AbbRbt(Eigen::VectorXd planRet, RobotTask &tk, int index)
+{
+  int cnt = 0;
+   for(int i = 0; i < planRet.size() / 6; i++){
+       std::cout << i << ": ";
+       std::array<float,7> jv;
+       for(int n = 0; n < 6; n++){
+           jv[n] = planRet[cnt++] / M_PI * 180.0;
+           // IRB 1410机器人3轴和2轴耦合，因此需要添加下面的补偿
+#ifdef ABB1410_JOINT_CONVERT
+           if(n == 2){
+               jv[n] += jv[n-1];
+           }
+#endif
+           std::cout << jv[n] << ", ";
+       }
+       std::cout << std::endl;
+      //  tk.track[index].push_back(jv);
+   }
+}
+
+void Rbt(Eigen::VectorXd planRet,float speed,VWSRobot::TaskType taskType,std::vector<RobotTask> & rbt_tasks)
+{
+   int cnt = 0;
+   for(int i = 0; i < planRet.size() / 6; i++){
+       std::cout << i << ": ";
+       std::array<float,7> jv;
+       for(int n = 0; n < 6; n++){
+           jv[n] = planRet[cnt++] / M_PI * 180.0;
+           // IRB 1410机器人3轴和2轴耦合，因此需要添加下面的补偿
+#ifdef ABB1410_JOINT_CONVERT
+           if(n == 2){
+               jv[n] += jv[n-1];
+           }
+#endif
+           std::cout << jv[n] << ", ";
+       }
+       std::cout << std::endl;
+      //  tk.track[index].push_back(jv);
+      RobotTask rbttask;
+      rbttask.point = jv;
+      rbttask.speed[0] = speed;
+      rbttask.speed[1] = speed;
+      rbttask.taskType = taskType;
+      rbt_tasks.push_back(rbttask);
+   }
+}
 void fakeData(MainProcess *vdata, int64_t encoder) {
   static int64_t init_encoder = encoder;
   static bool genUp = true;
@@ -838,7 +886,7 @@ bool planPaintPath(TrajectoryGenerator * generator, Eigen::VectorXd & init_dof,
     paint_start = traj.block(0, 0, ndof, 1);
     std::cout << "Gen Entry Path " << std::endl;
     ret &= generator->GenerateEntryTrajectory(
-      init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3, true);
+      init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3, false);  //显示
     if(ret){
     //   logfile_ << "Entry Path dist " << " - " << generator->pathDist(entry_traj, ndof)
     //           << std::endl;
@@ -1069,7 +1117,7 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
             getSeamPaintOrientation(isfront, invert), 20, boxSize[2] - 200,
             isfront, invert, p_weld, ori_weld);
         if(!planPaintPath(generator, init_dof, p_weld, ori_weld, out_unsafe_traj,
-                      init_dof, ndof, isforward, true)){
+                      init_dof, ndof, isforward, false)){ //显示
           return false;
         }
       } else {
@@ -1235,21 +1283,21 @@ std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &tra
     if(traj.type_ == SeamPaintTraj || traj.type_ == PlanePaintTraj){
       if(paint_io == false){
         RobotTask rbttask;
-        rbttask.track.clear();
+        //rbttask.track[0].clear();
         // todo:: 开喷涂任务
         paint_io = true;
       }
     }else{
       if(paint_io == true){
         RobotTask rbttask;
-        rbttask.track.clear();
+        //rbttask.track[0].clear();
         // todo:: 关喷涂任务
         paint_io = false;
       }
     }
 
     RobotTask rbttask;
-    rbttask.task = VWSRobot::TaskType::MOVEABSJ;
+    //rbttask.task = VWSRobot::TaskType::MOVEABSJ;
     rbttask.speed[0] = vws::rbtspeed;
     rbttask.speed[1] = vws::rbtspeed;
     AbbRbt(traj.traj_, rbttask);
@@ -1257,7 +1305,6 @@ std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &tra
   }
   return rbttasks;
 }
-
 
 
 std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &traj_info, PlanStragety & stragety){
@@ -1273,7 +1320,7 @@ std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &tra
     if(traj.type_ == SeamPaintTraj || traj.type_ == PlanePaintTraj){
       if(paint_io == false){
         RobotTask rbttask;
-        rbttask.track.clear();
+        // rbttask.track[0].clear();
         // todo:: 开喷涂任务
         paint_io = true;
       }
@@ -1281,7 +1328,7 @@ std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &tra
     } else {
       if(paint_io == true){
         RobotTask rbttask;
-        rbttask.track.clear();
+        // rbttask.track[0].clear();
         // todo:: 关喷涂任务
         paint_io = false;
       }
@@ -1289,13 +1336,42 @@ std::vector<RobotTask> convertToRobotTask(const std::vector<TrajectoryInfo> &tra
     }
 
     RobotTask rbttask;
-    rbttask.task = VWSRobot::TaskType::MOVEABSJ;
+    // rbttask.task = VWSRobot::TaskType::MOVEABSJ;
     rbttask.speed[0] = speed;
     rbttask.speed[1] = speed;
     AbbRbt(traj.traj_, rbttask);
     rbttasks.push_back(rbttask);
   }
   return rbttasks;
+}
+
+
+void convertToRobotTask(const std::vector<TrajectoryInfo> &traj_info, PlanStragety & stragety,VWSRobot::TaskType taskType,  std::vector<RobotTask> & rbttasks){
+  // std::vector<RobotTask> rbttasks;
+  bool paint_io = false;
+  double seam_speed, plane_speed, move_speed, speed;
+  stragety.speedOf("plane_paint", plane_speed);
+  stragety.speedOf("seam_paint", seam_speed);
+  stragety.speedOf("move", move_speed);
+  
+  for (int n = 0; n < traj_info.size(); n++) {
+      auto traj = traj_info[n];
+      if(traj.type_ == SeamPaintTraj || traj.type_ == PlanePaintTraj){
+        if(paint_io == false){
+          // todo:: 开喷涂任务
+          paint_io = true;
+        }
+        speed = traj.type_ == SeamPaintTraj ? seam_speed : plane_speed;
+      } else {
+        if(paint_io == true){
+          // todo:: 关喷涂任务
+          paint_io = false;
+        }
+        speed = move_speed;
+      }
+      
+      Rbt(traj.traj_,speed,taskType, rbttasks);
+  }
 }
 
 
@@ -1342,6 +1418,8 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   // PrepareTaskInfoOneLayer(upper_task_q, bottom_task_q, current_encoder, 0,
   //                          bottom_2_upper, isIncrease, units, plan_delay);
   
+    //规划两层
+  //  SortedTaskQ taskQ = PrepareTaskInfoTwoLayers(upper_task_q,bottom_task_q,current_encoder,bottom_2_upper,isIncrease,units,plan_delay);
 
     //todo:: 清理队列。把超过一定距离的task清除掉
     clearQueue(*upper_task_q, current_encoder, expire_range);
@@ -1390,7 +1468,8 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
     }
 
     if(ret){
-      std::cout << "规划成功" << std::endl;
+      // std::cout << "规划成功" << std::endl;
+        CLog::getInstance()->log("规划成功");
 #ifdef PLAN_FAKE_DATA
       auto all_traj = safe_traj;
       for (int i = 0; i < unsafe_traj.size(); i++){
@@ -1398,11 +1477,16 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
       }
         auto rbttasks = convertToRobotTask(all_traj, stragety2_);
 #else
-      auto all_traj = safe_traj;
-      for (int i = 0; i < unsafe_traj.size(); i++){
-        all_traj.push_back(unsafe_traj[i]);
-      }
-        auto rbttasks = convertToRobotTask(all_traj, stragety);
+      std::vector<RobotTask> rbttasks;
+      convertToRobotTask(safe_traj,stragety1_,VWSRobot::TaskType::track_1, rbttasks);
+
+      convertToRobotTask(unsafe_traj,stragety1_,VWSRobot::TaskType::track_2, rbttasks);
+
+      // auto all_traj = safe_traj;
+      // for (int i = 0; i < unsafe_traj.size(); i++){
+      //   all_traj.push_back(unsafe_traj[i]);
+      // }
+      //   auto rbttasks = convertToRobotTask(all_traj, stragety);
       // auto rbttasks = convertToRobotTask(traj_info);  
 #endif
       vdata->SetRobotTaskInfo(mc_data, rbttasks);

@@ -41,7 +41,6 @@ public:
     ~MainProcess();
     void Execute();
 
-    // void sendtorbt();
     /**
      * @brief Get the Plan Task Info object
      *
@@ -59,7 +58,6 @@ public:
 
     void SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks);
 
-    bool sendtorbt();
     void Test(PLCData data);
     void TestImg();
 
@@ -102,6 +100,8 @@ private slots:
      * @brief 运动控制器获取参数槽
      */
     void getTrajParam_Slot();
+    /** @brief 向机器人发送轨迹*/
+    void sendToRBT_Slot();
 
     /**
      * @brief 开始视觉处理，

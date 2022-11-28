@@ -7,7 +7,7 @@
 #include <regex>
 
 #include "ftp.h"
-#define SPEEDRATIO (100.0 / 120.0)
+#define SPEEDRATIO (10000.0 / 120.0)
 #define JOINTDATIO0 1942.957577694336
 #define JOINTDATIO1 -1942.872296094253
 #define JOINTDATIO2 2410.385886166698
@@ -27,6 +27,8 @@ const std::string VWSRobot::OrderName::GETPOS = "HOSTCTRL_REQUEST RPOSC ";
 const std::string VWSRobot::OrderName::GETJOINT = "HOSTCTRL_REQUEST RPOSJ 0\r\n";
 const std::string VWSRobot::OrderName::WRITEVAR = "HOSTCTRL_REQUEST LOADV ";
 const std::string VWSRobot::OrderName::IOWRITE = "HOSTCTRL_REQUEST IOREAD ";
+const std::string VWSRobot::OrderName::READSTATUS = "HOSTCTRL_REQUEST RSTATS 0\r\n";
+const std::string VWSRobot::OrderName::HOLD = "HOSTCTRL_REQUEST HOLD ";
 
 const std::string VWSRobot::RespondVar::CONNECT = "OK: DX Information Server( 1.07).\r\n";
 const std::string VWSRobot::RespondVar::CONNECTALIVE = "OK: DX Information Server( 1.07) Keep-Alive:-1.\r\n";
@@ -39,8 +41,11 @@ const std::string VWSRobot::RespondVar::GETPOS = "OK: RPOSC\r\n";
 const std::string VWSRobot::RespondVar::GETJOINT = "OK: RPOSJ\r\n";
 const std::string VWSRobot::RespondVar::WRITEVAR = "OK: LOADV\r\n";
 const std::string VWSRobot::RespondVar::IOWRITE = "OK: IOREAD\r\n";
+const std::string VWSRobot::RespondVar::READSTATUS = "OK: RSTATS\r\n";
+const std::string VWSRobot::RespondVar::HOLD = "OK: HOLD\r\n";
 
-const std::string VWSRobot::PROGRAMNAME = "MAIN";
+const std::string VWSRobot::PROGRAMNAME = "MAINT";
+const std::string VWSRobot::INITPROGRAM = "INIT";
 VWSRobot::VWSRobot(/* args */) {
     map[OrderName::CONNECT] = RespondVar::CONNECT;
     map[OrderName::CONNECTALIVE] = RespondVar::CONNECTALIVE;
@@ -53,6 +58,8 @@ VWSRobot::VWSRobot(/* args */) {
     map[OrderName::GETJOINT] = RespondVar::GETJOINT;
     map[OrderName::WRITEVAR] = RespondVar::WRITEVAR;
     map[OrderName::IOWRITE] = RespondVar::IOWRITE;
+    map[OrderName::READSTATUS] = RespondVar::READSTATUS;
+    map[OrderName::HOLD] = RespondVar::HOLD;
 }
 
 VWSRobot::~VWSRobot() {
@@ -75,7 +82,7 @@ bool VWSRobot::orderOK(TcpClient& tcp, const std::string& str) {
     // return true;
     char* reStr;
     int len;
-    if (tcp.receiveData(reStr, len) == -1)
+    if (tcp.receiveData(reStr, len) != 1)
         return false;
     if (str.size() != len) {
         return false;
@@ -112,62 +119,62 @@ int VWSRobot::orderExe(TcpClient& tcp, const std::string& req, const std::string
 
 int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& taskData) {
     fileData = "/JOB\r\n";
-    fileData += "//NAME RUNCOM\r\n";
+    fileData += "//NAME "+ VWSRobot::PROGRAMNAME+"\r\n";
     fileData += "//POS\r\n";
     fileData += "///NPOS 0,0,0,0,0,0\r\n";
     fileData += "///TOOL 0\r\n";
     fileData += "///POSTYPE PULSE\r\n";
     fileData += "///PULSE\r\n";
-    int num = -1;
+    int numt[4] = {0};
+    int num = 0;
     std::string speedStr;
     std::string IOStr;
-    for (auto&& track : (taskData)) {
-        if (track.task == VWSRobot::TaskType::MOVEABSJ) {
-            float speed = (track.task == VWSRobot::TaskType::MOVEABSJ) ? track.speed[0] : track.speed[1];
-            speed = speed * SPEEDRATIO;
-            for (auto&& pos : track.track) {
-                num++;
-                std::string posStr = "P";
-                std::string speedtmpStr = "SET D";
-                if (num < 10) {
-                    posStr += "0000" + std::to_string(num) + "=";
-                    speedtmpStr += "0000" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
-                } else if (num >= 10 && num < 100) {
-                    posStr += "000" + std::to_string(num) + "=";
-                    speedtmpStr += "000" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
-                } else if (num >= 100 && num < 1000) {
-                    posStr += "00" + std::to_string(num) + "=";
-                    speedtmpStr += "00" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
-                } else if (num >= 1000 && num < 1024) {
-                    posStr += "0" + std::to_string(num) + "=";
-                    speedtmpStr += "0" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
-                } else {
-                    return -1;
-                }
-                int tmpf = 0;
-                int posNum = 0;
-                for (auto&& var : pos) {
-                    posNum++;
-                    posStr += std::to_string(int(var * JOINTDATIO[tmpf]));
-                    if (posNum == 6)
-                        break;
-                    posStr +=  + ",";
-                    tmpf++;
-                }
-                posStr += "\r\n";
-                fileData += posStr;
-                speedStr += speedtmpStr;
+    std::string posStr;
+    for (auto&& task : (taskData)) {
+        if (task.taskType >= TaskType::track_1 && task.taskType <= TaskType::track_4) {
+            float speed = task.speed[0] * SPEEDRATIO;
+            std::string posStr = "P";
+            std::string speedtmpStr = "SET D";
+            if (num < 10) {
+                posStr += "0000" + std::to_string(num) + "=";
+                speedtmpStr += "0000" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
+            } else if (num >= 10 && num < 100) {
+                posStr += "000" + std::to_string(num) + "=";
+                speedtmpStr += "000" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
+            } else if (num >= 100 && num < 1000) {
+                posStr += "00" + std::to_string(num) + "=";
+                speedtmpStr += "00" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
+            } else if (num >= 1000 && num < 1024) {
+                posStr += "0" + std::to_string(num) + "=";
+                speedtmpStr += "0" + std::to_string(num) + " " + std::to_string((int)speed) + "\r\n";
+            } else {
+                return -1;
             }
-        } else if (track.IO == VWSRobot::TaskType::IO) {
+            int tmpf = 0;
+            int posNum = 0;
+            for (auto&& var : task.point) {
+                posNum++;
+                posStr += std::to_string(int(var * JOINTDATIO[tmpf]));
+                if (posNum == 6)
+                    break;
+                posStr += +",";
+                tmpf++;
+            }
+            posStr += "\r\n";
+            fileData += posStr;
+            speedStr += speedtmpStr;
+            numt[task.taskType]++;
+            num++;
+        } else if (task.IO == VWSRobot::TaskType::IO) {
             std::string ioTmpStr = "SET B";
             if (num < 10) {
-                ioTmpStr += "0000 " + std::to_string(num) + " " + std::to_string(2 - track.Singal) + "\r\n";
+                ioTmpStr += "0000 " + std::to_string(num) + " " + std::to_string(2 - task.Singal) + "\r\n";
             } else if (num >= 10 && num < 100) {
-                ioTmpStr += "000 " + std::to_string(num) + " " + std::to_string(2 - track.Singal) + "\r\n";
+                ioTmpStr += "000 " + std::to_string(num) + " " + std::to_string(2 - task.Singal) + "\r\n";
             } else if (num >= 100 && num < 1000) {
-                ioTmpStr += "00 " + std::to_string(num) + " " + std::to_string(2 - track.Singal) + "\r\n";
+                ioTmpStr += "00 " + std::to_string(num) + " " + std::to_string(2 - task.Singal) + "\r\n";
             } else if (num >= 1000 && num < 1024) {
-                ioTmpStr += "0 " + std::to_string(num) + " " + std::to_string(2 - track.Singal) + "\r\n";
+                ioTmpStr += "0 " + std::to_string(num) + " " + std::to_string(2 - task.Singal) + "\r\n";
             } else {
                 return -1;
             }
@@ -177,40 +184,89 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
         }
     }
 
-    fileData += "//INST\r\n";
-    fileData += "///DATE 2022/11/16 14:53\r\n";
-    fileData += "///ATTR SC,RW\r\n";
-    fileData += "///GROUP1 RB1\r\n";
-    fileData += "NOP\r\n";
-    fileData += "DOUT OT#(0473) ON\r\n";
-    fileData += "'P NUMBER\r\n";
-    fileData += "SET I1021 0\r\n";
-    // fileData += "SET I1020 100\r\n";
-    fileData += "SET I1020 " + std::to_string(num) + "\r\n";
-    fileData += "'IO CONTROL\r\n";
-    // fileData += "SET B045 1\r\n";
-    // fileData += "SET B055 2\r\n";
-    fileData += IOStr;
-    fileData += "'SET SPEED\r\n";
-    // fileData += "SET D000 42\r\n";
-    // fileData += "SET D001 43\r\n";
-    // fileData += "SET D002 44\r\n";
-    // fileData += "SET D003 45\r\n";
-    fileData += speedStr;
-    fileData += "WHILEEXP I1021<I1020\r\n";
-    fileData += "MOVJ P[I1021] VJ=D[I1021]\r\n";
-    fileData += "IFTHENEXP B[I1021]=1\r\n";
-    fileData += "\tDOUT OT#(0474) ON\r\n";
-    fileData += "\tSET B[I1021] 0\r\n";
-    fileData += "ENDIF\r\n";
-    fileData += "IFTHENEXP B[I1021]=2\r\n";
-    fileData += "\tDOUT OT#(0474) OFF\r\n";
-    fileData += "\tSET B[I1021] 0\r\n";
-    fileData += "ENDIF\r\n";
-    fileData += "ADD I1021 1\r\n";
-    fileData += "ENDWHILE\r\n";
-    fileData += "DOUT OT#(0473) OFF\r\n";
-    fileData += "END\r\n";
+    fileData = fileData + "//INST\r\n"
+             +  "///DATE 2022/11/24 09:47\r\n"
+             +  "///ATTR SC,RW\r\n"
+             +  "///GROUP1 RB1\r\n"
+             +  "NOP\r\n"
+             +  "DOUT OT#(0473) ON\r\n"
+             +  "'number of pointers\r\n"
+             +  "SET I000 0\r\n"
+             +  "SET I001 " + std::to_string(numt[0]) + "\r\n"
+             +  "SET I002 " + std::to_string(numt[1]) + "\r\n"
+             +  "SET I003 " + std::to_string(numt[2]) + "\r\n"
+             +  "SET I004 " + std::to_string(numt[3]) + "\r\n"
+             +  "'path SELECT WHILE  CONTROL\r\n"
+             +  "'I0006 SET1 MEAN way 2to3\r\n"
+             +  "'I0007 set1 mean way 4\r\n"
+             +  "SET I0005 1\r\n"
+             +  "'IO CONTROL,1 mean on,2 mean off\r\n"
+            //  +  "SET B045 1\r\n" //开关枪IO
+            //  +  "SET B055 2\r\n"
+             +  IOStr
+             +  "'SET SPEED\r\n"
+            //  +  "SET D000 42\r\n"
+            //  +  "SET D001 43\r\n"
+            //  +  "SET D002 44\r\n"
+            //  +  "SET D003 45\r\n"
+             + speedStr
+             +  "'.....\r\n"
+             +  "\t\t'-----------WAY1----------\r\n"
+             +  "\t\tWHILEEXP I000<I001\r\n"
+             +  "\t\t\tMOVJ P[I000] VJ=D[I000]\r\n"
+             +  "\t\t\tADD I000 1\r\n"
+             +  "\t\tENDWHILE\r\n"
+             +  "\t\t'--------WAY1 END------\r\n"
+             +  "WHILEEXP I005=1\r\n"
+             +  "\tIFTHENEXP IN#(4096)=ON\r\n"
+             +  "\t\tSET I005 0\r\n"
+             +  "\t\tSET I006 0\r\n"
+             +  "SET I000 0\r\n"
+             +  "\t\tADD I000 I001\r\n"
+             +  "\t\t'-----------WAY2----------\r\n"
+             +  "\t\tWHILEEXP I000<I002\r\n"
+             +  "\t\t\tMOVJ P[I000] VJ=D[I000]\r\n"
+             +  "\t\t\tIFTHENEXP B[I000]=1\r\n"
+             +  "\t\t\t\tDOUT OT#(2) ON\r\n"
+             +  "\t\t\t\tSET B[I000] 0\r\n"
+             +  "\t\t\tENDIF\r\n"
+             +  "\t\t\tIFTHENEXP B[I000]=2\r\n"
+             +  "\t\t\t\tDOUT OT#(2) OFF\r\n"
+             +  "\t\t\t\tSET B[I000] 0\r\n"
+             +  "\t\t\tENDIF\r\n"
+             +  "\t\t\tADD I000 1\r\n"
+             +  "\t\tENDWHILE\r\n"
+             +  "\t\t'--------WAY2 END------\r\n"
+             +  "\t\tPULSE OT#(0474)\r\n"
+             +  "\t\t'----------------------\r\n"
+             +  "\t\t'********WAY3*********\r\n"
+             +  "SET I000 0\r\n"
+             +  "\tADD I000 I001\r\n"
+             +  "\tADD I000 I002\r\n"
+             +  "\t\tWHILEEXP I000<I003\r\n"
+             +  "\t\t\tMOVJ P[I000] VJ=D[I000]\r\n"
+             +  "\t\t\tADD I000 1\r\n"
+             +  "\t\tENDWHILE\r\n"
+             +  "\tENDIF\r\n"
+             +  "\t'********WAY3 END*********\r\n"
+             +  "\t'SELECT WAY4\r\n"
+             +  "\tIFTHENEXP I007=1\r\n"
+             +  "\t\tSET I005 0\r\n"
+             +  "\t\tSET I007 0\r\n"
+             +  "\t\tSET I000 0\r\n"
+             +  "\t\tPULSE OT#(0474)\r\n"
+             +  "\tADD I000 I001\r\n"
+             +  "\t\tADD I000 I002\r\n"
+             +  "\t\tADD I000 I003\r\n"
+             +  "\t\tWHILEEXP I000<I004\r\n"
+             +  "\t\t\tMOVJ P[I000] VJ=D[I000]\r\n"
+             +  "\t\t\tADD I000 1\r\n"
+             +  "\t\tENDWHILE\r\n"
+             +  "\tENDIF\r\n"
+             +  "\t'********WAY4 END*********\r\n"
+             +  "ENDWHILE\r\n"
+             +  "DOUT OT#(0473) OFF\r\n"
+             +  "END\r\n";
     return 1;
 }
 
@@ -232,28 +288,69 @@ int VWSRobot::state() {
 }
 int VWSRobot::start() {
     TcpClient tcp;
-    if (tcp.toConnect(ip, port) == -1)
+    if (tcp.toConnect(ip, port) != 1)
         return -1;
-    if (orderExe(tcp, OrderName::CONNECTALIVE) == -1)
+    if (orderExe(tcp, OrderName::CONNECTALIVE) != 1)
         return -1;
-
-    std::string order1 = PROGRAMNAME + ", 0\r";
-    if (orderExe(tcp, OrderName::PROGRAMCALL, order1) == -1)
-        return -1;
-    std::string order2 = "1\r";
-    if (orderExe(tcp, OrderName::SERVOON, order2) == -1)
-        return -1;
-    if (orderExe(tcp, OrderName::ClEARALARM) == -1)
+    if (orderExe(tcp, OrderName::ClEARALARM) != 1)
         return -1;
 
     if (!orderOK(tcp, std::string("0000\r\n")))
         return -1;
-    std::string order = PROGRAMNAME + "\r";
-    if (orderExe(tcp, OrderName::STARTJOB, order) == -1)
+
+    VWSRobot::RobotStatus status;
+    if (getRobotStatus(status) != 1) {
+        return -1;
+    }
+
+    uint8_t servonSta = status.data_2 & 0x40;
+    if (servonSta != 0x40) {
+        std::string order2 = "1\r";
+        if (orderExe(tcp, OrderName::SERVOON, order2) != 1) {
+            if (getRobotStatus(status) != 1) {
+                return -1;
+            }
+            if (status.data_2 & 0x20 != 0x20) {
+                return -1;
+            }
+        }
+    }
+
+    if ((int)(status.data_1 & 0x08) == 0x08) {
+        if (orderExe(tcp, OrderName::HOLD, std::string("1\r")) != 1)
+            return -1;
+    }
+
+    std::string order1 = INITPROGRAM + ", 0\r";
+    if (orderExe(tcp, OrderName::PROGRAMCALL, order1) != 1)
+        return -1;
+
+    if (orderExe(tcp, OrderName::HOLD, std::string("0\r")) != 1)
+        return -1;
+
+    std::string order = INITPROGRAM + "\r";
+    if (orderExe(tcp, OrderName::STARTJOB, order) != 1)
         return -1;
     return 1;
 }
 int VWSRobot::close() {
+    TcpClient tcp;
+    if (tcp.toConnect(ip, port) != 1)
+        return -1;
+    if (orderExe(tcp, OrderName::CONNECTALIVE) != 1)
+        return -1;
+    VWSRobot::RobotStatus status;
+    if (getRobotStatus(status) != 1) {
+        return -1;
+    }
+    if ((int)(status.data_1 & 0x08) == 0x08) {
+        if (orderExe(tcp, OrderName::HOLD, std::string("1\r")) != 1)
+            return -1;
+    }
+    if ((int)(status.data_2 & 0x40) == 0x40) {
+        if (orderExe(tcp, OrderName::SERVOOFF, std::string("0\r")) != 1)
+            return -1;
+    }
     return 1;
 }
 int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
@@ -261,29 +358,53 @@ int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
     // time (&timep);
     std::string taskStr;
     if (createFile(taskStr, taskData) < 0)
-    {
-        std::cout<<"createFile fail"<<std::endl;
         return -1;
-    }
     //std::cout<<taskStr<<std::endl;
     MyFFTP ftp;
-    if (ftp.loginToServer(ip, "ftp", "") < 0) 
-    {
-        std::cout<<"loginToServer fail"<<std::endl;
+    if (ftp.loginToServer(ip, "ftp", "") < 0) {
         return -1;
     }
-    if (ftp.delFile("RUNCOM.JBI") < 0) 
-    {
-        std::cout<<"delFile fail"<<std::endl;
-        //return -1;
+    if (ftp.delFile(VWSRobot::PROGRAMNAME + ".JBI") < 0) {
+        // return -1;
     }
-    if (ftp.uploadFile("RUNCOM.JBI", taskStr) < 0)
-    {
-        std::cout<<"uploadFile fail"<<std::endl;
+    if (ftp.uploadFile(VWSRobot::PROGRAMNAME + ".JBI", taskStr) < 0)
+        return -1;
+    TcpClient tcp;
+    if (tcp.toConnect(ip, port) != 1)
+        return -1;
+    if (orderExe(tcp, OrderName::CONNECTALIVE) != 1)
+        return -1;
+    VWSRobot::RobotStatus status;
+    if (getRobotStatus(status) != 1) {
         return -1;
     }
-    // if (this->start() < 0)
+    if ((int)(status.data_1 & 0x08) == 0x08) {
+        if (orderExe(tcp, OrderName::HOLD, std::string("1\r")) != 1)
+            return -1;
+    }
+
+    std::string order1 = PROGRAMNAME + ", 0\r";
+    if (orderExe(tcp, OrderName::PROGRAMCALL, order1) != 1)
+        return -1;
+
+    if (orderExe(tcp, OrderName::HOLD, std::string("0\r")) != 1)
+        return -1;
+
+    // std::string order = PROGRAMNAME + "\r";
+    // if (orderExe(tcp, OrderName::STARTJOB, order) != 1)
     //     return -1;
+    while (1) {
+        std::string order = PROGRAMNAME + "\r";
+        if (orderExe(tcp, OrderName::STARTJOB, order) != 1)
+            return -1;
+        if (getRobotStatus(status) != 1) {
+            return -1;
+        }
+        if ((int)(status.data_1 & 0x08) == 0x08) {
+            return 1;
+        }
+        sleep(1);
+    }
     return 1;
     // time (&tim2);
     // std::cout<<"time   "<<tim2 - timep<<std::endl;
@@ -306,23 +427,23 @@ int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
  */
 int VWSRobot::getRobotPosition(RobotPosition& data, int coordNum, int tcpNum) {
     TcpClient tcp;
-    if (tcp.toConnect(ip, port) == -1)
+    if (tcp.toConnect(ip, port) != 1)
         return -1;
-    if (orderExe(tcp, OrderName::CONNECTALIVE) == -1)
+    if (orderExe(tcp, OrderName::CONNECTALIVE) != 1)
         return -1;
     // std::string order = "0,0\r";
     std::string order = std::to_string(coordNum) + "," + std::to_string(tcpNum) + "\r";
-    if (orderExe(tcp, OrderName::GETPOS, order, false) == -1)
+    if (orderExe(tcp, OrderName::GETPOS, order, false) != 1)
         return -1;
     char* posChar;
     char* jointChar;
     int len;
-    if (tcp.receiveData(posChar, len) == -1)
+    if (tcp.receiveData(posChar, len) != 1)
         return -1;
     std::string str(posChar, len);
-    if (orderExe(tcp, OrderName::GETJOINT) == -1)
+    if (orderExe(tcp, OrderName::GETJOINT) != 1)
         return -1;
-    if (tcp.receiveData(jointChar, len) == -1)
+    if (tcp.receiveData(jointChar, len) != 1)
         return -1;
     std::string jointStr(jointChar, len);
     auto joint = getNumFromStr(jointStr);
@@ -350,5 +471,23 @@ int VWSRobot::getRobotPosition(RobotPosition& data, int coordNum, int tcpNum) {
     data.RobJoint[3] = joint[3] / JOINTDATIO3;
     data.RobJoint[4] = joint[4] / JOINTDATIO4;
     data.RobJoint[5] = joint[5] / JOINTDATIO5;
+    return 1;
+}
+int VWSRobot::getRobotStatus(RobotStatus& status) {
+    TcpClient tcp;
+    if (tcp.toConnect(ip, port) != 1)
+        return -1;
+    if (orderExe(tcp, OrderName::CONNECT) != 1)
+        return -1;
+    orderExe(tcp, OrderName::READSTATUS);
+    char* statusStr;
+    int len;
+    if (tcp.receiveData(statusStr, len) != 1)
+        return -1;
+    auto statusNum = getNumFromStr(statusStr);
+    if (statusNum.size() != 2)
+        return -1;
+    status.data_1 = statusNum[0];
+    status.data_2 = statusNum[1];
     return 1;
 }

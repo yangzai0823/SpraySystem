@@ -23,6 +23,10 @@ public:
     /** @brief 按照固定长度计算箱体头部信息*/
     void work_headWithLength(VisionData & VisionData);
 
+    /** @brief 尾部视觉处理
+     * @param ImageData,图像
+     * @param senorNums, 拍照时刻编码器数值
+    */
     void work_trail(ImageData data,std::vector<float> senorNums, VisionData & VisionData); 
     
     void getPoseAndHeight(ImageData data, VisionData &visionData);

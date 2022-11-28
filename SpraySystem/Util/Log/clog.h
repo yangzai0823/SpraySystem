@@ -14,11 +14,12 @@ public:
     enum CLOG_LEVEL{
         RINFO,          /*!<  提示*/
         RWARNING,       /*!<  警告*/
-        REEROR          /*!<  错误*/
+        REEROR,          /*!<  错误*/
+        DEBUG           /*!<  调试*/
     };
     static bool createDir(QString dirPath);
 
-    static void log(QString data, CLog::CLOG_LEVEL nLevel = CLOG_LEVEL::RINFO);
+    static void log(QString data, CLog::CLOG_LEVEL nLevel = CLOG_LEVEL::DEBUG);
 private:
     static std::mutex _mutex;
     static CLog *m_CLog;

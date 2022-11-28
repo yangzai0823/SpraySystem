@@ -48,6 +48,7 @@ bool CLog::createDir(QString dirPath)
 void CLog::log(QString data, CLog::CLOG_LEVEL nLevel)
 {
     _mutex.lock();
+    std::cout<<data.toStdString()<<std::endl;
 
     QString subDir;
     switch (nLevel)
@@ -60,6 +61,9 @@ void CLog::log(QString data, CLog::CLOG_LEVEL nLevel)
             break;
         case CLOG_LEVEL::RWARNING:
             subDir = "Error/";
+            break;
+        case CLOG_LEVEL::DEBUG:
+            subDir ="Debug/";
             break;
     }
 

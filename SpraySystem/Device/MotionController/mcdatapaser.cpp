@@ -1,6 +1,8 @@
 #include "mcdatapaser.h"
 #include <QtEndian>
 #include <byteswap.h>
+#include "Util/Log/clog.h"
+
 
 mcdatapaser::mcdatapaser()
 {
@@ -48,10 +50,19 @@ void mcdatapaser::DataPaser(QByteArray buf, vws::MCData *data)
                 data->realtimeencoder2 = d2;
                 break;
             case 5:  //获取规划参数
-                std::cout<<"运动控制器请求参数"<<std::endl;
+                CLog::getInstance()->log("运动控制器请求参数");
                 data->btrajparam=true;
                 data->getparam = d1;
                 emit getTrajParam_Signal();
+                break;
+            case 8: //发送轨迹给机器人
+                CLog::getInstance()->log("运动控制器请求发送轨迹给机器人");
+                data->brbt = true;
+                data->sendtorbt = d1;
+                emit sendToRBT_Signal();
+                break;
+            case -1:
+                std::cout<<"运动控制器复位成功"<<std::endl;
                 break;
             default:
                 break;

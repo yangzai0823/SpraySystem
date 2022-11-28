@@ -70,11 +70,13 @@ namespace vws
         int realtimeencoder1;
         int realtimeencoder2;
         int getparam;
+        int sendtorbt;
         int heart;
 
         bool bchainencoder = false;
         bool brealtimeencoder = false;
         bool btrajparam = false;
+        bool brbt = false;
     };
 
     /**

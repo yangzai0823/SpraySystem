@@ -20,6 +20,7 @@ private:
   void DataPaser(QByteArray buf,MCData * data);
 signals:
     void getTrajParam_Signal();
+    void sendToRBT_Signal();
 };
 
 #endif // MCDATAPASER_H

@@ -11,19 +11,26 @@ public:
         float orient[4];
     };
     enum TaskType {
-        IO = 1,
-        MOVEL = 2,
-        MOVEJ = 3,
-        MOVEABSJ = 4,
+        track_1 = 0,
+        track_2 = 1,
+        track_3 = 2,
+        track_4 = 3,
+        IO = 4,
     };
 
     struct RobotTask {
-        TaskType task;
+        TaskType taskType;
         float speed[2];                           //第一位： 线速度mm/s 第二位：角速度  度/s
-        std::vector<std::array<float, 7>> track;  // mm/s
+        std::array<float, 7> point;  // mm/s
         int IO;                                   // IO号
         int Singal;                               // IO操作
     };
+    struct RobotStatus
+    {
+        uint8_t data_1;
+        uint8_t data_2;
+    };
+    
 private:
     struct OrderName {
         static const std::string CONNECT;
@@ -37,6 +44,8 @@ private:
         static const std::string GETJOINT;
         static const std::string WRITEVAR;
         static const std::string IOWRITE;
+        static const std::string READSTATUS;
+        static const std::string HOLD;
     };
     
     struct RespondVar
@@ -52,9 +61,12 @@ private:
         static const std::string GETJOINT;
         static const std::string WRITEVAR;
         static const std::string IOWRITE;
+        static const std::string READSTATUS;
+        static const std::string HOLD;
         /* data */
     };
     static const std::string PROGRAMNAME;
+    static const std::string INITPROGRAM;
     std::unordered_map<std::string,std::string> map;  
     std::string ip;
     int port = 80;
@@ -71,6 +83,7 @@ public:
     int state();
     int start();
     int close();
+    int getRobotStatus(RobotStatus &status);
     int sendData(const std::vector<RobotTask> &taskData);
     int getRobotPosition(RobotPosition& data,int coordNum = 0,int tcpNum = 0);
 };

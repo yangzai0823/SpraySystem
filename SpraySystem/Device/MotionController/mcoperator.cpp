@@ -5,7 +5,7 @@
 #include <QWaitCondition>
 #include <QCoreApplication>
 #include <QtEndian>
-
+#include "Util/Log/clog.h"
 MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
 {
     this->ip = mc->Ip;
@@ -26,6 +26,7 @@ int MCOperator::init()
     socketclient = new QtSocketClient(dataparser);
 
     connect(dataparser, SIGNAL(getTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
+    connect(dataparser,SIGNAL(sendToRBT_Signal()),this,SLOT(sendToRBT_Slot()));
 
     connect(socketclient, SIGNAL(readyRead_Signal(QByteArray)), this, SLOT(readyRead_Slot(QByteArray)), Qt::ConnectionType::QueuedConnection);
     connect(this, SIGNAL(connect_Signal(QString, int)), socketclient, SLOT(connect_Slot(QString, int)), Qt::ConnectionType::QueuedConnection);
@@ -45,7 +46,8 @@ int MCOperator::start()
 
 void MCOperator::startReceive()
 {
-    std::cout<<"启动运动控制器接收消息"<<std::endl;
+    CLog::getInstance()->log("MC, 启动运动控制器接收消息");
+    
     sendData(8, 0, 0);
 }
 
@@ -65,15 +67,12 @@ void MCOperator::sendTrajParam(float zeropoint, float offset)
 
 void MCOperator::reset()
 {
-     std::cout<<"重置运动控制器状态"<<std::endl;
+     std::cout<<"运动控制器请报错复位"<<std::endl;
     sendData(-1, 0, 0);
 }
 
 std::vector<float> MCOperator::getChainEncoders()
 {
-    // std::vector<float> v = {1000, 1000};
-    // return v;
-
     sendData(1, 0, 0);
     waitData(data.bchainencoder);
 
@@ -131,22 +130,18 @@ void MCOperator::readyRead_Slot(QByteArray buf)
 {
     std::thread::id id = std::this_thread::get_id();
     emit getTrajParam_Signal();
-    //    std::cout << "mcoperator slot 线程ID: "<< id << std::endl;
-
-    //    dataparser->DataPaser(buf,data);
-
-    //获取规划数据
-    // if(data.btrajparam){
-    //     data.btrajparam=false;
-    //     emit getTrajParam_Signal();
-
-    // }
 }
 
 void MCOperator::getTrajParam_Slot()
 {
-    std::cout<<"MC, 请求数据"<<std::endl;
+    CLog::getInstance()->log("MC, 请求数据");
     emit getTrajParam_Signal();
+}
+
+void MCOperator::sendToRBT_Slot()
+{
+    CLog::getInstance()->log("MC, 请求向机器人发送轨迹");
+    emit sendToRBT_Signal();
 }
 
 void MCOperator::checkState_Slot()

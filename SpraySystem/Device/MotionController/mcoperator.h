@@ -29,7 +29,7 @@ public:
     /** @brief 开始接受运动控制器信号*/
     void startReceive();
 
-    /** @brief 重置运动控制状态*/
+    /** @brief 运动控制器请报错复位*/
     void reset();
 
     void sendTrajParam(float zeropoint, float offset);
@@ -50,10 +50,11 @@ private:
 public slots:
     void readyRead_Slot(QByteArray buf);
     void getTrajParam_Slot();
-
+    void sendToRBT_Slot();
     void checkState_Slot();
 signals:
     void getTrajParam_Signal();
+    void sendToRBT_Signal();
     void connect_Signal(QString ip,int port);
 };
 

@@ -577,7 +577,7 @@ VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask()
 {
     //    std::vector<VWSRobot::RobotTask> tasks;
     VWSRobot::RobotTask tk;
-    tk.task = VWSRobot::TaskType::MOVEABSJ;  // 1:movel, 2:movej, 3:moveabsj
+    // tk.task = VWSRobot::TaskType::MOVEABSJ;  // 1:movel, 2:movej, 3:moveabsj
     tk.speed[0] = 500;
     tk.speed[1] = 10;
     int cnt = 0;
@@ -594,7 +594,7 @@ VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask()
             std::cout << jv[n] << ", ";
         }
         std::cout << std::endl;
-        tk.track.push_back(jv);
+        // tk.track.push_back(jv);  //TODO： 机器人数据结构已修改，需要调整
     }
 //    //        tasks.push_back(tk);
     return tk;
