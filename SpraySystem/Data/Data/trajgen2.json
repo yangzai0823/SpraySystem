@@ -48,11 +48,41 @@
                 "cancle": "dleft_plane-dright_plane",
                 "follow": "d",
                 "followOffset": -300
+            },
+            {
+                "name": "upfront",
+                "work": "dleft_plane-puf-dleft_plane",
+                "cancle": "dleft_plane-dright_plane",
+                "follow": "u",
+                "followOffset": -300
+            },
+            {
+                "name": "upback",
+                "work": "dleft_plane-suf-dleft_plane-dright_plane-puf-dright_plane",
+                "cancle": "dleft_plane-dright_plane",
+                "follow": "u",
+                "followOffset": -300
+            },
+            {
+                "name": "front two seams",
+                "work": "dright_plane-sdb-sub-dright_plane-dleft_plane",
+                "cancle": "dright_plane-dleft_plane",
+                "follow": "d",
+                "followOffset": -300
+            },
+            {
+                "name": "whole back",
+                "work": "dleft_plane-sdb-sub-dright_plane-puf-pdf-dright_plane",
+                "cancle": "dleft_plane-dright_plane",
+                "follow": "u",
+                "followOffset": -300
             }
         ],
         "Stragety": {
             "single-down-front": "downfront",
             "single-down-back": "downback",
+            "single-up-front": "upfront",
+            "single-up-back": "upback",
             "multi-front": "front two seams",
             "multi-back": "whole back"
         }

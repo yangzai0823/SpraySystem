@@ -555,7 +555,7 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   std::vector<double> dofvalues;
   auto init_pos2 =
       planOrientedPathFixed(pt->env, "tool", p, ori, 0, 0.1, init_pos,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
   traj =
       planOrientedPathFixed(pt->env, "tool", p, ori, 100, 0.1, init_pos2,
                             collision_cnt, cnst_voil_cnt, elapsed_time, false);

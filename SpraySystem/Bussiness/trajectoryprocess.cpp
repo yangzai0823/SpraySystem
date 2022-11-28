@@ -288,35 +288,50 @@ PlanTask TrajectoryProcess::tryGetPlanTaskInTwoLayer(vws::PlanTaskInfo *task,
     // 看下层编码器
     auto encoder = task->encoder + encoder_off1;
     env_info.targets_.push_back(*task);
+    task->flag = true;
+
+    enum LAYERS_INFO { UP, DOWN, BOTH };
+    LAYERS_INFO layer = task->isup ? UP : DOWN;
+
 
     // q2 一定不同层
     for (int i = 0; i < q2.size(); i++) {
       vws::PlanTaskInfo btask = q2[i];
       if(llabs(btask.encoder + encoder_off2 - encoder) < coplan_range && 
-        btask.face == task->face){
+        btask.face == task->face && btask.flag == false){
         env_info.targets_.push_back(btask);
         q2[i].flag = 1;
       } else if (plan_range > llabs(btask.encoder + encoder_off2 - encoder)) {
         env_info.envs_.push_back(btask);
       }
     }
-    // 上层队列中
+
     for (int i = 0; i < q1.size(); i++) {
-      vws::PlanTaskInfo utask = q1[i];
-      if (utask.encoder + encoder_off1 == encoder){
-        
-        continue;
-      }
-      if (ahead(utask.encoder + encoder_off1, encoder, isIncrease) && utask.face == 1 &&
-          plan_range > llabs(utask.encoder + encoder_off1 - encoder)) {
-        env_info.envs_.push_back(utask);
-      } else if (!ahead(utask.encoder + encoder_off1, encoder, isIncrease) &&
-                  utask.face == 0 &&
-                  plan_range > llabs(utask.encoder + encoder_off1 - encoder)) {
-        env_info.envs_.push_back(utask);
+      vws::PlanTaskInfo btask = q1[i];
+      if(llabs(btask.encoder + encoder_off2 - encoder) < coplan_range && 
+        btask.face == task->face && btask.flag == false){
+        env_info.targets_.push_back(btask);
+        q1[i].flag = 1;
+      } else if (plan_range > llabs(btask.encoder + encoder_off2 - encoder)) {
+        env_info.envs_.push_back(btask);
       }
     }
-    task->flag = true;
+    // // 上层队列中
+    // for (int i = 0; i < q1.size(); i++) {
+    //   vws::PlanTaskInfo utask = q1[i];
+    //   if (utask.encoder + encoder_off1 == encoder){
+        
+    //     continue;
+    //   }
+    //   if (ahead(utask.encoder + encoder_off1, encoder, isIncrease) && utask.face == 1 &&
+    //       plan_range > llabs(utask.encoder + encoder_off1 - encoder)) {
+    //     env_info.envs_.push_back(utask);
+    //   } else if (!ahead(utask.encoder + encoder_off1, encoder, isIncrease) &&
+    //               utask.face == 0 &&
+    //               plan_range > llabs(utask.encoder + encoder_off1 - encoder)) {
+    //     env_info.envs_.push_back(utask);
+    //   }
+    // }
     return env_info;
 }
 
@@ -643,6 +658,17 @@ SortedTaskQ TrajectoryProcess::PrepareTaskInfoTwoLayers(
       taskQ.push(std::make_pair(task->encoder, env_info));
     }
   }
+  for (int i = 0; i < bottom_task_q->size(); i++) {
+    auto task = &(*bottom_task_q)[i];
+    if (task->flag == false && (task->encoder - current_encoder) > plan_delay) {
+      env_info = tryGetPlanTaskInTwoLayer(&(*bottom_task_q)[i], *upper_task_q,
+                                *bottom_task_q, 0, bottom_2_upper, current_encoder, isIncrease, units);
+      std::cout << "taskQ : push up " << task->encoder << ", " << (task->face == 0
+          ? "head "
+          : "tail") << std::endl;
+      taskQ.push(std::make_pair(task->encoder, env_info));
+    }
+  }
   return taskQ;
 }
 
@@ -684,6 +710,7 @@ bool invert){
     for (int i = 0; i < ptask_info.size(); i++) {
       int64_t diff_encoder = (ptask_info)[i].encoder - ref_encoder;
       float diff_mm = diff_encoder / units;
+      // invert ^ increase = true: 取反
       diff_mm = invert ? -diff_mm : diff_mm;
       auto boxInfo_1 = (ptask_info)[i].boxInfo;
       auto boxSize_1 = Eigen::Vector3d((ptask_info)[i].lx, (ptask_info)[i].ly,
@@ -1108,7 +1135,12 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
       getTaskInfo(task_info, isup, info);
       auto boxCenter = info.boxInfo.translation();
       Eigen::Vector3d boxSize(info.lx, info.ly, info.lz);
-      boxCenter[1] += diff;
+
+      //
+      bool neg = isIncrease ^ invert;
+      float diff_encoder = (info.encoder - follow_encoder) / units;
+      diff_encoder = neg ? -diff_encoder : diff_encoder;
+      boxCenter[1] += diff + diff_encoder;
       bool isfront = info.face == 0;
       if (current_pos[0] == 's') {
         Eigen::VectorXd p_weld, ori_weld;
@@ -1135,7 +1167,7 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
     }else{
       // 喷涂点-》示教点
       Eigen::VectorXd entry_traj;
-      if(!generator->GenerateEntryTrajectory(init_dof, pos2, 20, entry_traj, ndof)){
+      if(!generator->GenerateEntryTrajectory(init_dof, pos2, 20, entry_traj, ndof, 3, true)){
         return false;
       }
       singleTraj.type_ = TrajectoryType::UnsafeTransitionTraj;
@@ -1409,12 +1441,19 @@ void TrajectoryProcess::begintraj_Slot(MainProcess* vdata)
   int equal_th = 400;
   auto bottom_task_q = vdata->GetPlanTaskInfo(0);
   auto upper_task_q = vdata->GetPlanTaskInfo(1);
+#ifdef PLAN_FAKE_DATA
+  int64_t bottom_2_upper = 0*units;
+#else
   int64_t bottom_2_upper = 270*units;
+#endif
+  SortedTaskQ taskQ;
+  // taskQ =
+  //     PrepareTaskInfoOneLayer(bottom_task_q, upper_task_q, current_encoder,
+  //                             bottom_2_upper, 0, isIncrease, units, plan_delay);
 
-  SortedTaskQ taskQ =
-      PrepareTaskInfoOneLayer(bottom_task_q, upper_task_q, current_encoder,
-                              bottom_2_upper, 0, isIncrease, units, plan_delay);
-    // 规划上层
+  taskQ = PrepareTaskInfoTwoLayers(upper_task_q, bottom_task_q, current_encoder,
+                           bottom_2_upper, isIncrease, units, plan_delay);
+  // 规划上层
   // PrepareTaskInfoOneLayer(upper_task_q, bottom_task_q, current_encoder, 0,
   //                          bottom_2_upper, isIncrease, units, plan_delay);
   
