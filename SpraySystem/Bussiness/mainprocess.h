@@ -84,6 +84,8 @@ private:
     CameraCallbackData *camera2CallbackData_u;
 
     static std::mutex _mutex;
+    /** @brief 规划结果如队列加锁*/
+    static std::mutex _trajret_mutex;
     ContextStateMachine *sm_top;
     ContextStateMachine *sm_bottom;
 

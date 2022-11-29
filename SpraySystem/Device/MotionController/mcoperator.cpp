@@ -39,7 +39,7 @@ int MCOperator::start()
     // auto ret = socketclient->connectServer(ip,port);
     emit connect_Signal(ip, port);
 
-   
+   reset();
     return 1;
 }
 

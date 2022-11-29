@@ -9,6 +9,7 @@
 #include "tcpClient.h"
 #include <fcntl.h>
 #include <iostream>
+#include "../Util/Log/clog.h"
 #define BUFFER_SIZE 1024
 TcpClient::TcpClient(/* args */) {
     revBuf = new char[BUFFER_SIZE];
@@ -95,11 +96,12 @@ int TcpClient::toConnect(std::string ip, int port) {
     return 1;
 }
 int TcpClient::sendData(const void *buf, int datalen) {
-    printf("send:%s\n",buf);
+    // printf("send:%s\n",buf);
     return send(client_fd_, buf, datalen, 0) == datalen ? datalen : -1;
 }
 int TcpClient::sendData(const std::string &buf) {
-    std::cout<<"send:"<<buf<<std::endl;
+    // std::cout<<"send:"<<buf<<std::endl;
+    //  CLog::getInstance()->log("send   "+QString::fromStdString(buf));
     int datalen = buf.size();
     return send(client_fd_, buf.c_str(), datalen, 0) == datalen ? datalen : -1;
 }
@@ -120,7 +122,9 @@ int TcpClient::receiveData(char *&buf, int &datalen) {
         }
     }
     int len = recv(client_fd_, revBuf, BUFFER_SIZE, 0);
-    std::cout<<"rev   "<<revBuf<<std::endl;
+    // std::cout<<"rev   "<<revBuf<<std::endl;
+    // CLog::getInstance()->log("rev   "+QString(revBuf));
+
     if (len <= 0)
         return -1;
     buf = revBuf;

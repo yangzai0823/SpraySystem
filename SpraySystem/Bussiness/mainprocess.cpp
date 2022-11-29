@@ -6,6 +6,7 @@
 #include "Util/Log/clog.h"
 
 std::mutex MainProcess::_mutex;
+std::mutex MainProcess::_trajret_mutex;
 int saveToFile(std::string fileName,const VWSCamera::ImageData &data){
     std::string ply = fileName+".ply";
     std::ofstream outFile;
@@ -248,7 +249,7 @@ bool MainProcess::getChainEncoderDir() const
 
 void MainProcess::getTrajParam_Slot()
 {
-    // return;
+    return;
     auto mc = DeviceManager::getInstance()->getMC();
 
     if (mcQueue.count() > 0)
@@ -294,7 +295,7 @@ void MainProcess::sendToRBT_Slot()
 
     auto ret =rbt->sendData(rbtparam);
     if(ret>0){
-        CLog::getInstance()->log("机器人发送任务成功, 点数： "+ QString::number(rbtparam.size()));
+        CLog::getInstance()->log("机器人发送任务成功, 点数： "+ QString::number(rbtparam.size())+", 队列剩余： "+QString::number(trajQueue.size()));
     }
     else{
         CLog::getInstance()->log("机器人发送任务失败");
@@ -541,6 +542,7 @@ void MainProcess::finsihVision_head_Slot(ContextStateMachine *sm)
 
 void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<RobotTask> robotTasks)
 {
+    _trajret_mutex.lock();
     CLog::getInstance()->log("规划结果入队列");
     mcQueue.push_back(mc_data);
     trajQueue.push_back(robotTasks);
@@ -551,4 +553,5 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
         CLog::getInstance()->log("运动控制器请求过数据，但未发送");
         emit sendTrajParam_Signal();
     }
+    _trajret_mutex.unlock();
 }

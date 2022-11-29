@@ -7,6 +7,8 @@
 #include <regex>
 
 #include "ftp.h"
+#include "../Util/Log/clog.h"
+
 #define SPEEDRATIO (10000.0 / 120.0)
 #define JOINTDATIO0 1942.957577694336
 #define JOINTDATIO1 -1942.872296094253
@@ -354,8 +356,8 @@ int VWSRobot::close() {
     return 1;
 }
 int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
-    // time_t timep,tim2;
-    // time (&timep);
+    time_t timep,tim2;
+    time (&timep);
     std::string taskStr;
     if (createFile(taskStr, taskData) < 0)
         return -1;
@@ -406,8 +408,9 @@ int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
         sleep(1);
     }
     return 1;
-    // time (&tim2);
+    time (&tim2);
     // std::cout<<"time   "<<tim2 - timep<<std::endl;
+    CLog::getInstance()->log("time   "+QString::number(tim2 - timep));
 }
 /**
  * @description: 获取当前位置，角度精度大概0.1度
