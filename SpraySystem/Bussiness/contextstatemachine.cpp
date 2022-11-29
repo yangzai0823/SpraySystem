@@ -2,6 +2,8 @@
 #include "Data/StaticData.h"
 #include <iostream>
 #include "Device/devicemanager.h"
+#include "Util/Log/clog.h"
+
 std::mutex ContextStateMachine::_mutex;
 ContextStateMachine::ContextStateMachine()
 {
@@ -175,7 +177,9 @@ void ContextStateMachine::outOfLimit_Slot(){
 
 void ContextStateMachine::enteredWaitLaserSignal_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待箱体感应信号******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待箱体感应信号******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待箱体感应信号******");
+
     Context.laserCouple1 = tmplaserdata;
     // Context.laserCouple2 = data.laserCouple2;
     std::cout<<"测距： "<<std::to_string(Context.laserCouple1[0])<<", "<<std::to_string(Context.laserCouple1[1])<<std::endl;
@@ -190,7 +194,9 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 }
 void ContextStateMachine::exitWaitLaserSignal_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，退出状态： 等待箱体感应信号******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，退出状态： 等待箱体感应信号******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，退出状态： 等待箱体感应信号******");
+
     timer_img_head->stop();
 }
 
@@ -202,7 +208,8 @@ void ContextStateMachine::enteredEncoderOutofLimit_Slot()
 
 void ContextStateMachine::enteredProcessHeadImg_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理头部图像******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理头部图像******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 处理头部图像******");
 
      //开始监听悬挂链运行距离
     emit beginMonitroDis_Signal(Context.encoder_img_head);
@@ -214,19 +221,24 @@ void ContextStateMachine::enteredProcessHeadImg_Slot()
 
 void ContextStateMachine::enterdWaitTrailProcess_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待尾部图像处理******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待尾部图像处理******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待尾部图像处理******");
   
 }
 void ContextStateMachine::exitWaitTrailProcess_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，退出状态： 等待尾部图像处理******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，退出状态： 等待尾部图像处理******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，退出状态： 等待尾部图像处理******");
+
     //停止监听悬挂链运行距离
     headDisMonitor->Stop();
 }
 
 void ContextStateMachine::enteredProcessTrailImg_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理尾部图像******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理尾部图像******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 处理尾部图像******");
+
     
     timer_img_trail->stop();
 
@@ -240,7 +252,9 @@ void ContextStateMachine::enteredProcessTrailImg_Slot()
 
 void ContextStateMachine::enteredIDLE_Slot()
 {
-    std::cout << "******箱体： " << Name.toStdString() << "，进入状态： IDLE******" << std::endl;
+    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： IDLE******" << std::endl;
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： IDLE******");
+
     if(timer_img_head->isActive()){
         timer_img_head->stop();
     }

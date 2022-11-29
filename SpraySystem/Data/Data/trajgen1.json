@@ -48,6 +48,13 @@
                 "cancle": "dright_plane-dleft_plane",
                 "follow": "d",
                 "followOffset": 0
+            },
+            {
+                "name": "front two seams",
+                "work": "dright_plane-pf-dright_plane-dleft_plane-sf-dleft_plane",
+                "cancle": "dright_plane-dleft_plane",
+                "follow": "d",
+                "followOffset": 0
             }
         ],
         "Stragety": {
