@@ -124,9 +124,12 @@ int caliHandEyewWidget::ensureJsonStruct() {
 }
 
 void caliHandEyewWidget::readCalibratedDatas() {
-  if (!_resultDoc->HasMember("frontExtraAxisCalibration") ||
-      !(*_resultDoc)["frontExtraAxisCalibration"].HasMember("direction") ||
-      (*_resultDoc)["frontExtraAxisCalibration"]["direction"].Size() != 3) {
+  if (_resultDoc->IsNull()) {
+    return;
+  }
+  if ((!_resultDoc->HasMember("frontExtraAxisCalibration")) ||
+      (!(*_resultDoc)["frontExtraAxisCalibration"].HasMember("direction")) ||
+      ((*_resultDoc)["frontExtraAxisCalibration"]["direction"].Size() != 3)) {
     std::cout << "frontExtraAxisDirection doesn't exist" << std::endl;
     return;
   }
