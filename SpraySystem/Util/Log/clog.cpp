@@ -3,7 +3,6 @@
 #include <QApplication>
 #include <QDate>
 #include <QTextStream>
-#include <iostream>
 #include <QDebug>
 
 const char PATH_LogPath[] = "/Logs/";
@@ -44,7 +43,10 @@ bool CLog::createDir(QString dirPath)
     return true;
 }
 
-
+void CLog::log_std(std::string data, CLog::CLOG_LEVEL nLevel){
+    QString str = QString(data.c_str());
+    log(str,nLevel);
+}
 void CLog::log(QString data, CLog::CLOG_LEVEL nLevel)
 {
     _mutex.lock();

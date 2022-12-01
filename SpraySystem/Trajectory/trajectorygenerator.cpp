@@ -555,7 +555,7 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   std::vector<double> dofvalues;
   auto init_pos2 =
       planOrientedPathFixed(pt->env, "tool", p, ori, 0, 0.1, init_pos,
-                            collision_cnt, cnst_voil_cnt, elapsed_time, true);
+                            collision_cnt, cnst_voil_cnt, elapsed_time, false);
   traj =
       planOrientedPathFixed(pt->env, "tool", p, ori, 100, 0.1, init_pos2,
                             collision_cnt, cnst_voil_cnt, elapsed_time, false);
@@ -600,7 +600,7 @@ VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask()
     return tk;
 }
 std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
-  float sevenEncoder, int64_t encoder, bool is_increase){
+  float follow_offset, int64_t encoder, bool is_increase, bool invert){
 
     // 编码器系数，单位：mm/unit
     // chainFactor = 0.4198727819755431f;
@@ -618,8 +618,8 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
     // } else {
     //   offsetOfTraj = -offsetOfTraj;
     // }
-    Eigen::Vector3d robotZeroPoint = extraAxisDirection*sevenEncoder;
-    double conveyor_dest = robotZeroPoint[1] - offsetOfTraj;
+    // Eigen::Vector3d robotZeroPoint = extraAxisDirection*sevenEncoder;
+    double conveyor_dest = invert ? follow_offset : -follow_offset;
 
     double diffL = conveyor_dest - p1[1];
     //5. diffL转悬挂链移动距离， e1

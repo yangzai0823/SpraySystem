@@ -6,60 +6,111 @@
             "dright_plane": {
                 "desc": "下后焊缝+下前面",
                 "joints": [
-                    -22.78,
-                    -55.83,
-                    -36.50,
-                    104.54,
-                    -113.47,
-                    -53.68
+                    -27.0692,
+                    -55.7453,
+                    -43.5885,
+                    105.0391,
+                    -122.7237,
+                    -53.6061
                 ]
             },
             "dleft_plane": {
                 "desc": "下后面+下前焊缝",
                 "joints": [
-                    18.96,
-                    -49.50,
-                    -40.05,
-                    143.447,
-                    -107.986,
-                    123.79
+                    -27.0692,
+                    -55.7453,
+                    -43.5885,
+                    105.0391,
+                    -122.7237,
+                    130.6087
+                ]
+            },
+            "uright_plane": {
+                "desc": "上前面+上后焊缝",
+                "joints": [
+                    -31.7623,
+                    33.8082,
+                    -40.1508,
+                    20.9592,
+                    -37.6706,
+                    -0.7618
+                ]
+            },
+            "uleft_plane": {
+                "desc": "上后面+上前焊缝",
+                "joints": [
+                    -31.7623,
+                    33.8082,
+                    -40.1508,
+                    20.9592,
+                    -37.6706,
+                    179.1888
                 ]
             }
+
         },
         "Transition": {
-            "dright_plane-dleft_plane": []
+            "dright_plane-dleft_plane": [],
+            "uright_plane-uleft_plane": [],
+            "uright_plane-dleft_plane": [],
+            "dright_plane-uleft_plane": [],
+            "dright_plane-uright_plane": [],
+            "dleft_plane-uleft_plane": []
         },
         "speed": {
-            "plane_paint": 60,
-            "seam_paint": 60,
-            "move": 60
+            "plane_paint": 10,
+            "seam_paint": 10,
+            "move": 10
         },
         "PlanTactic": [
             {
                 "name": "downfront",
-                "work": "dright_plane-pdf-dright_plane-dleft_plane-sdf-dleft_plane",
-                "cancle": "dright_plane-dleft_plane",
+                "work": "dleft_plane-sdf-dleft_plane",
+                "cancle": "",
                 "follow": "d",
-                "followOffset": 0
+                "followOffset": -100
             },
             {
                 "name": "downback",
                 "work": "dright_plane-sdf-dright_plane-dleft_plane-pdf-dleft_plane",
                 "cancle": "dright_plane-dleft_plane",
                 "follow": "d",
-                "followOffset": 0
+                "followOffset": -100
+            },
+            {
+                "name": "upfront",
+                "work": "uleft_plane-suf-uleft_plane",
+                "cancle": "",
+                "follow": "u",
+                "followOffset": -100
+            },
+            {
+                "name": "upback",
+                "work": "uright_plane-suf-uright_plane-uleft_plane-puf-uleft_plane",
+                "cancle": "uright_plane-uleft_plane",
+                "follow": "u",
+                "followOffset": -100
             },
             {
                 "name": "front two seams",
-                "work": "dright_plane-pf-dright_plane-dleft_plane-sf-dleft_plane",
-                "cancle": "dright_plane-dleft_plane",
+                "work": "uleft_plane-suf-sdf-dleft_plane",
+                "cancle": "uleft_plane-dleft_plane",
                 "follow": "d",
-                "followOffset": 0
+                "followOffset": -100
+            },
+            {
+                "name": "whole back",
+                "work": "dright_plane-sdb-sub-uright_plane-uleft_plane-puf-pdf-dleft_plane",
+                "cancle": "dright_plane-dleft_plane",
+                "follow": "u",
+                "followOffset": -100
             }
         ],
         "Stragety": {
             "single-down-front": "downfront",
             "single-down-back": "downback",
+            "single-up-front": "upfront",
+            "single-up-back": "upback",
             "multi-front": "front two seams",
             "multi-back": "whole back"
         }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDir>
 #include <mutex>
+#include <iostream>
 
 class CLog : public QObject
 {
@@ -18,8 +19,10 @@ public:
         DEBUG           /*!<  调试*/
     };
     static bool createDir(QString dirPath);
+    static void log_std(std::string data, CLog::CLOG_LEVEL nLevel = CLOG_LEVEL::DEBUG);
 
     static void log(QString data, CLog::CLOG_LEVEL nLevel = CLOG_LEVEL::DEBUG);
+
 private:
     static std::mutex _mutex;
     static CLog *m_CLog;

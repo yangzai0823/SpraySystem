@@ -31,7 +31,7 @@ template<typename _Tp, bool increase>
       _GLIBCXX14_CONSTEXPR
       bool
       operator()(const std::pair<int, _Tp>& __x, const std::pair<int, _Tp>& __y) const
-      { return increase ? __x.first < __y.first : __x.first >= __y.first; }
+      { return increase ? __x.first >= __y.first : __x.first < __y.first; }
     };
 
 struct PlanTask{

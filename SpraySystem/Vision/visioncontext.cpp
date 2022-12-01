@@ -6,11 +6,15 @@
 #include <fstream>
 #include "Data/StaticData.h"
 #include <thread>
+#include "Util/Log/clog.h"
 //#include "halconcpp/HalconCpp.h"
 //#include "halconcpp/HDevThread.h"
 
 int saveToFile1(std::string fileName,const VWSCamera::ImageData &data){
-    std::string ply = fileName+".ply";
+    return 1;
+
+    static int32_t index= 0;
+    std::string ply = fileName+"_"+std::to_string(index)+".ply";
     std::ofstream outFile;
     //打开文件
     outFile.open(ply);
@@ -28,6 +32,8 @@ int saveToFile1(std::string fileName,const VWSCamera::ImageData &data){
         outFile<<pSrcValue[nPntIndex * 3 + 0]<<" "<<pSrcValue[nPntIndex * 3 + 1]<<" "<<pSrcValue[nPntIndex * 3 + 2]<<std::endl;
     }
     outFile.close();
+
+    index++;
 }
 
 
@@ -46,47 +52,39 @@ VisionContext::VisionContext()
 
 }
 
-void VisionContext::work(ImageData data,  vws::VisionData & visionData)
-{
-    //getPoseAndHeight(data,visionData);
-    //RobotCenterPose(visionData, handEyeMatrix);
-    double handEyeMatri[12];
-    //RobotCenterPose(visionData,handEyeArry);
-    visionProcessFunc(data, visionData);
-}
-
 void VisionContext::work_head(ImageData data,std::vector<float> senorNums, vws::VisionData & VisionData)
 {   
      float senorDistance =  vws::senorDistance_b;
      getPoseAndHeight(data,VisionData);
+     if(VisionData.hasError){
+        return;
+     }
      getWidth(senorNums,senorDistance,VisionData);
 
-    // std::cout<<"work_head: "<<std::to_string(senorNums.at(0))<<", "<<std::to_string(senorNums.at(1))<<std::endl;
-    std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
-    // auto righttop = toporbottom+"_top("+std::to_string(VisionData.righttop.at(0))+","+std::to_string(VisionData.righttop.at(1))+std::to_string(VisionData.righttop.at(2))+")";
-    // auto rightbottom = ",bottom("+std::to_string(VisionData.rightbottom.at(0))+","+std::to_string(VisionData.rightbottom.at(1))+std::to_string(VisionData.rightbottom.at(2))+")";
-    std::string filename = "/home/vws/Demo/cloud/"+toporbottom+"_head";
-    // std::thread newthread([](std::string filename,ImageData data){
-    //     std::cout<<"保存图像"<<std::endl;
-    //     saveToFile1(filename,data);
-    // },filename,data);
-    // newthread.join();
-}
-void VisionContext::work_headWithLength(vws::VisionData & VisionData)
-{
     double * handEyeMatrix;
     if(VisionData.top_or_bottom == 0)
-    {
-        //顶
-        handEyeMatrix = vws::handEyeMatrix_u_rbt1.data();
-    }
-    else
-    {
-        //底
-        handEyeMatrix = vws::handEyeMatrix_b_rbt1.data();
-    }
+        {
+            //顶
+            std::cout<<"上相机手眼"<<std::endl;
+            handEyeMatrix = vws::handEyeMatrix_u_rbt1.data();
+        }
+        else
+        {
+            //底
+            std::cout<<"下相机手眼"<<std::endl;
+            handEyeMatrix = vws::handEyeMatrix_b_rbt1.data();
+        }
+     RobotCenterPose(VisionData, handEyeMatrix, vws::BoxLenght);
 
-    RobotCenterPose(VisionData,handEyeMatrix, vws::HeadMoveMaxLength);
+
+    std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
+    std::string filename = "/home/vws/Demo/cloud/"+toporbottom+"_head";
+    std::cout<<"保存图像"<<std::endl;
+    saveToFile1(filename,data);
+    // std::thread newthread([](std::string filename,ImageData data){
+  
+    // },filename,data);
+    // newthread.join();
 }
 void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws::VisionData & VisionData)
 {   
@@ -109,27 +107,25 @@ void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws:
     }
 
      getPoseANdHeight_Trail(data,VisionData);
+     if(VisionData.hasError){
+        return;
+     }
      
     std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
-    // auto lefttop = toporbottom+"_top("+std::to_string(VisionData.lefttop.at(0))+","+std::to_string(VisionData.lefttop.at(1))+std::to_string(VisionData.lefttop.at(2))+")";
-    // auto leftbottom = ",bottom("+std::to_string(VisionData.leftbottom.at(0))+","+std::to_string(VisionData.leftbottom.at(1))+std::to_string(VisionData.leftbottom.at(2))+")";
     auto strencoder = "encoder("+std::to_string(senorNums.at(0))+","+std::to_string(senorNums.at(1))+")";
 
+    getLenght(senorNums,VisionData);
+
+    RobotCenterPose(VisionData, handEyeMatrix);
+
+
     std::string filename = "/home/vws/Demo/cloud/"+toporbottom+"_trail_"+strencoder;
+    std::cout<<"保存图像"<<std::endl;
+    saveToFile1(filename,data);
     // std::thread newthread([](std::string filename,ImageData data){
-    //     std::cout<<"保存图像"<<std::endl;
-    //     saveToFile1(filename,data);
+     
     // },filename,data);
     // newthread.join();
-    //TODO: Length
-    if(VisionData.top_or_bottom == 1)
-    {
-        VisionData.length = 800;
-    }
-    else{
-        VisionData.length = 1000;
-    }
-     RobotCenterPose(VisionData, handEyeMatrix);
 }
 void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData)
 {
@@ -145,9 +141,14 @@ void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData
       PCLlibs::HeightAndPoseVector(hv_CamParam, hv_SetParas, hv_ObjectModel3D, MedianHeight, MedianWidth, VectorPosition, IntersecPonitUR,
                         IntersecPonitUL, IntersecPonitDR, IntersecPonitDL, LineQuali, Result);
 
+    if(Result!="1, 运行成功"){
+        visionData.hasError = true;
+        CLog::getInstance()->log_std("头部高度计算， "+Result,CLog::CLOG_LEVEL::REEROR);
+         return;
+    }
 
-    std::cout<<"视觉结果： 箱体高度, "<<std::to_string(MedianHeight)<<std::endl;
-    visionData.height = MedianHeight;
+    CLog::getInstance()->log("视觉结果： 箱体高度, " + QString::number(MedianHeight));
+    visionData.height = vws::BoxHeight; //使用固定高度 //MedianHeight;
     visionData.normalvector_head.resize(9);
     memcpy(visionData.normalvector_head.data(),VectorPosition,9*sizeof(double));
     //端点坐标
@@ -171,8 +172,12 @@ void VisionContext::getPoseANdHeight_Trail(ImageData data, vws::VisionData &visi
       PCLlibs::HeightAndPoseVector(hv_CamParam, hv_SetParas, hv_ObjectModel3D, MedianHeight, MedianWidth, VectorPosition, IntersecPonitUR,
                         IntersecPonitUL, IntersecPonitDR, IntersecPonitDL, LineQuali, Result);
 
+    if(Result!="1, 运行成功"){
+        visionData.hasError = true;
+        CLog::getInstance()->log_std("尾部高度计算， "+Result,CLog::CLOG_LEVEL::REEROR);
+         return;
+    }
 
-    std::cout<<"视觉结果： 箱体高度, "<<std::to_string(MedianHeight)<<std::endl;
     visionData.height = MedianHeight;
     visionData.normalvector.resize(9);
     memcpy(visionData.normalvector.data(),VectorPosition,9*sizeof(double));
@@ -202,29 +207,27 @@ void VisionContext:: getWidth(std::vector<float> senorNums, float senorDistance,
     else{
         visionData.width = 640;
     }
-    std::cout<<"视觉结果： 箱体深度, "<<std::to_string(visionData.width)<<std::endl;
+    CLog::getInstance()->log("视觉结果： 箱体深度, " + QString::number(visionData.width));
 
 }
-void VisionContext::getLenght(std::vector<double> encoderVector, std::vector<float> encoderNums, VisionData &visionData)
+void VisionContext::getLenght(std::vector<float> encoderNums, VisionData &visionData)
 {
+
+    Eigen::Map<Eigen::Matrix<double,3,4,Eigen::RowMajor>> tran(vws::handEyeMatrix_b_rbt1.data());
+    Eigen::Map<Eigen::Vector3d> vec(vws::robotBeltDirection.data());
+    Eigen::Vector3d encoderVector = tran.block(0,0,3,3).inverse()*vec;
+
     double encoderHead = encoderNums[0];
     double encoderTrail = encoderNums[1];
 
     double length;
 
-    if(visionData.top_or_bottom==1)
-    {
-        PCLlibs::CalBoxLength(encoderVector.data(),encoderTrail,encoderHead,
-        visionData.lefttop.data(),visionData.leftbottom.data(),visionData.righttop.data(),visionData.rightbottom.data(),length);
+    PCLlibs::CalBoxLength(encoderVector.data(),encoderTrail,encoderHead,
+    visionData.lefttop.data(),visionData.leftbottom.data(),visionData.righttop.data(),visionData.rightbottom.data(),length);
 
-        visionData.length = length;
-    }
-    else
-    {
-        visionData.length = 1300;
-    }
-    std::cout<<"视觉结果： 箱体长度, "<<std::to_string(length)<<std::endl;
+    visionData.length = length*0.8;
 
+    CLog::getInstance()->log("视觉结果： 箱体长度, " + QString::number(visionData.length));
 }
 void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeMatrix[12])
 {
@@ -239,6 +242,7 @@ void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeM
 
     std::cout<<"视觉: 处理尾部处理"<<std::endl;
     PCLlibs::CalcuEndCameraRobot(visionData.normalvector.data(),visionData.lefttop.data(),boxsize, handEyeMatrix, Quater1,centerPoint1);
+    visionData.robotpose.clear();
     visionData.robotpose.push_back(centerPoint1[0]);
     visionData.robotpose.push_back(centerPoint1[1]);
     visionData.robotpose.push_back(centerPoint1[2]);
@@ -246,23 +250,10 @@ void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeM
     visionData.robotpose.push_back(Quater1[1]);
     visionData.robotpose.push_back(Quater1[2]);
     visionData.robotpose.push_back(Quater1[3]);
-
-    if(!visionData.head_done){
-        std::cout<<"视觉: 头部未处理，真实箱体位姿传给头部"<<std::endl;
-        PCLlibs::CalcuCameraRobot(visionData.normalvector_head.data(),visionData.righttop.data(),boxsize, handEyeMatrix, Quater1,centerPoint1);
-        visionData.robotpose_head.push_back(centerPoint1[0]);
-        visionData.robotpose_head.push_back(centerPoint1[1]);
-        visionData.robotpose_head.push_back(centerPoint1[2]);
-        visionData.robotpose_head.push_back(Quater1[0]);
-        visionData.robotpose_head.push_back(Quater1[1]);
-        visionData.robotpose_head.push_back(Quater1[2]);
-        visionData.robotpose_head.push_back(Quater1[3]);
-    }
 }
 void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeMatrix[12],double length)
 {
-    std::cout<<"视觉： 使用固定长度，{"<<std::to_string(length)<<"} 计算箱体头部信息"<<std::endl;
-
+    CLog::getInstance()->log("视觉： 使用固定长度，{"+QString::number(length)+"} 计算箱体头部信息");
     double boxsize[] = {visionData.height,length,visionData.width};
     double Quater1[4] = {
         0,
@@ -273,6 +264,7 @@ void VisionContext::RobotCenterPose(vws::VisionData &visionData, double handEyeM
     double centerPoint1[3] = {0, 0, 0};
     PCLlibs::CalcuCameraRobot(visionData.normalvector_head.data(),visionData.righttop.data(),boxsize, handEyeMatrix, Quater1,centerPoint1);
     
+    visionData.robotpose_head.clear();
     visionData.length_head = length;
     visionData.robotpose_head.push_back(centerPoint1[0]);
     visionData.robotpose_head.push_back(centerPoint1[1]);
@@ -306,152 +298,4 @@ HTuple VisionContext::ImageConver(ImageData data)
     XyzToObjectModel3d(imgx, imgy, imgz, &hv_ObjectModel3D);
 
     return hv_ObjectModel3D;
-}
-void VisionContext::visionProcessFunc(const VWSCamera::ImageData &data, vws::VisionData &visionData)
-{
-
-    // static int index = 0;
-    // saveToFile1("/home/vws/Demo/1/"+std::to_string(index),data);
-    // index++;
-    
-    HTuple hv_CamParam, hv_ObjectModel3D, hv_Status;
-    double hv_Result, hv_MedianHeight, hv_MedianWidth;
-    double IntersecPonitUL[3], IntersecPonitDR[3], IntersecPonitDL[3], IntersecPonitUR[3];
-    double LineQuali[4];
-    double VectorPosition[9];
-    double MedianHeight, MedianWidth;
-
-    std::string Result = "0";
-    hv_CamParam.Clear();
-    hv_CamParam[0] = "area_scan_division";
-    hv_CamParam[1] = 0.06;
-    hv_CamParam[2] = 0;
-    hv_CamParam[3] = 8.5e-06;
-    hv_CamParam[4] = 8.5e-06;
-    hv_CamParam[5] = 704;
-    hv_CamParam[6] = 512;
-    hv_CamParam[7] = 1408;
-    hv_CamParam[8] = 1024;
-    double hv_SetParas[6] = {900, 1720, -1220, 880, 6, 1e5};
-
-
-    int width = data.PointCloudImage.nWidth;
-    int height = data.PointCloudImage.nHeight;
-    int count = width * height;
-    float *cloudData = (float *)(data.PointCloudImage.pData);
-    std::vector<float> px, py, pz;
-    for (int i = 0; i < count; i++)
-    {
-        px.push_back(cloudData[i * 3]);
-        py.push_back(cloudData[i * 3 + 1]);
-        pz.push_back(cloudData[i * 3 + 2]);
-    }
-
-    HImage imgx("real", width, height, (void *)px.data());
-    HImage imgy("real", width, height, (void *)py.data());
-    HImage imgz("real", width, height, (void *)pz.data());
-
-    XyzToObjectModel3d(imgx, imgy, imgz, &hv_ObjectModel3D);
-
-
-    PCLlibs::HeightAndPoseVector(hv_CamParam, hv_SetParas, hv_ObjectModel3D, MedianHeight, MedianWidth, VectorPosition, IntersecPonitUR,
-                                 IntersecPonitUL, IntersecPonitDR, IntersecPonitDL, LineQuali, Result); ////
-
-    double Quater[4];
-    double RightUpPoint1[3];
-    double boxSize[3] = {800, 500, 535};
-
-    double Quater1[4] = {
-        0,
-        0,
-        0,
-        0,
-    };
-    double centerPoint1[3] = {0, 0, 0};
-    // double handEyeMatrix[12] = {-0.03743671625852585,
-    //                             -0.001139160362072289,
-    //                             -0.9992983341217041,
-    //                             2654.87060546875,
-    //                             0.009748989716172219,
-    //                             -0.9999521374702454,
-    //                             0.0007746600895188749,
-    //                             -1332.0638427734376,
-    //                             -0.9992514252662659,
-    //                             -0.009713122621178627,
-    //                             0.03744605928659439,
-    //                             481.78564453125};
-       double handEyeMatrix[12] = {0.047927375882864,
-                                0.029266173020005226,
-                                0.9984219670295715,
-                                469.2415771484375,
-                                0.005496096797287464,
-                                0.9995478391647339,
-                                -0.029563141986727715,
-                                2466.051025390625,
-                                -0.9988358020782471,
-                                0.006904320791363716,
-                                0.04774487391114235,
-                                -532.5537719726563};
-    if (Result == "1, 运行成功")
-    {
-        if(visionData.top_or_bottom == 0){
-            double handEyeMatrix_u[12] = {-0.0150250699,
-                        -0.118890852,
-                        0.992793739,
-                        519.98938,
-                        0.0130119231,
-                        0.992798448,
-                        0.11908827,
-                        2632.92798,
-                        -0.999802351,
-                        0.0147074759,
-                        -0.0133698536,
-                        668.73468};
-            std::cout<<"顶层手眼， "<<std::to_string(handEyeMatrix_u[0])<<std::endl;
-
-            PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix_u, Quater1, centerPoint1);
-
-        }
-        else
-        {
-              double handEyeMatrix_b[12] = {0.047927375882864,
-                                0.029266173020005226,
-                                0.9984219670295715,
-                                469.2415771484375,
-                                0.005496096797287464,
-                                0.9995478391647339,
-                                -0.029563141986727715,
-                                2466.051025390625,
-                                -0.9988358020782471,
-                                0.006904320791363716,
-                                0.04774487391114235,
-                                -532.5537719726563};
-            std::cout<<"低层手眼， "<<std::to_string(handEyeMatrix_b[0])<<std::endl;
-
-            PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix_b, Quater1, centerPoint1);
-
-        }
-
-   
-        // PCLlibs::CalcuCameraRobot(VectorPosition, IntersecPonitUR, boxSize, handEyeMatrix, Quater1, centerPoint1);
-        std::cout << "VectorUnit:  [  " << VectorPosition[0] << ",   " << VectorPosition[1] << ",   " << VectorPosition[2] << ",   " << VectorPosition[3] << ",   " << VectorPosition[4] << ",   " << VectorPosition[5] << ",   " << VectorPosition[6] << ",   " << VectorPosition[7] << ",   " << VectorPosition[8] << "]  " << std::endl; //左侧棱长向量
-        std::cout << "LineQuality:  [  " << LineQuali[0] << ",   " << LineQuali[1] << ",   " << LineQuali[2] << ",   " << LineQuali[3] << "]  " << std::endl;                                                                                                                                                                               //法向量
-    }
-    else{
-        std::cout<<"点云处理失败"<<std::endl;
-        return;
-    }
-
-    std::cout << "Quater:  [  " << Quater1[0] << ",   " << Quater1[1] << ",   " << Quater1[2] << ",   " << Quater1[3] << "]  " << std::endl; //四元数
-    std::cout << "centerPoint:  [  " << centerPoint1[0] << ",   " << centerPoint1[1] << ",   " << centerPoint1[2] << "] " << std::endl;      //中心坐标
-
-    visionData.robotpose.push_back(centerPoint1[0]);
-    visionData.robotpose.push_back(centerPoint1[1]);
-    visionData.robotpose.push_back(centerPoint1[2]); //TODO： 
-    visionData.robotpose.push_back(Quater1[0]);
-    visionData.robotpose.push_back(Quater1[1]);
-    visionData.robotpose.push_back(Quater1[2]);
-    visionData.robotpose.push_back(Quater1[3]);
-    visionData.robotpose.push_back(MedianHeight);
-
 }

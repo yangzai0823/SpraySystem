@@ -38,7 +38,7 @@ namespace vws {
     /*** @brief 头部运动最远距离 mm*/
     int64_t HeadMoveMaxLength = 1500;
 
-    double rbtspeed = 50; //20 * 20 * 5;
+    double rbtspeed = 50; //20 * 20 * 3;
 
     /** @brief 编码器数值与距离转换关系  encoder/mm*/
     float chainFactor = 0.4198727819755431f;
@@ -62,6 +62,8 @@ namespace vws {
 
     /** @brief 编码器旋转矩阵*/
     std::array<double,9> senorRotationMatrix_b;
+
+    std::array<double,3> robotBeltDirection;
     /************************************/
 
 
@@ -82,18 +84,18 @@ namespace vws {
         });
 
             vws::handEyeMatrix_u_rbt1 = std::array<double,12>({
-                -0.0150250699,
-                -0.118890852,
-                0.992793739,
-                519.98938,
-                0.0130119231,
-                0.992798448,
-                0.11908827,
-                2632.92798,
-                -0.999802351,
-                0.0147074759,
-                -0.0133698536,
-                668.73468
+              0.00505609391,
+              -0.0653268024,
+              0.997851133,
+              534.693359,
+              0.00418723887,
+              0.997856498,
+              0.0653059781,
+              2759.16211,
+              -0.999978483,
+              0.00384803256,
+              0.00531880092,
+              583.703369
             });
 
         vws::senorRotationMatrix_b = std::array<double,9>({
@@ -108,6 +110,12 @@ namespace vws {
             0.9955905675888062
         });
       
+
+      vws::robotBeltDirection = std::array<double,3>({
+        0.0007763591129332781,
+        0.4166736602783203,
+        -0.0002799863286782056
+      });
     }
 
 

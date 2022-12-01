@@ -5,17 +5,31 @@
 #include "Util/Log/clog.h"
 
 std::mutex ContextStateMachine::_mutex;
+float ContextStateMachine::getImgEncoder()
+{
+    float result;
+    int i=0;
+    while (true)
+    {
+        /* code */
+        result = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+        if(result!=pre_img_encoder || i>=3){
+            break;
+        }
+        i++;
+    }
+    pre_img_encoder = result;
+    return result;
+}
+
 ContextStateMachine::ContextStateMachine()
 {
     Name = "状态机";
-
-    //    visionContext = new VisionContext();
 
     /*初始化状态*/
     stateIDLE = new QState(this);
     waitLaserSignal = new QState(this);
     processHeadImg = new QState(this);
-    encoderOutofLimit = new QState(this);
     waitTrailProcess = new QState(this);
     processTrailImg = new QState(this);
 
@@ -28,11 +42,7 @@ ContextStateMachine::ContextStateMachine()
     tranWaiTrailProcess = processHeadImg->addTransition(this, SIGNAL(headDone()), waitTrailProcess);
 
     tranProcessTrailImg = waitTrailProcess->addTransition(this, SIGNAL(cameraSignalOffAndImgReady()), processTrailImg);
-    tranEncoderOutofLimit = waitTrailProcess->addTransition(this, SIGNAL(outOfLimt()), encoderOutofLimit);
     tranTrailImgTimeout = waitTrailProcess->addTransition(this, SIGNAL(trailImgTimeout()), stateIDLE);
-
-    tranEncoderOutofLimit = encoderOutofLimit->addTransition(this,SIGNAL(cameraSignalOffAndImgReady()), processTrailImg);
-    tranEncoderOutofLimit = encoderOutofLimit->addTransition(this,SIGNAL(trailImgTimeout()), stateIDLE);
 
 
     tranIDLE = processTrailImg->addTransition(this, SIGNAL(trailDone()), stateIDLE);
@@ -42,8 +52,6 @@ ContextStateMachine::ContextStateMachine()
     connect(waitLaserSignal,SIGNAL(exited()),this,SLOT(exitWaitLaserSignal_Slot()));
 
     connect(processHeadImg, SIGNAL(entered()), this, SLOT(enteredProcessHeadImg_Slot()));
-
-    connect(encoderOutofLimit,SIGNAL(entered()),this,SLOT(enteredEncoderOutofLimit_Slot()));
 
     connect(waitTrailProcess, SIGNAL(entered()), this, SLOT(enterdWaitTrailProcess_Slot()));
     connect(waitTrailProcess,SIGNAL(exited()),this,SLOT(exitWaitTrailProcess_Slot()));
@@ -57,15 +65,6 @@ ContextStateMachine::ContextStateMachine()
     connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
     timer_img_trail = new QTimer();
     connect(timer_img_trail, SIGNAL(timeout()), this, SLOT(trailTimer_Slot()));
-
-    headDisMonitor = new HeadDistanceMonitor();
-    connect(this,SIGNAL(beginMonitroDis_Signal(float)),headDisMonitor,SLOT(Work_Slot(float)));
-    connect(headDisMonitor,SIGNAL(outOfLimit_Signal()),this,SLOT(outOfLimit_Slot()));
-    thread_distance = new QThread();
-    headDisMonitor->moveToThread(thread_distance);
-    // if(!thread_distance->isRunning()){
-    //     thread_distance->start();
-    // }
 }
 
 ContextStateMachine::~ContextStateMachine()
@@ -170,14 +169,8 @@ void ContextStateMachine::finishVision_Slot(bool ishead)
     }
 }
 
-void ContextStateMachine::outOfLimit_Slot(){
-    //进入编码器超限状态
-    emit outOfLimt();
-}
-
 void ContextStateMachine::enteredWaitLaserSignal_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待箱体感应信号******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待箱体感应信号******");
 
     Context.laserCouple1 = tmplaserdata;
@@ -185,7 +178,8 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
     std::cout<<"测距： "<<std::to_string(Context.laserCouple1[0])<<", "<<std::to_string(Context.laserCouple1[1])<<std::endl;
 
     //读取拍照时刻编码器数值
-     Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+    //  Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+    Context.encoder_img_head = getImgEncoder();
     std::cout << "StateMachine, 编码器数值： " << Context.encoder_img_head << std::endl;
 
     //开启计时器    
@@ -194,16 +188,9 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 }
 void ContextStateMachine::exitWaitLaserSignal_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，退出状态： 等待箱体感应信号******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，退出状态： 等待箱体感应信号******");
 
     timer_img_head->stop();
-}
-
-void ContextStateMachine::enteredEncoderOutofLimit_Slot()
-{
-    //使用固定长度处理头部图像信息
-    emit finishVision_Head_Signal(this);
 }
 
 void ContextStateMachine::enteredProcessHeadImg_Slot()
@@ -211,48 +198,37 @@ void ContextStateMachine::enteredProcessHeadImg_Slot()
     // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理头部图像******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 处理头部图像******");
 
-     //开始监听悬挂链运行距离
-    emit beginMonitroDis_Signal(Context.encoder_img_head);
-
-    // emit beginVision_Singal(this, true);
     //视觉处理头部
     emit beginVision_Head_Signal(this);
 }
 
 void ContextStateMachine::enterdWaitTrailProcess_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 等待尾部图像处理******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待尾部图像处理******");
   
 }
 void ContextStateMachine::exitWaitTrailProcess_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，退出状态： 等待尾部图像处理******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，退出状态： 等待尾部图像处理******");
-
-    //停止监听悬挂链运行距离
-    headDisMonitor->Stop();
 }
 
 void ContextStateMachine::enteredProcessTrailImg_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理尾部图像******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 处理尾部图像******");
 
     
     timer_img_trail->stop();
 
-    Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+    // Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+    Context.encoder_img_trail = getImgEncoder();
     std::cout << Name.toStdString()<< "StateMachine, 编码器数值, head: "<<Context.encoder_img_head <<" ,trail: " << Context.encoder_img_trail << std::endl;
 
-    // emit beginVision_Singal(this, false);
     //视觉处理尾部
     emit beginVision_Trail_Signal(this);
 }
 
 void ContextStateMachine::enteredIDLE_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： IDLE******" << std::endl;
     CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： IDLE******");
 
     if(timer_img_head->isActive()){
@@ -267,6 +243,13 @@ void ContextStateMachine::enteredIDLE_Slot()
     Context.flag_img_trail = false;
     Context.laserCouple1.clear();
     Context.laserCouple2.clear();
+
+    vws::VisionData vd;
+    vd.hasError =false;
+    Context.visionData  = vd;
+
+    //初始化数值
+    pre_img_encoder = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
 }
 
 void ContextStateMachine::headTimer_Slot()

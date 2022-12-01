@@ -18,11 +18,11 @@ public:
 
     VisionContext();
 
-    void work(ImageData data,VisionData & visionData);
+    /** @brief 头部视觉处理
+     * @param ImageData,图像
+     * @param senorNums, 测距值
+    */
     void work_head(ImageData data,std::vector<float> senorNums, VisionData & VisionData);
-    /** @brief 按照固定长度计算箱体头部信息*/
-    void work_headWithLength(VisionData & VisionData);
-
     /** @brief 尾部视觉处理
      * @param ImageData,图像
      * @param senorNums, 拍照时刻编码器数值
@@ -39,18 +39,16 @@ public:
     void getWidth(std::vector<float> senorNums, float senorDistance, VisionData &visionData);
     /**
      * @brief 计算长度
-     * @param 标定编码器方向向量
      * @param 两次拍照的编码器数值
      * @param VisionData
     */
-    void getLenght(std::vector<double> encoderVector, std::vector<float> encoerNUms, VisionData &visionData);
+    void getLenght( std::vector<float> encoerNUms, VisionData &visionData);
     void getPose(VisionData &visionData);
     void RobotCenterPose(vws::VisionData &visionData, double handEyeMatrix[12]);
     /**
      * @brief 使用指定长度生成箱体中心
     */
     void RobotCenterPose(vws::VisionData &visionData, double handEyeMatrix[12], double length);
-    void visionProcessFunc(const VWSCamera::ImageData &data, vws::VisionData &visionData);
  private:
      HTuple ImageConver(ImageData data);
      /**

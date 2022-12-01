@@ -107,6 +107,8 @@ namespace vws
 
         /** @brief 0: top, 1: bottom*/
         bool top_or_bottom; 
+        /** 视觉处理是否有异常*/
+        bool hasError = false;
     };
     /**
      * @brief 轨迹规划参数

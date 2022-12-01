@@ -43,7 +43,7 @@ private:
     void checkHeadLaserAndImg();
     void checkTrailLaserAndImg();
 
-    
+    float getImgEncoder();
 public:
     QString Name;
 
@@ -56,8 +56,6 @@ private:
     QState *waitLaserSignal;
     /** @brief 处理头部图像*/
     QState *processHeadImg;
-    /** @brief  编码器超限*/
-    QState *encoderOutofLimit;
     /** @brief 等待尾部相机事件*/
     QState *waitTrailProcess;
     /** @brief 处理尾部图像*/
@@ -68,20 +66,12 @@ private:
     QSignalTransition *tranWaitSignal;
     QSignalTransition *tranProcessHeadImg;
     QSignalTransition *tranWaiTrailProcess;
-    QSignalTransition *tranEncoderOutofLimit;
     QSignalTransition *tranProcessTrailImg;
     QSignalTransition *tranIDLE;
 
     QSignalTransition *tranHeadImgTimeout;
     QSignalTransition *tranTrailImgTimeout;
     /**Transition end**/
-
-    /***子线程***/
-    /** @brief 距离监控子线程*/
-    QThread *thread_distance;
-    HeadDistanceMonitor *headDisMonitor;
-    /***子线程end***/
-
 
     int interval = 100;  //计时器间隔时间 mm
     int timeout_head = 30*1000; //超时时间 30m
@@ -92,11 +82,10 @@ private:
     int time_trail = 0;  //trail计数
 
     std::vector<float> tmplaserdata; //暂存测距
+
+    float pre_img_encoder;  //暂存编码器前一次拍照数值
 signals:
     //外部信号
-    void beginVision_Singal(ContextStateMachine *context, bool ishead);
-    /** @brief 开始监听头部运行距离*/
-    void beginMonitroDis_Signal(float camera_encoder);
     void beginVision_Head_Signal(ContextStateMachine *context);
     void finishVision_Head_Signal(ContextStateMachine *context);
     void beginVision_Trail_Signal(ContextStateMachine *context);
@@ -105,7 +94,6 @@ signals:
     void cameraSignalOn();
     void laserSignalOnAndImgReady();
     void headDone();
-    void outOfLimt();
     void cameraSignalOffAndImgReady();
     void trailDone();
     void headImgTimeout();
@@ -115,14 +103,12 @@ public slots:
     void sendPlcData_Slot(QVariant vData);
     void sendImgData_Slot(QVariant vData);
     void finishVision_Slot(bool ishead);
-    void outOfLimit_Slot();
 
     //内部事件
     void enteredWaitLaserSignal_Slot();
     void exitWaitLaserSignal_Slot();
 
     void enteredProcessHeadImg_Slot();
-    void enteredEncoderOutofLimit_Slot();
     void enterdWaitTrailProcess_Slot();
     void exitWaitTrailProcess_Slot();
     void enteredProcessTrailImg_Slot();

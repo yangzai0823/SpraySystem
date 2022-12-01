@@ -68,7 +68,7 @@ void MCOperator::sendTrajParam(float zeropoint, float offset)
 void MCOperator::reset()
 {
      std::cout<<"运动控制器请报错复位"<<std::endl;
-    sendData(-1, 0, 0);
+    sendData(9, 0, 0);
 }
 
 std::vector<float> MCOperator::getChainEncoders()

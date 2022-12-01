@@ -65,6 +65,8 @@ namespace vws {
 
         /** @brief 编码器旋转矩阵*/
         extern std::array<double,9> senorRotationMatrix_b;
+
+        extern std::array<double,3> robotBeltDirection;
         /************************************/
 
      class DataInit{

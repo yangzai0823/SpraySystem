@@ -131,15 +131,14 @@ public:
      * @brief 计算悬挂链的跟随零点,  跟随0点为p1走到机器人0点位置时的编码器值
      * 
      * @param p1                    箱体上的参考0点
-     * @param sevenEncoder          7轴作为机器人0点的编码器值
+     * @param follow_offset          跟随距离，以悬挂链运行方向为正方向，正表示机器人超前跟随
      * @param encoder               拍照时刻的悬挂链编码器值
      * @param is_increas                运动时悬挂链编码器是否是增加的
+     * @param invert                表示机器人y正方向和悬挂链运行方向是否相反
      * @return std::vector<float> 
-     */
-    std::vector<float> calChainZeroPoint(
-        Eigen::Vector3d p1, float sevenEncoder,
-        int64_t encoder, bool is_increas);
-
+     */ 
+    std::vector<float> calChainZeroPoint(Eigen::Vector3d p1,
+            float follow_offset, int64_t encoder, bool is_increase, bool invert);
     /**
      * @brief 计算悬挂链0点
      */
