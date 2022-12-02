@@ -117,7 +117,7 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 
 void MainProcess::Test(PLCData data)
 {
-    testMove();
+    // testMove();
 
     // QVariant vData;
     // vData.setValue(data);

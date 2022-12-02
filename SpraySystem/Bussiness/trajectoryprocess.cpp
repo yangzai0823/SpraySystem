@@ -1036,7 +1036,7 @@ bool planPaintPath(TrajectoryGenerator *generator, Eigen::VectorXd &init_dof,
     paint_start = traj.block(0, 0, ndof, 1);
     std::cout << "Gen Entry Path " << std::endl;
     ret &= generator->GenerateEntryTrajectory(
-        init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3, false); //显示
+        init_pose, traj.block(0, 0, ndof, 1), 6, entry_traj, ndof, 3, false); //显示
     if (ret)
     {
       //   logfile_ << "Entry Path dist " << " - " << generator->pathDist(entry_traj, ndof)
@@ -1299,8 +1299,8 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
             getSeamPaintOrientation(isfront, invert), 20, boxSize[2] - 200,
             isfront, invert, p_weld, ori_weld);
         if (!planPaintPath(generator, init_dof, p_weld, ori_weld, out_unsafe_traj,
-                           init_dof, ndof, isforward, false))
-        { //显示
+                           init_dof, ndof, isforward, true))
+        { 
           return false;
         }
       }
@@ -1323,7 +1323,7 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
     {
       // 喷涂点-》示教点
       Eigen::VectorXd entry_traj;
-      if (!generator->GenerateEntryTrajectory(init_dof, pos2, 20, entry_traj, ndof, 3, false))
+      if (!generator->GenerateEntryTrajectory(init_dof, pos2, 6, entry_traj, ndof, 3, false))
       { //显示
         return false;
       }
@@ -1433,7 +1433,7 @@ bool TrajectoryProcess::planOneTask(TrajectoryGenerator *generator,
       paint_start = traj.block(0, 0, ndof, 1);
       std::cout << "Gen Entry Path " << i << std::endl;
       ret &= generator->GenerateEntryTrajectory(
-          init_pose, traj.block(0, 0, ndof, 1), 20, entry_traj, ndof, 3);
+          init_pose, traj.block(0, 0, ndof, 1), 6, entry_traj, ndof, 3);
       if (ret)
       {
         logfile_ << "Entry Path dist "
@@ -1461,7 +1461,7 @@ bool TrajectoryProcess::planOneTask(TrajectoryGenerator *generator,
 
   std::cout << "Gen Quit Path " << std::endl;
   ret = generator->GenerateEntryTrajectory(
-      init_pose, init_dof, 20, quit_traj, ndof, 3, false);
+      init_pose, init_dof, 6, quit_traj, ndof, 3, false);
   if (ret)
   {
     logfile_ << "Quit Path dist "
