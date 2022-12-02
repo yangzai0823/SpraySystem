@@ -57,6 +57,8 @@ void VisionContext::work_head(ImageData data,std::vector<float> senorNums, vws::
      float senorDistance =  vws::senorDistance_b;
      getPoseAndHeight(data,VisionData);
      if(VisionData.hasError){
+        VisionData.width = vws::BoxMaxWidth;
+        //TODO： 使用固定位姿
         return;
      }
      getWidth(senorNums,senorDistance,VisionData);
@@ -74,8 +76,8 @@ void VisionContext::work_head(ImageData data,std::vector<float> senorNums, vws::
             std::cout<<"下相机手眼"<<std::endl;
             handEyeMatrix = vws::handEyeMatrix_b_rbt1.data();
         }
-     RobotCenterPose(VisionData, handEyeMatrix, vws::BoxLenght);
-
+    RobotCenterPose(VisionData, handEyeMatrix, vws::BoxLenght);
+    //TODO： 位姿校验失败
 
     std::string toporbottom = VisionData.top_or_bottom==0?"上层":"下层";
     std::string filename = "/home/vws/Demo/cloud/"+toporbottom+"_head";
@@ -108,6 +110,7 @@ void VisionContext::work_trail(ImageData data,std::vector<float> senorNums, vws:
 
      getPoseANdHeight_Trail(data,VisionData);
      if(VisionData.hasError){
+        //TODO： 使用固定位姿
         return;
      }
      
@@ -143,12 +146,16 @@ void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData
 
     if(Result!="1, 运行成功"){
         visionData.hasError = true;
+        visionData.height = vws::BoxMaxHeight;
         CLog::getInstance()->log_std("头部高度计算， "+Result,CLog::CLOG_LEVEL::REEROR);
-         return;
+        return;
+    }
+    else if(!vws::DataVerify::BoxHeightVerify(MedianHeight)){
+        CLog::getInstance()->log("头部高度校验失败： "+QString::number(MedianHeight),CLog::CLOG_LEVEL::REEROR);
     }
 
     CLog::getInstance()->log("视觉结果： 箱体高度, " + QString::number(MedianHeight));
-    visionData.height = vws::BoxHeight; //使用固定高度 //MedianHeight;
+    visionData.height = vws::BoxHeight; 
     visionData.normalvector_head.resize(9);
     memcpy(visionData.normalvector_head.data(),VectorPosition,9*sizeof(double));
     //端点坐标
@@ -175,10 +182,10 @@ void VisionContext::getPoseANdHeight_Trail(ImageData data, vws::VisionData &visi
     if(Result!="1, 运行成功"){
         visionData.hasError = true;
         CLog::getInstance()->log_std("尾部高度计算， "+Result,CLog::CLOG_LEVEL::REEROR);
-         return;
+        return;
     }
 
-    visionData.height = MedianHeight;
+    visionData.height = vws::BoxHeight;
     visionData.normalvector.resize(9);
     memcpy(visionData.normalvector.data(),VectorPosition,9*sizeof(double));
     //端点坐标

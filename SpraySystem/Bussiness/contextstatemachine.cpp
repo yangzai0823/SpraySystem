@@ -5,18 +5,35 @@
 #include "Util/Log/clog.h"
 
 std::mutex ContextStateMachine::_mutex;
-float ContextStateMachine::getImgEncoder()
+float ContextStateMachine::getImgEncoder(bool init)
 {
-    float result;
+    float result = 0;
     int i=0;
+    bool success = false;
+
     while (true)
     {
         /* code */
-        result = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
-        if(result!=pre_img_encoder || i>=3){
-            break;
+        result = DeviceManager::getInstance()->getMC()->getChainEncoders(success)[Context.index];
+        if(init){
+            if(success || i>=10){
+                break;
+            }
+        }
+        else{
+            if(result!=pre_img_encoder || i>=10){
+                break;
+            }
         }
         i++;
+        usleep(200000);
+    }
+
+    if(success==false){
+        CLog::getInstance()->log("读取拍照时刻编码器数值超时");
+        CLog::getInstance()->log("当前读数： "+QString::number(result)+", 前一次数值： "+QString::number(result));
+        //设备报警
+        emit alarm();
     }
     pre_img_encoder = result;
     return result;
@@ -27,13 +44,16 @@ ContextStateMachine::ContextStateMachine()
     Name = "状态机";
 
     /*初始化状态*/
-    stateIDLE = new QState(this);
-    waitLaserSignal = new QState(this);
-    processHeadImg = new QState(this);
-    waitTrailProcess = new QState(this);
-    processTrailImg = new QState(this);
+    parentState = new QState(this);
+    deviceAlarm = new QState(this);
+    stateIDLE = new QState(parentState);
+    waitLaserSignal = new QState(parentState);
+    processHeadImg = new QState(parentState);
+    waitTrailProcess = new QState(parentState);
+    processTrailImg = new QState(parentState);
 
     /**绑定跳转**/
+    parentState->addTransition(this,SIGNAL(alarm()),deviceAlarm);
     tranWaitSignal = stateIDLE->addTransition(this, SIGNAL(cameraSignalOn()), waitLaserSignal);
 
     tranProcessHeadImg = waitLaserSignal->addTransition(this, SIGNAL(laserSignalOnAndImgReady()), processHeadImg);
@@ -48,6 +68,9 @@ ContextStateMachine::ContextStateMachine()
     tranIDLE = processTrailImg->addTransition(this, SIGNAL(trailDone()), stateIDLE);
 
     /**enter 事件**/
+    connect(parentState,SIGNAL(entered()),this,SLOT(enteredParentState_Slot()));
+    connect(deviceAlarm,SIGNAL(entered()),this,SLOT(enteredAlarm_Slot()));
+
     connect(waitLaserSignal, SIGNAL(entered()), this, SLOT(enteredWaitLaserSignal_Slot()));
     connect(waitLaserSignal,SIGNAL(exited()),this,SLOT(exitWaitLaserSignal_Slot()));
 
@@ -59,7 +82,9 @@ ContextStateMachine::ContextStateMachine()
     connect(processTrailImg, SIGNAL(entered()), this, SLOT(enteredProcessTrailImg_Slot()));
 
     connect(stateIDLE, SIGNAL(entered()), this, SLOT(enteredIDLE_Slot()));
-    this->setInitialState(stateIDLE);
+
+    parentState->setInitialState(stateIDLE);
+    this->setInitialState(parentState);
 
     timer_img_head = new QTimer();
     connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
@@ -108,6 +133,16 @@ void ContextStateMachine::checkTrailLaserAndImg()
         // std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
     }
     _mutex.unlock();
+}
+
+void ContextStateMachine::enteredParentState_Slot()
+{
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： Parent******");
+}
+
+void ContextStateMachine::enteredAlarm_Slot()
+{
+    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： Alarm******");
 }
 
 void ContextStateMachine::sendPlcData_Slot(QVariant vData)
@@ -173,12 +208,17 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 {
     CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待箱体感应信号******");
 
-    Context.laserCouple1 = tmplaserdata;
-    // Context.laserCouple2 = data.laserCouple2;
+    //校验测距
+    if(vws::DataVerify::RangingVerify(tmplaserdata[0],tmplaserdata[1])){
+        Context.laserCouple1 = tmplaserdata;
+    }
+    else{
+        CLog::getInstance()->log("测距异常",CLog::CLOG_LEVEL::REEROR);
+        Context.laserCouple1 = {vws::rangeMin,vws::rangeMin};
+    }
     std::cout<<"测距： "<<std::to_string(Context.laserCouple1[0])<<", "<<std::to_string(Context.laserCouple1[1])<<std::endl;
-
+    
     //读取拍照时刻编码器数值
-    //  Context.encoder_img_head = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
     Context.encoder_img_head = getImgEncoder();
     std::cout << "StateMachine, 编码器数值： " << Context.encoder_img_head << std::endl;
 
@@ -249,7 +289,7 @@ void ContextStateMachine::enteredIDLE_Slot()
     Context.visionData  = vd;
 
     //初始化数值
-    pre_img_encoder = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
+    pre_img_encoder = getImgEncoder(true);
 }
 
 void ContextStateMachine::headTimer_Slot()

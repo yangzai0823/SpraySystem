@@ -71,11 +71,15 @@ void MCOperator::reset()
     sendData(9, 0, 0);
 }
 
-std::vector<float> MCOperator::getChainEncoders()
+std::vector<float> MCOperator::getChainEncoders(bool & success)
 {
-    sendData(1, 0, 0);
-    waitData(data.bchainencoder);
+    success = true;
 
+    sendData(1, 0, 0);
+    if(!waitData(data.bchainencoder))
+    {
+        success = false;
+    }
     std::vector<float> val;
     val.push_back(data.encoder1);
     val.push_back(data.encoder2);
@@ -114,16 +118,23 @@ void MCOperator::sendData(uint8_t head, float v1, float v2)
     ret = socketclient->send(arry);
 }
 
-void MCOperator::waitData(bool &flag)
+bool MCOperator::waitData(bool &flag)
 {
     int i = 0;
-    while (!flag)
+    while (!flag && i<10)
     {
         i++;
         //        QCoreApplication::processEvents();
         usleep(10);
     }
-    flag = false;
+    //相应超时
+    if(flag == false){
+        return false;
+    }
+    else{
+        flag = false;
+        return true;
+    }
 }
 
 void MCOperator::readyRead_Slot(QByteArray buf)

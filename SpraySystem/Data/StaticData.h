@@ -10,6 +10,23 @@ namespace vws {
         extern QString Robot1;
         extern QString Robot2;
         extern QString PLC;
+        /**
+         * @brief 箱子理论长度，单位mm
+         */
+        extern int64_t BoxLenght;
+
+        /**
+         * @brief 箱子理论高度, 单位mm
+         */
+        extern int64_t BoxHeight;
+        
+        extern int64_t BoxMaxLength;
+        extern int64_t BoxMaxHeight;
+        extern int64_t BoxMinHeight;
+        extern int64_t BoxMaxWidth;
+        extern int64_t BoxMinWidth;
+        extern float rangeMax;
+        extern float rangeMin;
 
         /**
          * @brief PLC出发信号超时时间，单位毫秒
@@ -19,15 +36,6 @@ namespace vws {
          * @brief PLC出发信号超时时间，单位毫秒
          */
         extern int64_t TopSingalTimeOut;
-        /**
-         * @brief 箱子理论长度，单位mm
-         */
-        extern int64_t BoxLenght;
-
-        /**
-         * @brief 箱子理论高度, 单位mm
-         */
-       extern int64_t BoxHeight;
 
         extern int32_t LaserUp;
         extern int32_t LaserBottom;
@@ -72,6 +80,15 @@ namespace vws {
      class DataInit{
      public:
          static void Init();
+     };
+
+     class DataVerify{
+        public:
+            /** @brief 测距校验*/
+            static bool RangingVerify(float num1,float num2);
+            /** @brief 箱体高度校验*/
+            static bool BoxHeightVerify(float height);
+            static bool BoxWidthVerify(float height);
      };
 
 }

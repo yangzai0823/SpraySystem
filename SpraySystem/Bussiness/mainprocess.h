@@ -115,7 +115,7 @@ private slots:
      */
     void beginVision_trail_Slot(ContextStateMachine *sm);
 
-
+    void alarm_Slot();
 signals:
     void begintraj_Singal(MainProcess *data);
 

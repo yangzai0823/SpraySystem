@@ -43,7 +43,7 @@ private:
     void checkHeadLaserAndImg();
     void checkTrailLaserAndImg();
 
-    float getImgEncoder();
+    float getImgEncoder(bool init =false);
 public:
     QString Name;
 
@@ -51,6 +51,8 @@ private:
     static std::mutex _mutex;
     //    VisionContext *visionContext;
     /**状态**/
+    QState *parentState;
+    QState *deviceAlarm;
     QState *stateIDLE;
     /** @brief 等待感应开关*/
     QState *waitLaserSignal;
@@ -91,6 +93,7 @@ signals:
     void beginVision_Trail_Signal(ContextStateMachine *context);
 
     //内部信号
+    void alarm();
     void cameraSignalOn();
     void laserSignalOnAndImgReady();
     void headDone();
@@ -105,6 +108,9 @@ public slots:
     void finishVision_Slot(bool ishead);
 
     //内部事件
+    void enteredParentState_Slot();
+    void enteredAlarm_Slot();
+
     void enteredWaitLaserSignal_Slot();
     void exitWaitLaserSignal_Slot();
 

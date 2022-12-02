@@ -33,7 +33,7 @@ public:
     void reset();
 
     void sendTrajParam(float zeropoint, float offset);
-    std::vector<float> getChainEncoders();
+    std::vector<float> getChainEncoders(bool & success);
     std::vector<float> getRealTimeEncoder();
     void SevenAxisReset();
 private:
@@ -46,7 +46,7 @@ private:
     bool state;
 
     void sendData(uint8_t head,float v1, float v2);
-    void waitData(bool &flag);
+    bool waitData(bool &flag);
 public slots:
     void readyRead_Slot(QByteArray buf);
     void getTrajParam_Slot();

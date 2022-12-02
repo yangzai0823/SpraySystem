@@ -138,8 +138,8 @@ MainProcess::MainProcess()
     camera2CallbackData_u->mainProcess = this;
 
 
-   camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
-   camera2->RegisterFrameCallBack(imgFunc_b,(void *)(camera2CallbackData_u));
+    camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
+    camera2->RegisterFrameCallBack(imgFunc_b,(void *)(camera2CallbackData_u));
  
     visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();
@@ -151,6 +151,7 @@ MainProcess::MainProcess()
     connect(this, SIGNAL(sendTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
 
     sm_bottom = new ContextStateMachine();
+    connect(sm_bottom,SIGNAL(alarm()),this,SLOT(alarm_Slot()));
     connect(this, SIGNAL(sendPlcData_b(QVariant)), sm_bottom, SLOT(sendPlcData_Slot(QVariant)));
     connect(this, SIGNAL(sendImgData_b(QVariant)), sm_bottom, SLOT(sendImgData_Slot(QVariant)));
    
@@ -312,52 +313,54 @@ void MainProcess::beginVision_head_Slot(ContextStateMachine *sm)
     , sm->Context.laserCouple1
     ,  sm->Context.visionData);
     
-    //TODO: 视觉处理异常后
-
      vws::PlanTaskInfo planTaskInfo_head;
-        planTaskInfo_head.diff = vws::diff;
-        planTaskInfo_head.lx = sm->Context.visionData.width;
-        planTaskInfo_head.ly = sm->Context.visionData.length_head;
-        planTaskInfo_head.lz = sm->Context.visionData.height;
-        planTaskInfo_head.encoder =  sm->Context.encoder_img_head;
-        planTaskInfo_head.face =  0;
-        planTaskInfo_head.boxInfo = Eigen::Isometry3d::Identity();
+    if(sm->Context.visionData.hasError){
+        //标记为已规划，当障碍物处理
+        planTaskInfo_head.flag = true;
+    }
+    planTaskInfo_head.diff = vws::diff;
+    planTaskInfo_head.lx = sm->Context.visionData.width;
+    planTaskInfo_head.ly = sm->Context.visionData.length_head;
+    planTaskInfo_head.lz = sm->Context.visionData.height;
+    planTaskInfo_head.encoder =  sm->Context.encoder_img_head;
+    planTaskInfo_head.face =  0;
+    planTaskInfo_head.boxInfo = Eigen::Isometry3d::Identity();
 
 
-        QString strlog = sm->Name+"， 头部， Plan Task, 编码器数值："+QString::number(planTaskInfo_head.encoder);
-        CLog::getInstance()->log(strlog);
-        strlog = sm->Name+ "， 头部四元数: " +QString::number(sm->Context.visionData.robotpose_head[3])
-                + ", " +QString::number(sm->Context.visionData.robotpose_head[4])
-                + ", " + QString::number(sm->Context.visionData.robotpose_head[5])
-                + "," + QString::number(sm->Context.visionData.robotpose_head[6]);
-        CLog::getInstance()->log(strlog);
-         strlog = sm->Name+ "， 头部坐标： " +QString::number(sm->Context.visionData.robotpose_head[0])
-                + ", " + QString::number(sm->Context.visionData.robotpose_head[1]) 
-                + ", " + QString::number(sm->Context.visionData.robotpose_head[2]);
-        CLog::getInstance()->log(strlog);
-        strlog = sm->Name +", 头部尺寸： "+QString::number(planTaskInfo_head.lx)+", "+QString::number(planTaskInfo_head.ly)+", "+QString::number(planTaskInfo_head.lz);
-        CLog::getInstance()->log(strlog);
+    QString strlog = sm->Name+"， 头部， Plan Task, 编码器数值："+QString::number(planTaskInfo_head.encoder);
+    CLog::getInstance()->log(strlog);
+    strlog = sm->Name+ "， 头部四元数: " +QString::number(sm->Context.visionData.robotpose_head[3])
+            + ", " +QString::number(sm->Context.visionData.robotpose_head[4])
+            + ", " + QString::number(sm->Context.visionData.robotpose_head[5])
+            + "," + QString::number(sm->Context.visionData.robotpose_head[6]);
+    CLog::getInstance()->log(strlog);
+        strlog = sm->Name+ "， 头部坐标： " +QString::number(sm->Context.visionData.robotpose_head[0])
+            + ", " + QString::number(sm->Context.visionData.robotpose_head[1]) 
+            + ", " + QString::number(sm->Context.visionData.robotpose_head[2]);
+    CLog::getInstance()->log(strlog);
+    strlog = sm->Name +", 头部尺寸： "+QString::number(planTaskInfo_head.lx)+", "+QString::number(planTaskInfo_head.ly)+", "+QString::number(planTaskInfo_head.lz);
+    CLog::getInstance()->log(strlog);
 
-        planTaskInfo_head.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose_head[3], sm->Context.visionData.robotpose_head[4], sm->Context.visionData.robotpose_head[5], sm->Context.visionData.robotpose_head[6]));
-        planTaskInfo_head.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose_head[0], sm->Context.visionData.robotpose_head[1], sm->Context.visionData.robotpose_head[2]+zero_offset));
+    planTaskInfo_head.boxInfo.prerotate(Eigen::Quaterniond(sm->Context.visionData.robotpose_head[3], sm->Context.visionData.robotpose_head[4], sm->Context.visionData.robotpose_head[5], sm->Context.visionData.robotpose_head[6]));
+    planTaskInfo_head.boxInfo.pretranslate(Eigen::Vector3d(sm->Context.visionData.robotpose_head[0], sm->Context.visionData.robotpose_head[1], sm->Context.visionData.robotpose_head[2]+zero_offset));
 
-        //根据状态机判断底层/顶层
-        if (sm->Name == "Bottom")
-        {
-            CLog::getInstance()->log("低层箱子头部被参数进入队列");
-            planTaskInfo_head.isup = false;
-            qPlanTaskInfoBottom.push_back(planTaskInfo_head);
+    //根据状态机判断底层/顶层
+    if (sm->Name == "Bottom")
+    {
+        CLog::getInstance()->log("低层箱子头部被参数进入队列");
+        planTaskInfo_head.isup = false;
+        qPlanTaskInfoBottom.push_back(planTaskInfo_head);
 
-            emit finishVision_Signal_b(true);
-        }
-        else
-        {
-            CLog::getInstance()->log("顶层箱子头部被参数进入队列");
-            planTaskInfo_head.isup = true;
-            qPlanTaskInfoTop.push_back(planTaskInfo_head);
+        emit finishVision_Signal_b(true);
+    }
+    else
+    {
+        CLog::getInstance()->log("顶层箱子头部被参数进入队列");
+        planTaskInfo_head.isup = true;
+        qPlanTaskInfoTop.push_back(planTaskInfo_head);
 
-            emit finishVision_Signal_u(true);
-        }
+        emit finishVision_Signal_u(true);
+    }
 }
 
 void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
@@ -378,6 +381,9 @@ void MainProcess::beginVision_trail_Slot(ContextStateMachine *sm)
 
     //参数入规划队列, 头部如果未入队列，将头部也入队列
     vws::PlanTaskInfo planTaskInfo;
+    if(sm->Context.visionData.hasError){
+        planTaskInfo.flag= true;
+    }
     planTaskInfo.diff = vws::diff;
     planTaskInfo.lx = sm->Context.visionData.width;
     planTaskInfo.ly = sm->Context.visionData.length;
@@ -448,4 +454,8 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
         emit sendTrajParam_Signal();
     }
     _trajret_mutex.unlock();
+}
+
+void MainProcess::alarm_Slot(){
+
 }

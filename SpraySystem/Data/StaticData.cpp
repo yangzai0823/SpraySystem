@@ -8,14 +8,7 @@ namespace vws {
     QString Robot1= "机器人1";
     QString Robot2 = "机器人2";
     QString PLC ="PLC";
-    /**
-     * @brief PLC出发信号超时时间，单位毫秒
-     */
-    int64_t BottomSingalTimeOut = 30 * 1000;
-    /**
-     * @brief PLC出发信号超时时间，单位毫秒
-     */
-    int64_t TopSingalTimeOut = 30 * 1000;
+
     /**
      * @brief 箱子理论长度，单位mm
      */
@@ -25,6 +18,24 @@ namespace vws {
      * @brief 箱子理论高度, 单位mm
      */
     int64_t BoxHeight = 800;
+
+    int64_t BoxMaxLength = 1000;
+    int64_t BoxMinHeight = 100;
+    int64_t BoxMaxWidth = 1000;
+    int64_t BoxMinWidth = 100;
+    int64_t BoxMaxHeight = 800;
+
+    float rangeMin = 0;
+    float rangeMax = 2000;
+
+    /**
+     * @brief PLC出发信号超时时间，单位毫秒
+     */
+    int64_t BottomSingalTimeOut = 30 * 1000;
+    /**
+     * @brief PLC出发信号超时时间，单位毫秒
+     */
+    int64_t TopSingalTimeOut = 30 * 1000;
 
     int32_t LaserUp = 2047;
     int32_t LaserBottom = 0;
@@ -118,6 +129,15 @@ namespace vws {
       });
     }
 
+    bool DataVerify::RangingVerify(float num1,float num2){
+        return (num1>rangeMin && num1<rangeMax) && (num2>rangeMin && num2<rangeMax);
+    }
 
+    bool DataVerify::BoxHeightVerify(float height){
+      return height<BoxMaxHeight && height>BoxMinHeight;
+    }
+    bool DataVerify::BoxWidthVerify(float width){
+      return width<BoxMaxWidth && width>BoxMinWidth;
+    }
 }
 

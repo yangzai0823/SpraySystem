@@ -60,7 +60,7 @@
         "speed": {
             "plane_paint": 10,
             "seam_paint": 10,
-            "move": 10
+            "move": 50
         },
         "PlanTactic": [
             {
