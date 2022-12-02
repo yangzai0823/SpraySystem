@@ -292,41 +292,43 @@ void MainWindow::deviceConnectError_slot(QString device, int state)
 int i = 0;
 void MainWindow::on_btn_EStop_clicked()
 {
-    if (i == 0)
-    {
-        mainprocess->plcdata.laser_up_head = mainprocess->plcdata.laser_up_behind = mainprocess->plcdata.laser_bottom_head = mainprocess->plcdata.laser_bottom_behind = 100;
-        mainprocess->plcdata.flag_camera_b = 1;
-        mainprocess->Test(mainprocess->plcdata);
-    }
-    else if (i == 1)
-    {
-        mainprocess->plcdata.flag_laser_b = 1;
-        mainprocess->Test(mainprocess->plcdata);
-    }
-    else if (i == 2)
-    {
-        mainprocess->TestImg();
-    }
-    else if (i == 3)
-    {
-        mainprocess->plcdata.flag_camera_b = 0;
-        mainprocess->Test(mainprocess->plcdata);
-    }
-    else if (i == 4)
-    {
-        mainprocess->TestImg();
-    }
+    mainprocess->Test(mainprocess->plcdata);
 
-    // std::cout << "i: " << i << std::endl;
-    if (i < 4)
-    {
-        i++;
-    }
-    else
-    {
-        i = 0;
-    }
-    //   mainprocess->sendtorbt();
+    // if (i == 0)
+    // {
+    //     mainprocess->plcdata.laser_up_head = mainprocess->plcdata.laser_up_behind = mainprocess->plcdata.laser_bottom_head = mainprocess->plcdata.laser_bottom_behind = 100;
+    //     mainprocess->plcdata.flag_camera_b = 1;
+    //     mainprocess->Test(mainprocess->plcdata);
+    // }
+    // else if (i == 1)
+    // {
+    //     mainprocess->plcdata.flag_laser_b = 1;
+    //     mainprocess->Test(mainprocess->plcdata);
+    // }
+    // else if (i == 2)
+    // {
+    //     mainprocess->TestImg();
+    // }
+    // else if (i == 3)
+    // {
+    //     mainprocess->plcdata.flag_camera_b = 0;
+    //     mainprocess->Test(mainprocess->plcdata);
+    // }
+    // else if (i == 4)
+    // {
+    //     mainprocess->TestImg();
+    // }
+
+    // // std::cout << "i: " << i << std::endl;
+    // if (i < 4)
+    // {
+    //     i++;
+    // }
+    // else
+    // {
+    //     i = 0;
+    // }
+    // //   mainprocess->sendtorbt();
 }
 
 void MainWindow::on_btn_Camera1_clicked()

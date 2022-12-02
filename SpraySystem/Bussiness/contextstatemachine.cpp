@@ -31,7 +31,7 @@ float ContextStateMachine::getImgEncoder(bool init)
 
     if(success==false){
         CLog::getInstance()->log("读取拍照时刻编码器数值超时");
-        CLog::getInstance()->log("当前读数： "+QString::number(result)+", 前一次数值： "+QString::number(result));
+        CLog::getInstance()->log("当前读数： "+QString::number(result)+", 前一次数值： "+QString::number(pre_img_encoder));
         //设备报警
         emit alarm();
     }
@@ -284,9 +284,9 @@ void ContextStateMachine::enteredIDLE_Slot()
     Context.laserCouple1.clear();
     Context.laserCouple2.clear();
 
-    vws::VisionData vd;
-    vd.hasError =false;
-    Context.visionData  = vd;
+    // vws::VisionData vd;
+    // vd.hasError =false;
+    // Context.visionData  = vd;
 
     //初始化数值
     pre_img_encoder = getImgEncoder(true);

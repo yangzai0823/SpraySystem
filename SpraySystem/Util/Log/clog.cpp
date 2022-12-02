@@ -70,7 +70,7 @@ void CLog::log(QString data, CLog::CLOG_LEVEL nLevel)
     }
 
     QString current_date = QDateTime::currentDateTime().toString("yyyy-MM-dd");
-    QString current_date_time = QDateTime::currentDateTime().toString("hh:mm:ss ddd");
+    QString current_date_time = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
     QString message = QString("[%1]， %2").arg(current_date_time).arg(data);
 
     QString fileName = QString("%1%2").arg(current_date).arg(Suffix);

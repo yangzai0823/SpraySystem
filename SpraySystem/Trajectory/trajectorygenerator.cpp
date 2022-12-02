@@ -116,7 +116,7 @@ void TrajectoryGenerator::GenerateEnvirInfo()
    pt->addBox(Eigen::Vector3d(-1.5, 0, 1), Eigen::Vector3d(0.01, 5, 2),
    Eigen::Quaterniond(1,0,0,0), "wall");
          //  // 添加地面
-   pt->addBox(Eigen::Vector3d(0, 0, -1.05), Eigen::Vector3d(5, 5, 0.01),
+   pt->addBox(Eigen::Vector3d(0, 0, -1.5), Eigen::Vector3d(5, 5, 0.01),
    Eigen::Quaterniond(1,0,0,0), "floor");
     // 添加滑轨
    pt->addBox(Eigen::Vector3d(0, 0, -1.005), Eigen::Vector3d(0.50, 5, 0.4),

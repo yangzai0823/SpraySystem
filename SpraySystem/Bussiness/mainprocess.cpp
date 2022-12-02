@@ -29,6 +29,49 @@ int saveToFile(std::string fileName,const VWSCamera::ImageData &data){
 }
 
 
+void testMove()
+{
+    double start[6] = { -31.7623,
+                    33.8082,
+                    -40.1508,
+                    20.9592,
+                    -37.6706,
+                    -0.7618};
+    double end[6] = { -27.0692,
+                    -55.7453,
+                    -43.5885,
+                    105.0391,
+                    -122.7237,
+                    -53.6061};
+
+    std::vector<RobotTask> rbt_tasks;
+    RobotTask rbttask;
+    std::array<float,7UL> jv;
+    float speed = 50;
+    int N = 10;
+    for(int n = 0; n < N; n++){
+        for(int i = 0; i < 6; i++){
+            jv[i] = (end[i] - start[i]) / (N - 1) * n + start[i];
+        }
+        rbttask.point = jv;
+        rbttask.speed[0] = speed;
+        rbttask.speed[1] = speed;
+        rbttask.taskType = VWSRobot::TaskType::track_1;
+        rbt_tasks.push_back(rbttask);    
+    }
+
+    for(int i = 0; i < 6; i++){
+        jv[i] = start[i];
+    }
+    rbttask.point = jv;
+    rbttask.speed[0] = speed;
+    rbttask.speed[1] = speed;
+    rbttask.taskType = VWSRobot::TaskType::track_1;
+    rbt_tasks.push_back(rbttask);    
+
+    DeviceManager::getInstance()->getRobot(0)->sendData(rbt_tasks);
+}
+
 void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 {
     MainProcess::CameraCallbackData *cameraCallbackData = (MainProcess::CameraCallbackData *)pUser;
@@ -74,10 +117,12 @@ void imgFunc_b(const VWSCamera::ImageData &data, void *pUser)
 
 void MainProcess::Test(PLCData data)
 {
-    QVariant vData;
-    vData.setValue(data);
+    testMove();
 
-    recevieData_Slot(vData);
+    // QVariant vData;
+    // vData.setValue(data);
+
+    // recevieData_Slot(vData);
 }
 
 void MainProcess::TestImg()
@@ -177,6 +222,7 @@ MainProcess::MainProcess()
     sm_top->Context.index = 1;
     sm_top->Context.visionData.top_or_bottom = 0;
     sm_top->start();
+
 }
 
 MainProcess::~MainProcess()

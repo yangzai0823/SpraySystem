@@ -58,9 +58,9 @@
             "dleft_plane-uleft_plane": []
         },
         "speed": {
-            "plane_paint": 10,
-            "seam_paint": 10,
-            "move": 50
+            "plane_paint": 30,
+            "seam_paint": 1,
+            "move": 80
         },
         "PlanTactic": [
             {

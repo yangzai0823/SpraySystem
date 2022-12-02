@@ -156,12 +156,15 @@ void VisionContext::getPoseAndHeight(ImageData data, vws::VisionData &visionData
 
     CLog::getInstance()->log("视觉结果： 箱体高度, " + QString::number(MedianHeight));
     visionData.height = vws::BoxHeight; 
+    visionData.normalvector.clear();
     visionData.normalvector_head.resize(9);
     memcpy(visionData.normalvector_head.data(),VectorPosition,9*sizeof(double));
     //端点坐标
     //头部
+    visionData.righttop.clear();
     visionData.righttop.resize(3);
     memcpy(visionData.righttop.data(),IntersecPonitUR,3*sizeof(double));
+    visionData.rightbottom.clear();
     visionData.rightbottom.resize(3);
     memcpy(visionData.rightbottom.data(),IntersecPonitDR,3*sizeof(double));
 }
@@ -186,12 +189,15 @@ void VisionContext::getPoseANdHeight_Trail(ImageData data, vws::VisionData &visi
     }
 
     visionData.height = vws::BoxHeight;
+    visionData.normalvector.clear();
     visionData.normalvector.resize(9);
     memcpy(visionData.normalvector.data(),VectorPosition,9*sizeof(double));
     //端点坐标
     //尾部
+    visionData.lefttop.clear();
     visionData.lefttop.resize(3);
     memcpy(visionData.lefttop.data(),IntersecPonitUL,3*sizeof(double));
+    visionData.leftbottom.clear();
     visionData.leftbottom.resize(3);
     memcpy(visionData.leftbottom.data(),IntersecPonitDL,3*sizeof(double));
 }
