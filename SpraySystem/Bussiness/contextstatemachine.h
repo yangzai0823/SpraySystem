@@ -5,13 +5,16 @@
 #include <QStateMachine>
 #include <QVariant>
 #include <QTimer>
+#include <QThread>
+
 #include "mutex"
 #include "VWSCamera/VWSCamera.h"
 #include "Data/StructData.h"
-#include <QThread>
 #include "HeadDistanceMonitor.h"
+#include "Trajectory/trajectorygenerator.h"
+#include "Vision/visioncontext.h"
 
-
+Q_DECLARE_METATYPE(vws::PlanTaskInfo)  //注册结构体
 class ContextStateMachine : public QStateMachine
 {
     Q_OBJECT
@@ -36,20 +39,30 @@ public:
         int index = 0;
     };
     SMContext Context;
+    QString Name;
+
     ContextStateMachine();
     ~ContextStateMachine();
-
+    void StartRun();
 private:
     void checkHeadLaserAndImg();
     void checkTrailLaserAndImg();
 
     float getImgEncoder(bool init =false);
-public:
-    QString Name;
 
+    /**
+     * @brief 开始视觉处理，头部
+     */
+    void beginVision_head();
+
+     /**
+     * @brief 开始视觉处理，尾部
+     */
+    void beginVision_trail();
 private:
+    QThread *sm_thread;
     static std::mutex _mutex;
-    //    VisionContext *visionContext;
+    VisionContext *visionContext;
     /**状态**/
     QState *parentState;
     QState *deviceAlarm;
@@ -86,11 +99,12 @@ private:
     std::vector<float> tmplaserdata; //暂存测距
 
     float pre_img_encoder;  //暂存编码器前一次拍照数值
+
 signals:
-    //外部信号
-    void beginVision_Head_Signal(ContextStateMachine *context);
-    void finishVision_Head_Signal(ContextStateMachine *context);
-    void beginVision_Trail_Signal(ContextStateMachine *context);
+    /** @brief 开始规划信号
+     * @param up_or_bottom, 1:up, 0:bottom
+    */
+    void begintraj_Singal(QVariant planTaskInfo, bool up_or_bottom);
 
     //内部信号
     void alarm();
@@ -101,11 +115,19 @@ signals:
     void trailDone();
     void headImgTimeout();
     void trailImgTimeout();
+
+    /**
+     * @param ishead, 1:头, 0:尾
+    */
+    void finishVision_Signal_b(bool ishead);
+    /**
+     * @param ishead, 1:头, 0:尾
+    */
+    void finishVision_Signal_u(bool ishead);
 public slots:
     //外部事件
     void sendPlcData_Slot(QVariant vData);
     void sendImgData_Slot(QVariant vData);
-    void finishVision_Slot(bool ishead);
 
     //内部事件
     void enteredParentState_Slot();

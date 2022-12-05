@@ -20,12 +20,12 @@
 #include <QStateMachine>
 #include "Data/SignalState.h"
 #include "contextstatemachine.h"
+#include "Util/threadsafevector.h"
 
 using RobotTask = VWSRobot::RobotTask;
 using RobotPosition = VWSRobot::RobotPosition;
 using ImageData = VWSCamera::ImageData;
 
-// Q_DECLARE_METATYPE(TrajData)  //注册结构体
 class MainProcess : public QObject
 {
     Q_OBJECT
@@ -45,9 +45,9 @@ public:
      * @brief Get the Plan Task Info object
      *
      * @param upper_or_bottom    0: 表示底层箱子， 1：表示上层
-     * @return std::vector<vws::PlanTaskInfo>*
+     * @return ThreadSafeVector<vws::PlanTaskInfo>*
      */
-    std::vector<vws::PlanTaskInfo> *GetPlanTaskInfo(int upper_or_bottom = 0);
+    ThreadSafeVector<vws::PlanTaskInfo> *GetPlanTaskInfo(int upper_or_bottom = 0);
     float getChainSpeed() const; // mm/s
     int64_t getChainEncoder() const;
     float getChainUnits() const;              //
@@ -74,6 +74,10 @@ private:
     QQueue<std::vector<float>> mcQueue;
     std::vector<vws::PlanTaskInfo> qPlanTaskInfoTop;
     std::vector<vws::PlanTaskInfo> qPlanTaskInfoBottom;
+
+    ThreadSafeVector<vws::PlanTaskInfo> safeQPlanTaskInfoTop;
+    ThreadSafeVector<vws::PlanTaskInfo> safeQPlanTaskInfoBottom;
+
 
     TrajectoryProcess *trajProc;
     QThread *trajThread;
@@ -104,18 +108,14 @@ private slots:
     void getTrajParam_Slot();
     /** @brief 向机器人发送轨迹*/
     void sendToRBT_Slot();
-
-     /**
-     * @brief 开始视觉处理，头部
-     */
-    void beginVision_head_Slot(ContextStateMachine *sm);
-
-     /**
-     * @brief 开始视觉处理，尾部
-     */
-    void beginVision_trail_Slot(ContextStateMachine *sm);
-
+    
     void alarm_Slot();
+    /**
+     * @brief
+     *
+     * @param upper_or_bottom  0: 表示底层箱子， 1：表示上层
+     */
+    void begintraj_Slot(QVariant planTaskInfo, bool up_or_bttom);
 signals:
     void begintraj_Singal(MainProcess *data);
 

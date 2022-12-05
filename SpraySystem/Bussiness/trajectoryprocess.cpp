@@ -231,6 +231,10 @@ TrajectoryProcess::TrajectoryProcess() : stragety1_("Data/trajgen1.json"),
   logfile_.open("log.txt", std::ios_base::trunc);
 }
 
+TrajectoryProcess::~TrajectoryProcess()
+{
+}
+
 bool ahead(int64_t a, int64_t relative, bool dir)
 {
   if (dir)
@@ -733,12 +737,15 @@ SortedTaskQ TrajectoryProcess::PrepareTaskInfoOneLayer(
 }
 
 SortedTaskQ TrajectoryProcess::PrepareTaskInfoTwoLayers(
-    std::vector<vws::PlanTaskInfo> *upper_task_q,
-    std::vector<vws::PlanTaskInfo> *bottom_task_q,
+    ThreadSafeVector<vws::PlanTaskInfo> *safe_upper_task_q,
+    ThreadSafeVector<vws::PlanTaskInfo> *safe_bottom_task_q,
     int64_t current_encoder, int64_t bottom_2_upper,
     bool isIncrease, float units, int64_t plan_delay)
 {
   SortedTaskQ taskQ;
+  std::vector<vws::PlanTaskInfo> *upper_task_q, *bottom_task_q;
+  upper_task_q = &(safe_upper_task_q->getVector());
+  bottom_task_q = &(safe_bottom_task_q->getVector());
   //
   PlanTask env_info;
   for (int i = 0; i < upper_task_q->size(); i++)
@@ -1036,7 +1043,7 @@ bool planPaintPath(TrajectoryGenerator *generator, Eigen::VectorXd &init_dof,
     paint_start = traj.block(0, 0, ndof, 1);
     std::cout << "Gen Entry Path " << std::endl;
     ret &= generator->GenerateEntryTrajectory(
-        init_pose, traj.block(0, 0, ndof, 1), 6, entry_traj, ndof, 3, false); //显示
+        init_pose, traj.block(0, 0, ndof, 1), 6, entry_traj, ndof, 3, true); //显示
     if (ret)
     {
       //   logfile_ << "Entry Path dist " << " - " << generator->pathDist(entry_traj, ndof)
@@ -1323,7 +1330,7 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator,
     {
       // 喷涂点-》示教点
       Eigen::VectorXd entry_traj;
-      if (!generator->GenerateEntryTrajectory(init_dof, pos2, 6, entry_traj, ndof, 3, false))
+      if (!generator->GenerateEntryTrajectory(init_dof, pos2, 6, entry_traj, ndof, 3, true))
       { //显示
         return false;
       }
@@ -1653,9 +1660,12 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata)
   //     PrepareTaskInfoOneLayer(bottom_task_q, upper_task_q, current_encoder,
   //                             bottom_2_upper, 0, isIncrease, units, plan_delay);
 
-
+  upper_task_q->VectorMutex.lock();
+  bottom_task_q->VectorMutex.lock();
   taskQ = PrepareTaskInfoTwoLayers(upper_task_q, bottom_task_q, current_encoder,
                            bottom_2_upper, isIncrease, units, plan_delay);
+  upper_task_q->VectorMutex.unlock();
+  bottom_task_q->VectorMutex.unlock();
   // 规划上层
   // PrepareTaskInfoOneLayer(upper_task_q, bottom_task_q, current_encoder, 0,
   //                          bottom_2_upper, isIncrease, units, plan_delay);
@@ -1684,20 +1694,23 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata)
     CLog::getInstance()->log("开始规划");
     CLog::getInstance()->log("当前编码器数值： "+QString::number(current_encoder));
   QString str = "规划，下层队列信息： ";
-    for (auto &&i : *bottom_task_q)
+    upper_task_q->VectorMutex.unlock();
+    bottom_task_q->VectorMutex.unlock();
+    for (auto &&i : bottom_task_q->getVector())
     {
       auto val = i.encoder * vws::chainFactor;
       str += (QString::number(val) + ",");
     }
     CLog::getInstance()->log(str);
     str = "规划，上层队列信息： ";
-    for (auto &&i : *upper_task_q)
+    for (auto &&i : upper_task_q->getVector())
     {
       auto val = i.encoder * vws::chainFactor;
       str += (QString::number(val) + ",");
     }
     CLog::getInstance()->log(str);
-
+    upper_task_q->VectorMutex.unlock();
+    bottom_task_q->VectorMutex.unlock();
 
     auto task_info = taskQ.top().second;
     auto task_priority = taskQ.top().first;

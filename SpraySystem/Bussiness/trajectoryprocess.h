@@ -6,6 +6,7 @@
 #include <QQueue>
 #include <memory>
 #include <QVariant>
+#include <QThread>
 #include "VWSRobot/VWSRobot.h"
 #include "VWSCamera/VWSCamera.h"
 #include "Device/PLC/plcdatapaser.h"
@@ -15,7 +16,7 @@
 #include "Data/StructData.h"
 #include "Include/Core/Config/jsonserializer.h"
 #include "Include/Core/Config/config.hpp"
-
+#include "Util/threadsafevector.h"
 using RobotTask = VWSRobot::RobotTask;
 using ImageData = VWSCamera::ImageData;
 using PLCData = vws::PLCData;
@@ -103,7 +104,7 @@ class TrajectoryProcess : public QObject
     Q_OBJECT
 public:
     TrajectoryProcess();
-
+    ~TrajectoryProcess();
     PlanTask tryGetPlanTask(vws::PlanTaskInfo *task, 
                             std::vector<vws::PlanTaskInfo> &q1,
                             std::vector<vws::PlanTaskInfo> &q2,
@@ -126,8 +127,8 @@ public:
                                       int64_t current_encoder, bool isIncrease,
                                       float units);
     SortedTaskQ PrepareTaskInfoTwoLayers(
-        std::vector<vws::PlanTaskInfo> *upper_task_q,
-        std::vector<vws::PlanTaskInfo> *bottom_task_q, int64_t current_encoder,
+        ThreadSafeVector<vws::PlanTaskInfo> *upper_task_q,
+        ThreadSafeVector<vws::PlanTaskInfo> *bottom_task_q, int64_t current_encoder,
         int64_t bottom_2_upper, bool isIncrease, float units,
         int64_t plan_delay);
 
