@@ -20,6 +20,12 @@ DeviceManager::DeviceManager()
         std::shared_ptr<RobotOperator> rbt = std::make_shared<RobotOperator>(item);
         robots.append(rbt);
     }
+
+    auto mclist = MotionControllerRepository::getInstance()->list();
+    foreach(auto item, mclist){
+        MCOperator* mc = new MCOperator(item);
+        mcs.append(mc);
+    }
 }
 
 DeviceManager* DeviceManager::getInstance()
@@ -240,22 +246,47 @@ int DeviceManager::addMC(QString name, QString ip, int port)
 
 void DeviceManager::saveMC()
 {
-    auto mc = MotionControllerRepository::getInstance()->query();
-    if(mcoperator->updated){
-        mc->Ip= mcoperator->getIP();
-        mc->Port =QString::number( mcoperator->getPort());
-        MotionControllerRepository::getInstance()->update(mc);
+    auto mclist = MotionControllerRepository::getInstance()->list();
+
+    bool update;
+    foreach(auto cam, mcs){
+        if(cam->updated){
+            update = true;
+            cam->updated=false;
+            foreach(auto item, mclist){
+                if(item->Name == cam->getName()){
+                    item->Ip = cam->getIP();
+                    item->Port =QString::number( cam->getPort());
+                    break;
+                }
+            }
+        }
+    }
+    if(update){
+        MotionControllerRepository::getInstance()->save(mclist);
     }
 }
 
-MCOperator *DeviceManager::getMC()
-{
-    if(mcoperator==nullptr){
-        std::shared_ptr<MotionController> mc = MotionControllerRepository::getInstance()->query();
-        mcoperator = new MCOperator(mc);
-        mcoperator->init();
+QList<MCOperator*> DeviceManager::getMCList(){
+    return mcs;
+}
+MCOperator *DeviceManager::getMC(QString name){
+    foreach (auto item, mcs) {
+        if(item->getName() == name){
+            return item;
+        }
     }
-    return mcoperator;
+
+    return nullptr;
+}
+MCOperator *DeviceManager::getMC(int index)
+{
+    if(mcs.count()>=index+1){
+        return mcs.at(index);
+    }
+    else{
+        return nullptr;
+    }
 }
 
 #pragma endregion}

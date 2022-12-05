@@ -12,8 +12,8 @@ class MotionControllerProperty
 {
 public:
     MotionControllerProperty();
-    void save(Config c,std::shared_ptr<MotionController> mc) const;
-    std::shared_ptr<MotionController> load(const Config& c);
+    void save(Config c,QList<std::shared_ptr<MotionController>> mcs) const;
+    QList<std::shared_ptr<MotionController>> load(const Config& c);
 };
 
 #endif // MOTIONCONTROLLERPROPERTY_H

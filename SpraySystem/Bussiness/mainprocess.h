@@ -7,7 +7,6 @@
 #include <QThread>
 #include <memory>
 
-#include "Trajectory/trajectorycontext.h"
 #include "Trajectory/trajectorygenerator.h"
 #include "VWSRobot/VWSRobot.h"
 #include "VWSCamera/VWSCamera.h"
@@ -21,7 +20,6 @@
 #include "Data/SignalState.h"
 #include "contextstatemachine.h"
 #include "Util/threadsafevector.h"
-
 using RobotTask = VWSRobot::RobotTask;
 using RobotPosition = VWSRobot::RobotPosition;
 using ImageData = VWSCamera::ImageData;

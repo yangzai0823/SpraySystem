@@ -15,9 +15,11 @@ public:
     mcdatapaser();
 
     void DataPaser(QByteArray buf);
+    int16_t do_crc(unsigned char *ptr, int len);
     MCData *mcData;
 private:
   void DataPaser(QByteArray buf,MCData * data);
+  void parseData(unsigned char* v1, vws::MCData *data);
 signals:
     void getTrajParam_Signal();
     void sendToRBT_Signal();

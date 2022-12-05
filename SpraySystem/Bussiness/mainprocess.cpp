@@ -1,9 +1,9 @@
 #include "mainprocess.h"
-#include <Eigen/Core>
-#include <Eigen/Geometry>
+#include <Eigen/Eigen>
 #include "VWSRobot/VWSRobot.h"
 #include "Data/StaticData.h"
 #include "Util/Log/clog.h"
+#include "Vision/visioncontext.h"
 
 std::mutex MainProcess::_mutex;
 std::mutex MainProcess::_trajret_mutex;

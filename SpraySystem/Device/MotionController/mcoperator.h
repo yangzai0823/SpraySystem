@@ -44,8 +44,10 @@ private:
     int preheart;
     int failcount=0;
     bool state;
+    int count; //0-10000;
 
-    void sendData(uint8_t head,float v1, float v2);
+    bool trySendData(uint8_t order,float v1,float v2,bool flag);
+    void sendData(uint8_t order,float v1, float v2);
     bool waitData(bool &flag);
 public slots:
     void readyRead_Slot(QByteArray buf);

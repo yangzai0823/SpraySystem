@@ -38,7 +38,9 @@ public:
 
     int addMC(QString name,QString ip,int port);
     void saveMC();
-    MCOperator* getMC();
+    QList<MCOperator*> getMCList();
+    MCOperator* getMC(int index = 0);
+    MCOperator* getMC(QString name);
 
     void disconnectDevices();
 private:
@@ -48,6 +50,7 @@ private:
     DeviceManager();
     QList<std::shared_ptr<CameraOperator>> cameras;
     QList<std::shared_ptr<RobotOperator>> robots;
+    QList<MCOperator*> mcs;
     PLCOperator* plcoperator = nullptr;
     MCOperator* mcoperator = nullptr;
 

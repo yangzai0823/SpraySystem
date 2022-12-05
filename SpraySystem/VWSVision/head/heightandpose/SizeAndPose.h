@@ -3,6 +3,7 @@
 // #define _HeightAndPose_h
 #ifndef _SIZEANDPOSE_H
 #define _SIZEANDPOSE_H
+
 #ifndef __APPLE__
 #include "halconcpp/HalconCpp.h"
 

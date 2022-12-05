@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QtEndian>
 #include "Util/Log/clog.h"
+
 MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
 {
     this->ip = mc->Ip;
@@ -68,18 +69,20 @@ void MCOperator::sendTrajParam(float zeropoint, float offset)
 void MCOperator::reset()
 {
      std::cout<<"运动控制器请报错复位"<<std::endl;
-    sendData(9, 0, 0);
+    // sendData(9, 0, 0);
+    trySendData(9,0,0,data.breset);
 }
 
 std::vector<float> MCOperator::getChainEncoders(bool & success)
 {
     success = true;
 
-    sendData(1, 0, 0);
-    if(!waitData(data.bchainencoder))
-    {
-        success = false;
-    }
+    // sendData(1, 0, 0);
+    // if(!waitData(data.bchainencoder))
+    // {
+    //     success = false;
+    // }
+    success =  trySendData(1,0,0,data.bchainencoder);
     std::vector<float> val;
     val.push_back(data.encoder1);
     val.push_back(data.encoder2);
@@ -88,8 +91,9 @@ std::vector<float> MCOperator::getChainEncoders(bool & success)
 }
 std::vector<float> MCOperator::getRealTimeEncoder()
 {
-    sendData(2, 0, 0);
-    waitData(data.brealtimeencoder);
+    // sendData(2, 0, 0);
+    // waitData(data.brealtimeencoder);
+    trySendData(2,0,0,data.brealtimeencoder);
     std::vector<float> val;
     val.push_back(data.realtimeencoder1);
     val.push_back(data.realtimeencoder2);
@@ -97,14 +101,37 @@ std::vector<float> MCOperator::getRealTimeEncoder()
     return val;
 }
 
-void MCOperator::sendData(uint8_t head, float v1, float v2)
+bool MCOperator::trySendData(uint8_t order,float v1,float v2, bool flag){
+    bool ret = false;
+    for(int i=0;i<3;i++){
+        sendData(order,v1,v2);
+        ret = waitData(flag);
+        if(ret == true){
+            break;
+        }
+    }
+    return ret;
+}
+
+void MCOperator::sendData(uint8_t order, float v1, float v2)
 {
+    QByteArray arry;
+
+    //报头
+    int16_t head = qToBigEndian<int16_t>(0xabcd);
+    arry.append((char*)&head,2);
+
+    //编号
+    if(count>10000){
+        count = 0;
+    }
+    int16_t count_BigEndian= qToBigEndian<int16_t>(count);
+    arry.append((char *)&count_BigEndian,2);
 
     std::thread::id id = std::this_thread::get_id();
     //    std::cout << "mcoperator sendData 线程ID: "<< id << std::endl;
 
-    QByteArray arry;
-    arry.append(head);
+    arry.append(order);
 
     float d1 = qToBigEndian<float>(v1);
     float d2 = qToBigEndian<float>(v2);
@@ -114,6 +141,12 @@ void MCOperator::sendData(uint8_t head, float v1, float v2)
     arry.append((char *)&d1, 4);
     arry.append((char *)&d2, 4);
 
+
+    //报尾
+    unsigned char * crcdata = (unsigned char*)arry.data();
+    auto trail = dataparser->do_crc(crcdata,11);
+    arry.append(trail,2);
+    
     uint ret;
     ret = socketclient->send(arry);
 }
@@ -125,7 +158,7 @@ bool MCOperator::waitData(bool &flag)
     {
         i++;
         //        QCoreApplication::processEvents();
-        usleep(10);
+        usleep(100000);
     }
     //相应超时
     if(flag == false){

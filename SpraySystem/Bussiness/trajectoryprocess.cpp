@@ -264,7 +264,7 @@ bool PlanStragety::strategyOf(bool issingle, bool isup, bool isfront,
 TrajectoryProcess::TrajectoryProcess()
     : stragety1_("Data/trajgen1.json"), stragety2_("Data/trajgen2.json")
 {
-  visionContext = std::make_shared<VisionContext>();
+  // visionContext = std::make_shared<VisionContext>();
   logfile_.open("log.txt", std::ios_base::trunc);
 }
 
@@ -2008,8 +2008,8 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata)
 #endif
 
   TrajectoryGenerator *generator = TrajectoryGenerator::Instance();
-  BaseStrategy *planstrategy;
-  BaseStrategy *sevenstrategy;
+  // BaseStrategy *planstrategy;
+  // BaseStrategy *sevenstrategy;
   // auto context = std::make_shared<TrajectoryContext>(generator, planstrategy,
   //                                                    sevenstrategy);
   float valid_range = 6000; // mm

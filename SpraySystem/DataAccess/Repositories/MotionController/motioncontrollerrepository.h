@@ -13,15 +13,18 @@ class MotionControllerRepository: public BaseRepository
 {
 public:
     static MotionControllerRepository *getInstance();
+    QList<std::shared_ptr<MotionController>> list();
     int update(std::shared_ptr<MotionController> mc);
-    std::shared_ptr<MotionController> query();
+    int save(QList<std::shared_ptr<MotionController>> lstMC);
+    int remove(QString id);
+    std::shared_ptr<MotionController> query(QString name);
 private:
-   MotionControllerRepository();
-   int saveToFile();
-   static MotionControllerRepository *mcRepository;
-   static QMutex mutex;
-   MotionControllerProperty *mcProperty;
-   std::shared_ptr<MotionController> data;
+    MotionControllerRepository();
+    int saveToFile();
+    static MotionControllerRepository *mcRepository;
+    static QMutex mutex;
+    MotionControllerProperty *mcProperty;
+    QList<std::shared_ptr<MotionController>> data;
 };
 
 #endif // MOTIONCONTROLLERREPOSITORY_H

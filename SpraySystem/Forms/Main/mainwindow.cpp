@@ -79,7 +79,10 @@ void MainWindow::startDevices()
 
     //运动控制器
     auto mc = deviceManager->getMC();
-    auto retmc = mc->start();
+    auto retmc = mc->init();
+    retmc = mc->start();
+
+    return;
 
     // msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
     // showMsg(msg);
@@ -148,7 +151,7 @@ void MainWindow::updateDeviceState(QPushButton *sender, int state)
         ico.addFile("://Images/warning.png");
     }
     sender->setIcon(ico);
-}
+} 
 
 void MainWindow::judgeAuthority()
 {

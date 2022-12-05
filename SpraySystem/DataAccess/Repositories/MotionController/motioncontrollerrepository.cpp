@@ -44,25 +44,63 @@ MotionControllerRepository *MotionControllerRepository::getInstance()
     return mcRepository;
 }
 
-int MotionControllerRepository::update(std::shared_ptr<MotionController> plc)
-{
-    if(data==nullptr){
-        data = std::make_shared<MotionController>();
-    }
-    data->Id = plc->Id;
-    data->Name = plc->Name;
-    data->Ip = plc->Ip;
-    data->Port = plc->Port;
-
-    saveToFile();
-}
-
-std::shared_ptr<MotionController> MotionControllerRepository::query()
+QList<std::shared_ptr<MotionController>> MotionControllerRepository::list()
 {
     Config c;
 
     vws::properties::JsonSerializer::fromJson(c,filename);
-    data = mcProperty->load(c);
+    auto mclist = mcProperty->load(c);
 
-    return data;
+    data = mclist;
+    return mclist;
+}
+
+int MotionControllerRepository::update(std::shared_ptr<MotionController> mc)
+{
+    int ret =1;
+    foreach(std::shared_ptr<MotionController> u , data){
+       if(u->Id == mc->Id){
+            u->Id = mc->Id;
+            u->Name = mc->Name;
+            u->Ip = mc->Ip;
+            u->Port = mc->Port;
+            break;
+       }
+    }
+    ret = saveToFile();
+    return ret;
+}
+
+int MotionControllerRepository::remove(QString id)
+{
+    int index = -1;
+    for(int i =0;i<data.length();i++){
+        if(data.at(i)->Id==id){
+            index = i;
+            break;
+        }
+    }
+    if(index!=-1){
+        data.removeAt(index);
+        saveToFile();
+    }
+    return 1;
+}
+
+int MotionControllerRepository::save(QList<std::shared_ptr<MotionController> > lstMC)
+{
+    data = lstMC;
+    saveToFile();
+}
+
+std::shared_ptr<MotionController> MotionControllerRepository::query(QString name)
+{
+    std::shared_ptr<MotionController> mc;
+    foreach (auto item, data) {
+        if(item->Name == name){
+            mc = item;
+            break;
+        }
+    }
+    return mc;
 }

@@ -4,8 +4,7 @@
 //#include "SignalState.h"
 #include <iostream>
 #include <vector>
-#include <Eigen/Core>
-#include <Eigen/Geometry>
+#include <Eigen/Eigen>
 #include <boost/foreach.hpp>
 #include <QQueue>
 
@@ -77,6 +76,7 @@ namespace vws
         bool brealtimeencoder = false;
         bool btrajparam = false;
         bool brbt = false;
+        bool breset = false;
     };
 
     /**
@@ -128,5 +128,5 @@ namespace vws
          */
         float offsetOfTraj;
     };
-} 
+}
 #endif // PLCDATA_H

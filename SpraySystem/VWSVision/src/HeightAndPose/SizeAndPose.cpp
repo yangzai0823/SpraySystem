@@ -10,6 +10,8 @@
 //
 // Source files with different encoding should not be mixed in one project.
 ///////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+#include "SizeAndPose.h"
 
 #ifndef __APPLE__
 #include "halconcpp/HalconCpp.h"
@@ -24,8 +26,6 @@
 #endif
 #endif
 
-#include <iostream>
-#include "SizeAndPose.h"
 // #include <Eigen/Dense>
 
 // using namespace HalconCpp;

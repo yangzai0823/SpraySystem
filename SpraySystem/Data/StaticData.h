@@ -10,6 +10,8 @@ namespace vws {
         extern QString Robot1;
         extern QString Robot2;
         extern QString PLC;
+        extern QString MC1;
+        extern QString MC2;
         /**
          * @brief 箱子理论长度，单位mm
          */

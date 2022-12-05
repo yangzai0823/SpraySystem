@@ -14,13 +14,12 @@
 #include "VWSRobot/VWSRobot.h"
 #include "VWSCamera/VWSCamera.h"
 #include "Device/PLC/plcdatapaser.h"
-// #include "Device/PLC/PLCData.h"
 #include "Data/StructData.h"
 #include "Include/Core/Config/config.hpp"
 #include "Include/Core/Config/jsonserializer.h"
-#include "Trajectory/trajectorycontext.h"
 #include "Util/threadsafevector.h"
-#include "Vision/visioncontext.h"
+#include "Trajectory/trajectorygenerator.h"
+#include <queue>
 using RobotTask = VWSRobot::RobotTask;
 using ImageData = VWSCamera::ImageData;
 using PLCData = vws::PLCData;
@@ -190,7 +189,6 @@ public:
                      bool invert, bool plane_first = true);
 
 private:
-    std::shared_ptr<VisionContext> visionContext;
     PlanStragety stragety1_;
     PlanStragety stragety2_;
 private slots:
