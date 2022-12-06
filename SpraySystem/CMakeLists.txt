@@ -52,7 +52,7 @@ find_package(Boost COMPONENTS system python thread program_options REQUIRED)
 find_package(OpenRAVE REQUIRED)
 find_package(ompl)
 find_package(urdfdom)
-find_package(Poco REQUIRED COMPONENTS Foundation Net Util XML)
+# find_package(Poco REQUIRED COMPONENTS Foundation Net Util XML)
 find_package(catkin REQUIRED COMPONENTS
     srdfdom
     urdf
@@ -160,7 +160,7 @@ target_link_libraries(SpraySystem PRIVATE
     VWSCamera
     VWSRobot
     VWSVision
-    Poco::Net
+    # Poco::Net
     ${planlibs}
     MediaProcess
 ${OSGVIEWER_LIBRARY_RELEASE}

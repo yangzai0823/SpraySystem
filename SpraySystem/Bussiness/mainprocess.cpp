@@ -48,7 +48,7 @@ void testMove()
     RobotTask rbttask;
     std::array<float,7UL> jv;
     float speed = 50;
-    int N = 10;
+    int N = 4;
     for(int n = 0; n < N; n++){
         for(int i = 0; i < 6; i++){
             jv[i] = (end[i] - start[i]) / (N - 1) * n + start[i];

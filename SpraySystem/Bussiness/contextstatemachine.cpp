@@ -3,7 +3,6 @@
 #include <iostream>
 #include "Device/devicemanager.h"
 #include "Util/Log/clog.h"
-
 std::mutex ContextStateMachine::_mutex;
 float ContextStateMachine::getImgEncoder(bool init)
 {

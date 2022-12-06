@@ -292,7 +292,9 @@ void MainWindow::deviceConnectError_slot(QString device, int state)
 int i = 0;
 void MainWindow::on_btn_EStop_clicked()
 {
-    mainprocess->Test(mainprocess->plcdata);
+    if(mainprocess){
+        mainprocess->Test(mainprocess->plcdata);
+    }
 
     // if (i == 0)
     // {

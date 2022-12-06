@@ -191,7 +191,7 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
              +  "///ATTR SC,RW\r\n"
              +  "///GROUP1 RB1\r\n"
              +  "NOP\r\n"
-             +  "DOUT OT#(0473) ON\r\n"
+             +  "DOUT OT#(0001) ON\r\n"
              +  "'number of pointers\r\n"
              +  "SET I000 0\r\n"
              +  "SET I001 " + std::to_string(numt[0]) + "\r\n"
@@ -220,7 +220,7 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
              +  "\t\tENDWHILE\r\n"
              +  "\t\t'--------WAY1 END------\r\n"
              +  "WHILEEXP I005=1\r\n"
-             +  "\tIFTHENEXP IN#(4096)=ON\r\n"
+             +  "\tIFTHENEXP IN#(1)=ON\r\n"
              +  "\t\tSET I005 0\r\n"
              +  "\t\tSET I006 0\r\n"
              +  "SET I000 0\r\n"
@@ -228,18 +228,18 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
              +  "\t\t'-----------WAY2----------\r\n"
              +  "\t\tWHILEEXP I000<I002\r\n"
              +  "\t\t\tMOVJ P[I000] VJ=D[I000] NWAIT\r\n"
-             +  "\t\t\tIFTHENEXP B[I000]=1\r\n"
-             +  "\t\t\t\tDOUT OT#(2) ON\r\n"
-             +  "\t\t\t\tSET B[I000] 0\r\n"
-             +  "\t\t\tENDIF\r\n"
-             +  "\t\t\tIFTHENEXP B[I000]=2\r\n"
-             +  "\t\t\t\tDOUT OT#(2) OFF\r\n"
-             +  "\t\t\t\tSET B[I000] 0\r\n"
-             +  "\t\t\tENDIF\r\n"
+            //  +  "\t\t\tIFTHENEXP B[I000]=1\r\n"
+            //  +  "\t\t\t\tDOUT OT#(2) ON\r\n"
+            //  +  "\t\t\t\tSET B[I000] 0\r\n"
+            //  +  "\t\t\tENDIF\r\n"
+            //  +  "\t\t\tIFTHENEXP B[I000]=2\r\n"
+            //  +  "\t\t\t\tDOUT OT#(2) OFF\r\n"
+            //  +  "\t\t\t\tSET B[I000] 0\r\n"
+            //  +  "\t\t\tENDIF\r\n"
              +  "\t\t\tADD I000 1\r\n"
              +  "\t\tENDWHILE\r\n"
              +  "\t\t'--------WAY2 END------\r\n"
-             +  "\t\tPULSE OT#(0474)\r\n"
+             +  "\t\tPULSE OT#(0002)\r\n"
              +  "\t\t'----------------------\r\n"
              +  "\t\t'********WAY3*********\r\n"
              +  "SET I000 0\r\n"
@@ -252,11 +252,10 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
              +  "\tENDIF\r\n"
              +  "\t'********WAY3 END*********\r\n"
              +  "\t'SELECT WAY4\r\n"
-             +  "\tIFTHENEXP I007=1\r\n"
+             +  "\tIFTHENEXP IN#(2)=ON\r\n"
              +  "\t\tSET I005 0\r\n"
-             +  "\t\tSET I007 0\r\n"
              +  "\t\tSET I000 0\r\n"
-             +  "\t\tPULSE OT#(0474)\r\n"
+             +  "\t\tPULSE OT#(0002)\r\n"
              +  "\tADD I000 I001\r\n"
              +  "\t\tADD I000 I002\r\n"
              +  "\t\tADD I000 I003\r\n"
@@ -267,7 +266,7 @@ int VWSRobot::createFile(std::string& fileData, const std::vector<RobotTask>& ta
              +  "\tENDIF\r\n"
              +  "\t'********WAY4 END*********\r\n"
              +  "ENDWHILE\r\n"
-             +  "DOUT OT#(0473) OFF\r\n"
+             +  "DOUT OT#(0001) OFF\r\n"
              +  "END\r\n";
     return 1;
 }
@@ -407,10 +406,10 @@ int VWSRobot::sendData(const std::vector<RobotTask>& taskData) {
         }
         sleep(1);
     }
-    return 1;
     time (&tim2);
     // std::cout<<"time   "<<tim2 - timep<<std::endl;
     CLog::getInstance()->log("time   "+QString::number(tim2 - timep));
+	return 1;
 }
 /**
  * @description: 获取当前位置，角度精度大概0.1度

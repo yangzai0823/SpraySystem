@@ -436,6 +436,51 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
             trajs.push_back(free_traj);
           }
         }
+      }else{
+        if(trajs.size() > 0){
+          int min_steps = 100;
+          int min_index = -1;
+          bool  replan = true;
+          for(int i = 0;i < trajs.size(); i++){
+            int current_steps = trajs[i].size() / ndof;
+            if( current_steps== nsteps){
+              replan = false;
+              break;
+            }else{
+              if(min_steps > current_steps){
+                min_steps = current_steps;
+                min_index = i;
+              }
+            }
+          }
+
+          if(replan){
+            double dstep = ((double)min_steps) / nsteps;
+            for (int i = 0; i < nsteps; i++) {
+              for (int n = 0; n < ndof; n++){
+                init_pos[ndof * i + n] = trajs[min_index][( ndof * (int)(dstep * i) + n )];
+              }
+            }
+            auto free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 5, 0.1, init_pos, collision_cnt,
+            cnst_voil_cnt, elapsed_time, vis);
+            // for (int i = 1; i < 10; i ++){
+            //   free_traj = planFreePathJoint(pt.env, "tool", goal, nsteps, i*10, 0.2, free_traj, collision_cnt,
+            //             cnst_voil_cnt, elapsed_time, false);
+            // }
+            free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, free_traj, collision_cnt,
+                        cnst_voil_cnt, elapsed_time, false);
+            
+            float dist =pathDist(free_traj, ndof);
+            if(cnst_voil_cnt == 0 && collision_cnt ==0){
+              if(min_dist > dist){
+                min_dist = dist;
+                trajs.push_back(free_traj);
+              }
+            }
+
+          }
+
+        }
       }
 
 
@@ -457,6 +502,7 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       int retry_cnt = 0;
       int opt_joint_steps = interp_traj.size();
       auto opt_traj = traj;
+      // TODO：：OPT_TRAJ SIZE = 0
       while (interp_traj.size() / ndof > 20 && retry_cnt < 5) {
         traj = planFreePathWithOMPL(robot, pt->env, "tool", j1, j2, 1);
         interp_traj = jointInterplot(traj, 30 / 180.0 * M_PI, ndof);
@@ -468,6 +514,11 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
         }
       }
       traj = opt_traj;
+      if(traj.size() == 0){
+        plan_no--;
+        try_no++;
+        continue;
+      }
       int N = traj.size() * traj[0].size();
       Eigen::VectorXd init_pos_ompl;
       init_pos_ompl.resize(N);
@@ -488,6 +539,26 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
       free_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, free_traj, collision_cnt,
                   cnst_voil_cnt, elapsed_time, vis);
       
+
+      if(collision_cnt == 0 ){
+        int min_steps = free_traj.size() / ndof;
+            double dstep = ((double)min_steps) / nsteps;
+            for (int i = 0; i < nsteps; i++) {
+              for (int n = 0; n < ndof; n++){
+                init_pos[ndof * i + n] = free_traj[ndof * (int)(dstep * i) + n ];
+              }
+            }
+            auto replan_traj = planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, init_pos, collision_cnt,
+            cnst_voil_cnt, elapsed_time, vis);
+
+            if(cnst_voil_cnt == 0 && collision_cnt ==0){
+              free_traj = replan_traj;
+            }
+      }
+
+
+
+
       float dist =pathDist(free_traj, ndof);
       if(cnst_voil_cnt == 0 && collision_cnt ==0){
         if(min_dist > dist){
