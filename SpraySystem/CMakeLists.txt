@@ -16,6 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_definitions(-D_STATEPRINT_)
 # add_definitions(-DYASKAWA_ZERO_OFFSET)
 # add_definitions(-DABB1410_JOINT_CONVERT)
+add_definitions(-DRAPIDJSON_HAS_STDSTRING)
 
 find_program(CCACHE_FOUND ccache)
 
