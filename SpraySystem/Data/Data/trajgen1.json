@@ -2,6 +2,16 @@
     "Robot": {
         "ndof": "6",
         "YInvert": true,
+        "PaintExtremePos": 1200,
+        "FrontSeamExtraPaintSpace": 0,
+        "BackSeamExtraPaintSpace": 300,
+        "FrontPlanePaintSpace": 0,
+        "BackPlanePaintSpace": 0,
+        "PosOfPaintHouse": -2200,
+        "GuardDist": 200,
+        "TransitionRadius": 400,
+        "ExtraAxisMax": 0,
+        "ExtraAxisMin": -1750,
         "TeachPose": {
             "dright_plane": {
                 "desc": "下后焊缝+下前面",
@@ -47,7 +57,6 @@
                     179.1888
                 ]
             }
-
         },
         "Transition": {
             "dright_plane-dleft_plane": [],

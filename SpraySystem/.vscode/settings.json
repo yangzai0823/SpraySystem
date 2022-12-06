@@ -77,7 +77,8 @@
                 "typeinfo": "cpp",
                 "valarray": "cpp",
                 "variant": "cpp",
-                "graphicscontext": "cpp""new": "cpp",
+                "graphicscontext": "cpp",
+                "new": "cpp",
                 "ostream": "cpp",
                 "numeric": "cpp",
                 "ratio": "cpp",
@@ -106,5 +107,7 @@
                 "string": "cpp",
                 "string_view": "cpp",
                 "variant": "cpp"
-        }
+        },
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true
 }

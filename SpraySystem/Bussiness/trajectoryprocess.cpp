@@ -42,15 +42,41 @@ void PlanStragety::load() {
   strategies_ = robot.mapGetChild("Stragety");
 
   if (!robot.mapGetBool("YInvert", &invert_)) {
-    std::cout << "Error: YInvert info is missing" << std::endl;
+    std::cout << "Error: YInvert info(bool) is missing" << std::endl;
     abort();
   }
 
   if (!robot.mapGetInt("ndof", &ndof)) {
-    std::cout << "Error: ndof info is missing" << std::endl;
+    std::cout << "Error: ndof info(int string) is missing" << std::endl;
     abort();
   }
 
+  double *vars[] = {&paint_extreme_pos_, &front_seam_space_,
+                    &back_seam_space_,   &front_plane_space_,
+                    &back_plane_space_,  &pos_of_paint_house_,
+                    &guard_dist_,        &transition_radius_,
+                    &extra_axis_max_,    &extra_axis_min_};
+  const char *var_names[] = {"PaintExtremePos",
+                             "FrontSeamExtraPaintSpace",
+                             "BackSeamExtraPaintSpace",
+                             "FrontPlanePaintSpace",
+                             "BackPlanePaintSpace",
+                             "PosOfPaintHouse",
+                             "GuardDist",
+                             "TransitionRadius",
+                             "ExtraAxisMax",
+                             "ExtraAxisMin"};
+  for (int i = 0; i < sizeof(var_names) / sizeof(const char *); i++) {
+    float f;
+    if (!robot.mapGetFloat(QString::fromLatin1(var_names[i]), &f)) {
+      std::cout << "Error: " << var_names[i] << " info(float) is missing"
+                << std::endl;
+      abort();
+    } else {
+      std::cout << var_names[i] << " is " << f << std::endl;
+    }
+    *vars[i] = f;
+  }
   auto it = teachPose_.mapIterator();
   while (it.isValid()) {
     auto jv_array = it.currentChild().mapGetChild("joints");
@@ -852,18 +878,18 @@ bool validWorkTactic(const PlanStragety &stragety, const std::string &tactic,
   safe_index = -1;
   QString qs = QString::fromStdString(tactic);
   auto names = qs.split("-");
-  bool first = true;
+  bool isSafe = true;
   Eigen::VectorXd pose;
   std::string valid_chars[3] = {"sp", "ud", "fb"};
   for (int i = 0; i < names.size(); i++) {
     std::string tpose = names[i].toStdString();
     if (stragety.teachPoseOf(tpose, pose)) {
-      if (first) {
-        first = false;
+      if (isSafe) {
         safe_index = i;
       }
       continue;
     }
+    isSafe = false;
     // 不是示教点，看是否满足条件
     int N = tpose.size();
     if (N > 3 || N <= 0) {
@@ -916,10 +942,9 @@ bool planPaintPath(TrajectoryGenerator *generator, Eigen::VectorXd &init_dof,
     Eigen::VectorXd paint_start, paint_end;
     paint_start = traj.block(0, 0, ndof, 1);
     std::cout << "Gen Entry Path " << std::endl;
-    ret &= generator->GenerateEntryTrajectory(
-
-        init_pose, traj.block(0, 0, ndof, 1), 6, entry_traj, ndof, 3,
-        true); //显示
+    ret &=
+        generator->GenerateEntryTrajectory(init_pose, traj.block(0, 0, ndof, 1),
+                                           6, entry_traj, ndof, 3, true); //显示
     if (ret) {
       //   logfile_ << "Entry Path dist " << " - " <<
       //   generator->pathDist(entry_traj, ndof)
@@ -938,7 +963,6 @@ bool planPaintPath(TrajectoryGenerator *generator, Eigen::VectorXd &init_dof,
   } else {
     return false;
   }
-
   return true;
 }
 
@@ -982,8 +1006,6 @@ bool createPlanSceneUsingTactic(TrajectoryGenerator *generator,
   auto boxInfo = task.boxInfo;
   auto boxSize = Eigen::Vector3d(task.lx, task.ly, task.lz);
   auto boxCenter = boxInfo.translation();
-  Eigen::VectorXd p, ori;
-  Eigen::VectorXd init_dof, traj, entry_traj, quit_traj;
   int ndof = stragety.getNdof();
 
   // 创建环境
@@ -1019,10 +1041,105 @@ bool createPlanSceneUsingTactic(TrajectoryGenerator *generator,
   }
 }
 
+bool getExtraPaintSpace(PlanStragety &stragety, const std::string &name,
+                        bool isFront, double &space) {
+  switch (name[0]) {
+  case 's':
+    space = isFront ? stragety.getFrontSeamExtraPaintSpace()
+                    : stragety.getBackSeamExtraPaintSpace();
+    return true;
+    break;
+  case 'p':
+    space = isFront ? stragety.getFrontPlanePaintSpace()
+                    : stragety.getBackPlanePaintSpace();
+    return true;
+  default:
+    return false;
+  }
+}
+
+/**
+ * @brief Create a Plan Scene object
+ *
+ * @param generator
+ * @param task_info
+ * @param units
+ * @param invert
+ */
+bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
+                                 PlanTask &task_info, PlanStragety &stragety,
+                                 float units) {
+  // 生成喷涂约束
+  std::string s;
+  bool ret = getStragety(task_info, stragety, s);
+  if (!ret) {
+    return ret;
+  }
+  bool invert = stragety.isInvert();
+  std::string work_tactic, cancle_tactic, follow;
+  float follow_offset;
+  TrajectoryInfo singleTraj;
+  ret = stragety.tacticOf(s, work_tactic, cancle_tactic, follow, follow_offset);
+  if (!ret) {
+    std::cout << "no tactic named " << s << " is defined " << std::endl;
+    return ret;
+  }
+  bool isfollowup = follow[0] == 'u';
+  vws::PlanTaskInfo follow_info;
+  Eigen::Vector3d p1;
+  getTaskInfo(task_info, isfollowup, follow_info);
+  bool isfollowfront = follow_info.face == 0;
+  int64_t follow_encoder = follow_info.encoder;
+  // diff need to be added to boxcenter[1]
+  auto task = follow_info;
+  int64_t ref_encoder = task.encoder;
+  double diff = computeDiff(follow_info, generator, follow_offset, p1, invert);
+
+  auto boxInfo = task.boxInfo;
+  auto boxSize = Eigen::Vector3d(task.lx, task.ly, task.lz);
+  auto boxCenter = boxInfo.translation();
+  int ndof = stragety.getNdof();
+
+  double ymax = stragety.getTransitionRadius();
+  double start_y = 0;
+  int safe_index;
+  if (!validWorkTactic(stragety, work_tactic, safe_index)) {
+    return false;
+  }
+  // 计算喷涂时候距离粉房的最大距离。
+  QStringList seq = QString::fromStdString(work_tactic).split('-');
+  for (int i = safe_index + 1; i < seq.size(); i++) {
+    vws::PlanTaskInfo current_task;
+    bool isup = seq[i][1] == 'u';
+    getTaskInfo(task_info, isup, current_task);
+    bool isfront = current_task.face == 0;
+    double space;
+    Eigen::Vector3d corner_point;
+    if (getExtraPaintSpace(stragety, seq[i].toStdString(), isfront, space)) {
+      computeDiff(current_task, generator, 0, corner_point, invert);
+      int64_t diff_encoder = current_task.encoder - ref_encoder;
+      float diff_mm = diff_encoder / units;
+      diff_mm = invert ? -diff_mm : diff_mm;
+      // 假设：粉房均在机器人的y负方向上
+      double d = corner_point[1] + diff + diff_mm - space;
+      d = fabs(d);
+      ymax = d > ymax ? d : ymax;
+    }
+  }
+  std::cout << "ymax is " << ymax << std::endl;
+  // 创建粉房安全平面
+  auto wallCenter = boxCenter;
+  wallCenter[1] = -ymax;
+  generator->AddBoxEnvirInfo(wallCenter, Eigen::Vector3d(4000, 1, 2000),
+                             Eigen::Quaterniond(1, 0, 0, 0),
+                             QString("paint_house").toStdString());
+}
+
 bool planTaskUsingTactic(TrajectoryGenerator *generator, PlanTask &task_info,
                          PlanStragety &stragety,
                          std::vector<TrajectoryInfo> &out_safe_traj,
                          std::vector<TrajectoryInfo> &out_unsafe_traj,
+                         std::vector<TrajectoryInfo> &out_cancle_traj,
                          std::vector<float> &mc_data, float units,
                          bool isIncrease, int ndof) {
   std::string s;
@@ -1076,9 +1193,40 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator, PlanTask &task_info,
   if (!isvalid) {
     return false;
   }
+
+  // 生成取消轨迹
+  QString cancleStr = QString::fromStdString(cancle_tactic);
+  QStringList cancle_seq = cancleStr.split("-");
+  std::string last_pos = "";
+  std::vector<Eigen::VectorXd> cancle_poses;
+  for (int i = 0; i < cancle_seq.size(); i++) {
+    // todo:: 直接查找transition表，获取轨迹
+    Eigen::VectorXd pos;
+    std::string current_pos = cancle_seq[i].toStdString();
+    stragety.teachPoseOf(current_pos, pos);
+    if (last_pos != "") {
+      std::string trans_str = last_pos + "-" + current_pos;
+      bool ret = stragety.transitionOf(last_pos, current_pos, pos);
+      if (!ret) {
+        std::cout << "transition not defined: " << trans_str << std::endl;
+        return false;
+      }
+      cancle_poses.push_back(pos);
+    } else {
+      cancle_poses.push_back(pos);
+    }
+    last_pos = current_pos;
+  }
+  if (cancle_poses.size() > 0) {
+    singleTraj.type_ = TrajectoryType::SafeTransitionTraj;
+    singleTraj.traj_ = mergeVectors(cancle_poses);
+    out_cancle_traj.push_back(singleTraj);
+  }
+
+  // 生成安全轨迹
   QString workStr = QString::fromStdString(work_tactic);
   QStringList seq = workStr.split("-");
-  std::string last_pos = "";
+  last_pos = "";
   std::vector<Eigen::VectorXd> safe_poses;
   for (int i = 0; i <= safe_index; i++) {
     // todo:: 直接查找transition表，获取轨迹
@@ -1174,7 +1322,6 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator, PlanTask &task_info,
     } else {
       // 喷涂点-》示教点
       Eigen::VectorXd entry_traj;
-
       if (!generator->GenerateEntryTrajectory(init_dof, pos2, 6, entry_traj,
                                               ndof, 3, true)) { //显示
         return false;
@@ -1556,19 +1703,20 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata) {
     Eigen::VectorXd init_dof;
     init_dof = vdata->getRobotWaitPose();
     // createPlanScene(generator, task_info, units, invert);
-#ifdef PLAN_FAKE_DATA
+
     createPlanSceneUsingTactic(generator, task_info, stragety, units);
-#else
-    createPlanSceneUsingTactic(generator, task_info, stragety, units);
-#endif
+    createSafeRegionUsingTactic(generator, task_info, stragety, units);
+
     std::vector<TrajectoryInfo> traj_info;
-    std::vector<TrajectoryInfo> safe_traj, unsafe_traj;
+    std::vector<TrajectoryInfo> safe_traj, unsafe_traj, cancle_traj;
 #ifdef PLAN_FAKE_DATA
     bool ret = planTaskUsingTactic(generator, task_info, stragety, safe_traj,
-                                   unsafe_traj, mc_data, units, isIncrease, 6);
+                                   unsafe_traj, cancle_traj, mc_data, units,
+                                   isIncrease, 6);
 #else
     bool ret = planTaskUsingTactic(generator, task_info, stragety, safe_traj,
-                                   unsafe_traj, mc_data, units, isIncrease, 6);
+                                   unsafe_traj, cancle_traj, mc_data, units,
+                                   isIncrease, 6);
     // bool ret = planOneTask(generator, task_info, init_dof, traj_info,
     // mc_data, units,
     //                        isIncrease, invert,

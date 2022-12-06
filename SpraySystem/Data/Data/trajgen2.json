@@ -2,6 +2,16 @@
     "Robot": {
         "ndof": "6",
         "YInvert": false,
+        "PaintExtremePos": 1200,
+        "FrontSeamExtraPaintSpace": 500,
+        "BackSeamExtraPaintSpace": 0,
+        "FrontPlanePaintSpace": 0,
+        "BackPlanePaintSpace": 0,
+        "PosOfPaintHouse": 200,
+        "GuardDist": 200,
+        "TransitionRadius": 600,
+        "ExtraAxisMax": 0,
+        "ExtraAxisMin": -1750,
         "TeachPose": {
             "dright_plane": {
                 "desc": "下前焊缝+下后面",
@@ -51,10 +61,10 @@
             },
             {
                 "name": "upfront",
-                "work": "dleft_plane-puf-dleft_plane",
+                "work": "dleft_plane-puf-dleft_plane-dright_plane-suf-dright_plane",
                 "cancle": "dleft_plane-dright_plane",
                 "follow": "u",
-                "followOffset": -300
+                "followOffset": 300
             },
             {
                 "name": "upback",
@@ -67,8 +77,8 @@
                 "name": "front two seams",
                 "work": "dright_plane-sdb-sub-dright_plane-dleft_plane",
                 "cancle": "dright_plane-dleft_plane",
-                "follow": "d",
-                "followOffset": -300
+                "follow": "u",
+                "followOffset": 300
             },
             {
                 "name": "whole back",
@@ -79,12 +89,8 @@
             }
         ],
         "Stragety": {
-            "single-down-front": "downfront",
-            "single-down-back": "downback",
             "single-up-front": "upfront",
-            "single-up-back": "upback",
-            "multi-front": "front two seams",
-            "multi-back": "whole back"
+            "multi-front": "front two seams"
         }
     }
 }
