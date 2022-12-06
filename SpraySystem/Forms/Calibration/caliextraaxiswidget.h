@@ -1,13 +1,13 @@
 #ifndef CALIEXTRAAXISWIDGET_H
 #define CALIEXTRAAXISWIDGET_H
 
-#include <rapidjson/document.h>
-
 #include <QString>
 #include <QWidget>
 #include <array>
 #include <memory>
 #include <string>
+
+#include "Util/jsonParser/jsonparser.hpp"
 
 namespace Ui {
 class caliExtraAxisWidget;
@@ -64,8 +64,8 @@ class caliExtraAxisWidget : public QWidget {
   QString _jsonPrefix;
   QString _dataMainKey;
   QString _resultMainKey;
-  std::unique_ptr<rapidjson::Document> _dataDoc;
-  std::unique_ptr<rapidjson::Document> _resultDoc;
+  std::unique_ptr<jsonParser> _dataDoc;
+  std::unique_ptr<jsonParser> _resultDoc;
 };
 
 #endif  // CALIEXTRAAXISWIDGET_H

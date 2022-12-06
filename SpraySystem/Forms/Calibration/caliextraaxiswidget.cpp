@@ -26,8 +26,8 @@ caliExtraAxisWidget::caliExtraAxisWidget(const QString& prefix, QWidget* parent)
       _jsonPrefix(prefix),
       _dataMainKey("ExtraAxisCaliDatas"),
       _resultMainKey("ExtraAxisCalibration"),
-      _dataDoc(new rapidjson::Document()),
-      _resultDoc(new rapidjson::Document()) {
+      _dataDoc(new jsonParser()),
+      _resultDoc(new jsonParser()) {
   ui->setupUi(this);
   // other
   QtConcurrent::run([this]() {
@@ -125,43 +125,19 @@ int caliExtraAxisWidget::ensureJsonStruct() {
 }
 
 void caliExtraAxisWidget::readData() {
-  QFile file(_dataFilePath);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
-  auto str = file.readAll().toStdString();
-  file.close();
-
-  _dataDoc->Parse(str.c_str(), str.size());
+  _dataDoc->read(_dataFilePath.toStdString());
 }
 
 void caliExtraAxisWidget::writeData() {
-  // data
-  QFile file(_dataFilePath);
-  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _dataDoc->Accept(w);
-  file.write(sb.GetString(), sb.GetSize());
-  file.close();
+  _dataDoc->write(_dataFilePath.toStdString());
 }
 
 void caliExtraAxisWidget::readResult() {
-  QFile file(_resFilePath);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
-  auto str = file.readAll().toStdString();
-  file.close();
-
-  _resultDoc->Parse(str.c_str(), str.size());
+  _resultDoc->read(_resFilePath.toStdString());
 }
 
 void caliExtraAxisWidget::writeResult() {
-  // result
-  QFile file(_resFilePath);
-  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _resultDoc->Accept(w);
-  file.write(sb.GetString(), sb.GetSize());
-  file.close();
+  _resultDoc->write(_resFilePath.toStdString());
 }
 
 int caliExtraAxisWidget::readDeviceData(std::array<float, 4>& data) {
@@ -184,21 +160,20 @@ int caliExtraAxisWidget::readDeviceData(std::array<float, 4>& data) {
 }
 
 void caliExtraAxisWidget::clearResult() {
-  ensureJsonStruct();
   std::string resultMainKey =
       _jsonPrefix.toStdString() + _resultMainKey.toStdString();
-  (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
+  _resultDoc->setArray<float>({resultMainKey, "direction"}, {});
 }
 
 void caliExtraAxisWidget::recordData(const std::array<float, 4>& data) {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
   std::string mainKey = _jsonPrefix.toStdString() + _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  auto& allocator = _dataDoc->GetAllocator();
+  std::vector<std::string> tokens = {mainKey, "datas"};
+  auto token = jsonParser::toToken(tokens);
+  if (!_dataDoc->keyExists(tokens)) {
+    _dataDoc->setArray(tokens);
+  }
   {
+    auto& allocator = _dataDoc->GetAllocator();
     rapidjson::Value obj__(rapidjson::kObjectType);
     rapidjson::Value arr__(rapidjson::kArrayType);
     arr__.PushBack(data[1], allocator);
@@ -207,7 +182,7 @@ void caliExtraAxisWidget::recordData(const std::array<float, 4>& data) {
     obj__.AddMember(rapidjson::Value("robotPosition", allocator), arr__,
                     allocator);
     obj__.AddMember<float>("extraAxisPosition", data[0], allocator);
-    datas.PushBack(obj__, allocator);
+    rapidjson::Pointer(token).Get(*_dataDoc)->PushBack(obj__, allocator);
   }
 }
 
@@ -217,10 +192,8 @@ void caliExtraAxisWidget::deleteLastItem() {
   };
 
   std::string mainKey = _jsonPrefix.toStdString() + _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  if (!datas.Empty()) {
-    datas.PopBack();
-  }
+  std::vector<std::string> tokens = {mainKey, "datas"};
+  _dataDoc->popBack(tokens);
 }
 
 void caliExtraAxisWidget::calculate() {
@@ -233,7 +206,8 @@ void caliExtraAxisWidget::calculate() {
     ensureJsonStruct();
     std::string mainKey =
         _jsonPrefix.toStdString() + _dataMainKey.toStdString();
-    auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
+    auto token = jsonParser::toToken({mainKey, "datas"});
+    auto datas = rapidjson::Pointer(token).Get(*_dataDoc)->GetArray();
     if (datas.Size() < 3) {
       std::cout << "data size less than 3, recod more data" << std::endl;
       return;
@@ -253,12 +227,8 @@ void caliExtraAxisWidget::calculate() {
     // TODO save results json
     std::string resultMainKey =
         _jsonPrefix.toStdString() + _resultMainKey.toStdString();
-    auto& allocator = _resultDoc->GetAllocator();
-    auto& direction = (*_resultDoc)[resultMainKey.c_str()]["direction"];
-    direction.Clear();
-    direction.PushBack(dir[0], allocator);
-    direction.PushBack(dir[1], allocator);
-    direction.PushBack(dir[2], allocator);
+    _resultDoc->setArray<float>({resultMainKey, "direction"},
+                                {dir[0], dir[1], dir[2]});
 
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
