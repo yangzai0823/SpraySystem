@@ -32,7 +32,13 @@ public:
     /** @brief 运动控制器请报错复位*/
     void reset();
 
+    /** @brief 向机器人发送运动轨迹*/
     void sendTrajParam(float zeropoint, float offset);
+
+    /** @brief 反馈轨迹发送结果
+     * @param success: 1成功，-1失败
+    */
+    void sendRbtResult(float success);
     std::vector<float> getChainEncoders(bool & success);
     std::vector<float> getRealTimeEncoder();
     void SevenAxisReset();
@@ -47,12 +53,13 @@ private:
     int count; //0-10000;
 
     bool trySendData(uint8_t order,float v1,float v2,bool flag);
-    void sendData(uint8_t order,float v1, float v2);
+    void sendData(uint8_t order,float v1, float v2, u_int16_t num =0);
     bool waitData(bool &flag);
 public slots:
     void readyRead_Slot(QByteArray buf);
-    void getTrajParam_Slot();
-    void sendToRBT_Slot();
+    void getTrajParam_Slot(); 
+    void sendToRBT_Slot(u_int16_t num);
+    void mcWarning_Slot(u_int16_t num);
     void checkState_Slot();
 signals:
     void getTrajParam_Signal();

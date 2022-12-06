@@ -82,8 +82,6 @@ void MainWindow::startDevices()
     auto retmc = mc->init();
     retmc = mc->start();
 
-    return;
-
     // msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
     // showMsg(msg);
     

@@ -72,11 +72,20 @@ namespace vws
         int sendtorbt;
         int heart;
 
-        bool bchainencoder = false;
-        bool brealtimeencoder = false;
-        bool btrajparam = false;
-        bool brbt = false;
-        bool breset = false;
+        bool b_chain_encoder = false;
+        bool b_realtime_encoder = false;
+        /** @brief 请求： 7轴轨迹规划参数*/
+        bool b_request_traj_param = false;
+        /** @brief 请求: 机器人轨迹参数*/
+        bool b_request_rbt_param = false;
+        /** @brief 应答： 受到重置信号*/
+        bool b_receive_reset = false;
+        /** @brief 应答： 受到启动信号*/
+        bool b_receive_start  = false;
+        /** @brief 应答： 收到机器人结果反馈*/
+        bool b_receive_rbt_result = false;
+        /** @brief 应答： 收到7轴轨迹规划参数*/
+        bool b_receive_traj_param = false;
     };
 
     /**
