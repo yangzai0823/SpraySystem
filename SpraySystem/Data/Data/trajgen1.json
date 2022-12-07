@@ -2,6 +2,8 @@
     "Robot": {
         "ndof": "6",
         "YInvert": true,
+        "YIncrease": false,
+        "BeforeHouse": true,
         "PaintExtremePos": 1200,
         "FrontSeamExtraPaintSpace": 0,
         "BackSeamExtraPaintSpace": 300,

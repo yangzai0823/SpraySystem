@@ -2,14 +2,16 @@
     "Robot": {
         "ndof": "6",
         "YInvert": false,
+        "YIncrease": false,
+        "BeforeHouse": false,
         "PaintExtremePos": 1200,
         "FrontSeamExtraPaintSpace": 500,
         "BackSeamExtraPaintSpace": 0,
         "FrontPlanePaintSpace": 0,
         "BackPlanePaintSpace": 0,
         "PosOfPaintHouse": 200,
-        "GuardDist": 200,
-        "TransitionRadius": 600,
+        "GuardDist": 100,
+        "TransitionRadius": 500,
         "ExtraAxisMax": 0,
         "ExtraAxisMin": -1750,
         "TeachPose": {
@@ -61,10 +63,10 @@
             },
             {
                 "name": "upfront",
-                "work": "dleft_plane-puf-dleft_plane-dright_plane-suf-dright_plane",
-                "cancle": "dleft_plane-dright_plane",
+                "work": "dleft_plane-puf-dleft_plane",
+                "cancle": "",
                 "follow": "u",
-                "followOffset": 300
+                "followOffset": 500
             },
             {
                 "name": "upback",
@@ -74,11 +76,11 @@
                 "followOffset": -300
             },
             {
-                "name": "front two seams",
-                "work": "dright_plane-sdb-sub-dright_plane-dleft_plane",
-                "cancle": "dright_plane-dleft_plane",
+                "name": "front two plane",
+                "work": "dleft_plane-puf-pdf-dleft_plane",
+                "cancle": "",
                 "follow": "u",
-                "followOffset": 300
+                "followOffset": 500
             },
             {
                 "name": "whole back",
@@ -90,7 +92,7 @@
         ],
         "Stragety": {
             "single-up-front": "upfront",
-            "multi-front": "front two seams"
+            "multi-front": "front two plane"
         }
     }
 }

@@ -82,18 +82,19 @@ public:
   bool strategyOf(bool issingle, bool isup, bool isfront,
                   std::string &strategy) const;
   bool isInvert() const { return invert_; }
+  bool isYIncrease() const { return y_increase_; }
   int getNdof() const { return ndof; }
-  double getFrontSeamExtraPaintSpace() { return front_seam_space_; }
-  double getBackSeamExtraPaintSpace() { return back_seam_space_; }
-  double getPaintExtremePos() { return paint_extreme_pos_; }
-  double getFrontPlanePaintSpace() { return front_plane_space_; }
-  double getBackPlanePaintSpace() { return back_plane_space_; }
-  double getPosOfPaintHouse() { return pos_of_paint_house_; }
-  double getGuardDist() { return guard_dist_; }
-  double getTransitionRadius() { return transition_radius_; }
-  double getExtraAxisMax() { return extra_axis_max_; }
-  double getExtraAxisMin() { return extra_axis_min_; }
-  double getSeamOffset() { return seam_offset_; }
+  double getFrontSeamExtraPaintSpace() const { return front_seam_space_; }
+  double getBackSeamExtraPaintSpace() const { return back_seam_space_; }
+  double getPaintExtremePos() const { return paint_extreme_pos_; }
+  double getFrontPlanePaintSpace() const { return front_plane_space_; }
+  double getBackPlanePaintSpace() const { return back_plane_space_; }
+  double getPosOfPaintHouse() const { return pos_of_paint_house_; }
+  double getGuardDist() const { return guard_dist_; }
+  double getTransitionRadius() const { return transition_radius_; }
+  double getExtraAxisMax() const { return extra_axis_max_; }
+  double getExtraAxisMin() const { return extra_axis_min_; }
+  double getSeamOffset() const { return seam_offset_; }
 
 private:
   std::map<std::string, Eigen::VectorXd> teachPoseMap_;
@@ -119,6 +120,7 @@ private:
   double seam_offset_;
   std::string filename_;
   bool invert_;
+  bool y_increase_;
 };
 
 class TrajectoryProcess : public QObject {
