@@ -330,11 +330,11 @@ void DeviceList::on_btn_PLCSend_clicked()
     else{
         //devicemanager->getMC()->sendTrajParam(5799,-300);
         bool success;
-    //    auto ret = devicemanager->getMC()->getChainEncoders(success);
-    auto ret = devicemanager->getMC()->getRealTimeEncoder();
-       std::cout<<"返回至："<<ret.at(0)<<","<<ret.at(1)<<std::endl;
-//        auto ret1 = devicemanager->getMC()->getChainEncoders();
-//        auto ret2 = devicemanager->getMC()->getRealTimeEncoder();
+        //    auto ret = devicemanager->getMC()->getChainEncoders(success);
+        auto ret = devicemanager->getMC()->getRealTimeEncoder();
+        std::cout<<"返回至："<<ret.at(0)<<","<<ret.at(1)<<std::endl;
+        //        auto ret1 = devicemanager->getMC()->getChainEncoders();
+        //        auto ret2 = devicemanager->getMC()->getRealTimeEncoder();
 
     }
 }

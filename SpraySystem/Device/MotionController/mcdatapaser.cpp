@@ -2,6 +2,11 @@
 #include <QtEndian>
 #include <byteswap.h>
 #include "Util/Log/clog.h"
+#include <QDate>
+#include <QString>
+#include <iostream>
+#include <thread>
+
 
 //直接计算法计算crc
 u_int16_t mcdatapaser::do_crc(unsigned char *ptr, int len) {
@@ -43,7 +48,13 @@ mcdatapaser::mcdatapaser()
 
 void mcdatapaser::DataPaser(QByteArray buf, vws::MCData *mcdata)
 {
+   
     parse_mutex.lock();
+
+    std::thread::id id1 = std::this_thread::get_id();
+    std::cout << "DataPaser 线程ID: "<< id1 << std::endl;
+
+
     wholeBuf.append(buf);
 
     if(wholeBuf.size()>=15){
@@ -89,7 +100,7 @@ void mcdatapaser::parseData(unsigned char* v1, vws::MCData *data)
 {
 #pragma pack(1)
     struct DDD{
-        uint16_t head;
+        // uint16_t head;
         u_int16_t num;
         uint8_t order;
         int32_t a1;
@@ -101,6 +112,7 @@ void mcdatapaser::parseData(unsigned char* v1, vws::MCData *data)
     int32_t d1 = bswap_32(pd->a1);
     int32_t d2 = bswap_32(pd->a2);
 
+    u_int16_t dnum=  bswap_16(pd->num);
     switch (pd->order) {
         case 34:   //心跳
             data->heart = d1;
@@ -117,35 +129,43 @@ void mcdatapaser::parseData(unsigned char* v1, vws::MCData *data)
             data->realtimeencoder2 = d2;
             break;
         case 33:  //请求规划参数
-            CLog::getInstance()->log("运动控制器请求参数");
-            data->b_request_traj_param=true;
+        {
+            // CLog::getInstance()->log("运动控制器请求参数");
+             data->b_request_traj_param=true;
             data->getparam = d1;
-            emit getTrajParam_Signal();
+
+            QString current_date_time1 = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
+            std::cout<<"运动控制器请求参数: "<<current_date_time1.toStdString()<<std::endl;
+           
+            emit getTrajParam_Signal(dnum);
             break;
+        }
         case 35: //发送轨迹给机器人
             CLog::getInstance()->log("运动控制器请求发送轨迹给机器人");
             data->b_request_rbt_param = true;
             data->sendtorbt = d1;
-            emit sendToRBT_Signal(pd->num);
+            emit sendToRBT_Signal(dnum);
             break;
         case 36:
             std::cout<<"运动控制器报错"<<std::endl;
-            emit mcWarning_Signal(pd->num);
+            emit mcWarning_Signal(dnum);
             break;
         case 0:
-            //答应收到轨迹规划参数
+            std::cout<<"答应收到轨迹规划参数"<<std::endl;
             data->b_receive_traj_param = true;
             break;
         case 5:
-            //应答复位消息
+            std::cout<<"应答复位消息"<<std::endl;
             data->b_receive_reset = true;
             break;
         case 6:
-            //应答初次连接
+        {
+            std::cout<<"应答初次连接"<<std::endl;
             data->b_receive_start = true;
             break;
+        }
         case 7:
-            //应答机器人发送结果
+            std::cout<<"应答机器人发送结果"<<std::endl;
             data->b_receive_rbt_result = true;
         default:
             break;

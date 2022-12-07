@@ -124,6 +124,7 @@ signals:
      * @param ishead, 1:头, 0:尾
     */
     void finishVision_Signal_u(bool ishead);
+
 public slots:
     //外部事件
     void sendPlcData_Slot(QVariant vData);

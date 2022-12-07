@@ -1,5 +1,6 @@
 #include "mainprocess.h"
 #include <Eigen/Eigen>
+#include <QDate>
 #include "VWSRobot/VWSRobot.h"
 #include "Data/StaticData.h"
 #include "Util/Log/clog.h"
@@ -156,8 +157,11 @@ void MainProcess::recevieData_Slot(QVariant data)
 
 MainProcess::MainProcess()
 {
+    
     // vws::DataInit::Init();
     CLog::getInstance()->log("启动程序");
+
+    connect(this, SIGNAL(sendTrajParam_Signal(qint16)), this, SLOT(getTrajParam_Slot(qint16)));
 
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
@@ -192,7 +196,6 @@ MainProcess::MainProcess()
     connect(this, SIGNAL(begintraj_Singal(MainProcess *)), trajProc, SLOT(begintraj_Slot(MainProcess *)));
     trajThread->start();
 
-    connect(this, SIGNAL(sendTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
 
     sm_bottom = new ContextStateMachine();
     connect(sm_bottom,SIGNAL(alarm()),this,SLOT(alarm_Slot()));
@@ -309,6 +312,7 @@ void MainProcess::getTrajParam_Slot()
     else
     {
         CLog::getInstance()->log("运动控制器请求数据，前队列为空");
+        
         mcRequest = true;
     }
 }
@@ -348,7 +352,7 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
     {
         // std::cout << "运动控制器请求过数据，但未发送" << std::endl;
         CLog::getInstance()->log("运动控制器请求过数据，但未发送");
-        emit sendTrajParam_Signal();
+        emit sendTrajParam_Signal(0);
     }
     _trajret_mutex.unlock();
 }

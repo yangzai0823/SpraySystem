@@ -6,6 +6,9 @@
 #include <QCoreApplication>
 #include <QtEndian>
 #include "Util/Log/clog.h"
+#include <QDate>
+#include <QSemaphore>
+
 
 MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
 {
@@ -26,13 +29,16 @@ int MCOperator::init()
     dataparser->mcData = &data;
     socketclient = new QtSocketClient(dataparser);
 
-    connect(dataparser, SIGNAL(getTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
-    connect(dataparser,SIGNAL(sendToRBT_Signal(u_int16_t)),this,SLOT(sendToRBT_Slot(u_int16_t)));
-    connect(dataparser,SIGNAL(mcWarning_Signal(u_int16_t)),this,SLOT(mcWarning_Slot(u_int16_t)));
+    connect(dataparser, SIGNAL(getTrajParam_Signal(quint16)), this, SLOT(getTrajParam_Slot(quint16)));
+    connect(dataparser,SIGNAL(sendToRBT_Signal(quint16)),this,SLOT(sendToRBT_Slot(quint16)));
+    connect(dataparser,SIGNAL(mcWarning_Signal(quint16)),this,SLOT(mcWarning_Slot(quint16)));
+    connect(dataparser,SIGNAL(test_Signal()),this,SLOT(test_Slot()));
 
-    connect(socketclient, SIGNAL(readyRead_Signal(QByteArray)), this, SLOT(readyRead_Slot(QByteArray)), Qt::ConnectionType::QueuedConnection);
+    // connect(socketclient, SIGNAL(readyRead_Signal(QByteArray)), this, SLOT(readyRead_Slot(QByteArray)), Qt::ConnectionType::QueuedConnection);
     connect(this, SIGNAL(connect_Signal(QString, int)), socketclient, SLOT(connect_Slot(QString, int)), Qt::ConnectionType::QueuedConnection);
 
+   timer = new QTimer();
+    connect(timer,SIGNAL(timeout()),this,SLOT(checkState_Slot()));
     return 1;
 }
 
@@ -42,6 +48,8 @@ int MCOperator::start()
     emit connect_Signal(ip, port);
 
     reset();
+
+     //timer->start(1000);
     return 1;
 }
 
@@ -71,7 +79,8 @@ void MCOperator::sendTrajParam(float zeropoint, float offset)
 
 void MCOperator::reset()
 {
-     std::cout<<"运动控制器请报错复位"<<std::endl;
+     std::cout<<""<<std::endl;
+     CLog::getInstance()->log("运动控制器请报错复位");
     // sendData(9, 0, 0);
     trySendData(5,0,0,data.b_receive_reset);
 }
@@ -110,9 +119,10 @@ std::vector<float> MCOperator::getRealTimeEncoder()
 }
 
 
-bool MCOperator::trySendData(uint8_t order,float v1,float v2, bool flag){
+bool MCOperator::trySendData(uint8_t order,float v1,float v2, bool &flag){
+    int N = 3;
     bool ret = false;
-    for(int i=0;i<1;i++){
+    for(int i=0;i<3;i++){ 
         sendData(order,v1,v2);
         ret = waitData(flag);
         if(ret == true){
@@ -170,11 +180,11 @@ void MCOperator::sendData(uint8_t order, float v1, float v2, u_int16_t num)
 bool MCOperator::waitData(bool &flag)
 {
     int i = 0;
-    while (!flag && i<3)
+    while (!flag && i<30)
     {
         i++;
         //        QCoreApplication::processEvents();
-        usleep(1e6);
+        usleep(1e5);
     }
     //相应超时
     if(flag == false){
@@ -189,16 +199,21 @@ bool MCOperator::waitData(bool &flag)
 void MCOperator::readyRead_Slot(QByteArray buf)
 {
     std::thread::id id = std::this_thread::get_id();
-    emit getTrajParam_Signal();
+    // emit getTrajParam_Signal();
 }
 
-void MCOperator::getTrajParam_Slot()
+void MCOperator::getTrajParam_Slot(quint16 num)
 {
-    CLog::getInstance()->log("MC, 请求数据");
+    // CLog::getInstance()->log("MC, 请求数据");
+    
+    QString current_date_time = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
+        std::cout<<"MC, 请求数据: "<<current_date_time.toStdString()<<std::endl;
+    sendData(33,0,0,num);
+
     emit getTrajParam_Signal();
 }
 
-void MCOperator::sendToRBT_Slot(u_int16_t num)
+void MCOperator::sendToRBT_Slot(quint16 num)
 {
     //应答
     sendData(35,0,0,num);
@@ -207,7 +222,7 @@ void MCOperator::sendToRBT_Slot(u_int16_t num)
     emit sendToRBT_Signal();
 }
 
-void MCOperator::mcWarning_Slot(u_int16_t num){
+void MCOperator::mcWarning_Slot(quint16 num){
     //应答
     sendData(36,0,0,num);
 }

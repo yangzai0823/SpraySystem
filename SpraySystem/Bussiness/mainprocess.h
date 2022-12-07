@@ -94,7 +94,7 @@ private:
     /* @brief 运动控制器请求*/
     bool mcRequest = false;
 
-private slots:
+private slots: 
     /**
      * @brief PLC槽
      * @param data
@@ -114,6 +114,7 @@ private slots:
      * @param upper_or_bottom  0: 表示底层箱子， 1：表示上层
      */
     void begintraj_Slot(QVariant planTaskInfo, bool up_or_bttom);
+
 signals:
     void begintraj_Singal(MainProcess *data);
 
@@ -125,7 +126,7 @@ signals:
     void finishVision_Signal_u(bool ishead);
 
     /* @brief 运动控制器发送数据*/
-    void sendTrajParam_Signal();
+    void sendTrajParam_Signal(quint16 num);
 };
 
 #endif // MAINPROCESS_H

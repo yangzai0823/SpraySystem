@@ -34,7 +34,7 @@ public:
 
     /** @brief 向机器人发送运动轨迹*/
     void sendTrajParam(float zeropoint, float offset);
-
+    
     /** @brief 反馈轨迹发送结果
      * @param success: 1成功，-1失败
     */
@@ -46,20 +46,20 @@ private:
     MCData data;
     QtSocketClient *socketclient;
     mcdatapaser* dataparser;
-    QTimer timer;
+    QTimer *timer;
     int preheart;
     int failcount=0;
     bool state;
     int count; //0-10000;
 
-    bool trySendData(uint8_t order,float v1,float v2,bool flag);
+    bool trySendData(uint8_t order,float v1,float v2,bool &flag);
     void sendData(uint8_t order,float v1, float v2, u_int16_t num =0);
     bool waitData(bool &flag);
 public slots:
     void readyRead_Slot(QByteArray buf);
-    void getTrajParam_Slot(); 
-    void sendToRBT_Slot(u_int16_t num);
-    void mcWarning_Slot(u_int16_t num);
+    void getTrajParam_Slot(quint16 num); 
+    void sendToRBT_Slot(quint16 num);
+    void mcWarning_Slot(quint16 num);
     void checkState_Slot();
 signals:
     void getTrajParam_Signal();

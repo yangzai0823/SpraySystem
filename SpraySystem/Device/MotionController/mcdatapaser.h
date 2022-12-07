@@ -16,6 +16,7 @@ public:
     mcdatapaser();
 
     void DataPaser(QByteArray buf);
+
     u_int16_t do_crc(unsigned char *ptr, int len);
     MCData *mcData;
     std::mutex parse_mutex;
@@ -26,11 +27,11 @@ private:
   void DataPaser(QByteArray buf,MCData * data);
   void parseData(unsigned char* v1, vws::MCData *data);
 signals:
-    void getTrajParam_Signal();
+    void getTrajParam_Signal(quint16 num);
     /** @brief 应答并执行发送操作 */
-    void sendToRBT_Signal(u_int16_t num);
+    void sendToRBT_Signal(quint16 num);
     /** @brief 应答并执行发送操作 */
-    void mcWarning_Signal(u_int16_t num);
+    void mcWarning_Signal(quint16 num);
 };
 
 #endif // MCDATAPASER_H
