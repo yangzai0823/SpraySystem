@@ -1,6 +1,8 @@
 #ifndef CALIBRATIONFORM_H
 #define CALIBRATIONFORM_H
 
+#include <qpixmap.h>
+
 #include <QByteArray>
 #include <QMainWindow>
 #include <memory>
@@ -28,18 +30,20 @@ class calibrationform : public QMainWindow {
   void on_btn_caliExtraAxis_clicked();
   void updateDeviceStatus();
   void onUpdateTreeView(const QByteArray &arr);
+  void onUpdateImage(const QPixmap &pixmap);
 
+  //  TODO delete?
  public slots:
   void saveExtraAxisData();
 
-private slots:
+ private slots:
   void on_btn_caliBeltDirection_clicked();
 
   void on_btn_caliHandEye_clicked();
 
   void on_btn_caliSensor_clicked();
 
-  void on_btn_caliSensor_2_clicked();
+  void on_btn_caliStation_clicked();
 
 private:
   struct caliDevice {

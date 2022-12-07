@@ -32,7 +32,6 @@ class jsonParser : public rapidjson::Document {
     rapidjson::PrettyWriter<rapidjson::StringBuffer> w(ss);
     this->Accept(w);
     std::ofstream file(fileName, std::ios::out | std::ios::trunc);
-    std::cout << ss.GetString() << std::endl;
     file << ss.GetString() << std::endl;
     file.flush();
     file.close();
@@ -130,7 +129,7 @@ class jsonParser : public rapidjson::Document {
   int setArray(
       const std::vector<std::string>& keys,
       const rapidjson::Value& arr = rapidjson::Value(rapidjson::kObjectType)) {
-    if (keys.empty() || !arr.IsArray()) {
+    if (keys.empty()) {
       return -1;
     }
     std::string token;
