@@ -46,6 +46,11 @@ void PlanStragety::load() {
     abort();
   }
 
+  if (!robot.mapGetBool("YIncrease", &y_increase_)) {
+    std::cout << "Error: YIncrease info(bool) is missing" << std::endl;
+    abort();
+  }
+
   if (!robot.mapGetInt("ndof", &ndof)) {
     std::cout << "Error: ndof info(int string) is missing" << std::endl;
     abort();
@@ -1068,7 +1073,8 @@ bool getExtraPaintSpace(PlanStragety &stragety, const std::string &name,
  */
 bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
                                  PlanTask &task_info, PlanStragety &stragety,
-                                 float units) {
+                                 float units, double &axis_min,
+                                 double &axis_max) {
   // 生成喷涂约束
   std::string s;
   bool ret = getStragety(task_info, stragety, s);
@@ -1102,11 +1108,12 @@ bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
 
   double ymax = stragety.getTransitionRadius();
   double start_y = 0;
+  double first_paint_y = 2000;
   int safe_index;
   if (!validWorkTactic(stragety, work_tactic, safe_index)) {
     return false;
   }
-  // 计算喷涂时候距离粉房的最大距离。
+  // 计算喷涂时候机器人动作在Y方向上的最大距离。
   QStringList seq = QString::fromStdString(work_tactic).split('-');
   for (int i = safe_index + 1; i < seq.size(); i++) {
     vws::PlanTaskInfo current_task;
@@ -1115,13 +1122,16 @@ bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
     bool isfront = current_task.face == 0;
     double space;
     Eigen::Vector3d corner_point;
+    computeDiff(current_task, generator, 0, corner_point, invert);
+    int64_t diff_encoder = current_task.encoder - ref_encoder;
+    float diff_mm = diff_encoder / units;
+    diff_mm = invert ? -diff_mm : diff_mm;
+    // 假设：粉房均在机器人的y负方向上
+    double paint_y = corner_point[1] + diff + diff_mm;
+    first_paint_y = first_paint_y < paint_y ? first_paint_y : paint_y;
     if (getExtraPaintSpace(stragety, seq[i].toStdString(), isfront, space)) {
-      computeDiff(current_task, generator, 0, corner_point, invert);
-      int64_t diff_encoder = current_task.encoder - ref_encoder;
-      float diff_mm = diff_encoder / units;
-      diff_mm = invert ? -diff_mm : diff_mm;
-      // 假设：粉房均在机器人的y负方向上
-      double d = corner_point[1] + diff + diff_mm - space;
+      // 喷涂目标中首先开始的点的位置为y方向最小。
+      double d = paint_y - space;
       d = fabs(d);
       ymax = d > ymax ? d : ymax;
     }
@@ -1130,9 +1140,50 @@ bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
   // 创建粉房安全平面
   auto wallCenter = boxCenter;
   wallCenter[1] = -ymax;
+  // todo::
+  // 这里存在默认假设，即invert为true的机器人安装在粉房前面，invert为false的安装在粉房后面
   generator->AddBoxEnvirInfo(wallCenter, Eigen::Vector3d(4000, 1, 2000),
                              Eigen::Quaterniond(1, 0, 0, 0),
                              QString("paint_house").toStdString());
+
+  double pos_paint_house = stragety.getPosOfPaintHouse();
+  double dpos_neg, dpos_pos;
+  bool isIncrease = stragety.isYIncrease();
+  double axis_max, axis_min;
+  axis_max = stragety.getExtraAxisMax();
+  axis_min = stragety.getExtraAxisMin();
+  double paint_extremity = stragety.getPaintExtremePos();
+  double paint_guard_dist = stragety.getGuardDist();
+  if (invert) {
+    // invert 决定了机器人与粉房的位置关系
+    // 第一个机器人，粉房前喷涂，
+    if (isIncrease) {
+      // 机器人编码器为增加的，则粉房位于max端
+      dpos_neg = pos_paint_house - paint_extremity + first_paint_y;
+      dpos_pos = pos_paint_house - ymax - paint_guard_dist;
+    } else {
+      // 粉房位于min端
+      dpos_neg = pos_paint_house + ymax + paint_guard_dist;
+      dpos_pos = pos_paint_house + paint_extremity - first_paint_y;
+    }
+  } else {
+    // 第二个机器人, first_paint_y 含义为最后一个需要喷涂的点位。
+    if (isIncrease) {
+      // 粉房位于min端
+      dpos_neg = pos_paint_house + ymax + paint_guard_dist;
+      dpos_pos = pos_paint_house + paint_extremity - first_paint_y;
+    } else {
+      // 粉房位于max端
+      dpos_neg = pos_paint_house - paint_extremity + first_paint_y;
+      dpos_pos = pos_paint_house - ymax - paint_guard_dist;
+    }
+  }
+  dpos_neg = fmax(fmin(dpos_neg, axis_max), axis_min);
+  dpos_pos = fmax(fmin(dpos_pos, axis_max), axis_min);
+  std::cout << "dpos_neg : " << dpos_neg << ", dpos_pos : " << dpos_pos
+            << std::endl;
+  axis_min = dpos_neg;
+  axis_max = dpos_pos;
 }
 
 bool planTaskUsingTactic(TrajectoryGenerator *generator, PlanTask &task_info,
@@ -1703,9 +1754,10 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata) {
     Eigen::VectorXd init_dof;
     init_dof = vdata->getRobotWaitPose();
     // createPlanScene(generator, task_info, units, invert);
-
+    double mc_dpos_min, mc_dpos_max;
     createPlanSceneUsingTactic(generator, task_info, stragety, units);
-    createSafeRegionUsingTactic(generator, task_info, stragety, units);
+    createSafeRegionUsingTactic(generator, task_info, stragety, units,
+                                mc_dpos_min, mc_dpos_max);
 
     std::vector<TrajectoryInfo> traj_info;
     std::vector<TrajectoryInfo> safe_traj, unsafe_traj, cancle_traj;
@@ -1735,13 +1787,15 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata) {
       for (int i = 0; i < unsafe_traj.size(); i++) {
         all_traj.push_back(unsafe_traj[i]);
       }
-      auto rbttasks = convertToRobotTask(all_traj, stragety2_);
+      auto rbttasks = convertToRobotTask(all_traj, stragety);
 #else
       std::vector<RobotTask> rbttasks;
-      convertToRobotTask(safe_traj, stragety1_, VWSRobot::TaskType::track_1,
+      convertToRobotTask(safe_traj, stragety, VWSRobot::TaskType::track_1,
                          rbttasks);
 
-      convertToRobotTask(unsafe_traj, stragety1_, VWSRobot::TaskType::track_2,
+      convertToRobotTask(unsafe_traj, stragety, VWSRobot::TaskType::track_2,
+                         rbttasks);
+      convertToRobotTask(cancle_traj, stragety, VWSRobot::TaskType::track_4,
                          rbttasks);
 
       // auto all_traj = safe_traj;
