@@ -3,6 +3,7 @@
 #include <qstandarditemmodel.h>
 
 #include <QDoubleSpinBox>
+#include <QGraphicsPixmapItem>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonValue>
@@ -157,6 +158,18 @@ void calibrationform::onUpdateTreeView(const QByteArray &arr) {
   ui->treeView->expandToDepth(1);
 }
 
+void calibrationform::onUpdateImage(const QPixmap &pixmap) {
+  auto scene = ui->graphicsView->scene();
+  if (scene == nullptr) {
+    scene = new QGraphicsScene(ui->graphicsView);
+    ui->graphicsView->setScene(scene);
+  }
+  scene->clear();
+  auto scenePix = scene->addPixmap(pixmap);
+  ui->graphicsView->fitInView(scenePix, Qt::AspectRatioMode::KeepAspectRatio);
+  ui->graphicsView->update();
+}
+
 void calibrationform::saveExtraAxisData() {}
 void calibrationform::on_btn_caliExtraAxis_clicked() {
   if (_extendedWidget != NULL) {
@@ -196,18 +209,22 @@ void calibrationform::on_btn_caliHandEye_clicked() {
   caliHandEyewWidget *widget__ = NULL;
   if (ui->comboBox_cameraType->currentText() == "up") {
     widget__ = new caliHandEyewWidget("up", this);
-    widget__->setDevice(_device->robot0, _device->motionController);
+    widget__->setDevice(_device->robot0, _device->motionController,
+                        _device->camera0);
   } else if (ui->comboBox_cameraType->currentText() == "down") {
     widget__ = new caliHandEyewWidget("down", this);
-    widget__->setDevice(_device->robot1, _device->motionController);
+    widget__->setDevice(_device->robot0, _device->motionController,
+                        _device->camera1);
   }
   _extendedWidget = static_cast<QWidget *>(widget__);
   connect(_extendedWidget, SIGNAL(updateTreeView(const QByteArray &)), this,
           SLOT(onUpdateTreeView(const QByteArray &)));
+  connect(_extendedWidget, SIGNAL(updateImage(const QPixmap &)), this,
+          SLOT(onUpdateImage(const QPixmap &)));
 
   ui->centralwidget->layout()->addWidget(_extendedWidget);
 }
 
 void calibrationform::on_btn_caliSensor_clicked() {}
 
-void calibrationform::on_btn_caliSensor_2_clicked() {}
+void calibrationform::on_btn_caliStation_clicked() {}

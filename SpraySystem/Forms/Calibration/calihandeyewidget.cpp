@@ -1,6 +1,7 @@
 #include "calihandeyewidget.h"
 
 #include <calibration.h>
+#include <qimage.h>
 #include <rapidjson/allocators.h>
 #include <rapidjson/document.h>
 #include <rapidjson/prettywriter.h>
@@ -12,6 +13,7 @@
 #include <QString>
 #include <QtConcurrent/QtConcurrent>
 
+#include "Device/Camera/cameraoperator.h"
 #include "Device/MotionController/mcoperator.h"
 #include "Device/Robot/robotoperator.h"
 #include "ui_calihandeyewidget.h"
@@ -20,15 +22,58 @@ extern QString CALIBRATE_DATA_FILE;
 extern QString CALIBRATE_RESULT_FILE;
 extern QString DATA_FOLDER_NAME;
 
+template <typename T>
+T* readRawBinaryPixelData(const std::string& path, size_t& w, size_t& h,
+                          size_t& channel) {
+  std::ifstream infile(path, std::ios::in | std::ios::binary);
+  if (!infile) {
+    return nullptr;
+  }
+  infile.read((char*)&w, sizeof(size_t));
+  infile.read((char*)&h, sizeof(size_t));
+  infile.read((char*)&channel, sizeof(size_t));
+  size_t len = w * h * channel;
+  auto data = new T[len];
+  infile.read((char*)data, len * sizeof(T));
+  infile.close();
+  return data;
+}
+template <typename T>
+void writeRawBinaryPixelData(const std::string& path, size_t w, size_t h,
+                             size_t channel, T* data) {
+  std::ofstream outfile(path,
+                        std::ios::out | std::ios::binary | std::ios::trunc);
+  if (!outfile) {
+    return;
+  }
+  outfile.write((char*)&w, sizeof(size_t));
+  outfile.write((char*)&h, sizeof(size_t));
+  outfile.write((char*)&channel, sizeof(size_t));
+  outfile.write((char*)data, w * h * channel * sizeof(T));
+  outfile.close();
+}
+
 caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
     : QWidget(parent),
       ui(new Ui::caliHandEyewWidget),
-      _dataMainKey(prefix + "beltDirectionCaliDatas"),
-      _resultMainKey(prefix + "beltDirectionCalibration"),
-      _dataDoc(new rapidjson::Document()),
-      _resultDoc(new rapidjson::Document()),
-      _frontExtraAxisDirection(nullptr) {
+      _dataMainKey(prefix + "handEyeCaliDatas"),
+      _resultMainKey(prefix + "handEyeCalibration"),
+      _dataDoc(new jsonParser()),
+      _resultDoc(new jsonParser()),
+      _frontExtraAxisDirection(nullptr),
+      _robotBeltDirection(nullptr),
+      _thd_updateImageView(nullptr),
+      _timer_updateImageView(nullptr) {
   ui->setupUi(this);
+  enableButton(0);
+  // update image
+  _thd_updateImageView = new QThread(this);
+  _timer_updateImageView = new QTimer();
+  _timer_updateImageView->start(500);
+  _timer_updateImageView->moveToThread(_thd_updateImageView);
+  connect(_timer_updateImageView, SIGNAL(timeout()), this,
+          SLOT(on_UpdateImage()), Qt::DirectConnection);
+  _thd_updateImageView->start();
   // other
   QtConcurrent::run([this]() {
     ensureFileExist();
@@ -38,15 +83,18 @@ caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
     ensureJsonStruct();
     clearResult();
     updateTreeView();
+    connectDevice();
   });
 }
 
 caliHandEyewWidget::~caliHandEyewWidget() { delete ui; }
 
 void caliHandEyewWidget::setDevice(RobotOperator* robot,
-                                   MCOperator* motionController) {
+                                   MCOperator* motionController,
+                                   CameraOperator* camera) {
   _robot = robot;
   _motionController = motionController;
+  _camera = camera;
 }
 
 void caliHandEyewWidget::ensureFileExist() {
@@ -127,59 +175,59 @@ void caliHandEyewWidget::readCalibratedDatas() {
   if (_resultDoc->IsNull()) {
     return;
   }
-  if ((!_resultDoc->HasMember("frontExtraAxisCalibration")) ||
-      (!(*_resultDoc)["frontExtraAxisCalibration"].HasMember("direction")) ||
-      ((*_resultDoc)["frontExtraAxisCalibration"]["direction"].Size() != 3)) {
-    std::cout << "frontExtraAxisDirection doesn't exist" << std::endl;
-    return;
+  {
+    std::vector<float> arr;
+    if (0 >
+        _resultDoc->getArray({"frontExtraAxisCalibration", "direction"}, arr)) {
+      std::cout << "frontExtraAxisDirection doesn't exist" << std::endl;
+      return;
+    } else {
+      if (arr.size() != 3) {
+        std::cout << "frontExtraAxisDirection length must equal 3" << std::endl;
+        return;
+      }
+      _frontExtraAxisDirection = std::make_unique<Eigen::Vector3f>();
+      (*_frontExtraAxisDirection)[0] = arr[0];
+      (*_frontExtraAxisDirection)[1] = arr[1];
+      (*_frontExtraAxisDirection)[2] = arr[2];
+    }
   }
-  auto& arr = (*_resultDoc)["frontExtraAxisCalibration"]["direction"];
-  _frontExtraAxisDirection = std::make_unique<Eigen::Vector3f>();
-  (*_frontExtraAxisDirection)[0] = arr[0].GetFloat();
-  (*_frontExtraAxisDirection)[1] = arr[1].GetFloat();
-  (*_frontExtraAxisDirection)[2] = arr[2].GetFloat();
+  {
+    std::vector<float> arr;
+    if (0 >
+        _resultDoc->getArray({"beltDirectionCalibration", "direction"}, arr)) {
+      std::cout << "beltDirection doesn't exist" << std::endl;
+      return;
+    } else {
+      if (arr.size() != 3) {
+        std::cout << "beltDirection length must equal 3" << std::endl;
+        return;
+      }
+      _robotBeltDirection = std::make_unique<Eigen::Vector3f>();
+      (*_robotBeltDirection)[0] = arr[0];
+      (*_robotBeltDirection)[1] = arr[1];
+      (*_robotBeltDirection)[2] = arr[2];
+    }
+  }
 }
 
 void caliHandEyewWidget::readData() {
-  QFile file(_dataFilePath);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
-  auto str = file.readAll().toStdString();
-  file.close();
-
-  _dataDoc->Parse(str.c_str(), str.size());
+  _dataDoc->read(_dataFilePath.toStdString());
 }
 
 void caliHandEyewWidget::writeData() {
-  // data
-  QFile file(_dataFilePath);
-  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _dataDoc->Accept(w);
-  file.write(sb.GetString(), sb.GetSize());
-  file.close();
+  _dataDoc->write(_dataFilePath.toStdString());
 }
 
 void caliHandEyewWidget::readResult() {
-  QFile file(_resFilePath);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
-  auto str = file.readAll().toStdString();
-  file.close();
-
-  _resultDoc->Parse(str.c_str(), str.size());
+  _resultDoc->read(_resFilePath.toStdString());
 }
 
 void caliHandEyewWidget::writeResult() {
-  // result
-  QFile file(_resFilePath);
-  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _resultDoc->Accept(w);
-  file.write(sb.GetString(), sb.GetSize());
-  file.close();
+  _resultDoc->write(_resFilePath.toStdString());
 }
 
+// TODO 读取设备数据
 int caliHandEyewWidget::readDeviceData(std::array<float, 5>& data) {
   // data:{position, x, y, z}
   try {
@@ -202,9 +250,13 @@ int caliHandEyewWidget::readDeviceData(std::array<float, 5>& data) {
 }
 
 void caliHandEyewWidget::clearResult() {
-  ensureJsonStruct();
   std::string resultMainKey = _resultMainKey.toStdString();
   (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
+  if (auto v =
+          rapidjson::Pointer(jsonParser::toToken({resultMainKey, "direction"}))
+              .Get(*_resultDoc)) {
+    v->Clear();
+  }
 }
 
 void caliHandEyewWidget::recordData(const std::array<float, 5>& data) {
@@ -229,6 +281,150 @@ void caliHandEyewWidget::recordData(const std::array<float, 5>& data) {
     datas.PushBack(obj__, allocator);
   }
 }
+int caliHandEyewWidget::readCameraData(std::string& rgbPath,
+                                       std::string& xyzPath,
+                                       float& beltPosition) {
+  // TODO change to cameraoperator
+  VWSCamera::ImageData data;
+  try {
+    {
+      std::lock_guard<std::mutex> guard(_lock);
+      if (0 > __camera->FetchFrame(1000, data)) {
+        return -1;
+      };
+    }
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+    return -1;
+  }
+  std::string name =
+      QDir::current().absolutePath().toStdString() + "/" +
+      DATA_FOLDER_NAME.toStdString() + "/" +
+      std::to_string(
+          std::chrono::system_clock::now().time_since_epoch().count());
+  auto rgbPath_ = name + ".rgb";
+  auto xyzPath_ = name + ".xyz";
+  writeRawBinaryPixelData<uchar>(rgbPath_, data.RGB8PlanarImage.nWidth,
+                                 data.RGB8PlanarImage.nHeight, 3u,
+                                 (uchar*)data.RGB8PlanarImage.pData);
+  writeRawBinaryPixelData<float>(xyzPath_, data.PointCloudImage.nWidth,
+                                 data.PointCloudImage.nHeight, 3u,
+                                 (float*)data.PointCloudImage.pData);
+  delete data.RGB8PlanarImage.pData;
+  delete data.PointCloudImage.pData;
+  // camera belt position
+  float beltPos_(0);
+  try {
+    beltPos_ = _motionController->getChainEncoders()[1];
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+    return -1;
+  }
+  rgbPath = rgbPath_;
+  xyzPath = xyzPath_;
+  beltPosition = beltPos_;
+  return 0;
+}
+
+void caliHandEyewWidget::recordCameraData(const std::string& rgbPath,
+                                          const std::string& xyzPath,
+                                          float cameraBeltPos) {
+  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
+  if (v == nullptr) {
+    rapidjson::Pointer(dataToken).Set(*_dataDoc,
+                                      rapidjson::Value(rapidjson::kArrayType));
+    v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
+  }
+
+  auto& allocator = _dataDoc->GetAllocator();
+  rapidjson::Value obj(rapidjson::kObjectType);
+  {
+    obj.AddMember("image", rapidjson::Value(rgbPath, allocator), allocator);
+    obj.AddMember("pointcloud", rapidjson::Value(xyzPath, allocator),
+                  allocator);
+    obj.AddMember<float>("cameraBeltPos", cameraBeltPos, allocator);
+    obj.AddMember<float>("robotBeltPos", 0, allocator);
+    obj.AddMember("extraAxisPos", rapidjson::Value(rapidjson::kArrayType),
+                  allocator);
+    obj.AddMember("robotPos", rapidjson::Value(rapidjson::kArrayType),
+                  allocator);
+  }
+  v->PushBack(obj, allocator);
+}
+
+int caliHandEyewWidget::readStationData(float& robotBeltPos,
+                                        float& extraAxisPos,
+                                        Eigen::Vector3f& robotPos) {
+  float beltPos_(0), extraAxisPos_(0);
+  float robotPos_[3];
+  try {
+    auto pos__ = _motionController->getChainEncoders();
+    extraAxisPos_ = pos__[0];
+    beltPos_ = pos__[1];
+
+    VWSRobot::RobotPosition pose;
+    if (1 != _robot->getRobotPosition(pose)) {
+      return -1;
+    };
+    robotPos_[0] = pose.pos[0];
+    robotPos_[1] = pose.pos[1];
+    robotPos_[2] = pose.pos[2];
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+    return -1;
+  }
+  robotBeltPos = beltPos_;
+  extraAxisPos = extraAxisPos_;
+  robotPos[0] = robotPos_[0];
+  robotPos[1] = robotPos_[1];
+  robotPos[2] = robotPos_[2];
+  return 0;
+}
+void caliHandEyewWidget::recordStationData(const float& robotBeltPos,
+                                           const float& extraAxisPos,
+                                           const Eigen::Vector3f& robotPos) {
+  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
+  assert(v != nullptr);
+  assert(v->IsArray());
+
+  auto len = v->Size();
+  assert(len > 0);
+
+  auto& allocator = _dataDoc->GetAllocator();
+  (*v)[len - 1]["robotBeltPos"].SetFloat(robotBeltPos);
+  (*v)[len - 1]["extraAxisPos"].PushBack<float>(extraAxisPos, allocator);
+
+  {
+    rapidjson::Value arr(rapidjson::kArrayType);
+    arr.PushBack<float>(robotPos[0], allocator);
+    arr.PushBack<float>(robotPos[1], allocator);
+    arr.PushBack<float>(robotPos[2], allocator);
+    (*v)[len - 1]["robotPos"].PushBack(arr, allocator);
+  }
+}
+void caliHandEyewWidget::recordRobotData(const float& extraAxisPos,
+                                         const Eigen::Vector3f& robotPos) {
+  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
+  assert(v != nullptr);
+  assert(v->IsArray());
+
+  auto len = v->Size();
+  assert(len > 0);
+
+  auto& allocator = _dataDoc->GetAllocator();
+  (*v)[len - 1]["extraAxisPos"].PushBack<float>(extraAxisPos, allocator);
+
+  {
+    rapidjson::Value arr(rapidjson::kArrayType);
+    arr.PushBack<float>(robotPos[0], allocator);
+    arr.PushBack<float>(robotPos[1], allocator);
+    arr.PushBack<float>(robotPos[2], allocator);
+    (*v)[len - 1]["robotPos"].PushBack(arr, allocator);
+  }
+}
 
 void caliHandEyewWidget::deleteLastItem() {
   if (0 != ensureJsonStruct()) {
@@ -242,70 +438,196 @@ void caliHandEyewWidget::deleteLastItem() {
   }
 }
 
-void caliHandEyewWidget::calculate() {
-  // _API_ int getRobotBeltDirection(
-  // 	const std::vector<Eigen::Vector3f> points,
-  // 	const std::vector<float> beltPositions,
-  // 	Eigen::Vector3f& beltDirection);
+int caliHandEyewWidget::parseGridInfo(size_t& w, size_t& h, float& size) {
+  bool ok(false);
+  size_t gridWidth = ui->spinBox_gridWidth->text().toUInt(&ok);
+  if (!ok) {
+    return -1;
+  }
+  ok = false;
+  size_t gridHeight = ui->spinBox_gridHeight->text().toUInt(&ok);
+  if (!ok) {
+    return -1;
+  }
+  ok = false;
+  float gridSize = ui->doubleSpinBox_gridSize->text().toFloat(&ok);
+  if (!ok) {
+    return -1;
+  }
+  w = gridWidth;
+  h = gridHeight;
+  size = gridSize;
+  return 0;
+}
 
+int caliHandEyewWidget::calculate() {
+  // _API_ int getHandEyeMatrix(
+  // 	const std::vector<handEyeCaliData>& datas,
+  // 	size_t plateWidth,
+  // 	size_t plateHeight,
+  // 	float gridSize,
+  // 	const Eigen::Vector3f& beltDir,
+  // 	Eigen::Isometry3f& matrix);
+
+  // obj.AddMember("image", rapidjson::Value(rgbPath, allocator), allocator);
+  // obj.AddMember("pointcloud", rapidjson::Value(xyzPath, allocator),
+  //               allocator);
+  // obj.AddMember<float>("cameraBeltPos", cameraBeltPos, allocator);
+  // obj.AddMember<float>("robotBeltPos", 0, allocator);
+  // obj.AddMember("extraAxisPos", rapidjson::Value(rapidjson::kArrayType),
+  //               allocator);
+  // obj.AddMember("robotPos", rapidjson::Value(rapidjson::kArrayType),
+  //               allocator);
+
+  if (_frontExtraAxisDirection == nullptr) {
+    std::cout << "frontExtraAxisDirection not found" << std::endl;
+    return -1;
+  }
+  if (_robotBeltDirection == nullptr) {
+    std::cout << "robotBeltDirection not found" << std::endl;
+    return -1;
+  }
+  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto dataValue = rapidjson::Pointer(dataToken).Get(*_dataDoc);
+  if (dataValue == nullptr) {
+    return -1;
+  }
+  assert(dataValue->IsArray());
+  assert(dataValue->Size() > 0);
+
+  size_t gridWidth;
+  size_t gridHeight;
+  float gridSize;
+
+  if (0 > parseGridInfo(gridWidth, gridHeight, gridSize)) {
+    std::cout << "grid info error" << std::endl;
+    return -1;
+  }
+
+  std::vector<handEyeCaliData> caliDatas;
+  for (size_t i = 0; i < dataValue->Size(); i++) {
+    handEyeCaliData caliData;
+    auto& data = (*dataValue)[i];
+    // rgb
+    auto rgbPath = data["image"].GetString();
+    {
+      size_t w(0), h(0), c(0);
+      auto buff = readRawBinaryPixelData<uchar>(rgbPath, w, h, c);
+      if (buff == nullptr) {
+        std::cout << "read rgb file error : \t" << rgbPath << std::endl;
+        continue;
+      }
+      caliData.rgb = buff;
+      caliData.width = w;
+      caliData.height = h;
+    }
+    // xyz
+    auto xyzPath = data["pointcloud"].GetString();
+    {
+      size_t w(0), h(0), c(0);
+      auto buff = readRawBinaryPixelData<float>(xyzPath, w, h, c);
+      if (buff == nullptr) {
+        std::cout << "read xyz file error : \t" << rgbPath << std::endl;
+        continue;
+      }
+      caliData.xyz = buff;
+    }
+    // cameraBeltPos
+    auto cameraBeltPos = data["cameraBeltPos"].GetFloat();
+    caliData.pos1 = cameraBeltPos;
+    // robotBeltPos
+    auto robotBeltPos = data["robotBeltPos"].GetFloat();
+    caliData.pos2 = robotBeltPos;
+    // stationPos
+    {
+      auto extraAxisArr = data["extraAxisPos"].GetArray();
+      auto robotPos = data["robotPos"].GetArray();
+      assert(extraAxisArr.Size() == 3 && robotPos.Size() == 3);
+      if (extraAxisArr.Size() != 3 || robotPos.Size() != 3) {
+        continue;
+      }
+      caliData.p1 =
+          Eigen::Vector3f(robotPos[0][0].GetFloat(), robotPos[0][1].GetFloat(),
+                          robotPos[0][2].GetFloat()) +
+          extraAxisArr[0].GetFloat() * (*_frontExtraAxisDirection);
+      caliData.p2 =
+          Eigen::Vector3f(robotPos[1][0].GetFloat(), robotPos[1][1].GetFloat(),
+                          robotPos[1][2].GetFloat()) +
+          extraAxisArr[1].GetFloat() * (*_frontExtraAxisDirection);
+      caliData.p3 =
+          Eigen::Vector3f(robotPos[2][0].GetFloat(), robotPos[2][1].GetFloat(),
+                          robotPos[2][2].GetFloat()) +
+          extraAxisArr[2].GetFloat() * (*_frontExtraAxisDirection);
+    }
+    caliDatas.push_back(caliData);
+  }
+  assert(caliDatas.size() > 0);
+  if (caliDatas.size() == 0) {
+    return -1;
+  }
+  // calculate
+  Eigen::Isometry3f handEyeMatrix;
   try {
-    if (_frontExtraAxisDirection == nullptr) {
-      std::cout << "_frontExtraAxisDirection not found" << std::endl;
-      return;
-    }
-    ensureJsonStruct();
-    std::string mainKey = _dataMainKey.toStdString();
-    auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-    if (datas.Size() < 3) {
-      std::cout << "data size less than 3, recod more data" << std::endl;
-      return;
-    }
-    std::vector<Eigen::Vector3f> points;
-    std::vector<float> beltPositions;
-    Eigen::Vector3f stationPos(0, 0, 0);
-    float extraAxisPos(0);
-    for (auto i = datas.Begin(); i != datas.End(); i++) {
-      beltPositions.push_back((*i)["beltPosition"].GetFloat());
-      extraAxisPos = (*i)["extraAxisPosition"].GetFloat();
-      auto& points__ = (*i)["robotPosition"];
-      stationPos[0] = points__[0].GetFloat();
-      stationPos[1] = points__[1].GetFloat();
-      stationPos[2] = points__[2].GetFloat();
-      stationPos += extraAxisPos * (*_frontExtraAxisDirection);
-      points.push_back(stationPos);
-    }
-    Eigen::Vector3f dir;
-    if (0 != getRobotBeltDirection(points, beltPositions, dir)) {
-      return;
-    }
-    // TODO save results json
-    std::string resultMainKey = _resultMainKey.toStdString();
-    auto& allocator = _resultDoc->GetAllocator();
-    auto& direction = (*_resultDoc)[resultMainKey.c_str()]["direction"];
-    direction.Clear();
-    direction.PushBack(dir[0], allocator);
-    direction.PushBack(dir[1], allocator);
-    direction.PushBack(dir[2], allocator);
-
+    if (0 > getHandEyeMatrix(caliDatas, 5, 7, 3, *_robotBeltDirection,
+                             handEyeMatrix)) {
+      return -1;
+    };
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
+    return -1;
   }
+  // set json
+  std::vector<float> matrix__;
+  for (size_t i = 0; i < 3; i++) {
+    for (size_t j = 0; j < 4; j++) {
+      matrix__.push_back(handEyeMatrix(i, j));
+    }
+  }
+
+  _resultDoc->setArray<float>({_resultMainKey.toStdString(), "handEyeMatrix"},
+                              matrix__);
 }
 
 void caliHandEyewWidget::updateTreeView() {
-  rapidjson::Document doc__;
+  jsonParser doc__;
   auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
   // set calibrated results
-  {
-    rapidjson::Value v(rapidjson::kArrayType);
-    if (_frontExtraAxisDirection != nullptr) {
-      v.PushBack((*_frontExtraAxisDirection)[0], allocator);
-      v.PushBack((*_frontExtraAxisDirection)[1], allocator);
-      v.PushBack((*_frontExtraAxisDirection)[2], allocator);
-    }
-    doc__.AddMember("frontExtraAxisDirection", v, allocator);
+  if (_frontExtraAxisDirection == nullptr) {
+    doc__.setArray({"preCalibrated", "frontExtraAxisDirection"});
+  } else {
+    doc__.setArray<float>(
+        {"preCalibrated", "frontExtraAxisDirection"},
+        {(*_frontExtraAxisDirection)[0], (*_frontExtraAxisDirection)[1],
+         (*_frontExtraAxisDirection)[2]});
   }
+  if (_robotBeltDirection == nullptr) {
+    doc__.setArray({"preCalibrated", "robotBeltDirection"});
+  } else {
+    doc__.setArray<float>({"11", "robotBeltDirection"},
+                          {(*_robotBeltDirection)[0], (*_robotBeltDirection)[1],
+                           (*_robotBeltDirection)[2]});
+  }
+  // {
+  //   {
+  //     rapidjson::Value v(rapidjson::kArrayType);
+  //     if (_frontExtraAxisDirection != nullptr) {
+  //       v.PushBack((*_frontExtraAxisDirection)[0], allocator);
+  //       v.PushBack((*_frontExtraAxisDirection)[1], allocator);
+  //       v.PushBack((*_frontExtraAxisDirection)[2], allocator);
+  //     }
+  //     doc__.AddMember("frontExtraAxisDirection", v, allocator);
+  //   }
+  //   {
+  //     rapidjson::Value v(rapidjson::kArrayType);
+  //     if (_robotBeltDirection != nullptr) {
+  //       v.PushBack((*_robotBeltDirection)[0], allocator);
+  //       v.PushBack((*_robotBeltDirection)[1], allocator);
+  //       v.PushBack((*_robotBeltDirection)[2], allocator);
+  //     }
+  //     doc__.AddMember("robotBeltDirection", v, allocator);
+  //   }
+  // }
   // copy main domain
   std::string dataMainKey = _dataMainKey.toStdString();
   auto& dataMain = (*_dataDoc)[dataMainKey.c_str()];
@@ -352,29 +674,103 @@ void caliHandEyewWidget::dumpJson() {
   }
 }
 
-void caliHandEyewWidget::on_btn_record_clicked() {
+void caliHandEyewWidget::on_btn_capture_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
     writeResult();
     // FIXME
 #if 0
-    std::array<float, 4> data;
-    if (0 != readDeviceData(data)) {
-      std::cout << "read data error" << std::endl;
+    std::string rgb, xyz;
+    float beltPos(0);
+    if (0 != readCameraData(rgb, xyz, beltPos)) {
+      std::cout << "read camera data error" << std::endl;
       return;
     }
-    recordData(data);
+    recordCameraData(rgb, xyz, beltPos);
 #else
-    recordData({0, 2, 3, 4, 5});
-    recordData({0, 3, 4, 5, 6});
-    recordData({0, 4, 5, 6, 7});
+    recordCameraData("camera", "pcd", 1);
 #endif
     writeData();
     // update  tree
+    enableButton(1);
     updateTreeView();
   });
 }
 
+void caliHandEyewWidget::on_btn_record1_clicked() {
+  QtConcurrent::run([this]() {
+    clearResult();
+    writeResult();
+    // FIXME
+#if 0
+
+    std::string rgb, xyz;
+    float beltPos(0), extraAxis(0);
+    Eigen::Vector3f robotPos(0, 0, 0);
+    if (0 != readStationData(beltPos, extraAxis, robotPos)) {
+      std::cout << "read robot data error" << std::endl;
+      return;
+    }
+    recordStationData(beltPos, extraAxis, robotPos);
+#else
+    recordStationData(0, 1, Eigen::Vector3f(1, 0, 0));
+#endif
+    writeData();
+    // update  tree
+    enableButton(2);
+    updateTreeView();
+  });
+}
+
+void caliHandEyewWidget::on_btn_record2_clicked() {
+  QtConcurrent::run([this]() {
+    clearResult();
+    writeResult();
+    // FIXME
+#if 0
+
+    std::string rgb, xyz;
+    float beltPos(0), extraAxis(0);
+    Eigen::Vector3f robotPos(0, 0, 0);
+    if (0 != readStationData(beltPos, extraAxis, robotPos)) {
+      std::cout << "read robot data error" << std::endl;
+      return;
+    }
+    recordRobotData(extraAxis, robotPos);
+#else
+    recordStationData(0, 1, Eigen::Vector3f(1, 0, 0));
+#endif
+    writeData();
+    // update  tree
+    enableButton(3);
+    updateTreeView();
+  });
+}
+
+void caliHandEyewWidget::on_btn_record3_clicked() {
+  QtConcurrent::run([this]() {
+    clearResult();
+    writeResult();
+    // FIXME
+#if 0
+
+    std::string rgb, xyz;
+    float beltPos(0), extraAxis(0);
+    Eigen::Vector3f robotPos(0, 0, 0);
+    if (0 != readStationData(beltPos, extraAxis, robotPos)) {
+      std::cout << "read robot data error" << std::endl;
+      return;
+    }
+    recordRobotData(extraAxis, robotPos);
+#else
+    recordStationData(0, 1, Eigen::Vector3f(1, 0, 0));
+#endif
+    writeData();
+    // update  tree
+    enableButton(0);
+    updateTreeView();
+  });
+}
 void caliHandEyewWidget::on_btn_calculate_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
@@ -393,4 +789,84 @@ void caliHandEyewWidget::on_btn_delete_clicked() {
     writeData();
     updateTreeView();
   });
+}
+
+void caliHandEyewWidget::enableButton(size_t index) {
+  switch (index) {
+    case 0:
+      ui->btn_capture->setEnabled(true);
+      ui->btn_record1->setEnabled(false);
+      ui->btn_record2->setEnabled(false);
+      ui->btn_record3->setEnabled(false);
+      break;
+    case 1:
+      ui->btn_capture->setEnabled(false);
+      ui->btn_record1->setEnabled(true);
+      ui->btn_record2->setEnabled(false);
+      ui->btn_record3->setEnabled(false);
+      break;
+    case 2:
+      ui->btn_capture->setEnabled(false);
+      ui->btn_record1->setEnabled(false);
+      ui->btn_record2->setEnabled(true);
+      ui->btn_record3->setEnabled(false);
+      break;
+    case 3:
+      ui->btn_capture->setEnabled(false);
+      ui->btn_record1->setEnabled(false);
+      ui->btn_record2->setEnabled(false);
+      ui->btn_record3->setEnabled(true);
+      break;
+    default:
+      ui->btn_capture->setEnabled(true);
+      ui->btn_record1->setEnabled(false);
+      ui->btn_record2->setEnabled(false);
+      ui->btn_record3->setEnabled(false);
+      break;
+  }
+}
+
+void caliHandEyewWidget::connectDevice() {
+  __camera = new VWSCamera();
+  __camera->Init("192.168.125.99", 1);
+  __camera->connect();
+  __camera->changeTriggerMode(false);
+  __camera->startGrab();
+}
+
+void caliHandEyewWidget::on_UpdateImage() {
+  // FIXME
+  if (!__camera) {
+    return;
+  }
+  VWSCamera::ImageData data;
+  {
+    std::lock_guard<std::mutex> guard(_lock);
+    if (0 > __camera->FetchFrame(1, data)) {
+      return;
+    }
+  }
+  size_t w = data.RGB8PlanarImage.nWidth;
+  size_t h = data.RGB8PlanarImage.nHeight;
+  QImage img(w, h, QImage::Format::Format_RGB32);
+  // cpy
+  {
+    uchar* src = (uchar*)data.RGB8PlanarImage.pData;
+    for (size_t i = 0; i < h; i++) {
+      auto row = img.scanLine(i);
+      for (size_t j = 0; j < w; j++) {
+        // row[0] = 255;
+        // row[1] = src[2];
+        // row[2] = src[1];
+        // row[3] = src[0];
+        img.setPixel(j, i, qRgb(src[0], src[1], src[2]));
+        src += 3;
+        row += 4;
+      }
+    }
+  }
+  delete data.PointCloudImage.pData;
+  delete data.RGB8PlanarImage.pData;
+  auto pixmap = QPixmap::fromImage(img);
+  emit updateImage(pixmap);
 }
