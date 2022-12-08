@@ -67,12 +67,15 @@ caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
   ui->setupUi(this);
   enableButton(0);
   // update image
-  _thd_updateImageView = new QThread(this);
+  _thd_updateImageView = new QThread();
   _timer_updateImageView = new QTimer();
-  _timer_updateImageView->start(500);
+  _timer_updateImageView->setInterval(500);
   _timer_updateImageView->moveToThread(_thd_updateImageView);
   connect(_timer_updateImageView, SIGNAL(timeout()), this,
           SLOT(on_UpdateImage()), Qt::DirectConnection);
+  connect(_thd_updateImageView, SIGNAL(started()), _timer_updateImageView,
+          SLOT(start()));
+
   _thd_updateImageView->start();
   // other
   QtConcurrent::run([this]() {
@@ -87,7 +90,10 @@ caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
   });
 }
 
-caliHandEyewWidget::~caliHandEyewWidget() { delete ui; }
+caliHandEyewWidget::~caliHandEyewWidget() {
+  _thd_updateImageView->exit();
+  delete ui;
+}
 
 void caliHandEyewWidget::setDevice(RobotOperator* robot,
                                    MCOperator* motionController,
@@ -227,28 +233,6 @@ void caliHandEyewWidget::writeResult() {
   _resultDoc->write(_resFilePath.toStdString());
 }
 
-// TODO 读取设备数据
-int caliHandEyewWidget::readDeviceData(std::array<float, 5>& data) {
-  // data:{position, x, y, z}
-  try {
-    VWSRobot::RobotPosition pose;
-    if (1 != _robot->getRobotPosition(pose)) {
-      return -1;
-    };
-    auto extraPosition = _motionController->getChainEncoders()[1];
-    auto beltPosition = _motionController->getChainEncoders()[0];
-    data[0] = extraPosition;
-    data[1] = pose.pos[0];
-    data[2] = pose.pos[1];
-    data[3] = pose.pos[2];
-    data[4] = beltPosition;
-    return 0;
-  } catch (const std::exception& e) {
-    std::cerr << e.what() << '\n';
-    return -1;
-  }
-}
-
 void caliHandEyewWidget::clearResult() {
   std::string resultMainKey = _resultMainKey.toStdString();
   (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
@@ -315,11 +299,12 @@ int caliHandEyewWidget::readCameraData(std::string& rgbPath,
   // camera belt position
   float beltPos_(0);
   try {
-    beltPos_ = _motionController->getChainEncoders()[1];
+    beltPos_ = _motionController->getRealTimeEncoder()[1];
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
     return -1;
   }
+  std::cout << "beltPos" << beltPos_ << std::endl;
   rgbPath = rgbPath_;
   xyzPath = xyzPath_;
   beltPosition = beltPos_;
@@ -359,7 +344,7 @@ int caliHandEyewWidget::readStationData(float& robotBeltPos,
   float beltPos_(0), extraAxisPos_(0);
   float robotPos_[3];
   try {
-    auto pos__ = _motionController->getChainEncoders();
+    auto pos__ = _motionController->getRealTimeEncoder();
     extraAxisPos_ = pos__[0];
     beltPos_ = pos__[1];
 
@@ -452,6 +437,9 @@ int caliHandEyewWidget::parseGridInfo(size_t& w, size_t& h, float& size) {
   ok = false;
   float gridSize = ui->doubleSpinBox_gridSize->text().toFloat(&ok);
   if (!ok) {
+    return -1;
+  }
+  if (gridWidth < 1 || gridHeight < 1 || gridSize < 0) {
     return -1;
   }
   w = gridWidth;
@@ -679,13 +667,14 @@ void caliHandEyewWidget::on_btn_capture_clicked() {
     clearResult();
     writeResult();
     // FIXME
-#if 0
+#if 1
     std::string rgb, xyz;
     float beltPos(0);
     if (0 != readCameraData(rgb, xyz, beltPos)) {
       std::cout << "read camera data error" << std::endl;
       return;
     }
+    std::cout << "beltPos" << beltPos << std::endl;
     recordCameraData(rgb, xyz, beltPos);
 #else
     recordCameraData("camera", "pcd", 1);
@@ -702,7 +691,7 @@ void caliHandEyewWidget::on_btn_record1_clicked() {
     clearResult();
     writeResult();
     // FIXME
-#if 0
+#if 1
 
     std::string rgb, xyz;
     float beltPos(0), extraAxis(0);
@@ -727,7 +716,7 @@ void caliHandEyewWidget::on_btn_record2_clicked() {
     clearResult();
     writeResult();
     // FIXME
-#if 0
+#if 1
 
     std::string rgb, xyz;
     float beltPos(0), extraAxis(0);
@@ -752,7 +741,7 @@ void caliHandEyewWidget::on_btn_record3_clicked() {
     clearResult();
     writeResult();
     // FIXME
-#if 0
+#if 1
 
     std::string rgb, xyz;
     float beltPos(0), extraAxis(0);
@@ -788,6 +777,7 @@ void caliHandEyewWidget::on_btn_delete_clicked() {
     deleteLastItem();
     writeData();
     updateTreeView();
+    enableButton(0);
   });
 }
 
@@ -846,27 +836,43 @@ void caliHandEyewWidget::on_UpdateImage() {
       return;
     }
   }
+  bool useOrigin = false;
+  size_t gridWidth(0), gridHeight(0);
+  float gridSize(0);
+  if (0 > parseGridInfo(gridWidth, gridHeight, gridSize)) {
+    useOrigin = true;
+  };
+  // find grid
+  uchar* buff = NULL;
   size_t w = data.RGB8PlanarImage.nWidth;
   size_t h = data.RGB8PlanarImage.nHeight;
+  if (!useOrigin) {
+    useOrigin =
+        0 != getMarkedGridPlateImage(w, h, data.RGB8PlanarImage.pData,
+                                     gridWidth, gridHeight, (void**)&buff);
+  }
+  // show image
+  void* dst = useOrigin ? data.RGB8PlanarImage.pData : buff;
+
   QImage img(w, h, QImage::Format::Format_RGB32);
   // cpy
   {
-    uchar* src = (uchar*)data.RGB8PlanarImage.pData;
+    uchar* src = (uchar*)dst;
     for (size_t i = 0; i < h; i++) {
       auto row = img.scanLine(i);
       for (size_t j = 0; j < w; j++) {
-        // row[0] = 255;
-        // row[1] = src[2];
-        // row[2] = src[1];
-        // row[3] = src[0];
+        // TODO 效率
         img.setPixel(j, i, qRgb(src[0], src[1], src[2]));
         src += 3;
         row += 4;
       }
     }
   }
-  delete data.PointCloudImage.pData;
   delete data.RGB8PlanarImage.pData;
+  delete data.PointCloudImage.pData;
+  if (buff) {
+    delete buff;
+  }
   auto pixmap = QPixmap::fromImage(img);
   emit updateImage(pixmap);
 }

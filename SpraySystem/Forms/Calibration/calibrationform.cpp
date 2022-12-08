@@ -31,20 +31,26 @@ calibrationform::calibrationform(QWidget *parent)
       _timer_updatePositions(new QTimer(this)) {
   ui->setupUi(this);
   // DELETEME
-  // connectDevice();
+  connectDevice();
   // other initialization
-  _thd_updatePositions = new QThread(this);
+  // TODO change: use thd to emit signals to change ui
+  _thd_updatePositions = new QThread();
   _timer_updatePositions = new QTimer();
-  _timer_updatePositions->start(200);
+  _timer_updatePositions->setInterval(200);
   _timer_updatePositions->moveToThread(_thd_updatePositions);
   connect(_timer_updatePositions, SIGNAL(timeout()), this,
           SLOT(updateDeviceStatus()), Qt::DirectConnection);
+  connect(_thd_updatePositions, SIGNAL(started()), _timer_updatePositions,
+          SLOT(start()));
   // TODO
-  // _thd_updatePositions->start();
+  _thd_updatePositions->start();
 }
 
 calibrationform::~calibrationform() {
-  _thd_updatePositions->terminate();
+  _thd_updatePositions->exit();
+  _thd_updatePositions->wait();
+  // delete _timer_updatePositions;
+  delete _thd_updatePositions;
   delete ui;
 }
 
@@ -63,16 +69,16 @@ void calibrationform::connectDevice() {
   auto plc = deviceManager->getPlc();
   plc->start();
   _device->pcl = plc;
-  //运动控制器
+  // 运动控制器
   auto mc = deviceManager->getMC();
   mc->start();
   _device->motionController = mc;
-  //机器人
+  // 机器人
   auto rbt = deviceManager->getRobot(0);
   rbt->init();
   rbt->start();
   _device->robot0 = rbt.get();
-//相机
+// 相机
 #if (0)
   auto camera1 = deviceManager->getCamera(0);
 
@@ -147,6 +153,10 @@ void calibrationform::updateBeltPosition(MCOperator *motionController,
   }
   auto position = motionController->getRealTimeEncoder()[1];
   {
+    auto tmp = motionController->getRealTimeEncoder();
+    std::cout << tmp[0] << "\t" << tmp[1] << std::endl;
+  }
+  {
     auto str__ = QString::number(position, 'f', _digits);
     edit_beltPosition->setText(str__);
   }
@@ -155,7 +165,7 @@ void calibrationform::updateBeltPosition(MCOperator *motionController,
 void calibrationform::onUpdateTreeView(const QByteArray &arr) {
   auto model = new QJsonModel(arr);
   ui->treeView->setModel(model);
-  ui->treeView->expandToDepth(1);
+  ui->treeView->expandAll();
 }
 
 void calibrationform::onUpdateImage(const QPixmap &pixmap) {
