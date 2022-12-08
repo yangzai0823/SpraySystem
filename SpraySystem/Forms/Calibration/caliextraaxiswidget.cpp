@@ -16,9 +16,9 @@
 #include "Device/Robot/robotoperator.h"
 #include "ui_caliextraaxiswidget.h"
 
-QString CALIBRATE_DATA_FILE = "calibrateDatas.json";
-QString CALIBRATE_RESULT_FILE = "calibrateResults.json";
-QString DATA_FOLDER_NAME = "Data";
+QString CALIBRATE_DATA_FILE = "calibrationDatas.json";
+QString CALIBRATE_RESULT_FILE = "calibrationResults.json";
+QString DATA_FOLDER_NAME = "CalibrationData";
 
 caliExtraAxisWidget::caliExtraAxisWidget(const QString& prefix, QWidget* parent)
     : QWidget(parent),
@@ -147,7 +147,7 @@ int caliExtraAxisWidget::readDeviceData(std::array<float, 4>& data) {
     if (1 != _robot->getRobotPosition(pose)) {
       return -1;
     };
-    auto position = _motionController->getChainEncoders()[0];
+    auto position = _motionController->getRealTimeEncoder()[0];
     data[0] = position;
     data[1] = pose.pos[0];
     data[2] = pose.pos[1];

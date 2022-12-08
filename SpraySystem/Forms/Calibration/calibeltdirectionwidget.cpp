@@ -187,8 +187,8 @@ int caliBeltDirectionWidget::readDeviceData(std::array<float, 5>& data) {
     if (1 != _robot->getRobotPosition(pose)) {
       return -1;
     };
-    auto extraPosition = _motionController->getChainEncoders()[1];
-    auto beltPosition = _motionController->getChainEncoders()[0];
+    auto extraPosition = _motionController->getRealTimeEncoder()[1];
+    auto beltPosition = _motionController->getRealTimeEncoder()[0];
     data[0] = extraPosition;
     data[1] = pose.pos[0];
     data[2] = pose.pos[1];
