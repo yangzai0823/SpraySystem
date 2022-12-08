@@ -18,6 +18,7 @@
 #include "Device/Robot/robotoperator.h"
 #include "Device/devicemanager.h"
 #include "Forms/Calibration/calibeltdirectionwidget.h"
+#include "Forms/Calibration/calicamerasensorwidget.h"
 #include "Forms/Calibration/caliextraaxiswidget.h"
 #include "Forms/Calibration/calihandeyewidget.h"
 #include "Util/QJsonModel/qjsonmodel.h"
@@ -31,7 +32,7 @@ calibrationform::calibrationform(QWidget *parent)
       _timer_updatePositions(new QTimer(this)) {
   ui->setupUi(this);
   // DELETEME
-  connectDevice();
+  // connectDevice();
   // other initialization
   // TODO change: use thd to emit signals to change ui
   _thd_updatePositions = new QThread();
@@ -43,7 +44,7 @@ calibrationform::calibrationform(QWidget *parent)
   connect(_thd_updatePositions, SIGNAL(started()), _timer_updatePositions,
           SLOT(start()));
   // TODO
-  _thd_updatePositions->start();
+  // _thd_updatePositions->start();
 }
 
 calibrationform::~calibrationform() {
@@ -235,6 +236,26 @@ void calibrationform::on_btn_caliHandEye_clicked() {
   ui->centralwidget->layout()->addWidget(_extendedWidget);
 }
 
-void calibrationform::on_btn_caliSensor_clicked() {}
+void calibrationform::on_btn_caliSensor_clicked() {
+  if (_extendedWidget != NULL) {
+    delete _extendedWidget;
+  }
+  caliCameraSensorWidget *widget__ = NULL;
+  if (ui->comboBox_cameraType->currentText() == "up") {
+    widget__ = new caliCameraSensorWidget("up", this);
+    widget__->setDevice(_device->pcl, _device->camera1);
+  } else if (ui->comboBox_cameraType->currentText() == "down") {
+    widget__ = new caliCameraSensorWidget("down", this);
+    widget__->setDevice(_device->pcl, _device->camera1);
+  }
+
+  _extendedWidget = static_cast<QWidget *>(widget__);
+  connect(_extendedWidget, SIGNAL(updateTreeView(const QByteArray &)), this,
+          SLOT(onUpdateTreeView(const QByteArray &)));
+  connect(_extendedWidget, SIGNAL(updateImage(const QPixmap &)), this,
+          SLOT(onUpdateImage(const QPixmap &)));
+
+  ui->centralwidget->layout()->addWidget(_extendedWidget);
+}
 
 void calibrationform::on_btn_caliStation_clicked() {}
