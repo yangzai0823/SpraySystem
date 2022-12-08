@@ -27,16 +27,12 @@ _API_ int getHandEyeMatrix(
 	const Eigen::Vector3f& beltDir,
 	Eigen::Isometry3f& matrix);
 
+_API_ int getMarkedGridPlateImage(
+	size_t w, size_t h, void* srcBuff, size_t plateWidth, size_t plateHeight, void** dstBuff);
+
 _API_ int getRobotBeltDirection(
 	const std::vector<Eigen::Vector3f> points,
 	const std::vector<float> beltPositions,
-	Eigen::Vector3f& beltDirection);
-
-_API_ int getCameraBeltDirection(
-	const std::vector<cameraBeltDirectionCaliData>& datas,
-	size_t plateWidth,
-	size_t plateHeight,
-	float gridSize,
 	Eigen::Vector3f& beltDirection);
 
 _API_ int getExtraAxisDirection(
@@ -49,11 +45,9 @@ _API_ int getStationTransformMatrix(
 	const std::vector<Eigen::Vector3f> dst,
 	Eigen::Isometry3f& transf);
 
-_API_ int getSensorRotationMatrix(
-	const cameraSensorCaliData& data,
-	size_t plateWidth,
-	size_t plateHeight,
-	float gridSize,
-	Eigen::Matrix3f& rotation);
+_API_ int getLaserMarkerImage(size_t width, size_t height, void* rgb, void** markedImagePtr);
 
-_API_ int getSensorDistance(float s1, float s2, float delta, float& dist);
+_API_ int getSensorOriginDirection(
+	const std::vector<cameraSensorCaliData>& datas,
+	Eigen::Vector3f& origin,
+	Eigen::Vector3f& direction);

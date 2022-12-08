@@ -37,7 +37,6 @@ class caliHandEyewWidget : public QWidget {
   void readCalibratedDatas();
   void readData();
   void writeData();
-  int readDeviceData(std::array<float, 5>& data);
   void readResult();
   void clearResult();
   void writeResult();
@@ -70,6 +69,7 @@ class caliHandEyewWidget : public QWidget {
  signals:
   void updateTreeView(const QByteArray&);
   void updateImage(const QPixmap&);
+  void exit();
 
  private slots:
   void on_btn_capture_clicked();

@@ -32,4 +32,5 @@ struct cameraSensorCaliData {
 	size_t height;
 	void* rgb;
 	void* xyz;
+	float dist;
 };
