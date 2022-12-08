@@ -21,6 +21,7 @@
 #include "Forms/Calibration/calicamerasensorwidget.h"
 #include "Forms/Calibration/caliextraaxiswidget.h"
 #include "Forms/Calibration/calihandeyewidget.h"
+#include "Forms/Calibration/calistationwidget.h"
 #include "Util/QJsonModel/qjsonmodel.h"
 #include "ui_calibrationform.h"
 
@@ -32,7 +33,7 @@ calibrationform::calibrationform(QWidget *parent)
       _timer_updatePositions(new QTimer(this)) {
   ui->setupUi(this);
   // DELETEME
-  // connectDevice();
+  connectDevice();
   // other initialization
   // TODO change: use thd to emit signals to change ui
   _thd_updatePositions = new QThread();
@@ -44,7 +45,7 @@ calibrationform::calibrationform(QWidget *parent)
   connect(_thd_updatePositions, SIGNAL(started()), _timer_updatePositions,
           SLOT(start()));
   // TODO
-  // _thd_updatePositions->start();
+  _thd_updatePositions->start();
 }
 
 calibrationform::~calibrationform() {
@@ -258,4 +259,18 @@ void calibrationform::on_btn_caliSensor_clicked() {
   ui->centralwidget->layout()->addWidget(_extendedWidget);
 }
 
-void calibrationform::on_btn_caliStation_clicked() {}
+void calibrationform::on_btn_caliStation_clicked() {
+  if (_extendedWidget != NULL) {
+    delete _extendedWidget;
+  }
+  caliStationWidget *widget__ = NULL;
+  widget__ = new caliStationWidget(this);
+  widget__->setDevice(_device->robot0, _device->motionController,
+                      _device->robot0, _device->motionController);
+
+  _extendedWidget = static_cast<QWidget *>(widget__);
+  connect(_extendedWidget, SIGNAL(updateTreeView(const QByteArray &)), this,
+          SLOT(onUpdateTreeView(const QByteArray &)));
+
+  ui->centralwidget->layout()->addWidget(_extendedWidget);
+}

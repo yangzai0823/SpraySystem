@@ -1,5 +1,6 @@
 #pragma once
 #include <Eigen/Core>
+#include <vector>
 
 struct handEyeCaliData {
 	size_t width;
@@ -33,4 +34,13 @@ struct cameraSensorCaliData {
 	void* rgb;
 	void* xyz;
 	float dist;
+};
+
+struct stationCaliData {
+	float beltPos1;
+	float beltPos2;
+	std::vector<float> extraAxisPos1;
+	std::vector<float> extraAxisPos2;
+	std::vector<Eigen::Vector3f> robotPos1;
+	std::vector<Eigen::Vector3f> robotPos2;
 };
