@@ -41,8 +41,10 @@ _API_ int getExtraAxisDirection(
 	Eigen::Vector3f& extraAxisDirection);
 
 _API_ int getStationTransformMatrix(
-	const std::vector<Eigen::Vector3f> src,
-	const std::vector<Eigen::Vector3f> dst,
+	const stationCaliData& datas,
+	const Eigen::Vector3f& extraAxisDir1,
+	const Eigen::Vector3f& extraAxisDir2,
+	const Eigen::Vector3f& beltDir,
 	Eigen::Isometry3f& transf);
 
 _API_ int getLaserMarkerImage(size_t width, size_t height, void* rgb, void** markedImagePtr);
