@@ -242,10 +242,10 @@ void calibrationform::on_btn_caliSensor_clicked() {
     delete _extendedWidget;
   }
   caliCameraSensorWidget *widget__ = NULL;
-  if (ui->comboBox_cameraType->currentText() == "up") {
+  if (ui->comboBox_sensorType->currentText() == "up") {
     widget__ = new caliCameraSensorWidget("up", this);
     widget__->setDevice(_device->pcl, _device->camera1);
-  } else if (ui->comboBox_cameraType->currentText() == "down") {
+  } else if (ui->comboBox_sensorType->currentText() == "down") {
     widget__ = new caliCameraSensorWidget("down", this);
     widget__->setDevice(_device->pcl, _device->camera1);
   }
