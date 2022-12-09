@@ -415,7 +415,7 @@
       <geometry>
         <!-- <mesh
           filename="file://../urdf/mpx2600/meshes/painter.STL" /> -->
-          <box size="0.85 0.1 0.75"/>
+          <box size="0.7 0.1 0.6"/>
       </geometry>
       <material
         name="">
@@ -431,7 +431,7 @@
       <geometry>
         <!-- <mesh
           filename="file://../urdf/mpx2600/meshes/painter.STL" /> -->
-          <box size="0.85 0.1 0.75"/>
+          <box size="0.7 0.1 0.6"/>
       </geometry>
     </collision>
   </link>

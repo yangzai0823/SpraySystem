@@ -104,10 +104,10 @@ void TrajectoryGenerator::GenerateEnvirInfo() {
   pt->addManipulator(robot, "tool", "base", "link_flange", manip_rot,
                      Eigen::Vector3d(0.00, 0.1, 0.8));
   //  // 添加墙面
-  pt->addBox(Eigen::Vector3d(-1.5, 0, 1), Eigen::Vector3d(0.01, 5, 2),
+  pt->addBox(Eigen::Vector3d(-0.9, 0, 1), Eigen::Vector3d(0.01, 5, 2),
              Eigen::Quaterniond(1, 0, 0, 0), "wall");
   //  // 添加地面
-  pt->addBox(Eigen::Vector3d(0, 0, -1.5), Eigen::Vector3d(5, 5, 0.01),
+  pt->addBox(Eigen::Vector3d(0, 0, -0.450 - 0.6), Eigen::Vector3d(5, 5, 0.01),
              Eigen::Quaterniond(1, 0, 0, 0), "floor");
   // 添加滑轨
   pt->addBox(Eigen::Vector3d(0, 0, -1.005), Eigen::Vector3d(0.50, 5, 0.4),
@@ -115,6 +115,10 @@ void TrajectoryGenerator::GenerateEnvirInfo() {
   // 添加放碰撞块
   pt->addBox(Eigen::Vector3d(0.45, 0, -0.5), Eigen::Vector3d(0.01, 0.2, 0.2),
              Eigen::Quaterniond(1, 0, 0, 0), "fixer");
+
+  pt->addBox(Eigen::Vector3d(2.074, 0, 2.794 - 0.6 - 0.1),
+             Eigen::Vector3d(0.1, 5, 0.2), Eigen::Quaterniond(1, 0, 0, 0),
+             "chain");
 }
 
 void TrajectoryGenerator::AddBoxHookEnvirInfo(Eigen::Vector3d boxcenter,

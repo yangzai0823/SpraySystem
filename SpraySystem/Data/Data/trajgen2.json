@@ -92,6 +92,9 @@
         ],
         "Stragety": {
             "single-up-front": "upfront",
+            "single-down-front": "downfront",
+            "single-up-back": "upback",
+            "single-down-back": "downback",
             "multi-front": "front two plane"
         }
     }

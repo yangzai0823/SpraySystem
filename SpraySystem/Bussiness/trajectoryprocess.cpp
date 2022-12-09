@@ -488,6 +488,7 @@ void Rbt(Eigen::VectorXd planRet, float speed, VWSRobot::TaskType taskType,
     rbt_tasks.push_back(rbttask);
   }
 }
+
 void fakeData(MainProcess *vdata, int64_t encoder) {
   static int64_t init_encoder = encoder;
   static bool genUp = true;
@@ -496,7 +497,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   static bool init = true;
   float units = 1 / 0.419;
   float LminUp = 1000, Lrange = 1000;
-  float LminBottom = 500;
+  float LminBottom = 1000;
   float Mininterval = 600, Drange = 200;
   float H = 800, W = 600;
   float rotAngle = 10.0 / 180.0 * M_PI;
@@ -544,7 +545,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
     info.boxInfo.translate(
-        Eigen::Vector3d(2200, -3000 - Lu / 2.0, -500 + 1200));
+        Eigen::Vector3d(2074, -3000 - Lu / 2.0, -350 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -561,7 +562,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
     info.boxInfo.translate(
-        Eigen::Vector3d(2200, -3000 + Lu / 2.0, -500 + 1200));
+        Eigen::Vector3d(2074, -3000 + Lu / 2.0, -350 + 1200));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Lu;
@@ -580,7 +581,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos >= Pd && last_pos < Pd) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000 - Ld / 2.0, -500));
+    info.boxInfo.translate(Eigen::Vector3d(2074, -3000 - Ld / 2.0, -350));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -596,7 +597,7 @@ void fakeData(MainProcess *vdata, int64_t encoder) {
   if (current_pos >= Pd + Ld && last_pos < Pd + Ld) {
     vws::PlanTaskInfo info;
     info.boxInfo = Eigen::Isometry3d::Identity();
-    info.boxInfo.translate(Eigen::Vector3d(2200, -3000 + Ld / 2.0, -500));
+    info.boxInfo.translate(Eigen::Vector3d(2074, -3000 + Ld / 2.0, -350));
     info.boxInfo.rotate(Rd);
     info.lx = W;
     info.ly = Ld;
@@ -982,6 +983,10 @@ bool planPaintPath(TrajectoryGenerator *generator, Eigen::VectorXd &init_dof,
 bool createPlanSceneUsingTactic(TrajectoryGenerator *generator,
                                 PlanTask &task_info, PlanStragety &stragety,
                                 float units) {
+  if (task_info.targets_.size() > 2) {
+    std::cout << "Error: task targets > 2" << std::endl;
+    return false;
+  }
   // 生成喷涂约束
   std::string s;
   bool ret = getStragety(task_info, stragety, s);
@@ -1017,6 +1022,7 @@ bool createPlanSceneUsingTactic(TrajectoryGenerator *generator,
   std::vector<vws::PlanTaskInfo> ptask_vector[2];
   ptask_vector[0] = (task_info.envs_);
   ptask_vector[1] = (task_info.targets_);
+
   for (int np = 0; np < 2; np++) {
     std::vector<vws::PlanTaskInfo> ptask_info = ptask_vector[np];
     for (int i = 0; i < ptask_info.size(); i++) {
@@ -1073,8 +1079,8 @@ bool getExtraPaintSpace(PlanStragety &stragety, const std::string &name,
  */
 bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
                                  PlanTask &task_info, PlanStragety &stragety,
-                                 float units, double &axis_min,
-                                 double &axis_max) {
+                                 float units, double &axis_min_out,
+                                 double &axis_max_out) {
   // 生成喷涂约束
   std::string s;
   bool ret = getStragety(task_info, stragety, s);
@@ -1182,8 +1188,81 @@ bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
   dpos_pos = fmax(fmin(dpos_pos, axis_max), axis_min);
   std::cout << "dpos_neg : " << dpos_neg << ", dpos_pos : " << dpos_pos
             << std::endl;
-  axis_min = dpos_neg;
-  axis_max = dpos_pos;
+  axis_min_out = dpos_neg;
+  axis_max_out = dpos_pos;
+
+  // todo::根据规划的目标特点，生成规划障碍物，保障规划的安全性
+  // 规划障碍物包含两种，一种是同一列上下两层之间的障碍物，另一种为前后的障碍物
+  // 第二种又分两种情况，分别为前面和后面。均以上层的面作为基准，间隔最小距离设置障碍物。
+  // 添加逻辑为：1.列处理 -
+  // 如果规划目标为上层一层，下层添加同样大小的障碍物，如果规划目标为下层一层，
+  //            上层添加一个极长的障碍物。如果规划目标为两层，则该列不做处理。
+  //             2. 行处理 -
+  //             如果规划为一层，则规划目标的前/后面间隔一定距离处添加挡板
+  //            如果规划为两层，则上层目标的前/后面间隔一定距离处添加挡板
+  enum PAINTTYPE { PAINT_UP, PAINT_DOWN, PAINT_BOTH };
+  PAINTTYPE paint_type;
+  vws::PlanTaskInfo target_task;
+  Eigen::Vector3d target_point, target_center;
+  bool isfront;
+  if (task_info.targets_.size() == 2) {
+    paint_type = PAINT_BOTH;
+    getTaskInfo(task_info, true, target_task);
+    computeDiff(target_task, generator, 0, target_point, invert);
+  } else {
+    paint_type = task_info.targets_.front().isup ? PAINT_UP : PAINT_DOWN;
+    getTaskInfo(task_info, task_info.targets_.front().isup, target_task);
+    computeDiff(target_task, generator, 0, target_point, invert);
+  }
+  isfront = target_task.face == 0;
+  int64_t diff_encoder = target_task.encoder - ref_encoder;
+  float diff_mm = diff_encoder / units;
+  diff_mm = invert ? -diff_mm : diff_mm;
+  target_point[1] = target_point[1] + diff + diff_mm;
+  target_center = target_task.boxInfo.translation();
+  target_center[1] = target_center[1] + diff + diff_mm;
+
+  double z_dist = 400;
+  double col_obstacle_h = 900;
+  double col_obstacle_l = 2000;
+  double col_obstacle_w = 850;
+  double row_obstacle_h = 4000;
+  double row_obstacle_w = 850;
+  double row_obstacle_l = 1000;
+  double row_obstacle_dist = 750;
+  Eigen::Vector3d obstacle_center = target_center;
+  auto row_obstacle_center = target_point;
+  switch (paint_type) {
+  case PAINT_DOWN: {
+    // 列处理
+    obstacle_center[2] += target_task.lz / 2.0 + z_dist + col_obstacle_h / 2.0;
+  } break;
+  case PAINT_UP:
+    col_obstacle_l = target_task.ly;
+  case PAINT_BOTH: {
+    obstacle_center[2] -= target_task.lz / 2.0 + z_dist + col_obstacle_h / 2.0;
+  } break;
+  default:
+    break;
+  }
+  if (paint_type != PAINT_BOTH) {
+    generator->AddBoxEnvirInfo(
+        obstacle_center,
+        Eigen::Vector3d(col_obstacle_w, col_obstacle_l, col_obstacle_h),
+        Eigen::Quaterniond(1, 0, 0, 0), QString("col_obstacle").toStdString());
+  }
+  // 行处理
+  if (isfront ^ invert) {
+    row_obstacle_center[1] += (row_obstacle_dist + row_obstacle_l / 2.0);
+  } else {
+    row_obstacle_center[1] -= (row_obstacle_dist + row_obstacle_l / 2.0);
+  }
+  row_obstacle_center[0] = target_center[0];
+
+  generator->AddBoxEnvirInfo(
+      row_obstacle_center,
+      Eigen::Vector3d(row_obstacle_w, row_obstacle_l, row_obstacle_h),
+      Eigen::Quaterniond(1, 0, 0, 0), QString("row_obstacle").toStdString());
 }
 
 bool planTaskUsingTactic(TrajectoryGenerator *generator, PlanTask &task_info,
