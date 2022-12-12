@@ -3,6 +3,7 @@
 
 #include <qpixmap.h>
 
+#include <Forms/Calibration/deviceupdater.hpp>
 #include <QByteArray>
 #include <QMainWindow>
 #include <memory>
@@ -18,6 +19,8 @@ class RobotOperator;
 class CameraOperator;
 class PLCOperator;
 class MCOperator;
+class deviceUpdater;
+class deviceData;
 
 class calibrationform : public QMainWindow {
   Q_OBJECT
@@ -27,25 +30,19 @@ class calibrationform : public QMainWindow {
   ~calibrationform();
 
  public slots:
-  void on_btn_caliExtraAxis_clicked();
-  void updateDeviceStatus();
+
+  void updateDeviceStatus(deviceData *);
   void onUpdateTreeView(const QByteArray &arr);
   void onUpdateImage(const QPixmap &pixmap);
 
-  //  TODO delete?
- public slots:
-  void saveExtraAxisData();
-
  private slots:
+  void on_btn_caliExtraAxis_clicked();
   void on_btn_caliBeltDirection_clicked();
-
   void on_btn_caliHandEye_clicked();
-
   void on_btn_caliSensor_clicked();
-
   void on_btn_caliStation_clicked();
 
-private:
+ private:
   struct caliDevice {
     RobotOperator *robot0;
     RobotOperator *robot1;
@@ -71,9 +68,7 @@ private:
   // device
   std::shared_ptr<caliDevice> _device;
   // timer to update positions
-  QThread *_thd_updatePositions;
-  QTimer *_timer_updatePositions;
-  const int _digits = 2;
+  deviceUpdater *_deviceUpdater;
 };
 
 #endif  // CALIBRATIONFORM_H
