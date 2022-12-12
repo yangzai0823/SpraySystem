@@ -43,6 +43,7 @@ private:
         static const std::string GETPOS;
         static const std::string GETJOINT;
         static const std::string WRITEVAR;
+        static const std::string IOREAD;
         static const std::string IOWRITE;
         static const std::string READSTATUS;
         static const std::string HOLD;
@@ -60,6 +61,7 @@ private:
         static const std::string GETPOS;
         static const std::string GETJOINT;
         static const std::string WRITEVAR;
+        static const std::string IOREAD;
         static const std::string IOWRITE;
         static const std::string READSTATUS;
         static const std::string HOLD;

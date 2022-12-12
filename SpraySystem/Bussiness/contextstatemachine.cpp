@@ -6,6 +6,18 @@
 #include <QDate>
 
 std::mutex ContextStateMachine::_mutex;
+void ContextStateMachine::logState(QString strState, bool enter)
+{
+    if (enter)
+    {
+        CLog::getInstance()->log("*****箱体： " + Name + "(" + QString::number(nCount) + ")，进入状态： " + strState + "******");
+    }
+    else
+    {
+        CLog::getInstance()->log("*****箱体： " + Name + "(" + QString::number(nCount) + ")，退出状态： " + strState + "******");
+    }
+}
+
 float ContextStateMachine::getImgEncoder(bool init)
 {
     float result = 0;
@@ -105,7 +117,7 @@ ContextStateMachine::~ContextStateMachine()
 
 void ContextStateMachine::StartRun()
 {
-
+    nCount = 0;
     timer_img_head = new QTimer();
     timer_img_head->moveToThread(sm_thread);
     connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
@@ -124,15 +136,12 @@ void ContextStateMachine::checkHeadLaserAndImg()
 #ifdef _STATEPRINT_
     // std::cout << "enter checkHeadLaserAndImg" << std::endl;
 #endif
-    // std::cout << "箱体： " << Name.toStdString() << ", 检查头部图像和信号" << std::endl;
     if (Context.flag_laser == true && Context.flag_img_head == true)
     {
-        // std::cout << "箱体： " << Name.toStdString() << "头部感应信号和图像齐全" << std::endl;
         emit laserSignalOnAndImgReady();
     }
     else
     {
-        // std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
     }
     _mutex.unlock();
 }
@@ -145,24 +154,22 @@ void ContextStateMachine::checkTrailLaserAndImg()
     _mutex.lock();
     if (!Context.flag_camera && Context.flag_img_trail)
     {
-        // std::cout << "箱体： " << Name.toStdString() << "尾部感应信号和图像齐全" << std::endl;
         emit cameraSignalOffAndImgReady();
     }
     else
     {
-        // std::cout << "箱体： " << Name.toStdString() << "感应信号和图像不齐全" << std::endl;
     }
     _mutex.unlock();
 }
 
 void ContextStateMachine::enteredParentState_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： Parent******");
+    logState("Parent");
 }
 
 void ContextStateMachine::enteredAlarm_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： Alarm******");
+    logState("Alarm");
 }
 
 void ContextStateMachine::sendPlcData_Slot(QVariant vData)
@@ -196,8 +203,6 @@ void ContextStateMachine::sendImgData_Slot(QVariant vData)
     VWSCamera::ImageData img = vData.value<VWSCamera::ImageData>();
     if (!Context.flag_img_head)
     {
-        // std::cout << "sendImgData_Slot"
-        //           << "headImg" << std::endl;
         Context.flag_img_head = true;
         Context.img_head = img;
         std::cout << "******箱体： " << Name.toStdString() << " ，收到头部图像信号" << std::endl;
@@ -214,7 +219,7 @@ void ContextStateMachine::sendImgData_Slot(QVariant vData)
 
 void ContextStateMachine::enteredWaitLaserSignal_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待箱体感应信号******");
+    logState("等待箱体感应信号");
 
     // 校验测距
     if (vws::DataVerify::RangingVerify(tmplaserdata[0], tmplaserdata[1]))
@@ -238,15 +243,13 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 }
 void ContextStateMachine::exitWaitLaserSignal_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，退出状态： 等待箱体感应信号******");
-
+    logState("等待箱体感应信号", false);
     timer_img_head->stop();
 }
 
 void ContextStateMachine::enteredProcessHeadImg_Slot()
 {
-    // std::cout << "******箱体： " << Name.toStdString() << "，进入状态： 处理头部图像******" << std::endl;
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 处理头部图像******");
+    logState("处理头部图像");
 
     // 视觉处理头部
     beginVision_head();
@@ -256,20 +259,19 @@ void ContextStateMachine::enteredProcessHeadImg_Slot()
 
 void ContextStateMachine::enterdWaitTrailProcess_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 等待尾部图像处理******");
+    logState("等待尾部图像处理");
 }
 void ContextStateMachine::exitWaitTrailProcess_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，退出状态： 等待尾部图像处理******");
+    logState("等待尾部图像处理", false);
 }
 
 void ContextStateMachine::enteredProcessTrailImg_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： 处理尾部图像******");
+    logState("处理尾部图像");
 
     timer_img_trail->stop();
 
-    // Context.encoder_img_trail = DeviceManager::getInstance()->getMC()->getChainEncoders()[Context.index];
     Context.encoder_img_trail = getImgEncoder();
     std::cout << Name.toStdString() << "StateMachine, 编码器数值, head: " << Context.encoder_img_head << " ,trail: " << Context.encoder_img_trail << std::endl;
 
@@ -281,9 +283,11 @@ void ContextStateMachine::enteredProcessTrailImg_Slot()
 
 void ContextStateMachine::enteredIDLE_Slot()
 {
-    CLog::getInstance()->log("*****箱体： " + Name + "，进入状态： IDLE******");
-    std::thread::id id = std::this_thread::get_id();
-    std::cout << "socketclient slot 线程ID: " << id << std::endl;
+    nCount++;
+
+    logState("IDLE");
+    // std::thread::id id = std::this_thread::get_id();
+    // std::cout << "socketclient slot 线程ID: "<< id << std::endl;
 
     if (timer_img_head->isActive())
     {
@@ -310,7 +314,8 @@ void ContextStateMachine::headTimer_Slot()
     if (time_head > timeout_head)
     {
         timer_img_head->stop();
-        std::cout << "箱体： " << Name.toStdString() << "，头部图像反馈超时" << std::endl;
+        time_head = 0;
+        CLog::getInstance()->log("箱体： " + Name + "(" + QString::number(nCount) + ")，头部图像反馈超时");
         emit headImgTimeout();
     }
 }
@@ -320,7 +325,8 @@ void ContextStateMachine::trailTimer_Slot()
     if (time_trail > timeout_trail)
     {
         timer_img_trail->stop();
-        std::cout << "箱体： " << Name.toStdString() << "，尾部图像反馈超时" << std::endl;
+        time_trail = 0;
+        CLog::getInstance()->log("箱体： " + Name + "(" + QString::number(nCount) + ")，尾部图像反馈超时");
         emit trailImgTimeout();
     }
 }
@@ -338,51 +344,39 @@ void ContextStateMachine::beginVision_head()
     visionContext->work_head(Context.img_head, Context.laserCouple1, Context.visionData);
 
     vws::PlanTaskInfo planTaskInfo_head;
-    if (Context.visionData.hasError)
+    if (!Context.visionData.hasError)
     {
-        // 标记为已规划，当障碍物处理
-        planTaskInfo_head.flag = true;
+        planTaskInfo_head.diff = vws::diff;
+        planTaskInfo_head.lx = Context.visionData.width;
+        planTaskInfo_head.ly = Context.visionData.length_head;
+        planTaskInfo_head.lz = Context.visionData.height;
+        planTaskInfo_head.encoder = Context.encoder_img_head;
+        planTaskInfo_head.face = 0;
+        planTaskInfo_head.boxInfo = Eigen::Isometry3d::Identity();
+
+        QString strlog = Name + "， 头部， Plan Task, 编码器数值：" + QString::number(planTaskInfo_head.encoder);
+        CLog::getInstance()->log(strlog);
+        strlog = Name + "， 头部四元数: " + QString::number(Context.visionData.robotpose_head[3]) + ", " + QString::number(Context.visionData.robotpose_head[4]) + ", " + QString::number(Context.visionData.robotpose_head[5]) + "," + QString::number(Context.visionData.robotpose_head[6]);
+        CLog::getInstance()->log(strlog);
+        strlog = Name + "， 头部坐标： " + QString::number(Context.visionData.robotpose_head[0]) + ", " + QString::number(Context.visionData.robotpose_head[1]) + ", " + QString::number(Context.visionData.robotpose_head[2]);
+        CLog::getInstance()->log(strlog);
+        strlog = Name + ", 头部尺寸： " + QString::number(planTaskInfo_head.lx) + ", " + QString::number(planTaskInfo_head.ly) + ", " + QString::number(planTaskInfo_head.lz);
+        CLog::getInstance()->log(strlog);
+
+        planTaskInfo_head.boxInfo.prerotate(Eigen::Quaterniond(Context.visionData.robotpose_head[3], Context.visionData.robotpose_head[4], Context.visionData.robotpose_head[5], Context.visionData.robotpose_head[6]));
+        planTaskInfo_head.boxInfo.pretranslate(Eigen::Vector3d(Context.visionData.robotpose_head[0], Context.visionData.robotpose_head[1], Context.visionData.robotpose_head[2] + zero_offset));
     }
-    planTaskInfo_head.diff = vws::diff;
-    planTaskInfo_head.lx = Context.visionData.width;
-    planTaskInfo_head.ly = Context.visionData.length_head;
-    planTaskInfo_head.lz = Context.visionData.height;
-    planTaskInfo_head.encoder = Context.encoder_img_head;
-    planTaskInfo_head.face = 0;
-    planTaskInfo_head.boxInfo = Eigen::Isometry3d::Identity();
-
-    QString strlog = Name + "， 头部， Plan Task, 编码器数值：" + QString::number(planTaskInfo_head.encoder);
-    CLog::getInstance()->log(strlog);
-    strlog = Name + "， 头部四元数: " + QString::number(Context.visionData.robotpose_head[3]) + ", " + QString::number(Context.visionData.robotpose_head[4]) + ", " + QString::number(Context.visionData.robotpose_head[5]) + "," + QString::number(Context.visionData.robotpose_head[6]);
-    CLog::getInstance()->log(strlog);
-    strlog = Name + "， 头部坐标： " + QString::number(Context.visionData.robotpose_head[0]) + ", " + QString::number(Context.visionData.robotpose_head[1]) + ", " + QString::number(Context.visionData.robotpose_head[2]);
-    CLog::getInstance()->log(strlog);
-    strlog = Name + ", 头部尺寸： " + QString::number(planTaskInfo_head.lx) + ", " + QString::number(planTaskInfo_head.ly) + ", " + QString::number(planTaskInfo_head.lz);
-    CLog::getInstance()->log(strlog);
-
-    planTaskInfo_head.boxInfo.prerotate(Eigen::Quaterniond(Context.visionData.robotpose_head[3], Context.visionData.robotpose_head[4], Context.visionData.robotpose_head[5], Context.visionData.robotpose_head[6]));
-    planTaskInfo_head.boxInfo.pretranslate(Eigen::Vector3d(Context.visionData.robotpose_head[0], Context.visionData.robotpose_head[1], Context.visionData.robotpose_head[2] + zero_offset));
-
     QVariant vdata;
 
     // 根据状态机判断底层/顶层
-    if (Name == "Bottom")
+    if (!Context.visionData.hasError)
     {
-        CLog::getInstance()->log("低层箱子头部被参数进入队列");
-        planTaskInfo_head.isup = false;
+        planTaskInfo_head.isup = IsTop;
         vdata.setValue(planTaskInfo_head);
-        emit finishVision_Signal_b(true);
-        emit begintraj_Singal(vdata, 0);
+        emit begintraj_Singal(vdata, IsTop);
     }
-    else
-    {
-        CLog::getInstance()->log("顶层箱子头部被参数进入队列");
-        planTaskInfo_head.isup = true;
-        vdata.setValue(planTaskInfo_head);
-
-        emit finishVision_Signal_u(true);
-        emit begintraj_Singal(vdata, 1);
-    }
+    QString strTopOrBottom = IsTop ? "顶层" : "底层";
+    CLog::getInstance()->log(strTopOrBottom + "箱子头部被参数进入队列");
 }
 
 void ContextStateMachine::beginVision_trail()
@@ -428,29 +422,12 @@ void ContextStateMachine::beginVision_trail()
 
     QVariant vdata;
     // 根据状态机判断底层/顶层
-    if (Name == "Bottom")
+    if (!Context.visionData.hasError)
     {
-        CLog::getInstance()->log("底层箱子尾部参数进入队列");
-        planTaskInfo.isup = false;
+        planTaskInfo.isup = IsTop;
         vdata.setValue(planTaskInfo);
-        emit finishVision_Signal_b(0);
-        emit begintraj_Singal(vdata, 0);
+        emit begintraj_Singal(vdata, IsTop);
     }
-    else
-    {
-        CLog::getInstance()->log("顶层箱子尾部被参数进入队列");
-        planTaskInfo.isup = true;
-        vdata.setValue(planTaskInfo);
-        emit finishVision_Signal_u(0);
-        emit begintraj_Singal(vdata, 1);
-    }
-
-    // if (Name == "Bottom")
-    // {
-    //     emit finishVision_Signal_b(false);
-    // }
-    // else
-    // {
-    //     emit finishVision_Signal_u(false);
-    // }
+    QString strTopOrBottom = IsTop ? "顶层" : "底层";
+    CLog::getInstance()->log(strTopOrBottom + "箱子尾部被参数进入队列");
 }

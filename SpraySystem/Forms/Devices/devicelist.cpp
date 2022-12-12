@@ -331,11 +331,26 @@ void DeviceList::on_btn_PLCSend_clicked()
         //devicemanager->getMC()->sendTrajParam(5799,-300);
         bool success;
         //    auto ret = devicemanager->getMC()->getChainEncoders(success);
-        auto ret = devicemanager->getMC()->getRealTimeEncoder();
-        std::cout<<"返回至："<<ret.at(0)<<","<<ret.at(1)<<std::endl;
+        std::thread t1([=]{
+            std::cout<<"t1,请求数据"<<std::endl;
+            auto ret = devicemanager->getMC()->getRealTimeEncoder();
+            std::cout<<"t1,返回值："<<ret.at(0)<<","<<ret.at(1)<<std::endl;
+        });
+
+        usleep(10);
+        std::thread t2([=]{
+            std::cout<<"t2,请求数据"<<std::endl;
+            bool success;
+            auto ret = devicemanager->getMC()->getChainEncoders(success);
+            std::cout<<"t2,返回值："<<ret.at(0)<<","<<ret.at(1)<<std::endl;
+        });
+       
+        t1.detach();
+        t2.detach();
         //        auto ret1 = devicemanager->getMC()->getChainEncoders();
         //        auto ret2 = devicemanager->getMC()->getRealTimeEncoder();
-
+        std::cout<<"end"<<std::endl;
+        // ShowPlcMessage("返回值："+QString::number(ret.at(0))+","+QString::number(ret.at(1)),true);
     }
 }
 

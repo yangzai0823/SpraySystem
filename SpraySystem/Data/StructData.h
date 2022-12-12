@@ -71,6 +71,7 @@ namespace vws
         int getparam;
         int sendtorbt;
         int heart;
+        uint8_t order;
 
         bool b_chain_encoder = false;
         bool b_realtime_encoder = false;

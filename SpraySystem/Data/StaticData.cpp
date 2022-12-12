@@ -79,7 +79,6 @@ namespace vws {
     std::array<double,3> robotBeltDirection;
     /************************************/
 
-
     void DataInit::Init(){
         vws::handEyeMatrix_b_rbt1 = std::array<double,12>({
              0.047927375882864,

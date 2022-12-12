@@ -161,7 +161,7 @@ MainProcess::MainProcess()
     // vws::DataInit::Init();
     CLog::getInstance()->log("启动程序");
 
-    connect(this, SIGNAL(sendTrajParam_Signal(qint16)), this, SLOT(getTrajParam_Slot(qint16)));
+    connect(this, SIGNAL(sendTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
 
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
@@ -204,6 +204,7 @@ MainProcess::MainProcess()
     connect(sm_bottom,SIGNAL(begintraj_Singal(QVariant, bool))
             ,this,SLOT(begintraj_Slot(QVariant, bool)));
     sm_bottom->Name = "Bottom";
+    sm_bottom->IsTop = false;
     sm_bottom->Context.index = 0;
     sm_bottom->Context.visionData.top_or_bottom = 1; 
     sm_bottom->StartRun();
@@ -214,6 +215,7 @@ MainProcess::MainProcess()
     connect(sm_top,SIGNAL(begintraj_Singal(QVariant, bool))
         ,this,SLOT(begintraj_Slot(QVariant, bool)));
     sm_top->Name = "Top";
+    sm_top->IsTop = true;
     sm_top->Context.index = 1;
     sm_top->Context.visionData.top_or_bottom = 0;
     sm_top->StartRun();
@@ -292,18 +294,18 @@ void MainProcess::getTrajParam_Slot()
 
     if (mcQueue.count() > 0)
     {
-        CLog::getInstance()->log("运动控制器队列");
-        for(int i=0;i<mcQueue.length();i++){
-            auto tmp = mcQueue.at(i);
-            std::cout<<std::to_string(tmp[0])<<", "<<std::endl;
-        }
+        // CLog::getInstance()->log("MC, 运动控制器队列");
+        // for(int i=0;i<mcQueue.length();i++){
+        //     auto tmp = mcQueue.at(i);
+        //     std::cout<<std::to_string(tmp[0])<<", "<<std::endl;
+        // }
 
         auto param = mcQueue.dequeue();
         auto zeropoint = param[0];
         auto offset = param[1];
         // offset = -1;
 
-        QString strlog = "运动控制发送信息"+QString::number(zeropoint);
+        QString strlog = "MC，发送信息"+QString::number(zeropoint);
         CLog::getInstance()->log(strlog);
         mc->sendTrajParam(zeropoint, offset);
 
@@ -311,7 +313,7 @@ void MainProcess::getTrajParam_Slot()
     }
     else
     {
-        CLog::getInstance()->log("运动控制器请求数据，前队列为空");
+        CLog::getInstance()->log("MC，请求数据，前队列为空无数据发送");
         
         mcRequest = true;
     }
@@ -319,25 +321,42 @@ void MainProcess::getTrajParam_Slot()
 
 void MainProcess::sendToRBT_Slot()
 {
+    // return;
+
+    CLog::getInstance()->log("RBT， 机器人发送信息");
+
     auto rbt = DeviceManager::getInstance()->getRobot(0);
     rbt->start();
     std::vector<VWSRobot::RobotTask> rbtparam;
     if (trajQueue.count() > 0)
     {
-        CLog::getInstance()->log("机器人发送信息");
-        rbtparam = trajQueue.dequeue();
+        if(nFail >0){
+            rbtparam = rbtFailTask;
+        }else{
+            rbtparam = trajQueue.dequeue();
+        }
     }
     else
     {
-        CLog::getInstance()->log("机器人队列为空");
+        CLog::getInstance()->log("RBT， 机器人队列为空");
     }
 
     auto ret =rbt->sendData(rbtparam);
+    float rbt_ret = ret > 0 ?1:-1;
+    auto mc = DeviceManager::getInstance()->getMC(0);
+    mc->sendRbtResult(rbt_ret);
     if(ret>0){
-        CLog::getInstance()->log("机器人发送任务成功, 点数： "+ QString::number(rbtparam.size())+", 队列剩余： "+QString::number(trajQueue.size()));
+        CLog::getInstance()->log("RBT， 机器人发送任务成功, 点数： "+ QString::number(rbtparam.size())+", 队列剩余： "+QString::number(trajQueue.size()));
     }
     else{
-        CLog::getInstance()->log("机器人发送任务失败");
+        if(nFail<1){
+            rbtFailTask = rbtparam;
+            nFail++;
+        }
+        else{
+            nFail = 0;
+        }
+        CLog::getInstance()->log("RBT， 机器人发送任务失败");
     }
 }
 
@@ -352,7 +371,7 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
     {
         // std::cout << "运动控制器请求过数据，但未发送" << std::endl;
         CLog::getInstance()->log("运动控制器请求过数据，但未发送");
-        emit sendTrajParam_Signal(0);
+        emit sendTrajParam_Signal();
     }
     _trajret_mutex.unlock();
 }

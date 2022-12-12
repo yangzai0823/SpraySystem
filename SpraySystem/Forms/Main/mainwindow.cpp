@@ -8,7 +8,6 @@
 #include <QTime>
 #include <QTimer>
 
-#include "Util/Socket/socketclient.h"
 #include "Forms/global.h"
 #include <QAbstractButton>
 #include "Data/StaticData.h"
@@ -84,6 +83,21 @@ void MainWindow::startDevices()
 
     // msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
     // showMsg(msg);
+
+    // 机器人
+    auto rbt = deviceManager->getRobot(0);
+    auto retrbt = rbt->init();
+    if (retrbt > 0)
+    {
+        std::cout << "robot1 init: " << retrbt << std::endl;
+        retrbt = rbt->start();
+        std::cout << "robot1 start: " << retrbt << std::endl;
+    }
+    else
+    {
+        msg = rbt->getName() + ", 启动失败";
+        showMsg(msg);
+    }
 
     // 机器人
     //  auto rbt = deviceManager->getRobot(0);

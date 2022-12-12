@@ -17,7 +17,7 @@ public:
     
     int connectServer(QString ip,int port);
     int send(QString msg);
-//    int send(char* msg);
+    int send(char* msg);
     int send(QByteArray msg);
     void close();
 public:
@@ -33,7 +33,6 @@ public slots:
 signals:
      void readyRead_Signal(QByteArray buf);
      void send_Signal(QByteArray msg);
-
 };
 
 #endif // QTSOCKETCLIENT_H

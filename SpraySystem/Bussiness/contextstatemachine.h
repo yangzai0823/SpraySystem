@@ -40,6 +40,7 @@ public:
     };
     SMContext Context;
     QString Name;
+    bool IsTop;
 
     ContextStateMachine();
     ~ContextStateMachine();
@@ -59,6 +60,8 @@ private:
      * @brief 开始视觉处理，尾部
      */
     void beginVision_trail();
+
+    void logState(QString strState, bool enter = true);
 private:
     QThread *sm_thread;
     static std::mutex _mutex;
@@ -89,8 +92,8 @@ private:
     /**Transition end**/
 
     int interval = 100;  //计时器间隔时间 mm
-    int timeout_head = 30*1000; //超时时间 30m
-    int timeout_trail = 60*1000;
+    int timeout_head = 10*1000; //超时时间 30m
+    int timeout_trail = 40*1000;
     QTimer *timer_img_head;
     int time_head =0;  //head计数
     QTimer *timer_img_trail;
@@ -99,6 +102,8 @@ private:
     std::vector<float> tmplaserdata; //暂存测距
 
     float pre_img_encoder;  //暂存编码器前一次拍照数值
+    
+    int nCount = 0;
 
 signals:
     /** @brief 开始规划信号
@@ -115,15 +120,6 @@ signals:
     void trailDone();
     void headImgTimeout();
     void trailImgTimeout();
-
-    /**
-     * @param ishead, 1:头, 0:尾
-    */
-    void finishVision_Signal_b(bool ishead);
-    /**
-     * @param ishead, 1:头, 0:尾
-    */
-    void finishVision_Signal_u(bool ishead);
 
 public slots:
     //外部事件
@@ -142,7 +138,7 @@ public slots:
     void exitWaitTrailProcess_Slot();
     void enteredProcessTrailImg_Slot();
     void enteredIDLE_Slot();
-
+ 
     void headTimer_Slot();
     void trailTimer_Slot();
 };

@@ -94,6 +94,9 @@ private:
     /* @brief 运动控制器请求*/
     bool mcRequest = false;
 
+    std::vector<VWSRobot::RobotTask>  rbtFailTask;
+    int nFail = 0;
+
 private slots: 
     /**
      * @brief PLC槽
@@ -122,11 +125,9 @@ signals:
     void sendPlcData_u(QVariant vData);
     void sendImgData_b(QVariant vData);
     void sendImgData_u(QVariant vData);
-    void finishVision_Signal_b(bool ishead);
-    void finishVision_Signal_u(bool ishead);
 
     /* @brief 运动控制器发送数据*/
-    void sendTrajParam_Signal(quint16 num);
+    void sendTrajParam_Signal();
 };
 
 #endif // MAINPROCESS_H

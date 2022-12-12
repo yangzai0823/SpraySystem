@@ -68,12 +68,14 @@ int QtSocketClient::send(QString msg)
 
 int QtSocketClient::send(QByteArray msg)
 {
-    //auto ret = tcpsocket->write(msg);
     emit send_Signal(msg);
     return 0;
-//    std::cout<<"发送成功，字节书: "<<ret<<std::endl;
 }
 
+int QtSocketClient::send(char* msg){
+    emit send_Signal(msg);
+    return 0;
+}
 
 void QtSocketClient::close()
 {
@@ -85,11 +87,8 @@ void QtSocketClient::close()
 void QtSocketClient::readyRead_Slot()//定义接收信号的槽
 {
     std::thread::id id = std::this_thread::get_id();
-//    std::cout << "socketclient slot 线程ID: "<< id << std::endl;
 
     QByteArray buf=tcpsocket->readAll();
-
-    // emit readyRead_Signal(buf);
 
     //调用相应的数据解释
     _paser->DataPaser(buf);
@@ -101,5 +100,4 @@ void QtSocketClient::send_Slot(QByteArray msg)
     if(ret<0){
         std::cout<<"socket 发送失败"<<std::endl;
     }
-    // std::cout<<"发送成功，字节书: "<<ret<<std::endl;
 }

@@ -5,6 +5,7 @@
 #include <mutex>
 #include "Data/StructData.h"
 #include "Data/basedatapaser.h"
+#include <QSemaphore>
 
 using MCData = vws::MCData;
 
@@ -20,12 +21,17 @@ public:
     u_int16_t do_crc(unsigned char *ptr, int len);
     MCData *mcData;
     std::mutex parse_mutex;
-
+    QSemaphore semaphone_slave;
+    QSemaphore semaphore_master;
+    int N = 32;
+    int N_Data = 28;
+    char reply_order[32];
+    
 private:
   QByteArray wholeBuf;
 
   void DataPaser(QByteArray buf,MCData * data);
-  void parseData(unsigned char* v1, vws::MCData *data);
+  void parseData(char* v1, vws::MCData *data);
 signals:
     void getTrajParam_Signal(quint16 num);
     /** @brief 应答并执行发送操作 */

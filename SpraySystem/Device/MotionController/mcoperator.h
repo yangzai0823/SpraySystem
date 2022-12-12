@@ -11,6 +11,8 @@
 #include "Device/MotionController/mcdatapaser.h"
 #include <QVariant>
 #include <QTimer>
+#include <QSemaphore>
+#include <mutex>
 
 using MCData = vws::MCData;
 
@@ -44,17 +46,26 @@ public:
     void SevenAxisReset();
 private:
     MCData data;
-    QtSocketClient *socketclient;
-    mcdatapaser* dataparser;
+    QtSocketClient *master_socket;
+    QtSocketClient *slave_socket;
+    mcdatapaser* dataparser_master;
+    mcdatapaser* dataparser_slave;
     QTimer *timer;
     int preheart;
     int failcount=0;
     bool state;
     int count; //0-10000;
+    char* replyOrder = nullptr;
+    QSemaphore semaphone_slave;
+
+    bool stop = false;
+    std::mutex send_mutex;
 
     bool trySendData(uint8_t order,float v1,float v2,bool &flag);
     void sendData(uint8_t order,float v1, float v2, u_int16_t num =0);
+
     bool waitData(bool &flag);
+
 public slots:
     void readyRead_Slot(QByteArray buf);
     void getTrajParam_Slot(quint16 num); 
@@ -64,7 +75,8 @@ public slots:
 signals:
     void getTrajParam_Signal();
     void sendToRBT_Signal();
-    void connect_Signal(QString ip,int port);
+    void connect_master_Signal(QString ip,int port);
+    void connect_slave_Signal(QString ip,int port);
 };
 
 #endif // MCOPERATOR_H
