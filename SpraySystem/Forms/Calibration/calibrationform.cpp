@@ -22,6 +22,7 @@
 #include "Forms/Calibration/caliextraaxiswidget.h"
 #include "Forms/Calibration/calihandeyewidget.h"
 #include "Forms/Calibration/calistationwidget.h"
+#include "Forms/Calibration/deviceupdater.hpp"
 #include "Util/QJsonModel/qjsonmodel.h"
 #include "ui_calibrationform.h"
 
@@ -30,31 +31,17 @@ calibrationform::calibrationform(QWidget *parent)
       ui(new Ui::calibrationform),
       _extendedWidget(NULL),
       _device(new caliDevice),
-      _timer_updatePositions(new QTimer(this)) {
+      _deviceUpdater(NULL) {
   ui->setupUi(this);
   // DELETEME
   connectDevice();
   // other initialization
   // TODO change: use thd to emit signals to change ui
-  _thd_updatePositions = new QThread();
-  _timer_updatePositions = new QTimer();
-  _timer_updatePositions->setInterval(200);
-  _timer_updatePositions->moveToThread(_thd_updatePositions);
-  connect(_timer_updatePositions, SIGNAL(timeout()), this,
-          SLOT(updateDeviceStatus()), Qt::DirectConnection);
-  connect(_thd_updatePositions, SIGNAL(started()), _timer_updatePositions,
-          SLOT(start()));
-  // TODO
-  _thd_updatePositions->start();
+
+  _deviceUpdater->start();
 }
 
-calibrationform::~calibrationform() {
-  _thd_updatePositions->exit();
-  _thd_updatePositions->wait();
-  // delete _timer_updatePositions;
-  delete _thd_updatePositions;
-  delete ui;
-}
+calibrationform::~calibrationform() { delete ui; }
 
 void calibrationform::initDevice() {
   auto dm = DeviceManager::getInstance();
@@ -99,69 +86,37 @@ void calibrationform::connectDevice() {
 #endif
 }
 
-void calibrationform::updateDeviceStatus() {
-  // robot0
-  updateRobotPosition(_device->robot0, _device->motionController,
-                      ui->SpinBox_tcp0, ui->LineEdit_pose0,
-                      ui->lineEdit_extraAxis0);
-  //
-  updateBeltPosition(_device->motionController, ui->lineEdit_beltPosition);
-}
+void calibrationform::updateDeviceStatus(deviceData *data) {
+  const size_t digits = 3;
+  {
+    ui->lineEdit_pose0->setText(
+        QString("%1,%2,%3,%4,%5,%6,%7")
+            .arg(data->robotInfo1.robotPosition[0], 0, 'f', digits)
+            .arg(data->robotInfo1.robotPosition[1], 0, 'f', digits)
+            .arg(data->robotInfo1.robotPosition[2], 0, 'f', digits)
+            .arg(data->robotInfo1.robotPosition[3], 0, 'f', digits)
+            .arg(data->robotInfo1.robotPosition[4], 0, 'f', digits)
+            .arg(data->robotInfo1.robotPosition[5], 0, 'f', digits)
+            .arg(data->robotInfo1.robotPosition[6], 0, 'f', digits));
 
-void calibrationform::updateRobotPosition(RobotOperator *robot,
-                                          MCOperator *motionController,
-                                          QSpinBox *sbox_tcp,
-                                          QLineEdit *edit_pose,
-                                          QLineEdit *edit_extraPosition) {
-  if (robot == nullptr || motionController == nullptr) {
-    return;
-  }
-  auto tcpNum = sbox_tcp->value();
-  // TODO specify tcp
-  VWSRobot::RobotPosition pose;
-  if (robot->getRobotPosition(pose) == 1) {
-    auto str__ = QString("%1,%2,%3,%4,%5,%6,%7")
-                     .arg(pose.pos[0], 0, 'f', _digits)
-                     .arg(pose.pos[1], 0, 'f', _digits)
-                     .arg(pose.pos[2], 0, 'f', _digits)
-                     .arg(pose.orient[0], 0, 'f', _digits)
-                     .arg(pose.orient[1], 0, 'f', _digits)
-                     .arg(pose.orient[2], 0, 'f', _digits)
-                     .arg(pose.orient[3], 0, 'f', _digits);
-    edit_pose->setText(str__);
-  } else {
-    auto str__ = QString("%1,%2,%3,%4,%5,%6,%7")
-                     .arg("null")
-                     .arg("null")
-                     .arg("null")
-                     .arg("null")
-                     .arg("null")
-                     .arg("null")
-                     .arg("null");
-    edit_pose->setText(str__);
-  }
-  // 0: extraAxis   1: belt
-  auto position = motionController->getRealTimeEncoder()[0];
-  {
-    auto str__ = QString::number(position, 'f', _digits);
-    edit_extraPosition->setText(str__);
-  }
-}
-
-void calibrationform::updateBeltPosition(MCOperator *motionController,
-                                         QLineEdit *edit_beltPosition) {
-  if (motionController == nullptr) {
-    return;
-  }
-  auto position = motionController->getRealTimeEncoder()[1];
-  {
-    auto tmp = motionController->getRealTimeEncoder();
-    std::cout << tmp[0] << "\t" << tmp[1] << std::endl;
+    ui->lineEdit_extraAxis0->setText(
+        QString::number(data->robotInfo1.extraAxisPosition, 'f', digits));
   }
   {
-    auto str__ = QString::number(position, 'f', _digits);
-    edit_beltPosition->setText(str__);
+    ui->lineEdit_pose1->setText(
+        QString("%1,%2,%3,%4,%5,%6,%7")
+            .arg(data->robotInfo2.robotPosition[0], 0, 'f', digits)
+            .arg(data->robotInfo2.robotPosition[1], 0, 'f', digits)
+            .arg(data->robotInfo2.robotPosition[2], 0, 'f', digits)
+            .arg(data->robotInfo2.robotPosition[3], 0, 'f', digits)
+            .arg(data->robotInfo2.robotPosition[4], 0, 'f', digits)
+            .arg(data->robotInfo2.robotPosition[5], 0, 'f', digits)
+            .arg(data->robotInfo2.robotPosition[6], 0, 'f', digits));
+    ui->lineEdit_extraAxis1->setText(
+        QString::number(data->robotInfo2.extraAxisPosition, 'f', digits));
   }
+  ui->lineEdit_beltPosition->setText(
+      QString::number(data->beltPos, 'f', digits));
 }
 
 void calibrationform::onUpdateTreeView(const QByteArray &arr) {
@@ -182,7 +137,6 @@ void calibrationform::onUpdateImage(const QPixmap &pixmap) {
   ui->graphicsView->update();
 }
 
-void calibrationform::saveExtraAxisData() {}
 void calibrationform::on_btn_caliExtraAxis_clicked() {
   if (_extendedWidget != NULL) {
     delete _extendedWidget;
