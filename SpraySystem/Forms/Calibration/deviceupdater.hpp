@@ -29,8 +29,8 @@ class deviceUpdater : public QThread {
   size_t _robotTcp2 = 0;
 
  public:
-  deviceUpdater() {}
-  ~deviceUpdater() {}
+  deviceUpdater(QObject *parent = nullptr) : QThread(parent) {}
+  ~deviceUpdater() { this->exit(); }
   void setDevice(RobotOperator *robot1_, MCOperator *motionController1_,
                  RobotOperator *robot2_, MCOperator *motionController2_) {
     _robot1 = robot1_;
@@ -45,7 +45,8 @@ class deviceUpdater : public QThread {
 
  protected:
   void run() override {
-    QTimer *timer = new QTimer(this);
+    // FIXME timer
+    QTimer *timer = new QTimer();
     timer->setInterval(500);
     connect(timer, SIGNAL(timeout()), this, SLOT(getDeviceData()));
     timer->start();
@@ -57,9 +58,10 @@ class deviceUpdater : public QThread {
 
  private slots:
   void getDeviceData() {
-    getRobotData(_robot1, _motionController1, _data.robotInfo1);
-    getRobotData(_robot2, _motionController2, _data.robotInfo2);
-    getBeltData(_motionController1, _data.beltPos);
+    // FIXME comment
+    // getRobotData(_robot1, _motionController1, _data.robotInfo1);
+    // getRobotData(_robot2, _motionController2, _data.robotInfo2);
+    // getBeltData(_motionController1, _data.beltPos);
     emit update(&_data);
   }
 
@@ -96,8 +98,8 @@ class deviceUpdater : public QThread {
     float position(0);
     try {
       position = controller->getRealTimeEncoder()[0];
-    } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+    } catch (...) {
+      // std::cerr << e.what() << '\n';
       position = 0;
     }
 
@@ -109,8 +111,8 @@ class deviceUpdater : public QThread {
     float position(0);
     try {
       position = controller->getRealTimeEncoder()[1];
-    } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+    } catch (...) {
+      // std::cerr << e.what() << '\n';
       position = 0;
     }
 
