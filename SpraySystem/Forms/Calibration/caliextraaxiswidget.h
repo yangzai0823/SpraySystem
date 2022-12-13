@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 
+#include "Forms/Calibration/basecaliwidget.h"
 #include "Util/jsonParser/jsonparser.hpp"
 
 namespace Ui {
@@ -16,34 +17,22 @@ class caliExtraAxisWidget;
 class RobotOperator;
 class MCOperator;
 
-// TODO exception handler
-class caliExtraAxisWidget : public QWidget {
+class caliExtraAxisWidget : public baseCaliWidget {
   Q_OBJECT
 
  public:
-  explicit caliExtraAxisWidget(const QString& prefix,
+  explicit caliExtraAxisWidget(const std::string& prefix,
                                QWidget* parent = nullptr);
   ~caliExtraAxisWidget();
   void setDevice(RobotOperator* robot, MCOperator* _motionController);
 
  private:
-  void ensureFileExist();
-  int ensureJsonStruct();
-  void readData();
-  void writeData();
   int readDeviceData(std::array<float, 4>& data);
-  void readResult();
-  void clearResult();
-  void writeResult();
-
   void recordData(const std::array<float, 4>& data);
+  void clearResult() override;
   void deleteLastItem();
-  void updateTreeView();
+  void updateTree() override;
   void calculate();
-  void dumpJson();
-
- signals:
-  void updateTreeView(const QByteArray&);
 
  private slots:
   void on_btn_record_clicked();
@@ -57,15 +46,8 @@ class caliExtraAxisWidget : public QWidget {
   // device
   RobotOperator* _robot;
   MCOperator* _motionController;
-  // file name
-  QString _dataFilePath;
-  QString _resFilePath;
-  // QJsonDoc
-  QString _jsonPrefix;
-  QString _dataMainKey;
-  QString _resultMainKey;
-  std::unique_ptr<jsonParser> _dataDoc;
-  std::unique_ptr<jsonParser> _resultDoc;
+  // keyprefix
+  std::string _jsonPrefix;
 };
 
 #endif  // CALIEXTRAAXISWIDGET_H

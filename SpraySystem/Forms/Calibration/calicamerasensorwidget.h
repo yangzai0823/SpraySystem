@@ -10,7 +10,7 @@
 #include <mutex>
 #include <string>
 
-#include "Util/jsonParser/jsonparser.hpp"
+#include "Forms/Calibration/basecaliwidget.h"
 
 namespace Ui {
 class caliCameraSensorWidget;
@@ -19,51 +19,37 @@ class caliCameraSensorWidget;
 class CameraOperator;
 class PLCOperator;
 
-// TODO exception handler
-// TODO handle nan
-class caliCameraSensorWidget : public QWidget {
+class caliCameraSensorWidget : public baseCaliWidget {
   Q_OBJECT
 
  public:
-  explicit caliCameraSensorWidget(const QString& prefix,
+  explicit caliCameraSensorWidget(const std::string& prefix,
                                   QWidget* parent = nullptr);
   ~caliCameraSensorWidget();
   void setDevice(PLCOperator* pcl, CameraOperator* camera);
 
  private:
-  void ensureFileExist();
-  int ensureJsonStruct();
-  void readCalibratedDatas();
-  void readData();
-  void writeData();
-  void readResult();
-  void clearResult();
-  void writeResult();
+  virtual void readCalibratedDatas() override;
+  virtual void clearResult() override;
+  virtual void deleteLastItem() override;
 
-  int readData(std::string& rgbPath, std::string& xyzPath, float& dist);
-  void recordData(const std::string& rgbPath, const std::string& xyzPath,
-                  float dist);
-
-  void deleteLastItem();
-  void updateTreeView();
+  int readCameraSensorData(std::string& rgbPath, std::string& xyzPath,
+                           float& dist);
+  void recordCameraSensorData(const std::string& rgbPath,
+                              const std::string& xyzPath, float dist);
+  void updateTree();
   int calculate();
-  void dumpJson();
 
   // DELETEME
   void connectDevice();
 
  signals:
-  void updateTreeView(const QByteArray&);
   void updateImage(const QPixmap&);
-  void exit();
 
  private slots:
   void on_btn_record_clicked();
-
   void on_btn_calculate_clicked();
-
   void on_btn_delete_clicked();
-
   void on_UpdateImage();
 
  private:
@@ -71,16 +57,8 @@ class caliCameraSensorWidget : public QWidget {
   // device
   CameraOperator* _camera;
   PLCOperator* _plc;
-
-  // file name
-  QString _dataFilePath;
-  QString _resFilePath;
-  // QJsonDoc
-  QString _prefix;
-  QString _dataMainKey;
-  QString _resultMainKey;
-  std::unique_ptr<jsonParser> _dataDoc;
-  std::unique_ptr<jsonParser> _resultDoc;
+  // key prefix
+  std::string _prefix;
   // data
   std::unique_ptr<Eigen::Vector3f> _frontExtraAxisDirection;
   std::unique_ptr<Eigen::Vector3f> _robotBeltDirection;

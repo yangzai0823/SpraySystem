@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Forms/Calibration/basecaliwidget.h>
 #include <VWSCamera/VWSCamera.h>
 
 #include <Eigen/Dense>
@@ -10,8 +11,6 @@
 #include <mutex>
 #include <string>
 
-#include "Util/jsonParser/jsonparser.hpp"
-
 namespace Ui {
 class caliHandEyewWidget;
 }
@@ -20,28 +19,20 @@ class RobotOperator;
 class MCOperator;
 class CameraOperator;
 
-// TODO exception handler
-// TODO handle nan
-class caliHandEyewWidget : public QWidget {
+class caliHandEyewWidget : public baseCaliWidget {
   Q_OBJECT
 
  public:
-  explicit caliHandEyewWidget(const QString& prefix, QWidget* parent = nullptr);
+  explicit caliHandEyewWidget(const std::string& prefix,
+                              QWidget* parent = nullptr);
   ~caliHandEyewWidget();
   void setDevice(RobotOperator* robot, MCOperator* motionController,
                  CameraOperator* camera);
 
  private:
-  void ensureFileExist();
-  int ensureJsonStruct();
   void readCalibratedDatas();
-  void readData();
-  void writeData();
-  void readResult();
-  void clearResult();
-  void writeResult();
+  virtual void clearResult() override;
 
-  void recordData(const std::array<float, 5>& data);
   int readCameraData(std::string& rgbPath, std::string& xyzPath,
                      float& cameraBeltPos);
   void recordCameraData(const std::string& rgbPath, const std::string& xyzPath,
@@ -52,13 +43,10 @@ class caliHandEyewWidget : public QWidget {
                          const Eigen::Vector3f& robotPos);
   void recordRobotData(const float& extraAxisPos,
                        const Eigen::Vector3f& robotPos);
-
-  int parseGridInfo(size_t& w, size_t& h, float& size);
-
+  void parseGridInfo(size_t& w, size_t& h, float& size);
   void deleteLastItem();
-  void updateTreeView();
+  void updateTree();
   int calculate();
-  void dumpJson();
 
   // button
   void enableButton(size_t index);
@@ -67,23 +55,15 @@ class caliHandEyewWidget : public QWidget {
   void connectDevice();
 
  signals:
-  void updateTreeView(const QByteArray&);
   void updateImage(const QPixmap&);
-  void exit();
 
  private slots:
   void on_btn_capture_clicked();
-
   void on_btn_calculate_clicked();
-
   void on_btn_delete_clicked();
-
   void on_btn_record1_clicked();
-
   void on_btn_record2_clicked();
-
   void on_btn_record3_clicked();
-
   void on_UpdateImage();
 
  private:
@@ -92,14 +72,8 @@ class caliHandEyewWidget : public QWidget {
   RobotOperator* _robot;
   MCOperator* _motionController;
   CameraOperator* _camera;
-  // file name
-  QString _dataFilePath;
-  QString _resFilePath;
-  // QJsonDoc
-  QString _dataMainKey;
-  QString _resultMainKey;
-  std::unique_ptr<jsonParser> _dataDoc;
-  std::unique_ptr<jsonParser> _resultDoc;
+  // key prefix
+  std::string _prefix;
   // data
   std::unique_ptr<Eigen::Vector3f> _frontExtraAxisDirection;
   std::unique_ptr<Eigen::Vector3f> _robotBeltDirection;

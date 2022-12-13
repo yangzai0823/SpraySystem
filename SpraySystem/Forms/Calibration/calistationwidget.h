@@ -8,7 +8,7 @@
 #include <mutex>
 #include <string>
 
-#include "Util/jsonParser/jsonparser.hpp"
+#include "Forms/Calibration/basecaliwidget.h"
 
 namespace Ui {
 class caliStationWidget;
@@ -17,9 +17,7 @@ class caliStationWidget;
 class RobotOperator;
 class MCOperator;
 
-// TODO exception handler
-// TODO handle nan
-class caliStationWidget : public QWidget {
+class caliStationWidget : public baseCaliWidget {
   Q_OBJECT
 
  public:
@@ -29,14 +27,9 @@ class caliStationWidget : public QWidget {
                  RobotOperator* backRobot, MCOperator* backMotionController);
 
  private:
-  void ensureFileExist();
-  int ensureJsonStruct();
-  void readCalibratedDatas();
-  void readData();
-  void writeData();
-  void readResult();
-  void clearResult();
-  void writeResult();
+  virtual void readCalibratedDatas() override;
+  virtual void deleteLastItem() override;
+  virtual void clearResult() override;
 
   int readBeltData(const std::string& prefix, float& robotBeltPos);
   void recordBeltData(const std::string& prefix, float robotBeltPos);
@@ -45,17 +38,11 @@ class caliStationWidget : public QWidget {
   void recordRobotData(const std::string& prefix, float extraAxisPos,
                        const Eigen::Vector3f& robotPos);
 
-  void deleteLastItem();
-  void updateTreeView();
+  void updateTree();
   int calculate();
-  void dumpJson();
 
   // DELETEME
   void connectDevice();
-
- signals:
-  void updateTreeView(const QByteArray&);
-
  private slots:
   void on_btn_calculate_clicked();
 
@@ -72,14 +59,6 @@ class caliStationWidget : public QWidget {
   RobotOperator* _robot2;
   MCOperator* _motionController1;
   MCOperator* _motionController2;
-  // file name
-  QString _dataFilePath;
-  QString _resFilePath;
-  // QJsonDoc
-  QString _dataMainKey;
-  QString _resultMainKey;
-  std::unique_ptr<jsonParser> _dataDoc;
-  std::unique_ptr<jsonParser> _resultDoc;
   // data
   std::unique_ptr<Eigen::Vector3f> _frontExtraAxisDirection;
   std::unique_ptr<Eigen::Vector3f> _backExtraAxisDirection;

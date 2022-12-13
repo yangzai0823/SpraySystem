@@ -14,30 +14,26 @@
 
 #include "Device/MotionController/mcoperator.h"
 #include "Device/Robot/robotoperator.h"
+#include "Forms/Calibration/basecaliwidget.h"
 #include "ui_calibeltdirectionwidget.h"
 
-extern QString CALIBRATE_DATA_FILE;
-extern QString CALIBRATE_RESULT_FILE;
-extern QString DATA_FOLDER_NAME;
-
 caliBeltDirectionWidget::caliBeltDirectionWidget(QWidget* parent)
-    : QWidget(parent),
+    : baseCaliWidget(parent),
       ui(new Ui::caliBeltDirectionWidget),
-      _dataMainKey("beltDirectionCaliDatas"),
-      _resultMainKey("beltDirectionCalibration"),
-      _dataDoc(new rapidjson::Document()),
-      _resultDoc(new rapidjson::Document()),
       _frontExtraAxisDirection(nullptr) {
   ui->setupUi(this);
+  // parent initialization
+  _dataMainKey = "beltDirectionCaliDatas";
+  _resultMainKey = "beltDirectionCalibration";
   // other
   QtConcurrent::run([this]() {
-    ensureFileExist();
     readData();
+    writeData();
     readResult();
+    writeResult();
     readCalibratedDatas();
-    ensureJsonStruct();
     clearResult();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -47,80 +43,6 @@ void caliBeltDirectionWidget::setDevice(RobotOperator* robot,
                                         MCOperator* motionController) {
   _robot = robot;
   _motionController = motionController;
-}
-
-void caliBeltDirectionWidget::ensureFileExist() {
-  auto folderPath = QDir::currentPath() + "/" + DATA_FOLDER_NAME;
-  QDir dir;
-  if (!dir.exists(folderPath)) {
-    dir.mkpath(folderPath);
-  }
-  auto dataFilePath = folderPath + "/" + CALIBRATE_DATA_FILE;
-  {
-    QFile file(dataFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _dataFilePath = dataFilePath;
-  }
-  auto resFilePath = folderPath + "/" + CALIBRATE_RESULT_FILE;
-  {
-    QFile file(resFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _resFilePath = resFilePath;
-  }
-}
-
-int caliBeltDirectionWidget::ensureJsonStruct() {
-  //// data json
-  if (_dataDoc->IsNull()) {
-    _dataDoc->SetObject();
-  }
-  if (!_dataDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorData = _dataDoc->GetAllocator();
-  std::string dataMainKey = _dataMainKey.toStdString();
-  if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
-    rapidjson::Value obj(rapidjson::kObjectType);
-    _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
-                        obj, allocatorData);
-  }
-  // data
-  auto& main = (*_dataDoc)[dataMainKey.c_str()];
-  if (!main.HasMember("datas")) {
-    main.AddMember(rapidjson::Value("datas", allocatorData),
-                   rapidjson::Value(rapidjson::kArrayType), allocatorData);
-  }
-  //// result json
-  if (_resultDoc->IsNull()) {
-    _resultDoc->SetObject();
-  }
-  if (!_resultDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorResult = _dataDoc->GetAllocator();
-  std::string resultMainKey = _resultMainKey.toStdString();
-  if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
-    _resultDoc->AddMember(
-        rapidjson::Value(resultMainKey.c_str(), allocatorResult),
-        rapidjson::Value(rapidjson::kObjectType), allocatorResult);
-  }
-  // direction
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
-  if (!resultMain.HasMember("direction")) {
-    resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
-                         rapidjson::Value(rapidjson::kArrayType),
-                         allocatorResult);
-  }
 }
 
 void caliBeltDirectionWidget::readCalibratedDatas() {
@@ -138,46 +60,6 @@ void caliBeltDirectionWidget::readCalibratedDatas() {
   (*_frontExtraAxisDirection)[0] = arr[0].GetFloat();
   (*_frontExtraAxisDirection)[1] = arr[1].GetFloat();
   (*_frontExtraAxisDirection)[2] = arr[2].GetFloat();
-}
-
-void caliBeltDirectionWidget::readData() {
-  QFile file(_dataFilePath);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
-  auto str = file.readAll().toStdString();
-  file.close();
-
-  _dataDoc->Parse(str.c_str(), str.size());
-}
-
-void caliBeltDirectionWidget::writeData() {
-  // data
-  QFile file(_dataFilePath);
-  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _dataDoc->Accept(w);
-  file.write(sb.GetString(), sb.GetSize());
-  file.close();
-}
-
-void caliBeltDirectionWidget::readResult() {
-  QFile file(_resFilePath);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
-  auto str = file.readAll().toStdString();
-  file.close();
-
-  _resultDoc->Parse(str.c_str(), str.size());
-}
-
-void caliBeltDirectionWidget::writeResult() {
-  // result
-  QFile file(_resFilePath);
-  file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
-  rapidjson::StringBuffer sb;
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-  _resultDoc->Accept(w);
-  file.write(sb.GetString(), sb.GetSize());
-  file.close();
 }
 
 int caliBeltDirectionWidget::readDeviceData(std::array<float, 5>& data) {
@@ -202,21 +84,21 @@ int caliBeltDirectionWidget::readDeviceData(std::array<float, 5>& data) {
 }
 
 void caliBeltDirectionWidget::clearResult() {
-  ensureJsonStruct();
-  std::string resultMainKey = _resultMainKey.toStdString();
-  (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
+  auto token = jsonParser::toToken({_resultMainKey, "direction"});
+  auto v = rapidjson::Pointer(token).Get(*_resultDoc);
+  if (v) {
+    if (v->IsArray()) {
+      v->Clear();
+    } else {
+      v->SetArray();
+    }
+  }
 }
 
 void caliBeltDirectionWidget::recordData(const std::array<float, 5>& data) {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
-  std::string mainKey = _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
   auto& allocator = _dataDoc->GetAllocator();
+  rapidjson::Value obj__(rapidjson::kObjectType);
   {
-    rapidjson::Value obj__(rapidjson::kObjectType);
     rapidjson::Value arr__(rapidjson::kArrayType);
     arr__.PushBack(data[1], allocator);
     arr__.PushBack(data[2], allocator);
@@ -225,20 +107,27 @@ void caliBeltDirectionWidget::recordData(const std::array<float, 5>& data) {
                     allocator);
     obj__.AddMember<float>("extraAxisPosition", data[0], allocator);
     obj__.AddMember<float>("beltPosition", data[4], allocator);
+  }
 
-    datas.PushBack(obj__, allocator);
+  auto token = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+  if (v) {
+    if (!v->IsArray()) {
+      v->SetArray();
+    }
+    v->PushBack(obj__, allocator);
+  } else {
+    rapidjson::Pointer(token)
+        .Set(*_dataDoc, rapidjson::Value(rapidjson::kArrayType))
+        .PushBack(obj__, allocator);
   }
 }
 
 void caliBeltDirectionWidget::deleteLastItem() {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
-  std::string mainKey = _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  if (!datas.Empty()) {
-    datas.PopBack();
+  auto token = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+  if (v && v->IsArray() && !v->Empty()) {
+    v->PopBack();
   }
 }
 
@@ -248,85 +137,87 @@ void caliBeltDirectionWidget::calculate() {
   // 	const std::vector<float> beltPositions,
   // 	Eigen::Vector3f& beltDirection);
 
+  if (_frontExtraAxisDirection == nullptr) {
+    std::cout << "_frontExtraAxisDirection not found" << std::endl;
+    return;
+  }
+  auto token = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+  size_t len(0);
+  if (v && v->IsArray()) {
+    len = v->Size();
+  } else {
+    return;
+  }
+
+  if (len < 3) {
+    std::cout << "data size less than 3, recod more data" << std::endl;
+    return;
+  }
+  std::vector<Eigen::Vector3f> points;
+  std::vector<float> beltPositions;
+  Eigen::Vector3f stationPos(0, 0, 0);
+  float extraAxisPos(0);
+  for (auto&& i : (*v).GetArray()) {
+    beltPositions.push_back(i["beltPosition"].GetFloat());
+    extraAxisPos = i["extraAxisPosition"].GetFloat();
+    auto& points__ = i["robotPosition"];
+    stationPos[0] = points__[0].GetFloat();
+    stationPos[1] = points__[1].GetFloat();
+    stationPos[2] = points__[2].GetFloat();
+    stationPos += extraAxisPos * (*_frontExtraAxisDirection);
+    points.push_back(stationPos);
+  }
+  Eigen::Vector3f dir;
   try {
-    if (_frontExtraAxisDirection == nullptr) {
-      std::cout << "_frontExtraAxisDirection not found" << std::endl;
-      return;
-    }
-    ensureJsonStruct();
-    std::string mainKey = _dataMainKey.toStdString();
-    auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-    if (datas.Size() < 3) {
-      std::cout << "data size less than 3, recod more data" << std::endl;
-      return;
-    }
-    std::vector<Eigen::Vector3f> points;
-    std::vector<float> beltPositions;
-    Eigen::Vector3f stationPos(0, 0, 0);
-    float extraAxisPos(0);
-    for (auto i = datas.Begin(); i != datas.End(); i++) {
-      beltPositions.push_back((*i)["beltPosition"].GetFloat());
-      extraAxisPos = (*i)["extraAxisPosition"].GetFloat();
-      auto& points__ = (*i)["robotPosition"];
-      stationPos[0] = points__[0].GetFloat();
-      stationPos[1] = points__[1].GetFloat();
-      stationPos[2] = points__[2].GetFloat();
-      stationPos += extraAxisPos * (*_frontExtraAxisDirection);
-      points.push_back(stationPos);
-    }
-    Eigen::Vector3f dir;
     if (0 != getRobotBeltDirection(points, beltPositions, dir)) {
       return;
     }
-    // TODO save results json
-    std::string resultMainKey = _resultMainKey.toStdString();
-    auto& allocator = _resultDoc->GetAllocator();
-    auto& direction = (*_resultDoc)[resultMainKey.c_str()]["direction"];
-    direction.Clear();
-    direction.PushBack(dir[0], allocator);
-    direction.PushBack(dir[1], allocator);
-    direction.PushBack(dir[2], allocator);
-
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
+    return;
   }
+  // save results json
+  _resultDoc->setArray<float>({_resultMainKey, "direction"},
+                              {dir[0], dir[1], dir[2]});
 }
 
-void caliBeltDirectionWidget::updateTreeView() {
-  rapidjson::Document doc__;
+void caliBeltDirectionWidget::updateTree() {
+  jsonParser doc__;
   auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
   // set calibrated results
-  {
-    rapidjson::Value v(rapidjson::kArrayType);
-    if (_frontExtraAxisDirection != nullptr) {
-      v.PushBack((*_frontExtraAxisDirection)[0], allocator);
-      v.PushBack((*_frontExtraAxisDirection)[1], allocator);
-      v.PushBack((*_frontExtraAxisDirection)[2], allocator);
-    }
-    doc__.AddMember("frontExtraAxisDirection", v, allocator);
+  rapidjson::Value v(rapidjson::kArrayType);
+  if (_frontExtraAxisDirection != nullptr) {
+    v.PushBack((*_frontExtraAxisDirection)[0], allocator);
+    v.PushBack((*_frontExtraAxisDirection)[1], allocator);
+    v.PushBack((*_frontExtraAxisDirection)[2], allocator);
   }
+  doc__.setValue({"preCalibrated", "frontExtraAxisDirection"}, v);
   // copy main domain
-  std::string dataMainKey = _dataMainKey.toStdString();
-  auto& dataMain = (*_dataDoc)[dataMainKey.c_str()];
-  for (auto it = dataMain.MemberBegin(); it < dataMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__.AddMember(key, value, allocator);
+  auto dataMain = rapidjson::Pointer("/" + _dataMainKey).Get(*_dataDoc);
+  if (dataMain) {
+    for (auto it = dataMain->MemberBegin(); it != dataMain->MemberEnd(); it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__.AddMember(key, value, allocator);
+    }
   }
   // copy result
-  std::string resultMainKey = _resultMainKey.toStdString();
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+  auto resultMain = rapidjson::Pointer("/" + _resultMainKey).Get(*_resultDoc);
   doc__.AddMember("results", rapidjson::Value(rapidjson::kObjectType),
                   allocator);
-  for (auto it = resultMain.MemberBegin(); it < resultMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__["results"].AddMember(key, value, allocator);
+  if (resultMain) {
+    for (auto it = resultMain->MemberBegin(); it != resultMain->MemberEnd();
+         it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__["results"].AddMember(key, value, allocator);
+    }
   }
 
   // to qbytearray
@@ -337,30 +228,15 @@ void caliBeltDirectionWidget::updateTreeView() {
   emit updateTreeView(arr);
 }
 
-void caliBeltDirectionWidget::dumpJson() {
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _dataDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _resultDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
-}
-
 void caliBeltDirectionWidget::on_btn_record_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
     writeResult();
     // FIXME
 #if 0
-    std::array<float, 4> data;
+    std::array<float, 5> data;
     if (0 != readDeviceData(data)) {
-      std::cout << "read data error" << std::endl;
+      std::cout << "read data error" << std::endl;  
       return;
     }
     recordData(data);
@@ -371,7 +247,7 @@ void caliBeltDirectionWidget::on_btn_record_clicked() {
 #endif
     writeData();
     // update  tree
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -381,7 +257,7 @@ void caliBeltDirectionWidget::on_btn_calculate_clicked() {
     writeResult();
     calculate();
     writeResult();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -391,6 +267,6 @@ void caliBeltDirectionWidget::on_btn_delete_clicked() {
     writeResult();
     deleteLastItem();
     writeData();
-    updateTreeView();
+    updateTree();
   });
 }
