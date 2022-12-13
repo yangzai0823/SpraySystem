@@ -137,22 +137,22 @@ void calibrationform::onUpdateImage(const QPixmap &pixmap) {
 }
 
 void calibrationform::on_btn_caliExtraAxis_clicked() {
-  // if (_extendedWidget != NULL) {
-  //   delete _extendedWidget;
-  // }
-  // caliExtraAxisWidget *widget__ = NULL;
-  // if (ui->comboBox_extraAxisType->currentText() == "front") {
-  //   widget__ = new caliExtraAxisWidget("front", this);
-  //   widget__->setDevice(_device->robot0, _device->motionController);
-  // } else if (ui->comboBox_extraAxisType->currentText() == "back") {
-  //   widget__ = new caliExtraAxisWidget("back", this);
-  //   widget__->setDevice(_device->robot1, _device->motionController);
-  // }
-  // _extendedWidget = static_cast<QWidget *>(widget__);
-  // connect(_extendedWidget, SIGNAL(updateTreeView(const QByteArray &)), this,
-  //         SLOT(onUpdateTreeView(const QByteArray &)));
+  if (_extendedWidget != NULL) {
+    delete _extendedWidget;
+  }
+  caliExtraAxisWidget *widget__ = NULL;
+  if (ui->comboBox_extraAxisType->currentText() == "front") {
+    widget__ = new caliExtraAxisWidget("front", this);
+    widget__->setDevice(_device->robot0, _device->motionController);
+  } else if (ui->comboBox_extraAxisType->currentText() == "back") {
+    widget__ = new caliExtraAxisWidget("back", this);
+    widget__->setDevice(_device->robot1, _device->motionController);
+  }
+  _extendedWidget = static_cast<QWidget *>(widget__);
+  connect(_extendedWidget, SIGNAL(updateTreeView(const QByteArray &)), this,
+          SLOT(onUpdateTreeView(const QByteArray &)));
 
-  // ui->centralwidget->layout()->addWidget(_extendedWidget);
+  ui->centralwidget->layout()->addWidget(_extendedWidget);
 }
 void calibrationform::on_btn_caliBeltDirection_clicked() {
   if (_extendedWidget != NULL) {

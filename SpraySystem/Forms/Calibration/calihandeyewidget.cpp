@@ -53,19 +53,20 @@ void writeRawBinaryPixelData(const std::string& path, size_t w, size_t h,
   outfile.close();
 }
 
-caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
-    : QWidget(parent),
+caliHandEyewWidget::caliHandEyewWidget(const std::string& prefix,
+                                       QWidget* parent)
+    : baseCaliWidget(parent),
       ui(new Ui::caliHandEyewWidget),
-      _dataMainKey(prefix + "handEyeCaliDatas"),
-      _resultMainKey(prefix + "handEyeCalibration"),
-      _dataDoc(new jsonParser()),
-      _resultDoc(new jsonParser()),
+      _prefix(prefix),
       _frontExtraAxisDirection(nullptr),
       _robotBeltDirection(nullptr),
       _thd_updateImageView(nullptr),
       _timer_updateImageView(nullptr) {
   ui->setupUi(this);
   enableButton(0);
+  //
+  _dataMainKey = _prefix + "handEyeCaliDatas";
+  _resultMainKey = _prefix + "handEyeCalibration";
   // update image
   _thd_updateImageView = new QThread();
   _timer_updateImageView = new QTimer();
@@ -79,13 +80,10 @@ caliHandEyewWidget::caliHandEyewWidget(const QString& prefix, QWidget* parent)
   _thd_updateImageView->start();
   // other
   QtConcurrent::run([this]() {
-    ensureFileExist();
     readData();
     readResult();
     readCalibratedDatas();
-    ensureJsonStruct();
-    clearResult();
-    updateTreeView();
+    updateTree();
     connectDevice();
   });
 }
@@ -103,79 +101,53 @@ void caliHandEyewWidget::setDevice(RobotOperator* robot,
   _camera = camera;
 }
 
-void caliHandEyewWidget::ensureFileExist() {
-  auto folderPath = QDir::currentPath() + "/" + DATA_FOLDER_NAME;
-  QDir dir;
-  if (!dir.exists(folderPath)) {
-    dir.mkpath(folderPath);
-  }
-  auto dataFilePath = folderPath + "/" + CALIBRATE_DATA_FILE;
-  {
-    QFile file(dataFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _dataFilePath = dataFilePath;
-  }
-  auto resFilePath = folderPath + "/" + CALIBRATE_RESULT_FILE;
-  {
-    QFile file(resFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _resFilePath = resFilePath;
-  }
-}
-
-int caliHandEyewWidget::ensureJsonStruct() {
-  //// data json
-  if (_dataDoc->IsNull()) {
-    _dataDoc->SetObject();
-  }
-  if (!_dataDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorData = _dataDoc->GetAllocator();
-  std::string dataMainKey = _dataMainKey.toStdString();
-  if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
-    rapidjson::Value obj(rapidjson::kObjectType);
-    _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
-                        obj, allocatorData);
-  }
-  // data
-  auto& main = (*_dataDoc)[dataMainKey.c_str()];
-  if (!main.HasMember("datas")) {
-    main.AddMember(rapidjson::Value("datas", allocatorData),
-                   rapidjson::Value(rapidjson::kArrayType), allocatorData);
-  }
-  //// result json
-  if (_resultDoc->IsNull()) {
-    _resultDoc->SetObject();
-  }
-  if (!_resultDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorResult = _dataDoc->GetAllocator();
-  std::string resultMainKey = _resultMainKey.toStdString();
-  if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
-    _resultDoc->AddMember(
-        rapidjson::Value(resultMainKey.c_str(), allocatorResult),
-        rapidjson::Value(rapidjson::kObjectType), allocatorResult);
-  }
-  // direction
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
-  if (!resultMain.HasMember("direction")) {
-    resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
-                         rapidjson::Value(rapidjson::kArrayType),
-                         allocatorResult);
-  }
-}
+// int caliHandEyewWidget::ensureJsonStruct() {
+//   //// data json
+//   if (_dataDoc->IsNull()) {
+//     _dataDoc->SetObject();
+//   }
+//   if (!_dataDoc->IsObject()) {
+//     std::cout << "data json format error" << std::endl;
+//     return -1;
+//   }
+//   // main
+//   auto& allocatorData = _dataDoc->GetAllocator();
+//   std::string dataMainKey = _dataMainKey.toStdString();
+//   if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
+//     rapidjson::Value obj(rapidjson::kObjectType);
+//     _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
+//                         obj, allocatorData);
+//   }
+//   // data
+//   auto& main = (*_dataDoc)[dataMainKey.c_str()];
+//   if (!main.HasMember("datas")) {
+//     main.AddMember(rapidjson::Value("datas", allocatorData),
+//                    rapidjson::Value(rapidjson::kArrayType), allocatorData);
+//   }
+//   //// result json
+//   if (_resultDoc->IsNull()) {
+//     _resultDoc->SetObject();
+//   }
+//   if (!_resultDoc->IsObject()) {
+//     std::cout << "data json format error" << std::endl;
+//     return -1;
+//   }
+//   // main
+//   auto& allocatorResult = _dataDoc->GetAllocator();
+//   std::string resultMainKey = _resultMainKey.toStdString();
+//   if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
+//     _resultDoc->AddMember(
+//         rapidjson::Value(resultMainKey.c_str(), allocatorResult),
+//         rapidjson::Value(rapidjson::kObjectType), allocatorResult);
+//   }
+//   // direction
+//   auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+//   if (!resultMain.HasMember("direction")) {
+//     resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
+//                          rapidjson::Value(rapidjson::kArrayType),
+//                          allocatorResult);
+//   }
+// }
 
 void caliHandEyewWidget::readCalibratedDatas() {
   if (_resultDoc->IsNull()) {
@@ -217,54 +189,18 @@ void caliHandEyewWidget::readCalibratedDatas() {
   }
 }
 
-void caliHandEyewWidget::readData() {
-  _dataDoc->read(_dataFilePath.toStdString());
-}
-
-void caliHandEyewWidget::writeData() {
-  _dataDoc->write(_dataFilePath.toStdString());
-}
-
-void caliHandEyewWidget::readResult() {
-  _resultDoc->read(_resFilePath.toStdString());
-}
-
-void caliHandEyewWidget::writeResult() {
-  _resultDoc->write(_resFilePath.toStdString());
-}
-
 void caliHandEyewWidget::clearResult() {
-  std::string resultMainKey = _resultMainKey.toStdString();
-  (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
-  if (auto v =
-          rapidjson::Pointer(jsonParser::toToken({resultMainKey, "direction"}))
-              .Get(*_resultDoc)) {
-    v->Clear();
+  auto token = jsonParser::toToken({_resultMainKey, "handEyeMatrix"});
+  auto v = rapidjson::Pointer(token).Get(*_resultDoc);
+  if (v) {
+    if (v->IsArray()) {
+      v->Clear();
+    } else {
+      v->SetArray();
+    }
   }
 }
 
-void caliHandEyewWidget::recordData(const std::array<float, 5>& data) {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
-  std::string mainKey = _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  auto& allocator = _dataDoc->GetAllocator();
-  {
-    rapidjson::Value obj__(rapidjson::kObjectType);
-    rapidjson::Value arr__(rapidjson::kArrayType);
-    arr__.PushBack(data[1], allocator);
-    arr__.PushBack(data[2], allocator);
-    arr__.PushBack(data[3], allocator);
-    obj__.AddMember(rapidjson::Value("robotPosition", allocator), arr__,
-                    allocator);
-    obj__.AddMember<float>("extraAxisPosition", data[0], allocator);
-    obj__.AddMember<float>("beltPosition", data[4], allocator);
-
-    datas.PushBack(obj__, allocator);
-  }
-}
 int caliHandEyewWidget::readCameraData(std::string& rgbPath,
                                        std::string& xyzPath,
                                        float& beltPosition) {
@@ -282,8 +218,8 @@ int caliHandEyewWidget::readCameraData(std::string& rgbPath,
     return -1;
   }
   std::string name =
-      QDir::current().absolutePath().toStdString() + "/" +
-      DATA_FOLDER_NAME.toStdString() + "/" +
+      QDir::current().absolutePath().toStdString() + "/" + _dataFolderName +
+      "/" +
       std::to_string(
           std::chrono::system_clock::now().time_since_epoch().count());
   auto rgbPath_ = name + ".rgb";
@@ -304,7 +240,6 @@ int caliHandEyewWidget::readCameraData(std::string& rgbPath,
     std::cerr << e.what() << '\n';
     return -1;
   }
-  std::cout << "beltPos" << beltPos_ << std::endl;
   rgbPath = rgbPath_;
   xyzPath = xyzPath_;
   beltPosition = beltPos_;
@@ -314,14 +249,6 @@ int caliHandEyewWidget::readCameraData(std::string& rgbPath,
 void caliHandEyewWidget::recordCameraData(const std::string& rgbPath,
                                           const std::string& xyzPath,
                                           float cameraBeltPos) {
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
-  auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  if (v == nullptr) {
-    rapidjson::Pointer(dataToken).Set(*_dataDoc,
-                                      rapidjson::Value(rapidjson::kArrayType));
-    v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  }
-
   auto& allocator = _dataDoc->GetAllocator();
   rapidjson::Value obj(rapidjson::kObjectType);
   {
@@ -335,7 +262,19 @@ void caliHandEyewWidget::recordCameraData(const std::string& rgbPath,
     obj.AddMember("robotPos", rapidjson::Value(rapidjson::kArrayType),
                   allocator);
   }
-  v->PushBack(obj, allocator);
+
+  auto dataToken = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
+  if (v) {
+    if (!v->IsArray()) {
+      v->SetArray();
+    }
+    v->PushBack(obj, allocator);
+  } else {
+    rapidjson::Pointer(dataToken)
+        .Set(*_dataDoc, rapidjson::Value(rapidjson::kArrayType))
+        .PushBack(obj, allocator);
+  }
 }
 
 int caliHandEyewWidget::readStationData(float& robotBeltPos,
@@ -369,13 +308,16 @@ int caliHandEyewWidget::readStationData(float& robotBeltPos,
 void caliHandEyewWidget::recordStationData(const float& robotBeltPos,
                                            const float& extraAxisPos,
                                            const Eigen::Vector3f& robotPos) {
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto dataToken = jsonParser::toToken({_dataMainKey, "datas"});
   auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
   assert(v != nullptr);
   assert(v->IsArray());
 
   auto len = v->Size();
   assert(len > 0);
+  if (!v || !v->IsArray() || v->Size() == 0) {
+    return;
+  }
 
   auto& allocator = _dataDoc->GetAllocator();
   (*v)[len - 1]["robotBeltPos"].SetFloat(robotBeltPos);
@@ -391,7 +333,7 @@ void caliHandEyewWidget::recordStationData(const float& robotBeltPos,
 }
 void caliHandEyewWidget::recordRobotData(const float& extraAxisPos,
                                          const Eigen::Vector3f& robotPos) {
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto dataToken = jsonParser::toToken({_dataMainKey, "datas"});
   auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
   assert(v != nullptr);
   assert(v->IsArray());
@@ -412,40 +354,17 @@ void caliHandEyewWidget::recordRobotData(const float& extraAxisPos,
 }
 
 void caliHandEyewWidget::deleteLastItem() {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
-  std::string mainKey = _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  if (!datas.Empty()) {
-    datas.PopBack();
+  auto token = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+  if (v && v->IsArray() && !v->Empty()) {
+    v->PopBack();
   }
 }
 
-int caliHandEyewWidget::parseGridInfo(size_t& w, size_t& h, float& size) {
-  bool ok(false);
-  size_t gridWidth = ui->spinBox_gridWidth->text().toUInt(&ok);
-  if (!ok) {
-    return -1;
-  }
-  ok = false;
-  size_t gridHeight = ui->spinBox_gridHeight->text().toUInt(&ok);
-  if (!ok) {
-    return -1;
-  }
-  ok = false;
-  float gridSize = ui->doubleSpinBox_gridSize->text().toFloat(&ok);
-  if (!ok) {
-    return -1;
-  }
-  if (gridWidth < 1 || gridHeight < 1 || gridSize < 0) {
-    return -1;
-  }
-  w = gridWidth;
-  h = gridHeight;
-  size = gridSize;
-  return 0;
+void caliHandEyewWidget::parseGridInfo(size_t& w, size_t& h, float& size) {
+  w = ui->spinBox_gridWidth->text().toUInt();
+  h = ui->spinBox_gridHeight->text().toUInt();
+  size = ui->doubleSpinBox_gridSize->text().toFloat();
 }
 
 int caliHandEyewWidget::calculate() {
@@ -475,22 +394,16 @@ int caliHandEyewWidget::calculate() {
     std::cout << "robotBeltDirection not found" << std::endl;
     return -1;
   }
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto dataToken = jsonParser::toToken({_dataMainKey, "datas"});
   auto dataValue = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  if (dataValue == nullptr) {
+  if (!dataValue || !dataValue->IsArray() || !dataValue->Size() == 0) {
     return -1;
   }
-  assert(dataValue->IsArray());
-  assert(dataValue->Size() > 0);
 
-  size_t gridWidth;
-  size_t gridHeight;
-  float gridSize;
-
-  if (0 > parseGridInfo(gridWidth, gridHeight, gridSize)) {
-    std::cout << "grid info error" << std::endl;
-    return -1;
-  }
+  size_t gridWidth(0);
+  size_t gridHeight(0);
+  float gridSize(0);
+  parseGridInfo(gridWidth, gridHeight, gridSize);
 
   std::vector<handEyeCaliData> caliDatas;
   for (size_t i = 0; i < dataValue->Size(); i++) {
@@ -556,8 +469,8 @@ int caliHandEyewWidget::calculate() {
   // calculate
   Eigen::Isometry3f handEyeMatrix;
   try {
-    if (0 > getHandEyeMatrix(caliDatas, 5, 7, 3, *_robotBeltDirection,
-                             handEyeMatrix)) {
+    if (0 > getHandEyeMatrix(caliDatas, gridWidth, gridHeight, gridSize,
+                             *_robotBeltDirection, handEyeMatrix)) {
       return -1;
     };
   } catch (const std::exception& e) {
@@ -572,11 +485,10 @@ int caliHandEyewWidget::calculate() {
     }
   }
 
-  _resultDoc->setArray<float>({_resultMainKey.toStdString(), "handEyeMatrix"},
-                              matrix__);
+  _resultDoc->setArray<float>({_resultMainKey, "handEyeMatrix"}, matrix__);
 }
 
-void caliHandEyewWidget::updateTreeView() {
+void caliHandEyewWidget::updateTree() {
   jsonParser doc__;
   auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
@@ -592,51 +504,34 @@ void caliHandEyewWidget::updateTreeView() {
   if (_robotBeltDirection == nullptr) {
     doc__.setArray({"preCalibrated", "robotBeltDirection"});
   } else {
-    doc__.setArray<float>({"11", "robotBeltDirection"},
+    doc__.setArray<float>({"preCalibrated", "robotBeltDirection"},
                           {(*_robotBeltDirection)[0], (*_robotBeltDirection)[1],
                            (*_robotBeltDirection)[2]});
   }
-  // {
-  //   {
-  //     rapidjson::Value v(rapidjson::kArrayType);
-  //     if (_frontExtraAxisDirection != nullptr) {
-  //       v.PushBack((*_frontExtraAxisDirection)[0], allocator);
-  //       v.PushBack((*_frontExtraAxisDirection)[1], allocator);
-  //       v.PushBack((*_frontExtraAxisDirection)[2], allocator);
-  //     }
-  //     doc__.AddMember("frontExtraAxisDirection", v, allocator);
-  //   }
-  //   {
-  //     rapidjson::Value v(rapidjson::kArrayType);
-  //     if (_robotBeltDirection != nullptr) {
-  //       v.PushBack((*_robotBeltDirection)[0], allocator);
-  //       v.PushBack((*_robotBeltDirection)[1], allocator);
-  //       v.PushBack((*_robotBeltDirection)[2], allocator);
-  //     }
-  //     doc__.AddMember("robotBeltDirection", v, allocator);
-  //   }
-  // }
   // copy main domain
-  std::string dataMainKey = _dataMainKey.toStdString();
-  auto& dataMain = (*_dataDoc)[dataMainKey.c_str()];
-  for (auto it = dataMain.MemberBegin(); it < dataMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__.AddMember(key, value, allocator);
+  auto dataMain = rapidjson::Pointer("/" + _dataMainKey).Get(*_dataDoc);
+  if (dataMain) {
+    for (auto it = dataMain->MemberBegin(); it != dataMain->MemberEnd(); it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__.AddMember(key, value, allocator);
+    }
   }
   // copy result
-  std::string resultMainKey = _resultMainKey.toStdString();
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+  auto resultMain = rapidjson::Pointer("/" + _resultMainKey).Get(*_resultDoc);
   doc__.AddMember("results", rapidjson::Value(rapidjson::kObjectType),
                   allocator);
-  for (auto it = resultMain.MemberBegin(); it < resultMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__["results"].AddMember(key, value, allocator);
+  if (resultMain) {
+    for (auto it = resultMain->MemberBegin(); it != resultMain->MemberEnd();
+         it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__["results"].AddMember(key, value, allocator);
+    }
   }
 
   // to qbytearray
@@ -645,21 +540,6 @@ void caliHandEyewWidget::updateTreeView() {
   doc__.Accept(w);
   QByteArray arr(sb.GetString(), sb.GetSize());
   emit updateTreeView(arr);
-}
-
-void caliHandEyewWidget::dumpJson() {
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _dataDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _resultDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
 }
 
 void caliHandEyewWidget::on_btn_capture_clicked() {
@@ -682,7 +562,7 @@ void caliHandEyewWidget::on_btn_capture_clicked() {
     writeData();
     // update  tree
     enableButton(1);
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -692,7 +572,6 @@ void caliHandEyewWidget::on_btn_record1_clicked() {
     writeResult();
     // FIXME
 #if 1
-
     std::string rgb, xyz;
     float beltPos(0), extraAxis(0);
     Eigen::Vector3f robotPos(0, 0, 0);
@@ -707,7 +586,7 @@ void caliHandEyewWidget::on_btn_record1_clicked() {
     writeData();
     // update  tree
     enableButton(2);
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -732,7 +611,7 @@ void caliHandEyewWidget::on_btn_record2_clicked() {
     writeData();
     // update  tree
     enableButton(3);
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -757,7 +636,7 @@ void caliHandEyewWidget::on_btn_record3_clicked() {
     writeData();
     // update  tree
     enableButton(0);
-    updateTreeView();
+    updateTree();
   });
 }
 void caliHandEyewWidget::on_btn_calculate_clicked() {
@@ -766,7 +645,7 @@ void caliHandEyewWidget::on_btn_calculate_clicked() {
     writeResult();
     calculate();
     writeResult();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -776,7 +655,7 @@ void caliHandEyewWidget::on_btn_delete_clicked() {
     writeResult();
     deleteLastItem();
     writeData();
-    updateTreeView();
+    updateTree();
     enableButton(0);
   });
 }
@@ -836,23 +715,20 @@ void caliHandEyewWidget::on_UpdateImage() {
       return;
     }
   }
-  bool useOrigin = false;
+
   size_t gridWidth(0), gridHeight(0);
   float gridSize(0);
-  if (0 > parseGridInfo(gridWidth, gridHeight, gridSize)) {
-    useOrigin = true;
-  };
+  parseGridInfo(gridWidth, gridHeight, gridSize);
   // find grid
   uchar* buff = NULL;
   size_t w = data.RGB8PlanarImage.nWidth;
   size_t h = data.RGB8PlanarImage.nHeight;
-  if (!useOrigin) {
-    useOrigin =
-        0 != getMarkedGridPlateImage(w, h, data.RGB8PlanarImage.pData,
-                                     gridWidth, gridHeight, (void**)&buff);
-  }
+
   // show image
-  void* dst = useOrigin ? data.RGB8PlanarImage.pData : buff;
+  void* dst = 0 != getMarkedGridPlateImage(w, h, data.RGB8PlanarImage.pData,
+                                           gridWidth, gridHeight, (void**)&buff)
+                  ? data.RGB8PlanarImage.pData
+                  : buff;
 
   QImage img(w, h, QImage::Format::Format_RGB32);
   // cpy

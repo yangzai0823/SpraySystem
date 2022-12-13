@@ -18,30 +18,22 @@
 #include "calibration.h"
 #include "ui_calistationwidget.h"
 
-extern QString CALIBRATE_DATA_FILE;
-extern QString CALIBRATE_RESULT_FILE;
-extern QString DATA_FOLDER_NAME;
-
 caliStationWidget::caliStationWidget(QWidget* parent)
-    : QWidget(parent),
+    : baseCaliWidget(parent),
       ui(new Ui::caliStationWidget),
-      _dataMainKey("stationCaliDatas"),
-      _resultMainKey("stationCalibration"),
-      _dataDoc(new jsonParser()),
-      _resultDoc(new jsonParser()),
       _frontExtraAxisDirection(nullptr),
       _backExtraAxisDirection(nullptr),
       _robotBeltDirection(nullptr) {
   ui->setupUi(this);
+  //
+  _dataMainKey = "stationCaliDatas";
+  _resultMainKey = "stationCalibration";
   // other
   QtConcurrent::run([this]() {
-    ensureFileExist();
     readData();
     readResult();
     readCalibratedDatas();
-    ensureJsonStruct();
-    clearResult();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -55,80 +47,6 @@ void caliStationWidget::setDevice(RobotOperator* frontRobot,
   _robot2 = backRobot;
   _motionController1 = frontMotionController;
   _motionController2 = backMotionController;
-}
-
-void caliStationWidget::ensureFileExist() {
-  auto folderPath = QDir::currentPath() + "/" + DATA_FOLDER_NAME;
-  QDir dir;
-  if (!dir.exists(folderPath)) {
-    dir.mkpath(folderPath);
-  }
-  auto dataFilePath = folderPath + "/" + CALIBRATE_DATA_FILE;
-  {
-    QFile file(dataFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _dataFilePath = dataFilePath;
-  }
-  auto resFilePath = folderPath + "/" + CALIBRATE_RESULT_FILE;
-  {
-    QFile file(resFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _resFilePath = resFilePath;
-  }
-}
-
-int caliStationWidget::ensureJsonStruct() {
-  //// data json
-  if (_dataDoc->IsNull()) {
-    _dataDoc->SetObject();
-  }
-  if (!_dataDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorData = _dataDoc->GetAllocator();
-  std::string dataMainKey = _dataMainKey.toStdString();
-  if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
-    rapidjson::Value obj(rapidjson::kObjectType);
-    _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
-                        obj, allocatorData);
-  }
-  // data
-  auto& main = (*_dataDoc)[dataMainKey.c_str()];
-  if (!main.HasMember("datas")) {
-    main.AddMember(rapidjson::Value("datas", allocatorData),
-                   rapidjson::Value(rapidjson::kArrayType), allocatorData);
-  }
-  //// result json
-  if (_resultDoc->IsNull()) {
-    _resultDoc->SetObject();
-  }
-  if (!_resultDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorResult = _dataDoc->GetAllocator();
-  std::string resultMainKey = _resultMainKey.toStdString();
-  if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
-    _resultDoc->AddMember(
-        rapidjson::Value(resultMainKey.c_str(), allocatorResult),
-        rapidjson::Value(rapidjson::kObjectType), allocatorResult);
-  }
-  // direction
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
-  if (!resultMain.HasMember("direction")) {
-    resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
-                         rapidjson::Value(rapidjson::kArrayType),
-                         allocatorResult);
-  }
 }
 
 void caliStationWidget::readCalibratedDatas() {
@@ -182,29 +100,15 @@ void caliStationWidget::readCalibratedDatas() {
   }
 }
 
-void caliStationWidget::readData() {
-  _dataDoc->read(_dataFilePath.toStdString());
-}
-
-void caliStationWidget::writeData() {
-  _dataDoc->write(_dataFilePath.toStdString());
-}
-
-void caliStationWidget::readResult() {
-  _resultDoc->read(_resFilePath.toStdString());
-}
-
-void caliStationWidget::writeResult() {
-  _resultDoc->write(_resFilePath.toStdString());
-}
-
 void caliStationWidget::clearResult() {
-  std::string resultMainKey = _resultMainKey.toStdString();
-  (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
-  if (auto v =
-          rapidjson::Pointer(jsonParser::toToken({resultMainKey, "direction"}))
-              .Get(*_resultDoc)) {
-    v->Clear();
+  auto token = jsonParser::toToken({_resultMainKey, "transformationMatrix"});
+  auto v = rapidjson::Pointer(token).Get(*_resultDoc);
+  if (v) {
+    if (v->IsArray()) {
+      v->Clear();
+    } else {
+      v->SetArray();
+    }
   }
 }
 
@@ -223,8 +127,8 @@ int caliStationWidget::readBeltData(const std::string& prefix,
 }
 void caliStationWidget::recordBeltData(const std::string& prefix,
                                        float robotBeltPos) {
-  _dataDoc->setValue<float>(
-      {_dataMainKey.toStdString(), "datas", prefix + "BeltPos"}, robotBeltPos);
+  _dataDoc->setValue<float>({_dataMainKey, "datas", prefix + "BeltPos"},
+                            robotBeltPos);
 }
 
 int caliStationWidget::readRobotData(const std::string& prefix,
@@ -256,29 +160,57 @@ int caliStationWidget::readRobotData(const std::string& prefix,
 void caliStationWidget::recordRobotData(const std::string& prefix,
                                         float extraAxisPos,
                                         const Eigen::Vector3f& robotPos) {
-  // extraaxis
-  _dataDoc->pushBack<float>(
-      {_dataMainKey.toStdString(), "datas", prefix + "ExtraAxisPos"},
-      extraAxisPos);
-  // robotPos
   auto& allocator = _dataDoc->GetAllocator();
+  // extraaxis
+  {
+    auto token =
+        jsonParser::toToken({_dataMainKey, "datas", prefix + "ExtraAxisPos"});
+    auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+    if (v) {
+      if (!v->IsArray()) {
+        v->SetArray();
+      }
+      v->PushBack(extraAxisPos, allocator);
+    } else {
+      rapidjson::Pointer(token).Set(*_dataDoc, extraAxisPos);
+    }
+  }
+  // robotPos
   rapidjson::Value arr(rapidjson::kArrayType);
   arr.PushBack<float>(robotPos[0], allocator);
   arr.PushBack<float>(robotPos[1], allocator);
   arr.PushBack<float>(robotPos[2], allocator);
-  _dataDoc->pushBack({_dataMainKey.toStdString(), "datas", prefix + "RobotPos"},
-                     arr);
+  {
+    auto token =
+        jsonParser::toToken({_dataMainKey, "datas", prefix + "RobotPos"});
+    auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+    if (v) {
+      if (!v->IsArray()) {
+        v->SetArray();
+      }
+      v->PushBack(arr, allocator);
+    } else {
+      rapidjson::Pointer(token).Set(*_dataDoc, arr);
+    }
+  }
 }
 
 void caliStationWidget::deleteLastItem() {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
-  std::string mainKey = _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  if (!datas.Empty()) {
-    datas.PopBack();
+  {
+    auto token =
+        jsonParser::toToken({_dataMainKey, "datas", "frontExtraAxisPos"});
+    auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+    if (v && v->IsArray() && !v->Empty()) {
+      v->PopBack();
+    }
+  }
+  {
+    auto token =
+        jsonParser::toToken({_dataMainKey, "datas", "backExtraAxisPos"});
+    auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+    if (v && v->IsArray() && !v->Empty()) {
+      v->PopBack();
+    }
   }
 }
 
@@ -289,40 +221,100 @@ int caliStationWidget::calculate() {
   // 	const Eigen::Vector3f& extraAxisDir2,
   // 	const Eigen::Vector3f& beltDir,
   // 	Eigen::Isometry3f& transf);
-
   if (_frontExtraAxisDirection == nullptr) {
     std::cout << "frontExtraAxisDirection not found" << std::endl;
+    return -1;
+  }
+  if (_backExtraAxisDirection == nullptr) {
+    std::cout << "backExtraAxisDirection not found" << std::endl;
     return -1;
   }
   if (_robotBeltDirection == nullptr) {
     std::cout << "robotBeltDirection not found" << std::endl;
     return -1;
   }
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto dataToken = jsonParser::toToken({_dataMainKey, "datas"});
   auto dataValue = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  if (dataValue == nullptr) {
+  if (dataValue == nullptr || !dataValue->IsObject()) {
     return -1;
   }
-  // TODO assertion
-  assert(dataValue->IsObject());
 
   stationCaliData caliDatas;
-  caliDatas.beltPos1 = (*dataValue)["frontBeltPos"].GetFloat();
-  caliDatas.beltPos2 = (*dataValue)["backBeltPos"].GetFloat();
-
-  for (auto&& i : (*dataValue)["frontExtraAxisPos"].GetArray()) {
-    caliDatas.extraAxisPos1.push_back(i.GetFloat());
+  {
+    auto v = rapidjson::Pointer(
+                 jsonParser::toToken({_dataMainKey, "datas", "frontBeltPos"}))
+                 .Get(*_dataDoc);
+    if (!v || !v->IsFloat()) {
+      return -1;
+    }
+    caliDatas.beltPos1 = (*dataValue)["frontBeltPos"].GetFloat();
   }
-  for (auto&& i : (*dataValue)["backExtraAxisPos"].GetArray()) {
-    caliDatas.extraAxisPos2.push_back(i.GetFloat());
+  {
+    auto v = rapidjson::Pointer(
+                 jsonParser::toToken({_dataMainKey, "datas", "backBeltPos"}))
+                 .Get(*_dataDoc);
+    if (!v || !v->IsFloat()) {
+      return -1;
+    }
+    caliDatas.beltPos2 = (*dataValue)["backBeltPos"].GetFloat();
   }
-  for (auto&& i : (*dataValue)["frontRobotPos"].GetArray()) {
-    caliDatas.robotPos1.emplace_back(i[0].GetFloat(), i[1].GetFloat(),
-                                     i[2].GetFloat());
+  {
+    auto v = rapidjson::Pointer(jsonParser::toToken({_dataMainKey, "datas",
+                                                     "frontExtraAxisPos"}))
+                 .Get(*_dataDoc);
+    if (!v || !v->IsArray()) {
+      return -1;
+    }
+    for (auto&& i : v->GetArray()) {
+      if (!i.IsFloat()) {
+        return -1;
+      }
+      caliDatas.extraAxisPos1.push_back(i.GetFloat());
+    }
   }
-  for (auto&& i : (*dataValue)["backRobotPos"].GetArray()) {
-    caliDatas.robotPos2.emplace_back(i[0].GetFloat(), i[1].GetFloat(),
-                                     i[2].GetFloat());
+  {
+    auto v = rapidjson::Pointer(jsonParser::toToken({_dataMainKey, "datas",
+                                                     "backExtraAxisPos"}))
+                 .Get(*_dataDoc);
+    if (!v || !v->IsArray()) {
+      return -1;
+    }
+    for (auto&& i : v->GetArray()) {
+      if (!i.IsFloat()) {
+        return -1;
+      }
+      caliDatas.extraAxisPos2.push_back(i.GetFloat());
+    }
+  }
+  {
+    auto v = rapidjson::Pointer(
+                 jsonParser::toToken({_dataMainKey, "datas", "frontRobotPos"}))
+                 .Get(*_dataDoc);
+    if (!v || !v->IsArray()) {
+      return -1;
+    }
+    for (auto&& i : v->GetArray()) {
+      if (!i.IsArray() || i.Size() != 3) {
+        return -1;
+      }
+      caliDatas.robotPos1.emplace_back(i[0].GetFloat(), i[1].GetFloat(),
+                                       i[2].GetFloat());
+    }
+  }
+  {
+    auto v = rapidjson::Pointer(
+                 jsonParser::toToken({_dataMainKey, "datas", "backRobotPos"}))
+                 .Get(*_dataDoc);
+    if (!v || !v->IsArray()) {
+      return -1;
+    }
+    for (auto&& i : v->GetArray()) {
+      if (!i.IsArray() || i.Size() != 3) {
+        return -1;
+      }
+      caliDatas.robotPos2.emplace_back(i[0].GetFloat(), i[1].GetFloat(),
+                                       i[2].GetFloat());
+    }
   }
   // calculate
   Eigen::Isometry3f matrix;
@@ -343,11 +335,11 @@ int caliStationWidget::calculate() {
       matrix__.push_back(matrix(i, j));
     }
   }
-  _resultDoc->setArray<float>(
-      {_resultMainKey.toStdString(), "transformationMatrix"}, matrix__);
+  _resultDoc->setArray<float>({_resultMainKey, "transformationMatrix"},
+                              matrix__);
 }
 
-void caliStationWidget::updateTreeView() {
+void caliStationWidget::updateTree() {
   jsonParser doc__;
   auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
@@ -371,54 +363,41 @@ void caliStationWidget::updateTreeView() {
   if (_robotBeltDirection == nullptr) {
     doc__.setArray({"preCalibrated", "robotBeltDirection"});
   } else {
-    doc__.setArray<float>({"11", "robotBeltDirection"},
+    doc__.setArray<float>({"preCalibrated", "robotBeltDirection"},
                           {(*_robotBeltDirection)[0], (*_robotBeltDirection)[1],
                            (*_robotBeltDirection)[2]});
   }
   // copy main domain
-  std::string dataMainKey = _dataMainKey.toStdString();
-  auto& dataMain = (*_dataDoc)[dataMainKey.c_str()];
-  for (auto it = dataMain.MemberBegin(); it < dataMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__.AddMember(key, value, allocator);
+  auto dataMain = rapidjson::Pointer("/" + _dataMainKey).Get(*_dataDoc);
+  if (dataMain) {
+    for (auto it = dataMain->MemberBegin(); it < dataMain->MemberEnd(); it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__.AddMember(key, value, allocator);
+    }
   }
   // copy result
-  std::string resultMainKey = _resultMainKey.toStdString();
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+  auto resultMain = rapidjson::Pointer("/" + _resultMainKey).Get(*_resultDoc);
   doc__.AddMember("results", rapidjson::Value(rapidjson::kObjectType),
                   allocator);
-  for (auto it = resultMain.MemberBegin(); it < resultMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__["results"].AddMember(key, value, allocator);
+  if (resultMain) {
+    for (auto it = resultMain->MemberBegin(); it < resultMain->MemberEnd();
+         it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__["results"].AddMember(key, value, allocator);
+    }
   }
-
   // to qbytearray
   rapidjson::StringBuffer sb;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
   doc__.Accept(w);
   QByteArray arr(sb.GetString(), sb.GetSize());
   emit updateTreeView(arr);
-}
-
-void caliStationWidget::dumpJson() {
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _dataDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _resultDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
 }
 
 void caliStationWidget::on_btn_recordBeltPos_clicked() {
@@ -436,7 +415,7 @@ void caliStationWidget::on_btn_recordBeltPos_clicked() {
 
     writeData();
     // update  tree
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -456,7 +435,7 @@ void caliStationWidget::on_btn_recordRobotPos_clicked() {
 
     writeData();
     // update  tree
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -466,7 +445,7 @@ void caliStationWidget::on_btn_calculate_clicked() {
     writeResult();
     calculate();
     writeResult();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -476,6 +455,6 @@ void caliStationWidget::on_btn_delete_clicked() {
     writeResult();
     deleteLastItem();
     writeData();
-    updateTreeView();
+    updateTree();
   });
 }

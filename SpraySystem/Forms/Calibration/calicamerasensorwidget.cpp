@@ -17,10 +17,6 @@
 #include "Device/PLC/plcoperator.h"
 #include "ui_calicamerasensorwidget.h"
 
-extern QString CALIBRATE_DATA_FILE;
-extern QString CALIBRATE_RESULT_FILE;
-extern QString DATA_FOLDER_NAME;
-
 template <typename T>
 T* readRawBinaryPixelData(const std::string& path, size_t& w, size_t& h,
                           size_t& channel) {
@@ -52,20 +48,19 @@ void writeRawBinaryPixelData(const std::string& path, size_t w, size_t h,
   outfile.close();
 }
 
-caliCameraSensorWidget::caliCameraSensorWidget(const QString& prefix,
+caliCameraSensorWidget::caliCameraSensorWidget(const std::string& prefix,
                                                QWidget* parent)
-    : QWidget(parent),
+    : baseCaliWidget(parent),
       ui(new Ui::caliCameraSensorWidget),
       _prefix(prefix),
-      _dataMainKey(prefix + "CameraSensorCaliDatas"),
-      _resultMainKey(prefix + "CameraSensorCalibration"),
-      _dataDoc(new jsonParser()),
-      _resultDoc(new jsonParser()),
       _frontExtraAxisDirection(nullptr),
       _robotBeltDirection(nullptr),
       _thd_updateImageView(nullptr),
       _timer_updateImageView(nullptr) {
   ui->setupUi(this);
+  //
+  _dataMainKey = _prefix + "CameraSensorCaliDatas";
+  _resultMainKey = _prefix + "CameraSensorCalibration";
   // update image
   _thd_updateImageView = new QThread();
   _timer_updateImageView = new QTimer();
@@ -79,13 +74,10 @@ caliCameraSensorWidget::caliCameraSensorWidget(const QString& prefix,
   _thd_updateImageView->start();
   // other
   QtConcurrent::run([this]() {
-    ensureFileExist();
     readData();
     readResult();
     readCalibratedDatas();
-    ensureJsonStruct();
-    clearResult();
-    updateTreeView();
+    updateTree();
     connectDevice();
   });
 }
@@ -101,79 +93,53 @@ void caliCameraSensorWidget::setDevice(PLCOperator* plc,
   _camera = camera;
 }
 
-void caliCameraSensorWidget::ensureFileExist() {
-  auto folderPath = QDir::currentPath() + "/" + DATA_FOLDER_NAME;
-  QDir dir;
-  if (!dir.exists(folderPath)) {
-    dir.mkpath(folderPath);
-  }
-  auto dataFilePath = folderPath + "/" + CALIBRATE_DATA_FILE;
-  {
-    QFile file(dataFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _dataFilePath = dataFilePath;
-  }
-  auto resFilePath = folderPath + "/" + CALIBRATE_RESULT_FILE;
-  {
-    QFile file(resFilePath);
-    if (!file.exists()) {
-      file.open(QIODevice::WriteOnly);
-      file.close();
-    }
-    _resFilePath = resFilePath;
-  }
-}
-
-int caliCameraSensorWidget::ensureJsonStruct() {
-  //// data json
-  if (_dataDoc->IsNull()) {
-    _dataDoc->SetObject();
-  }
-  if (!_dataDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorData = _dataDoc->GetAllocator();
-  std::string dataMainKey = _dataMainKey.toStdString();
-  if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
-    rapidjson::Value obj(rapidjson::kObjectType);
-    _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
-                        obj, allocatorData);
-  }
-  // data
-  auto& main = (*_dataDoc)[dataMainKey.c_str()];
-  if (!main.HasMember("datas")) {
-    main.AddMember(rapidjson::Value("datas", allocatorData),
-                   rapidjson::Value(rapidjson::kArrayType), allocatorData);
-  }
-  //// result json
-  if (_resultDoc->IsNull()) {
-    _resultDoc->SetObject();
-  }
-  if (!_resultDoc->IsObject()) {
-    std::cout << "data json format error" << std::endl;
-    return -1;
-  }
-  // main
-  auto& allocatorResult = _dataDoc->GetAllocator();
-  std::string resultMainKey = _resultMainKey.toStdString();
-  if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
-    _resultDoc->AddMember(
-        rapidjson::Value(resultMainKey.c_str(), allocatorResult),
-        rapidjson::Value(rapidjson::kObjectType), allocatorResult);
-  }
-  // direction
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
-  if (!resultMain.HasMember("direction")) {
-    resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
-                         rapidjson::Value(rapidjson::kArrayType),
-                         allocatorResult);
-  }
-}
+// int caliCameraSensorWidget::ensureJsonStruct() {
+//   //// data json
+//   if (_dataDoc->IsNull()) {
+//     _dataDoc->SetObject();
+//   }
+//   if (!_dataDoc->IsObject()) {
+//     std::cout << "data json format error" << std::endl;
+//     return -1;
+//   }
+//   // main
+//   auto& allocatorData = _dataDoc->GetAllocator();
+//   std::string dataMainKey = _dataMainKey.toStdString();
+//   if (!_dataDoc->GetObject().HasMember(dataMainKey.c_str())) {
+//     rapidjson::Value obj(rapidjson::kObjectType);
+//     _dataDoc->AddMember(rapidjson::Value(dataMainKey.c_str(), allocatorData),
+//                         obj, allocatorData);
+//   }
+//   // data
+//   auto& main = (*_dataDoc)[dataMainKey.c_str()];
+//   if (!main.HasMember("datas")) {
+//     main.AddMember(rapidjson::Value("datas", allocatorData),
+//                    rapidjson::Value(rapidjson::kArrayType), allocatorData);
+//   }
+//   //// result json
+//   if (_resultDoc->IsNull()) {
+//     _resultDoc->SetObject();
+//   }
+//   if (!_resultDoc->IsObject()) {
+//     std::cout << "data json format error" << std::endl;
+//     return -1;
+//   }
+//   // main
+//   auto& allocatorResult = _dataDoc->GetAllocator();
+//   std::string resultMainKey = _resultMainKey.toStdString();
+//   if (!_resultDoc->GetObject().HasMember(resultMainKey.c_str())) {
+//     _resultDoc->AddMember(
+//         rapidjson::Value(resultMainKey.c_str(), allocatorResult),
+//         rapidjson::Value(rapidjson::kObjectType), allocatorResult);
+//   }
+//   // direction
+//   auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+//   if (!resultMain.HasMember("direction")) {
+//     resultMain.AddMember(rapidjson::Value("direction", allocatorResult),
+//                          rapidjson::Value(rapidjson::kArrayType),
+//                          allocatorResult);
+//   }
+// }
 
 void caliCameraSensorWidget::readCalibratedDatas() {
   if (_resultDoc->IsNull()) {
@@ -215,34 +181,34 @@ void caliCameraSensorWidget::readCalibratedDatas() {
   }
 }
 
-void caliCameraSensorWidget::readData() {
-  _dataDoc->read(_dataFilePath.toStdString());
-}
-
-void caliCameraSensorWidget::writeData() {
-  _dataDoc->write(_dataFilePath.toStdString());
-}
-
-void caliCameraSensorWidget::readResult() {
-  _resultDoc->read(_resFilePath.toStdString());
-}
-
-void caliCameraSensorWidget::writeResult() {
-  _resultDoc->write(_resFilePath.toStdString());
-}
-
 void caliCameraSensorWidget::clearResult() {
-  std::string resultMainKey = _resultMainKey.toStdString();
-  (*_resultDoc)[resultMainKey.c_str()]["direction"].Clear();
-  if (auto v =
-          rapidjson::Pointer(jsonParser::toToken({resultMainKey, "direction"}))
-              .Get(*_resultDoc)) {
-    v->Clear();
+  {
+    auto token = jsonParser::toToken({_resultMainKey, "origin"});
+    auto v = rapidjson::Pointer(token).Get(*_resultDoc);
+    if (v) {
+      if (v->IsArray()) {
+        v->Clear();
+      } else {
+        v->SetArray();
+      }
+    }
+  }
+  {
+    auto token = jsonParser::toToken({_resultMainKey, "direction"});
+    auto v = rapidjson::Pointer(token).Get(*_resultDoc);
+    if (v) {
+      if (v->IsArray()) {
+        v->Clear();
+      } else {
+        v->SetArray();
+      }
+    }
   }
 }
 
-int caliCameraSensorWidget::readData(std::string& rgbPath, std::string& xyzPath,
-                                     float& dist) {
+int caliCameraSensorWidget::readCameraSensorData(std::string& rgbPath,
+                                                 std::string& xyzPath,
+                                                 float& dist) {
   // TODO change to cameraoperator
   VWSCamera::ImageData data;
   try {
@@ -257,8 +223,8 @@ int caliCameraSensorWidget::readData(std::string& rgbPath, std::string& xyzPath,
     return -1;
   }
   std::string name =
-      QDir::current().absolutePath().toStdString() + "/" +
-      DATA_FOLDER_NAME.toStdString() + "/" +
+      QDir::current().absolutePath().toStdString() + "/" + _dataFolderName +
+      "/" +
       std::to_string(
           std::chrono::system_clock::now().time_since_epoch().count());
   auto rgbPath_ = name + ".rgb";
@@ -290,17 +256,9 @@ int caliCameraSensorWidget::readData(std::string& rgbPath, std::string& xyzPath,
   return 0;
 }
 
-void caliCameraSensorWidget::recordData(const std::string& rgbPath,
-                                        const std::string& xyzPath,
-                                        float dist) {
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
-  auto v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  if (v == nullptr) {
-    rapidjson::Pointer(dataToken).Set(*_dataDoc,
-                                      rapidjson::Value(rapidjson::kArrayType));
-    v = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  }
-
+void caliCameraSensorWidget::recordCameraSensorData(const std::string& rgbPath,
+                                                    const std::string& xyzPath,
+                                                    float dist) {
   auto& allocator = _dataDoc->GetAllocator();
   rapidjson::Value obj(rapidjson::kObjectType);
   {
@@ -309,18 +267,25 @@ void caliCameraSensorWidget::recordData(const std::string& rgbPath,
                   allocator);
     obj.AddMember<float>("sensorDist", dist, allocator);
   }
-  v->PushBack(obj, allocator);
+  auto token = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+  if (v) {
+    if (!v->IsArray()) {
+      v->SetArray();
+    }
+    v->PushBack(obj, allocator);
+  } else {
+    rapidjson::Pointer(token)
+        .Set(*_dataDoc, rapidjson::Value(rapidjson::kArrayType))
+        .PushBack(obj, allocator);
+  }
 }
 
 void caliCameraSensorWidget::deleteLastItem() {
-  if (0 != ensureJsonStruct()) {
-    return;
-  };
-
-  std::string mainKey = _dataMainKey.toStdString();
-  auto& datas = (*_dataDoc)[mainKey.c_str()]["datas"];
-  if (!datas.Empty()) {
-    datas.PopBack();
+  auto token = jsonParser::toToken({_dataMainKey, "datas"});
+  auto v = rapidjson::Pointer(token).Get(*_dataDoc);
+  if (v && v->IsArray() && !v->Empty()) {
+    v->PopBack();
   }
 }
 
@@ -329,13 +294,11 @@ int caliCameraSensorWidget::calculate() {
   // 	const std::vector<cameraSensorCaliData>& datas,
   // 	Eigen::Vector3f& origin,
   // 	Eigen::Vector3f& direction);
-  auto dataToken = jsonParser::toToken({_dataMainKey.toStdString(), "datas"});
+  auto dataToken = jsonParser::toToken({_dataMainKey, "datas"});
   auto dataValue = rapidjson::Pointer(dataToken).Get(*_dataDoc);
-  if (dataValue == nullptr) {
+  if (dataValue == nullptr || !dataValue->IsArray() || dataValue->Size() <= 1) {
     return -1;
   }
-  assert(dataValue->IsArray());
-  assert(dataValue->Size() > 1);
 
   std::vector<cameraSensorCaliData> caliDatas;
   for (size_t i = 0; i < dataValue->Size(); i++) {
@@ -384,37 +347,40 @@ int caliCameraSensorWidget::calculate() {
     return -1;
   }
   // set json
-  _resultDoc->setArray<float>({_resultMainKey.toStdString(), "origin"},
+  _resultDoc->setArray<float>({_resultMainKey, "origin"},
                               {origin[0], origin[1], origin[2]});
-  _resultDoc->setArray<float>({_resultMainKey.toStdString(), "direction"},
+  _resultDoc->setArray<float>({_resultMainKey, "direction"},
                               {origin[0], origin[1], origin[2]});
 }
 
-void caliCameraSensorWidget::updateTreeView() {
+void caliCameraSensorWidget::updateTree() {
   jsonParser doc__;
   auto& allocator = doc__.GetAllocator();
   doc__.SetObject();
   // copy main domain
-  std::string dataMainKey = _dataMainKey.toStdString();
-  auto& dataMain = (*_dataDoc)[dataMainKey.c_str()];
-  for (auto it = dataMain.MemberBegin(); it < dataMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__.AddMember(key, value, allocator);
+  auto dataMain = rapidjson::Pointer("/" + _dataMainKey).Get(*_dataDoc);
+  if (dataMain) {
+    for (auto it = dataMain->MemberBegin(); it < dataMain->MemberEnd(); it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__.AddMember(key, value, allocator);
+    }
   }
   // copy result
-  std::string resultMainKey = _resultMainKey.toStdString();
-  auto& resultMain = (*_resultDoc)[resultMainKey.c_str()];
+  auto resultMain = rapidjson::Pointer("/" + _resultMainKey).Get(*_resultDoc);
   doc__.AddMember("results", rapidjson::Value(rapidjson::kObjectType),
                   allocator);
-  for (auto it = resultMain.MemberBegin(); it < resultMain.MemberEnd(); it++) {
-    // copy
-    rapidjson::Value key, value;
-    key.CopyFrom(it->name, allocator);
-    value.CopyFrom(it->value, allocator);
-    doc__["results"].AddMember(key, value, allocator);
+  if (resultMain) {
+    for (auto it = resultMain->MemberBegin(); it < resultMain->MemberEnd();
+         it++) {
+      // copy
+      rapidjson::Value key, value;
+      key.CopyFrom(it->name, allocator);
+      value.CopyFrom(it->value, allocator);
+      doc__["results"].AddMember(key, value, allocator);
+    }
   }
 
   // to qbytearray
@@ -425,21 +391,6 @@ void caliCameraSensorWidget::updateTreeView() {
   emit updateTreeView(arr);
 }
 
-void caliCameraSensorWidget::dumpJson() {
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _dataDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
-  {
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(sb);
-    _resultDoc->Accept(w);
-    std::cout << sb.GetString() << std::endl;
-  }
-}
-
 void caliCameraSensorWidget::on_btn_record_clicked() {
   QtConcurrent::run([this]() {
     clearResult();
@@ -448,17 +399,17 @@ void caliCameraSensorWidget::on_btn_record_clicked() {
 #if 1
     std::string rgb, xyz;
     float dist(0);
-    if (0 != readData(rgb, xyz, dist)) {
+    if (0 != readCameraSensorData(rgb, xyz, dist)) {
       std::cout << "read data error" << std::endl;
       return;
     }
-    recordData(rgb, xyz, dist);
+    recordCameraSensorData(rgb, xyz, dist);
 #else
-    recordData("camera", "pcd", 1);
+    recordCameraSensorData("camera", "pcd", 1);
 #endif
     writeData();
     // update  tree
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -468,7 +419,7 @@ void caliCameraSensorWidget::on_btn_calculate_clicked() {
     writeResult();
     calculate();
     writeResult();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -478,7 +429,7 @@ void caliCameraSensorWidget::on_btn_delete_clicked() {
     writeResult();
     deleteLastItem();
     writeData();
-    updateTreeView();
+    updateTree();
   });
 }
 
@@ -503,18 +454,15 @@ void caliCameraSensorWidget::on_UpdateImage() {
     }
   }
   bool useOrigin = false;
-  size_t gridWidth(0), gridHeight(0);
-  float gridSize(0);
   // find grid
   uchar* buff = NULL;
   size_t w = data.RGB8PlanarImage.nWidth;
   size_t h = data.RGB8PlanarImage.nHeight;
-  if (!useOrigin) {
-    useOrigin = 0 != getLaserMarkerImage(w, h, data.RGB8PlanarImage.pData,
-                                         (void**)&buff);
-  }
   // show image
-  void* dst = useOrigin ? data.RGB8PlanarImage.pData : buff;
+  void* dst =
+      0 != getLaserMarkerImage(w, h, data.RGB8PlanarImage.pData, (void**)&buff)
+          ? data.RGB8PlanarImage.pData
+          : buff;
 
   QImage img(w, h, QImage::Format::Format_RGB32);
   // cpy

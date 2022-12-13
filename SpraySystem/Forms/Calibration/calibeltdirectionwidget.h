@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Forms/Calibration/basecaliwidget.h>
 #include <rapidjson/document.h>
 
 #include <Eigen/Dense>
@@ -16,9 +17,7 @@ class caliBeltDirectionWidget;
 class RobotOperator;
 class MCOperator;
 
-// TODO exception handler
-// TODO handle nan
-class caliBeltDirectionWidget : public QWidget {
+class caliBeltDirectionWidget : public baseCaliWidget {
   Q_OBJECT
 
  public:
@@ -27,24 +26,14 @@ class caliBeltDirectionWidget : public QWidget {
   void setDevice(RobotOperator* robot, MCOperator* _motionController);
 
  private:
-  void ensureFileExist();
-  int ensureJsonStruct();
-  void readCalibratedDatas();
-  void readData();
-  void writeData();
+  virtual void readCalibratedDatas() override;
+  virtual void clearResult() override;
+  virtual void deleteLastItem() override;
+
   int readDeviceData(std::array<float, 5>& data);
-  void readResult();
-  void clearResult();
-  void writeResult();
-
   void recordData(const std::array<float, 5>& data);
-  void deleteLastItem();
-  void updateTreeView();
+  virtual void updateTree() override;
   void calculate();
-  void dumpJson();
-
- signals:
-  void updateTreeView(const QByteArray&);
 
  private slots:
   void on_btn_record_clicked();
@@ -58,14 +47,6 @@ class caliBeltDirectionWidget : public QWidget {
   // device
   RobotOperator* _robot;
   MCOperator* _motionController;
-  // file name
-  QString _dataFilePath;
-  QString _resFilePath;
-  // QJsonDoc
-  QString _dataMainKey;
-  QString _resultMainKey;
-  std::unique_ptr<rapidjson::Document> _dataDoc;
-  std::unique_ptr<rapidjson::Document> _resultDoc;
   // data
   std::unique_ptr<Eigen::Vector3f> _frontExtraAxisDirection;
 };
