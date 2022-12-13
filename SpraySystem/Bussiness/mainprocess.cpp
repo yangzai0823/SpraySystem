@@ -224,6 +224,8 @@ MainProcess::MainProcess()
 
 MainProcess::~MainProcess()
 {
+    sm_bottom->StopRun();
+    sm_top->StopRun();
     trajThread->quit();
     trajThread->wait();
     delete trajThread;
@@ -235,6 +237,16 @@ MainProcess::~MainProcess()
     //    delete signalProcess;
 
     delete sm_bottom;
+}
+
+void MainProcess::Start()
+{
+    
+}
+
+void MainProcess::Stop()
+{
+    
 }
 
 ThreadSafeVector<vws::PlanTaskInfo> *MainProcess::GetPlanTaskInfo(int upper_or_bottom)
@@ -323,6 +335,7 @@ void MainProcess::sendToRBT_Slot()
 {
     // return;
 
+    nRbt++;
     CLog::getInstance()->log("RBT， 机器人发送信息");
 
     auto rbt = DeviceManager::getInstance()->getRobot(0);
@@ -346,7 +359,7 @@ void MainProcess::sendToRBT_Slot()
     auto mc = DeviceManager::getInstance()->getMC(0);
     mc->sendRbtResult(rbt_ret);
     if(ret>0){
-        CLog::getInstance()->log("RBT， 机器人发送任务成功, 点数： "+ QString::number(rbtparam.size())+", 队列剩余： "+QString::number(trajQueue.size()));
+        CLog::getInstance()->log("RBT， 机器人发送任务成功("+QString::number(nRbt)+"), 点数： "+ QString::number(rbtparam.size())+", 队列剩余： "+QString::number(trajQueue.size()));
     }
     else{
         if(nFail<1){
@@ -377,7 +390,9 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
 }
 
 void MainProcess::alarm_Slot(){
-
+    //停止状态机
+    sm_bottom->StopRun();
+    sm_top->StopRun();
 }
 
 void MainProcess::begintraj_Slot(QVariant vdata, bool up_or_bttom)

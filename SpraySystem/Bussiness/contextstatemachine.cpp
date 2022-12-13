@@ -103,6 +103,14 @@ ContextStateMachine::ContextStateMachine()
 
     sm_thread = new QThread();
     moveToThread(sm_thread);
+
+    timer_img_head = new QTimer();
+    timer_img_head->moveToThread(sm_thread);
+    connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
+
+    timer_img_trail = new QTimer();
+    timer_img_trail->moveToThread(sm_thread);
+    connect(timer_img_trail, SIGNAL(timeout()), this, SLOT(trailTimer_Slot()));
 }
 
 ContextStateMachine::~ContextStateMachine()
@@ -118,16 +126,16 @@ ContextStateMachine::~ContextStateMachine()
 void ContextStateMachine::StartRun()
 {
     nCount = 0;
-    timer_img_head = new QTimer();
-    timer_img_head->moveToThread(sm_thread);
-    connect(timer_img_head, SIGNAL(timeout()), this, SLOT(headTimer_Slot()));
-
-    timer_img_trail = new QTimer();
-    timer_img_trail->moveToThread(sm_thread);
-    connect(timer_img_trail, SIGNAL(timeout()), this, SLOT(trailTimer_Slot()));
 
     sm_thread->start();
     start();
+}
+
+void ContextStateMachine::StopRun()
+{
+    sm_thread->quit();
+
+    stop();
 }
 
 void ContextStateMachine::checkHeadLaserAndImg()
@@ -386,6 +394,8 @@ void ContextStateMachine::beginVision_trail()
 #else
     double zero_offset = 0;
 #endif
+
+    CLog::getInstance()->log("尾部开始视觉处理");
 
     CLog::getInstance()->log("尾部开始视觉处理");
 

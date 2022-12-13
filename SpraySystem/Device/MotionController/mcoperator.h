@@ -45,7 +45,8 @@ public:
     std::vector<float> getRealTimeEncoder();
     void SevenAxisReset();
 private:
-    MCData data;
+    MCData data_master;
+    MCData data_slave;
     QtSocketClient *master_socket;
     QtSocketClient *slave_socket;
     mcdatapaser* dataparser_master;

@@ -5,15 +5,15 @@
         "YIncrease": false,
         "BeforeHouse": true,
         "PaintExtremePos": 1200,
-        "FrontSeamExtraPaintSpace": 0,
-        "BackSeamExtraPaintSpace": 300,
+        "FrontSeamExtraPaintSpace": 200,
+        "BackSeamExtraPaintSpace": 400,
         "FrontPlanePaintSpace": 0,
         "BackPlanePaintSpace": 0,
         "PosOfPaintHouse": -2200,
         "GuardDist": 200,
-        "TransitionRadius": 400,
-        "ExtraAxisMax": 0,
-        "ExtraAxisMin": -1750,
+        "TransitionRadius": 600,
+        "ExtraAxisMax": -200,
+        "ExtraAxisMin": -1650,
         "TeachPose": {
             "dright_plane": {
                 "desc": "下后焊缝+下前面",
@@ -79,42 +79,42 @@
                 "work": "dleft_plane-sdf-dleft_plane",
                 "cancle": "",
                 "follow": "d",
-                "followOffset": -100
+                "followOffset": -300
             },
             {
                 "name": "downback",
                 "work": "dright_plane-sdf-dright_plane-dleft_plane-pdf-dleft_plane",
                 "cancle": "dright_plane-dleft_plane",
                 "follow": "d",
-                "followOffset": -100
+                "followOffset": -300
             },
             {
                 "name": "upfront",
                 "work": "uleft_plane-suf-uleft_plane",
                 "cancle": "",
                 "follow": "u",
-                "followOffset": -100
+                "followOffset": -300
             },
             {
                 "name": "upback",
                 "work": "uright_plane-suf-uright_plane-uleft_plane-puf-uleft_plane",
                 "cancle": "uright_plane-uleft_plane",
                 "follow": "u",
-                "followOffset": -100
+                "followOffset": -300
             },
             {
                 "name": "front two seams",
                 "work": "uleft_plane-suf-sdf-dleft_plane",
                 "cancle": "uleft_plane-dleft_plane",
                 "follow": "d",
-                "followOffset": -100
+                "followOffset": -300
             },
             {
                 "name": "whole back",
                 "work": "dright_plane-sdb-sub-uright_plane-uleft_plane-puf-pdf-dleft_plane",
                 "cancle": "dright_plane-dleft_plane",
                 "follow": "u",
-                "followOffset": -100
+                "followOffset": -300
             }
         ],
         "Stragety": {

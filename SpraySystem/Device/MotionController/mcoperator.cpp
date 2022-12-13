@@ -28,8 +28,8 @@ int MCOperator::init()
 {
     dataparser_master = new mcdatapaser();
     dataparser_slave = new mcdatapaser();
-    dataparser_master->mcData = &data;
-    dataparser_slave->mcData = &data;
+    dataparser_master->mcData = &data_master;
+    dataparser_slave->mcData = &data_slave;
     // dataparser->semaphone_slave = &semaphone_slave;
     // dataparser->reply_order = replyOrder;
     master_socket = new QtSocketClient(dataparser_master);
@@ -69,19 +69,17 @@ int MCOperator::start()
             byArr.resize(dataparser_slave->N);
       
             memcpy(byArr.data(),dataparser_slave->reply_order,dataparser_slave->N);
-            CLog::getInstance()->log("应答MC");
+            CLog::getInstance()->log("应答MC, order: "+ QString::number(data_slave.order));
             // QString current_date_time1 = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
             // std::cout<<"应答: "<<current_date_time1.toStdString()<<std::endl;
             slave_socket->send(byArr);
-            if(data.order == 33){
+            if(data_slave.order == 33){
 
                 CLog::getInstance()->log("MC Receive, 执行发送轨迹规划参数");
-                //emit getTrajParam_Signal(0);
                 getTrajParam_Slot(0);
-            }else if(data.order == 35){
+            }else if(data_slave.order == 35){
 
                 CLog::getInstance()->log("MC Receive, 执行发送轨迹给机器人");
-                // emit sendToRBT_Signal(0);
                 sendToRBT_Slot(0);
             }
        }
@@ -96,7 +94,7 @@ void MCOperator::startReceive()
     CLog::getInstance()->log("MC, 启动运动控制器接收消息");
     
     // sendData(6, 0, 0);
-    trySendData(6,0,0,data.b_receive_start);
+    trySendData(6,0,0,data_master.b_receive_start);
 }
 
 void MCOperator::close()
@@ -112,7 +110,7 @@ int MCOperator::getState()
 void MCOperator::sendTrajParam(float zeropoint, float offset)
 {
     // sendData(0, zeropoint, offset);
-    trySendData(0,zeropoint,offset,data.b_receive_traj_param);
+    trySendData(0,zeropoint,offset,data_master.b_receive_traj_param);
 }
 
 void MCOperator::reset()
@@ -120,12 +118,12 @@ void MCOperator::reset()
      std::cout<<""<<std::endl;
      CLog::getInstance()->log("运动控制器请报错复位");
     // sendData(9, 0, 0);
-    trySendData(5,0,0,data.b_receive_reset);
+    trySendData(5,0,0,data_master.b_receive_reset);
 }
 
 void MCOperator::sendRbtResult(float success)
 {
-    trySendData(7,success,0,data.b_receive_rbt_result);
+    trySendData(7,success,0,data_master.b_receive_rbt_result);
 }
 
 std::vector<float> MCOperator::getChainEncoders(bool & success)
@@ -137,10 +135,10 @@ std::vector<float> MCOperator::getChainEncoders(bool & success)
     // {
     //     success = false;
     // }
-    success =  trySendData(1,0,0,data.b_chain_encoder);
+    success =  trySendData(1,0,0,data_master.b_chain_encoder);
     std::vector<float> val;
-    val.push_back(data.encoder1);
-    val.push_back(data.encoder2);
+    val.push_back(data_master.encoder1);
+    val.push_back(data_master.encoder2);
 
     std::cout<<"获取拍照时刻悬挂链值"<<std::endl;
     return val;
@@ -149,10 +147,10 @@ std::vector<float> MCOperator::getRealTimeEncoder()
 {
     // sendData(2, 0, 0);
     // waitData(data.brealtimeencoder);
-    trySendData(2,0,0,data.b_realtime_encoder);
+    trySendData(2,0,0,data_master.b_realtime_encoder);
     std::vector<float> val;
-    val.push_back(data.realtimeencoder1);
-    val.push_back(data.realtimeencoder2);
+    val.push_back(data_master.realtimeencoder1);
+    val.push_back(data_master.realtimeencoder2);
 
     std::cout<<"获取实施编码器数值"<<std::endl;
     return val;
@@ -252,26 +250,26 @@ void MCOperator::sendData(uint8_t order, float v1, float v2, u_int16_t num)
 bool MCOperator::waitData(bool &flag)
 {
     QString strflag;
-    if(&flag == &data.b_chain_encoder){
+    if(&flag == &data_master.b_chain_encoder){
         strflag= "b_chain_encoder";
-    }else if(&flag == &data.b_realtime_encoder){
+    }else if(&flag == &data_master.b_realtime_encoder){
         strflag = "b_realtime_encoder";
-    }else if(&flag == &data.b_receive_rbt_result){
+    }else if(&flag == &data_master.b_receive_rbt_result){
         strflag = "b_receive_rbt_result";
-    }else if(&flag == &data.b_receive_reset){
+    }else if(&flag == &data_master.b_receive_reset){
         strflag = "b_receive_reset";
-    }else if(&flag == &data.b_receive_traj_param){
+    }else if(&flag == &data_master.b_receive_traj_param){
         strflag = "b_receive_traj_param";
-    }else if(&flag == &data.b_request_rbt_param){
+    }else if(&flag == &data_master.b_request_rbt_param){
         strflag = "b_request_rbt_param";
-    }else if(&flag == &data.b_request_traj_param){
+    }else if(&flag == &data_master.b_request_traj_param){
         strflag = "b_request_traj_param";
     }
      bool success = false;
     for(int i=0;i<300;i++){
 
         CLog::getInstance()->log("错误重试, "+ strflag);
-        if(dataparser_master->semaphore_master.tryAcquire(1,100)){
+        if(dataparser_master->semaphore_master.tryAcquire(1,400)){
             CLog::getInstance()->log("获得资源, "+ strflag);
             if(flag){
                 CLog::getInstance()->log("标志成功, "+ strflag);
@@ -308,8 +306,8 @@ void MCOperator::mcWarning_Slot(quint16 num){
 
 void MCOperator::checkState_Slot()
 {
-    if(preheart!=data.heart){
-        preheart = data.heart;
+    if(preheart!=data_slave.heart){
+        preheart = data_slave.heart;
         state=true;
         if(failcount!=0){
             failcount=0;

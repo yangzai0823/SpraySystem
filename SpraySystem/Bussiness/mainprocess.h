@@ -37,7 +37,8 @@ public:
     };
     MainProcess();
     ~MainProcess();
-    void Execute();
+    void Start();
+    void Stop();
 
     /**
      * @brief Get the Plan Task Info object
@@ -66,7 +67,8 @@ public:
     VisionContext *visionContext;
     PLCData plcdata;
     QQueue<ImageData> q_img;
-
+    /** @brief 运行状态*/
+    int State;
 private:
     QQueue<std::vector<VWSRobot::RobotTask>> trajQueue;
     QQueue<std::vector<float>> mcQueue;
@@ -96,7 +98,7 @@ private:
 
     std::vector<VWSRobot::RobotTask>  rbtFailTask;
     int nFail = 0;
-
+    int nRbt = 0;
 private slots: 
     /**
      * @brief PLC槽
@@ -128,6 +130,8 @@ signals:
 
     /* @brief 运动控制器发送数据*/
     void sendTrajParam_Signal();
+
+    void alarm_Signal();
 };
 
 #endif // MAINPROCESS_H

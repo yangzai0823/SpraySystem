@@ -79,21 +79,6 @@ OpenRAVE::KinBody::GeometryInfoPtr createBoxInfo(const Eigen::Vector3d& size,
                                                  const Eigen::Isometry3d& tf,
                                                  const std::string& name);
 
-/**
- * @brief 用于计算出S型喷涂轨迹点
- *
- * @param p1 上层远点
- * @param p2 上层近点
- * @param p3 下层近点
- * @param dn 工具喷涂姿态
- * @param main_paint_dir   喷涂主方向，0：沿水平方向， 1： 沿竖直方向
- * @param weld_dist   焊缝距离p2的位置
- * @param tstep_dist  转弯步长
- * @param vstep_dist  水平方向规划的步长
- * @param hstep_dist  竖直方向规划的步长
- * @param p  输出，位置
- * @param ori 输出，姿态
- */
 void genInitOrientedPathForBoxPlane(
     const Eigen::Vector3d& p1, const Eigen::Vector3d& p2,
     const Eigen::Vector3d& p3, const Eigen::Vector4d& dn,
@@ -119,6 +104,24 @@ void genInitOrientedPathForLine(const Eigen::Vector3d& p1,
                                 const Eigen::Isometry3d& painter_tf,
                                 double step_dist, double paint_dist,
                                 Eigen::VectorXd& p, Eigen::VectorXd& ori);
+
+/**
+ * @brief 检查轨迹是否在约束范围内
+ * 
+ * @param robot         机器人模型
+ * @param manip_name    执行器的名称
+ * @param traj          轨迹序列，
+ * @param pos           位置约束，类型：（x，y，z）
+ * @param ori           姿态约束，类型：四元数
+ * @param pos_tol       位置约束的范围，单位：米
+ * @param ori_tol       姿态约束的范围，单位：弧度，检测标准是四元数对应坐标系三个轴各自差异角度不超过该约束
+ * @return true         满足约束
+ * @return false        不满足约束
+ */
+bool checkPath(OpenRAVE::RobotBasePtr robot, const std::string& manip_name,
+               const Eigen::VectorXd& traj, const Eigen::VectorXd& pos,
+               const Eigen::VectorXd& ori, double pos_tol, double ori_tol);
+
 class VwsPlanEnv {
  public:
   OpenRAVE::EnvironmentBasePtr env;
@@ -137,7 +140,7 @@ class VwsPlanEnv {
                               const Eigen::Quaterniond& rot,
                               const std::string& name="box");
 
-  void removeBox(OpenRAVE::KinBodyPtr box);
+  void removeBox(OpenRAVE::KinBodyPtr box, bool show = false);
 
  public:
   bool verbose_ = false;

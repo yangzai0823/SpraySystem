@@ -33,10 +33,10 @@ MainWindow::MainWindow(std::shared_ptr<User> user)
 
     vws::DataInit::Init();
 
-    update();
+    updateRealTime_Slot();
     timer = new QTimer(this);
     timer->start(1000);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateRealTime_Slot()));
 
     startDevices();
 }
@@ -56,14 +56,184 @@ void MainWindow::closeEvent(QCloseEvent *event)
     // 断开所有设备连接
 }
 
-void MainWindow::update()
-{
-    QTime timenow = QTime::currentTime();
-    ui->lbl_Time->setText(tr("%1").arg(timenow.toString()));
-}
-
 void imgfunc(const VWSCamera::ImageData &data, void *pUser)
 {
+}
+
+void MainWindow::on_actQuit_triggered()
+{
+    QApplication *applicaiton;
+    applicaiton->exit(0);
+}
+
+void MainWindow::on_actChangeUser_triggered()
+{
+    LoginForm *loginform = new LoginForm();
+
+    this->close();
+    loginform->show();
+}
+
+void MainWindow::on_btn_Start_clicked()
+{
+    QIcon ico;
+    if (isRun)
+    {
+        delete mainprocess;
+        ico.addFile("://Images/start.png");
+    }
+    else
+    {
+        if (!mainprocess)
+        {
+            showMsg("开始运行");
+            mainprocess = new MainProcess();
+        }
+
+        ico.addFile("://Images/stop.png");
+    }
+    isRun = !isRun;
+    ui->btn_Start->setIcon(ico);
+}
+
+void MainWindow::on_btn_User_clicked()
+{
+    UserListForm *form = new UserListForm();
+    form->show();
+    // this->hide();
+}
+
+void MainWindow::on_btn_Product_clicked()
+{
+    ProductListForm *form = new ProductListForm();
+    form->show();
+    // this->hide();
+}
+
+void MainWindow::on_btn_Device_clicked()
+{
+    DeviceList *form = new DeviceList();
+    form->show();
+}
+
+void MainWindow::on_btn_System_clicked()
+{
+    SystemEditForm *form = new SystemEditForm();
+    form->show();
+}
+
+void MainWindow::deviceConnectError_slot(QString device, int state)
+{
+    QStringList deviceList;
+    // deviceList << "robot1"<<"robot2"<<"camera1"<<"camera2"<<"plc";
+
+    auto rbtlist = DeviceManager::getInstance()->robotList();
+    foreach (auto item, rbtlist)
+    {
+        deviceList.append(item->getName());
+    }
+    auto camlist = DeviceManager::getInstance()->cameraList();
+    foreach (auto item, camlist)
+    {
+        deviceList.append(item->getName());
+    }
+    deviceList << vws::PLC;
+
+    switch (deviceList.indexOf(device))
+    {
+    case 0:
+        updateDeviceState(ui->btn_Robot1, state);
+        break;
+    case 1:
+        updateDeviceState(ui->btn_Robot2, state);
+        break;
+    case 2:
+        updateDeviceState(ui->btn_Camera1, state);
+        break;
+    case 3:
+        updateDeviceState(ui->btn_Camera2, state);
+        break;
+    case 4:
+        updateDeviceState(ui->btn_PLC, state);
+        break;
+    default:
+        break;
+    }
+}
+
+int i = 0;
+void MainWindow::on_btn_EStop_clicked()
+{
+
+    mainprocess->triggerTest();
+    return;
+    // mainprocess->Test(mainprocess->plcdata);
+
+    // if (i == 0)
+    // {
+    //     mainprocess->plcdata.laser_up_head = mainprocess->plcdata.laser_up_behind = mainprocess->plcdata.laser_bottom_head = mainprocess->plcdata.laser_bottom_behind = 100;
+    //     mainprocess->plcdata.flag_camera_b = 1;
+    //     mainprocess->Test(mainprocess->plcdata);
+    // }
+    // else if (i == 1)
+    // {
+    //     mainprocess->plcdata.flag_laser_b = 1;
+    //     mainprocess->Test(mainprocess->plcdata);
+    // }
+    // else if (i == 2)
+    // {
+    //     mainprocess->TestImg();
+    // }
+    // else if (i == 3)
+    // {
+    //     mainprocess->plcdata.flag_camera_b = 0;
+    //     mainprocess->Test(mainprocess->plcdata);
+    // }
+    // else if (i == 4)
+    // {
+    //     mainprocess->TestImg();
+    // }
+
+    // // std::cout << "i: " << i << std::endl;
+    // if (i < 4)
+    // {
+    //     i++;
+    // }
+    // else
+    // {
+    //     i = 0;
+    // }
+    // //   mainprocess->sendtorbt();
+}
+
+void MainWindow::on_btn_Camera1_clicked()
+{
+    DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
+    DeviceManager::getInstance()->getCamera(vws::Camera_top)->start();
+}
+
+void MainWindow::on_btn_Camera2_clicked()
+{
+    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
+    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->start();
+}
+
+void MainWindow::on_btn_Robot1_clicked()
+{
+    DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
+    DeviceManager::getInstance()->getRobot(vws::Robot1)->start();
+}
+
+void MainWindow::on_btn_Robot2_clicked()
+{
+    DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
+    DeviceManager::getInstance()->getRobot(vws::Robot2)->start();
+}
+
+void MainWindow::on_btn_PLC_clicked()
+{
+    DeviceManager::getInstance()->getPlc()->init();
+    DeviceManager::getInstance()->getPlc()->start();
 }
 
 void MainWindow::startDevices()
@@ -98,18 +268,6 @@ void MainWindow::startDevices()
         msg = rbt->getName() + ", 启动失败";
         showMsg(msg);
     }
-
-    // 机器人
-    //  auto rbt = deviceManager->getRobot(0);
-    //  auto retrbt = rbt->init();
-    //  if(retrbt>0){
-    //      std::cout << "robot1 init: " << retrbt << std::endl;
-    //      retrbt = rbt->start();
-    //      std::cout << "robot1 start: " << retrbt << std::endl;
-    //  }else{
-    //      msg = rbt->getName()+", 启动失败";
-    //      showMsg(msg);
-    //  }
 
     // 相机
     auto camera1 = deviceManager->getCamera(0);
@@ -207,175 +365,13 @@ void MainWindow::showMsg(QString msg)
     ui->lbl_Msg->setTextFormat(Qt::RichText);
 }
 
-void MainWindow::on_actQuit_triggered()
+void MainWindow::updateRealTime_Slot()
 {
-    QApplication *applicaiton;
-    applicaiton->exit(0);
+    QTime timenow = QTime::currentTime();
+    ui->lbl_Time->setText(tr("%1").arg(timenow.toString()));
 }
 
-void MainWindow::on_actChangeUser_triggered()
+void MainWindow::alarm_Slot()
 {
-    LoginForm *loginform = new LoginForm();
-
-    this->close();
-    loginform->show();
-}
-
-void MainWindow::on_btn_Start_clicked()
-{
-    QIcon ico;
-    if (isRun)
-    {
-        mainprocess->triggerTest();
-        return;
-        // delete mainprocess;
-        ico.addFile("://Images/start.png");
-    }
-    else
-    {
-        if (!mainprocess)
-        {
-            mainprocess = new MainProcess();
-        }
-
-        ico.addFile("://Images/stop.png");
-    }
-    isRun = !isRun;
-    ui->btn_Start->setIcon(ico);
-}
-
-void MainWindow::on_btn_User_clicked()
-{
-    UserListForm *form = new UserListForm();
-    form->show();
-    // this->hide();
-}
-
-void MainWindow::on_btn_Product_clicked()
-{
-    ProductListForm *form = new ProductListForm();
-    form->show();
-    // this->hide();
-}
-
-void MainWindow::on_btn_Device_clicked()
-{
-    DeviceList *form = new DeviceList();
-    form->show();
-}
-
-void MainWindow::on_btn_System_clicked()
-{
-    SystemEditForm *form = new SystemEditForm();
-    form->show();
-}
-
-void MainWindow::deviceConnectError_slot(QString device, int state)
-{
-    QStringList deviceList;
-    // deviceList << "robot1"<<"robot2"<<"camera1"<<"camera2"<<"plc";
-
-    auto rbtlist = DeviceManager::getInstance()->robotList();
-    foreach (auto item, rbtlist)
-    {
-        deviceList.append(item->getName());
-    }
-    auto camlist = DeviceManager::getInstance()->cameraList();
-    foreach (auto item, camlist)
-    {
-        deviceList.append(item->getName());
-    }
-    deviceList << vws::PLC;
-
-    switch (deviceList.indexOf(device))
-    {
-    case 0:
-        updateDeviceState(ui->btn_Robot1, state);
-        break;
-    case 1:
-        updateDeviceState(ui->btn_Robot2, state);
-        break;
-    case 2:
-        updateDeviceState(ui->btn_Camera1, state);
-        break;
-    case 3:
-        updateDeviceState(ui->btn_Camera2, state);
-        break;
-    case 4:
-        updateDeviceState(ui->btn_PLC, state);
-        break;
-    default:
-        break;
-    }
-}
-
-int i = 0;
-void MainWindow::on_btn_EStop_clicked()
-{
-
-    // if (i == 0)
-    // {
-    //     mainprocess->plcdata.laser_up_head = mainprocess->plcdata.laser_up_behind = mainprocess->plcdata.laser_bottom_head = mainprocess->plcdata.laser_bottom_behind = 100;
-    //     mainprocess->plcdata.flag_camera_b = 1;
-    //     mainprocess->Test(mainprocess->plcdata);
-    // }
-    // else if (i == 1)
-    // {
-    //     mainprocess->plcdata.flag_laser_b = 1;
-    //     mainprocess->Test(mainprocess->plcdata);
-    // }
-    // else if (i == 2)
-    // {
-    //     mainprocess->TestImg();
-    // }
-    // else if (i == 3)
-    // {
-    //     mainprocess->plcdata.flag_camera_b = 0;
-    //     mainprocess->Test(mainprocess->plcdata);
-    // }
-    // else if (i == 4)
-    // {
-    //     mainprocess->TestImg();
-    // }
-
-    // // std::cout << "i: " << i << std::endl;
-    // if (i < 4)
-    // {
-    //     i++;
-    // }
-    // else
-    // {
-    //     i = 0;
-    // }
-    // //   mainprocess->sendtorbt();
-}
-
-void MainWindow::on_btn_Camera1_clicked()
-{
-    DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
-    DeviceManager::getInstance()->getCamera(vws::Camera_top)->start();
-}
-
-void MainWindow::on_btn_Camera2_clicked()
-{
-    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
-    DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->start();
-}
-
-void MainWindow::on_btn_Robot1_clicked()
-{
-    DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
-    DeviceManager::getInstance()->getRobot(vws::Robot1)->start();
-}
-
-void MainWindow::on_btn_Robot2_clicked()
-{
-    DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
-    DeviceManager::getInstance()->getRobot(vws::Robot2)->start();
-}
-
-void MainWindow::on_btn_PLC_clicked()
-{
-    DeviceManager::getInstance()->getPlc()->init();
-    DeviceManager::getInstance()->getPlc()->start();
+    showMsg("设备异常");
 }

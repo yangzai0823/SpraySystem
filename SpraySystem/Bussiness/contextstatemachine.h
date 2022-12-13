@@ -45,6 +45,7 @@ public:
     ContextStateMachine();
     ~ContextStateMachine();
     void StartRun();
+    void StopRun();
 private:
     void checkHeadLaserAndImg();
     void checkTrailLaserAndImg();

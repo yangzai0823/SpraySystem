@@ -1100,7 +1100,7 @@ bool planPaintPath(TrajectoryGenerator *generator, Eigen::VectorXd &init_dof,
     std::cout << "Gen Entry Path " << std::endl;
     ret &=
         generator->GenerateEntryTrajectory(init_pose, traj.block(0, 0, ndof, 1),
-                                           6, entry_traj, ndof, 3, true); // 显示
+                                           6, entry_traj, ndof, 3, false); // 显示
     if (ret)
     {
       //   logfile_ << "Entry Path dist " << " - " <<
@@ -1364,8 +1364,9 @@ bool createSafeRegionUsingTactic(TrajectoryGenerator *generator,
   }
   dpos_neg = fmax(fmin(dpos_neg, axis_max), axis_min);
   dpos_pos = fmax(fmin(dpos_pos, axis_max), axis_min);
-  std::cout << "dpos_neg : " << dpos_neg << ", dpos_pos : " << dpos_pos
-            << std::endl;
+  // std::cout << "dpos_neg : " << dpos_neg << ", dpos_pos : " << dpos_pos
+  //           << std::endl;
+  CLog::getInstance()->log("dpos_neg : " + QString::number(dpos_neg) + ", dpos_pos : " + QString::number(dpos_pos));
   axis_min_out = dpos_neg;
   axis_max_out = dpos_pos;
 
@@ -1679,7 +1680,7 @@ bool planTaskUsingTactic(TrajectoryGenerator *generator, PlanTask &task_info,
       // 喷涂点-》示教点
       Eigen::VectorXd entry_traj;
       if (!generator->GenerateEntryTrajectory(init_dof, pos2, 6, entry_traj,
-                                              ndof, 3, true))
+                                              ndof, 3, false))
       { // 显示
         return false;
       }

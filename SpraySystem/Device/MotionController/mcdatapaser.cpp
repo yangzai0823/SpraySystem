@@ -154,7 +154,7 @@ void mcdatapaser::parseData(char* v1, vws::MCData *data)
         {
             // QString current_date_time = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
             // std::cout<<"MC请求轨迹规划参数: "<<current_date_time.toStdString()<<std::endl;
-            CLog::getInstance()->log("MC Receive, MC请求轨迹规划参数");
+            CLog::getInstance()->log("MC Request, MC请求轨迹规划参数");
 
 
             data->b_request_traj_param=true;
@@ -168,7 +168,7 @@ void mcdatapaser::parseData(char* v1, vws::MCData *data)
         }
         case 35: //发送轨迹给机器人
         {
-            CLog::getInstance()->log("MC Receive, 请求发送轨迹给机器人");
+            CLog::getInstance()->log("MC Request, 请求发送轨迹给机器人");
             data->b_request_rbt_param = true;
             data->sendtorbt = d1;
 
@@ -184,24 +184,24 @@ void mcdatapaser::parseData(char* v1, vws::MCData *data)
             break;
         case 0:
             // std::cout<<"答应收到轨迹规划参数"<<std::endl;
-            CLog::getInstance()->log("答应收到轨迹规划参数");
+            CLog::getInstance()->log("MC Reply, 收到轨迹规划参数");
             data->b_receive_traj_param = true;
             semaphore_master.release();
             break;
         case 5:
-            std::cout<<"应答复位消息"<<std::endl;
+            CLog::getInstance()->log("MC Reply, 复位消息");
             data->b_receive_reset = true;
             semaphore_master.release();
             break;
         case 6:
         {
-            std::cout<<"应答初次连接"<<std::endl;
+            CLog::getInstance()->log("MC Reply, 初次连接");
             data->b_receive_start = true;
             semaphore_master.release();
             break;
         }
         case 7:
-            std::cout<<"应答机器人发送结果"<<std::endl;
+            CLog::getInstance()->log("MC Reply, 机器人发送结果");
             data->b_receive_rbt_result = true;
             semaphore_master.release();
         default:

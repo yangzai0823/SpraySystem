@@ -67,17 +67,21 @@ using namespace boost::assign;
 TrajectoryGenerator *TrajectoryGenerator::_instance = NULL;
 std::mutex TrajectoryGenerator::_mutex;
 
-TrajectoryGenerator::TrajectoryGenerator() {
+TrajectoryGenerator::TrajectoryGenerator()
+{
   robotBeltDirection = Eigen::Vector3d(-0.00321569, -0.419444, -0.001071);
 
   extraAxisDirection = Eigen::Vector3d(0, -0.0002153165405616164, 0);
   GenerateEnvirInfo();
 }
 
-TrajectoryGenerator *TrajectoryGenerator::Instance() {
-  if (_instance == NULL) {
+TrajectoryGenerator *TrajectoryGenerator::Instance()
+{
+  if (_instance == NULL)
+  {
     _mutex.lock();
-    if (_instance == NULL) {
+    if (_instance == NULL)
+    {
       _instance = new TrajectoryGenerator();
     }
     _mutex.unlock();
@@ -88,7 +92,8 @@ TrajectoryGenerator *TrajectoryGenerator::Instance() {
 
 TrajectoryGenerator::~TrajectoryGenerator() { delete pt; }
 
-void TrajectoryGenerator::GenerateEnvirInfo() {
+void TrajectoryGenerator::GenerateEnvirInfo()
+{
   //*******************************************************
   // 初始化环境
   // URDFTest pt;
@@ -100,7 +105,7 @@ void TrajectoryGenerator::GenerateEnvirInfo() {
                    Eigen::AngleAxisd(-M_PI / 2, Vector3d::UnitY()) *
                    Eigen::AngleAxisd(M_PI / 2.0, Vector3d::UnitX());
   robot = GetRobot(*pt->env);
-  //设置工具坐标系
+  // 设置工具坐标系
   pt->addManipulator(robot, "tool", "base", "link_flange", manip_rot,
                      Eigen::Vector3d(0.00, 0.1, 0.8));
   //  // 添加墙面
@@ -125,7 +130,8 @@ void TrajectoryGenerator::AddBoxHookEnvirInfo(Eigen::Vector3d boxcenter,
                                               Eigen::Vector3d boxsize,
                                               Eigen::Quaterniond boxq,
                                               double hook_height,
-                                              const std::string &name) {
+                                              const std::string &name)
+{
   AddBoxEnvirInfo(
       boxcenter + Eigen::Vector3d(0, 0, boxsize[2] / 2 + hook_height / 2),
       Eigen::Vector3d(50, boxsize[1] - 200, hook_height), boxq, name);
@@ -134,7 +140,8 @@ void TrajectoryGenerator::AddBoxHookEnvirInfo(Eigen::Vector3d boxcenter,
 void TrajectoryGenerator::AddBoxEnvirInfo(Eigen::Vector3d boxcenter,
                                           Eigen::Vector3d boxsize,
                                           Eigen::Quaterniond boxq,
-                                          const std::string &name) {
+                                          const std::string &name)
+{
   double box1centerx, box1centery, box1centerz;
   double box1height, box1width, box1length;
   double box1q1, box1q2, box1q3, box1q4;
@@ -164,8 +171,10 @@ void TrajectoryGenerator::AddBoxEnvirInfo(Eigen::Vector3d boxcenter,
   //  Eigen::Quaterniond(box1q1,box1q2,box1q3,box1q4), "wall");
 }
 
-void TrajectoryGenerator::clearEnv() {
-  for (auto &&k : boxes_) {
+void TrajectoryGenerator::clearEnv()
+{
+  for (auto &&k : boxes_)
+  {
     pt->removeBox(k);
   }
   boxes_.clear();
@@ -175,8 +184,9 @@ void TrajectoryGenerator::GenerateSeamPaintConstraint(
     Eigen::Vector3d boxCenterPoint, Eigen::Vector3d boxSize,
     Eigen::Quaterniond boxq, Eigen::Quaterniond painter_ori,
     float weld_y_offset, float shrink_z, bool front, bool invert,
-    Eigen::VectorXd &p, Eigen::VectorXd &ori) {
-  //计算喷涂的路径约束
+    Eigen::VectorXd &p, Eigen::VectorXd &ori)
+{
+  // 计算喷涂的路径约束
   shrink_z = shrink_z > (boxSize[2] / 2.0) ? boxSize[0] / 2.0 : shrink_z;
 
   Eigen::Vector3d p1, p2;
@@ -196,7 +206,8 @@ void TrajectoryGenerator::GenerateSeamPaintConstraint(
 
   // 喷涂分为两种构型，参考构型为front = true/false， invert = false/true，
   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
-  if (!(front)) {
+  if (!(front))
+  {
     p1[1] = p1[1] - boxSize[1] + 2 * weld_y_offset;
     p2[1] = p2[1] - boxSize[1] + 2 * weld_y_offset;
   }
@@ -226,8 +237,9 @@ void TrajectoryGenerator::GenerateShrinkedPaintConstraint(
     Eigen::Quaterniond boxq, Eigen::Quaterniond painter_ori,
     float shrink_size_x, float shrink_size_z, bool front, bool invert,
     int paint_dir, // 0: x, 1: z
-    Eigen::VectorXd &p, Eigen::VectorXd &ori) {
-  //计算喷涂的路径约束
+    Eigen::VectorXd &p, Eigen::VectorXd &ori)
+{
+  // 计算喷涂的路径约束
 
   Eigen::Vector3d p1, p2, p3;
   shrink_size_x =
@@ -250,14 +262,17 @@ void TrajectoryGenerator::GenerateShrinkedPaintConstraint(
   std::cout << "p2 : " << p2.transpose() << std::endl;
   p3 = bottomnearpont(boxCenterPoint, boxSize, invert);
   std::cout << "p3 : " << p3.transpose() << std::endl;
-  if (invert == false) {
+  if (invert == false)
+  {
     p1[0] -= shrink_size_x;
     p1[2] -= shrink_size_z;
     p2[0] += shrink_size_x;
     p2[2] -= shrink_size_z;
     p3[0] += shrink_size_x;
     p3[2] += shrink_size_z;
-  } else {
+  }
+  else
+  {
     p1[0] += shrink_size_x;
     p1[2] -= shrink_size_z;
     p2[0] -= shrink_size_x;
@@ -279,7 +294,8 @@ void TrajectoryGenerator::GenerateShrinkedPaintConstraint(
   Eigen::Vector3d dy = Eigen::Vector3d(0, boxSize[1], 0);
   dy = boxq * dy;
   std::cout << "dy : " << dy << std::endl;
-  if (!(front)) {
+  if (!(front))
+  {
     // p1[1] = p1[1] - boxSize[1];
     // p2[1] = p2[1] - boxSize[1];
     // p3[1] = p3[1] - boxSize[1];
@@ -304,8 +320,9 @@ void TrajectoryGenerator::GenerateShrinkedPaintConstraint(
 void TrajectoryGenerator::GeneratePaintConstraint(
     Eigen::Vector3d boxCenterPoint, Eigen::Vector3d boxSize,
     Eigen::Quaterniond boxq, Eigen::Quaterniond painter_ori, bool front,
-    bool invert, Eigen::VectorXd &p, Eigen::VectorXd &ori) {
-  //计算喷涂的路径约束
+    bool invert, Eigen::VectorXd &p, Eigen::VectorXd &ori)
+{
+  // 计算喷涂的路径约束
 
   Eigen::Vector3d p1, p2, p3;
 
@@ -331,7 +348,8 @@ void TrajectoryGenerator::GeneratePaintConstraint(
   // 当两个相同时，为另一种构型，需要对y进行偏移，对姿态进行调整（绕世界坐标系x轴旋转180度）
   Eigen::Vector3d dy = Eigen::Vector3d(0, boxSize[1], 0);
   dy = boxq * dy;
-  if (!(front)) {
+  if (!(front))
+  {
     p1 = p1 - dy;
     p2 = p2 - dy;
     p3 = p3 - dy;
@@ -350,7 +368,8 @@ void TrajectoryGenerator::GeneratePaintConstraint(
   p = p * 1000.0;
 }
 
-float TrajectoryGenerator::pathDist(const Eigen::VectorXd &traj, int ndof) {
+float TrajectoryGenerator::pathDist(const Eigen::VectorXd &traj, int ndof)
+{
   Eigen::VectorXd diff = traj.block(0, 0, traj.size() - ndof, 1) -
                          traj.block(ndof, 0, traj.size() - ndof, 1);
   float dist = diff.lpNorm<1>();
@@ -359,7 +378,8 @@ float TrajectoryGenerator::pathDist(const Eigen::VectorXd &traj, int ndof) {
 
 bool TrajectoryGenerator::GenerateEntryTrajectory(
     Eigen::VectorXd start, Eigen::VectorXd end, int nsteps,
-    Eigen::VectorXd &entry_traj, int ndof, int plan_total_num, bool vis) {
+    Eigen::VectorXd &entry_traj, int ndof, int plan_total_num, bool vis)
+{
   int plan_no = 0;
   std::vector<Eigen::VectorXd> trajs;
   float min_dist = 1E10;
@@ -369,8 +389,10 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
   double elapsed_time = 0;
   int try_no = 0;
   bool init_loop = true;
-  while (try_no < 5) {
-    if (plan_no == plan_total_num) {
+  while (try_no < 5)
+  {
+    if (plan_no == plan_total_num)
+    {
       break;
     }
     plan_no++;
@@ -379,8 +401,10 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
     Eigen::VectorXd init_pos(nsteps * ndof);
     init_pos = Eigen::VectorXd::Zero(nsteps * ndof);
     Eigen::VectorXd ddof = (end - start) / (nsteps - 1);
-    for (int i = 0; i < nsteps; i++) {
-      for (int n = 0; n < ndof; n++) {
+    for (int i = 0; i < nsteps; i++)
+    {
+      for (int n = 0; n < ndof; n++)
+      {
         init_pos[ndof * i + n] = start[n] + i * ddof[n];
       }
     }
@@ -389,7 +413,8 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
     std::cout << "stage 1" << std::endl;
     ProblemConstructionInfo pci(pt->env);
 
-    if (init_loop) {
+    if (init_loop)
+    {
       init_loop = false;
 
       // step 2.0: 生成优化后的路径
@@ -407,34 +432,47 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
                             collision_cnt, cnst_voil_cnt, elapsed_time, false);
 
       float dist = pathDist(free_traj, ndof);
-      if (cnst_voil_cnt == 0 && collision_cnt == 0) {
-        if (min_dist > dist) {
+      if (cnst_voil_cnt == 0 && collision_cnt == 0)
+      {
+        if (min_dist > dist)
+        {
           min_dist = dist;
           trajs.push_back(free_traj);
         }
       }
-    } else {
-      if (trajs.size() > 0) {
+    }
+    else
+    {
+      if (trajs.size() > 0)
+      {
         int min_steps = 100;
         int min_index = -1;
         bool replan = true;
-        for (int i = 0; i < trajs.size(); i++) {
+        for (int i = 0; i < trajs.size(); i++)
+        {
           int current_steps = trajs[i].size() / ndof;
-          if (current_steps == nsteps) {
+          if (current_steps == nsteps)
+          {
             replan = false;
             break;
-          } else {
-            if (min_steps > current_steps) {
+          }
+          else
+          {
+            if (min_steps > current_steps)
+            {
               min_steps = current_steps;
               min_index = i;
             }
           }
         }
 
-        if (replan) {
+        if (replan)
+        {
           double dstep = ((double)min_steps) / nsteps;
-          for (int i = 0; i < nsteps; i++) {
-            for (int n = 0; n < ndof; n++) {
+          for (int i = 0; i < nsteps; i++)
+          {
+            for (int n = 0; n < ndof; n++)
+            {
               init_pos[ndof * i + n] =
                   trajs[min_index][(ndof * (int)(dstep * i) + n)];
             }
@@ -452,8 +490,10 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
                                         elapsed_time, false);
 
           float dist = pathDist(free_traj, ndof);
-          if (cnst_voil_cnt == 0 && collision_cnt == 0) {
-            if (min_dist > dist) {
+          if (cnst_voil_cnt == 0 && collision_cnt == 0)
+          {
+            if (min_dist > dist)
+            {
               min_dist = dist;
               trajs.push_back(free_traj);
             }
@@ -468,7 +508,8 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
     // step 2：取喷涂轨迹的两个端点，生成进入和退出轨迹
     // step 2.1：使用ompl生成初始点位
     std::vector<double> j1, j2;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; i++)
+    {
       j1.push_back(start[i]);
       j2.push_back(end[i]);
     }
@@ -480,18 +521,21 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
     int opt_joint_steps = interp_traj.size();
     auto opt_traj = traj;
     // TODO：：OPT_TRAJ SIZE = 0
-    while (interp_traj.size() / ndof > 20 && retry_cnt < 5) {
+    while (interp_traj.size() / ndof > 20 && retry_cnt < 5)
+    {
       traj = planFreePathWithOMPL(robot, pt->env, "tool", j1, j2, 1);
       interp_traj = jointInterplot(traj, 30 / 180.0 * M_PI, ndof);
       retry_cnt++;
       int joint_steps = interp_traj.size();
-      if (joint_steps < opt_joint_steps) {
+      if (joint_steps < opt_joint_steps)
+      {
         opt_joint_steps = joint_steps;
         opt_traj = traj;
       }
     }
     traj = opt_traj;
-    if (traj.size() == 0) {
+    if (traj.size() == 0)
+    {
       plan_no--;
       try_no++;
       continue;
@@ -500,8 +544,10 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
     Eigen::VectorXd init_pos_ompl;
     init_pos_ompl.resize(N);
     int current_n = 0;
-    for (int i = 0; i < traj.size(); i++) {
-      for (int n = 0; n < traj[0].size(); n++) {
+    for (int i = 0; i < traj.size(); i++)
+    {
+      for (int n = 0; n < traj[0].size(); n++)
+      {
         init_pos_ompl[current_n++] = traj[i][n];
       }
     }
@@ -519,11 +565,14 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
         planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, free_traj,
                           collision_cnt, cnst_voil_cnt, elapsed_time, vis);
 
-    if (collision_cnt == 0) {
+    if (collision_cnt == 0)
+    {
       int min_steps = free_traj.size() / ndof;
       double dstep = ((double)min_steps) / nsteps;
-      for (int i = 0; i < nsteps; i++) {
-        for (int n = 0; n < ndof; n++) {
+      for (int i = 0; i < nsteps; i++)
+      {
+        for (int n = 0; n < ndof; n++)
+        {
           init_pos[ndof * i + n] = free_traj[ndof * (int)(dstep * i) + n];
         }
       }
@@ -531,30 +580,36 @@ bool TrajectoryGenerator::GenerateEntryTrajectory(
           planFreePathJoint(pt->env, "tool", end, nsteps, 100, 0.1, init_pos,
                             collision_cnt, cnst_voil_cnt, elapsed_time, vis);
 
-      if (cnst_voil_cnt == 0 && collision_cnt == 0) {
+      if (cnst_voil_cnt == 0 && collision_cnt == 0)
+      {
         free_traj = replan_traj;
       }
     }
 
     float dist = pathDist(free_traj, ndof);
-    if (cnst_voil_cnt == 0 && collision_cnt == 0) {
-      if (min_dist > dist) {
+    if (cnst_voil_cnt == 0 && collision_cnt == 0)
+    {
+      if (min_dist > dist)
+      {
         min_dist = dist;
         trajs.push_back(free_traj);
       }
-    } else {
+    }
+    else
+    {
       plan_no--;
       try_no++;
     }
     auto t2 = clock();
-
 #endif
   }
 
   int cnt = 0;
-  for (auto &&traj : trajs) {
+  for (auto &&traj : trajs)
+  {
     float dist = pathDist(traj, 6);
-    if (abs(dist - min_dist) < 1e-6) {
+    if (abs(dist - min_dist) < 1e-6)
+    {
       entry_traj = traj;
       return true;
     }
@@ -566,7 +621,8 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
                                                   Eigen::VectorXd p,
                                                   Eigen::VectorXd ori,
                                                   Eigen::VectorXd &traj,
-                                                  int ndof) {
+                                                  int ndof)
+{
   Eigen::VectorXd goal;
   int nsteps;
   int collision_cnt, cnst_voil_cnt;
@@ -577,8 +633,10 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   nsteps = p.size() / 3;
   Eigen::VectorXd init_pos(nsteps * ndof);
   init_pos = Eigen::VectorXd::Zero(nsteps * ndof);
-  for (int i = 0; i < nsteps; i++) {
-    for (int n = 0; n < ndof; n++) {
+  for (int i = 0; i < nsteps; i++)
+  {
+    for (int n = 0; n < ndof; n++)
+    {
       init_pos[ndof * i + n] = init_dof[n];
     }
   }
@@ -609,16 +667,20 @@ bool TrajectoryGenerator::GeneratePaintTrajectory(Eigen::VectorXd init_dof,
   std::cout << "voil_cnt " << cnst_voil_cnt << ", collision cnt "
             << collision_cnt << std::endl;
   if (collision_cnt ||
-      !checkPath(robot, "tool", traj, p, ori, 0.010, 5.0 / 180.0 * M_PI)) {
+      !checkPath(robot, "tool", traj, p, ori, 0.010, 5.0 / 180.0 * M_PI))
+  {
     return false;
-  } else {
+  }
+  else
+  {
     return true;
   }
 
 #endif
 }
 
-VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask() {
+VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask()
+{
   //    std::vector<VWSRobot::RobotTask> tasks;
   VWSRobot::RobotTask tk;
   // tk.task = VWSRobot::TaskType::MOVEABSJ;  // 1:movel, 2:movej, 3:moveabsj
@@ -626,13 +688,16 @@ VWSRobot::RobotTask TrajectoryGenerator::GenerateSprayTask() {
   tk.speed[1] = 10;
   int cnt = 0;
   std::cout << planRet.transpose() << std::endl;
-  for (int i = 0; i < planRet.size() / 6; i++) {
+  for (int i = 0; i < planRet.size() / 6; i++)
+  {
     std::cout << i << ": ";
     std::array<float, 7> jv;
-    for (int n = 0; n < 6; n++) {
+    for (int n = 0; n < 6; n++)
+    {
       jv[n] = planRet[cnt++] / M_PI * 180.0;
       // IRB 1410机器人3轴和2轴耦合，因此需要添加下面的补偿
-      if (n == 2) {
+      if (n == 2)
+      {
         jv[n] += jv[n - 1];
       }
       std::cout << jv[n] << ", ";
@@ -647,7 +712,8 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
                                                           float follow_offset,
                                                           int64_t encoder,
                                                           bool is_increase,
-                                                          bool invert) {
+                                                          bool invert)
+{
 
   // 编码器系数，单位：mm/unit
   // chainFactor = 0.4198727819755431f;
@@ -674,7 +740,7 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
   // 6. 悬挂链0点编码器数值
   double ret = is_increase
                    ? e1 + encoder
-                   : encoder - e1; //注意机器人正方向与编码器正方向是否相同
+                   : encoder - e1; // 注意机器人正方向与编码器正方向是否相同
 
   std::vector<float> result;
   result.push_back(ret);
@@ -684,7 +750,8 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(Eigen::Vector3d p1,
 }
 
 std::vector<float> TrajectoryGenerator::calChainZeroPoint(TrajParam param,
-                                                          bool invert) {
+                                                          bool invert)
+{
 
   // chainFactor = 0.4198727819755431f;
   chainFactor = vws::chainFactor;
@@ -702,7 +769,7 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(TrajParam param,
   // 5. diffL转悬挂链移动距离， e1
   double e1 = diffL / chainFactor;
   // 6. 悬挂链0点编码器数值
-  double ret = -e1 + param.encoder; //注意机器人正方向与编码器正方向是否相同
+  double ret = -e1 + param.encoder; // 注意机器人正方向与编码器正方向是否相同
 
   std::vector<float> result;
   result.push_back(ret);
@@ -713,15 +780,19 @@ std::vector<float> TrajectoryGenerator::calChainZeroPoint(TrajParam param,
 
 Eigen::Vector3d TrajectoryGenerator::topfarpoint(Eigen::Vector3d boxCenterPoint,
                                                  Eigen::Vector3d boxSize,
-                                                 bool invert) {
-  if (invert == false) {
+                                                 bool invert)
+{
+  if (invert == false)
+  {
     double x = boxCenterPoint[0] + boxSize[0] / 2;
     double y = boxCenterPoint[1] + boxSize[1] / 2;
     double z = boxCenterPoint[2] + boxSize[2] / 2;
     Eigen::Vector3d p1(x, y, z);
 
     return p1;
-  } else {
+  }
+  else
+  {
     double x = boxCenterPoint[0] - boxSize[0] / 2;
     double y = boxCenterPoint[1] + boxSize[1] / 2;
     double z = boxCenterPoint[2] + boxSize[2] / 2;
@@ -733,15 +804,19 @@ Eigen::Vector3d TrajectoryGenerator::topfarpoint(Eigen::Vector3d boxCenterPoint,
 
 Eigen::Vector3d
 TrajectoryGenerator::topnearpoint(Eigen::Vector3d boxCenterPoint,
-                                  Eigen::Vector3d boxSize, bool invert) {
-  if (invert == false) {
+                                  Eigen::Vector3d boxSize, bool invert)
+{
+  if (invert == false)
+  {
     double x = boxCenterPoint[0] - boxSize[0] / 2;
     double y = boxCenterPoint[1] + boxSize[1] / 2;
     double z = boxCenterPoint[2] + boxSize[2] / 2;
     Eigen::Vector3d p1(x, y, z);
 
     return p1;
-  } else {
+  }
+  else
+  {
     double x = boxCenterPoint[0] + boxSize[0] / 2;
     double y = boxCenterPoint[1] + boxSize[1] / 2;
     double z = boxCenterPoint[2] + boxSize[2] / 2;
@@ -753,15 +828,19 @@ TrajectoryGenerator::topnearpoint(Eigen::Vector3d boxCenterPoint,
 
 Eigen::Vector3d
 TrajectoryGenerator::bottomnearpont(Eigen::Vector3d boxCenterPoint,
-                                    Eigen::Vector3d boxSize, bool invert) {
-  if (invert == false) {
+                                    Eigen::Vector3d boxSize, bool invert)
+{
+  if (invert == false)
+  {
     double x = boxCenterPoint[0] - boxSize[0] / 2;
     double y = boxCenterPoint[1] + boxSize[1] / 2;
     double z = boxCenterPoint[2] - boxSize[2] / 2;
     Eigen::Vector3d p1(x, y, z);
 
     return p1;
-  } else {
+  }
+  else
+  {
     double x = boxCenterPoint[0] + boxSize[0] / 2;
     double y = boxCenterPoint[1] + boxSize[1] / 2;
     double z = boxCenterPoint[2] - boxSize[2] / 2;

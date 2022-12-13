@@ -1550,7 +1550,6 @@ QToolButton:pressed{background-color:#404040;border-style: inset;}</string>
              </font>
             </property>
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;10：10：10&lt;/p&gt;&lt;p&gt;识别产品&lt;/p&gt;&lt;p&gt;产品型号：01&lt;/p&gt;&lt;p&gt;尺寸： 10*10*10&lt;/p&gt;&lt;p&gt;10：12：11&lt;/p&gt;&lt;p&gt;开始喷涂&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

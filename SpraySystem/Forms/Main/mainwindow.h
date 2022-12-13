@@ -28,21 +28,12 @@ public:
     void closeEvent(QCloseEvent *event);
 private slots:
     void on_actQuit_triggered();
-
     void on_actChangeUser_triggered();
-
     void on_btn_Start_clicked();
-
     void on_btn_User_clicked();
-
     void on_btn_Product_clicked();
-
-    void update();
-
     void on_btn_Device_clicked();
-
     void on_btn_System_clicked();
-
     void deviceConnectError_slot(QString device, int state);
     void on_btn_EStop_clicked();
     void on_btn_Camera1_clicked();
@@ -50,13 +41,17 @@ private slots:
     void on_btn_Robot1_clicked();
     void on_btn_Robot2_clicked();
     void on_btn_PLC_clicked();
+
+    void updateRealTime_Slot();
+    void alarm_Slot();
+
 signals:
     void startMonitorDevice_signal();
 
 private:
     Ui::MainWindow *ui;
     bool isRun;
-    QTimer *timer;
+    QTimer *timer;  //时间显示
     MainProcess::CameraCallbackData *camera1CallbackData;
 
     //    Robot *robot1;
