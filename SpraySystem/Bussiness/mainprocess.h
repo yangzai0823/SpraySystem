@@ -69,6 +69,7 @@ public:
     QQueue<ImageData> q_img;
     /** @brief 运行状态*/
     int State;
+
 private:
     QQueue<std::vector<VWSRobot::RobotTask>> trajQueue;
     QQueue<std::vector<float>> mcQueue;
@@ -77,7 +78,6 @@ private:
 
     ThreadSafeVector<vws::PlanTaskInfo> safeQPlanTaskInfoTop;
     ThreadSafeVector<vws::PlanTaskInfo> safeQPlanTaskInfoBottom;
-
 
     TrajectoryProcess *trajProc;
     QThread *trajThread;
@@ -96,10 +96,10 @@ private:
     /* @brief 运动控制器请求*/
     bool mcRequest = false;
 
-    std::vector<VWSRobot::RobotTask>  rbtFailTask;
+    std::vector<VWSRobot::RobotTask> rbtFailTask;
     int nFail = 0;
     int nRbt = 0;
-private slots: 
+private slots:
     /**
      * @brief PLC槽
      * @param data
@@ -111,7 +111,7 @@ private slots:
     void getTrajParam_Slot();
     /** @brief 向机器人发送轨迹*/
     void sendToRBT_Slot();
-    
+
     void alarm_Slot();
     /**
      * @brief
