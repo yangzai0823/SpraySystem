@@ -108,9 +108,9 @@ private slots:
     /**
      * @brief 运动控制器获取参数槽
      */
-    void getTrajParam_Slot();
+    void getTrajParam_Slot(quint8 axisNum);
     /** @brief 向机器人发送轨迹*/
-    void sendToRBT_Slot();
+    void sendToRBT_Slot(quint8 axisNum);
 
     void alarm_Slot();
     /**

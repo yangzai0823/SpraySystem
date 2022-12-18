@@ -2,8 +2,8 @@
 
 PLCOperator::PLCOperator(std::shared_ptr<PLC> plc)
 {
-    this->ip= plc->Ip;
-    this->port=plc->Port.toInt();
+    this->ip = plc->Ip;
+    this->port = plc->Port.toInt();
     this->name = plc->Name;
 }
 
@@ -20,16 +20,16 @@ int PLCOperator::init()
     dataparser->plcdata = &plcData;
     socketclient = new QtSocketClient(dataparser);
 
-    connect(dataparser,SIGNAL(readyRead_Signal()),this,SLOT(readyRead_Slot()));
+    connect(dataparser, SIGNAL(readyRead_Signal()), this, SLOT(readyRead_Slot()));
 
     timer = new QTimer();
-    connect(timer,SIGNAL(timeout()),this,SLOT(checkState_Slot()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(checkState_Slot()));
     return 1;
 }
 
 int PLCOperator::start()
 {
-    auto ret = socketclient->connectServer(ip,port);
+    auto ret = socketclient->connectServer(ip, port);
 
     timer->start(1000);
     return ret;
@@ -42,7 +42,7 @@ void PLCOperator::close()
 
 int PLCOperator::getState()
 {
-    auto ret = state?1:-1;
+    auto ret = state ? 1 : -1;
     return ret;
 }
 
@@ -62,15 +62,19 @@ void PLCOperator::readyRead_Slot()
 
 void PLCOperator::checkState_Slot()
 {
-    if(preheart!=plcData.heart){
-        preheart = plcData.heart;
-        state=true;
-        if(failcount!=0){
-            failcount=0;
-        }
-    }else
+    if (preheart != plcData.heart)
     {
-        if(++failcount>3){
+        preheart = plcData.heart;
+        state = true;
+        if (failcount != 0)
+        {
+            failcount = 0;
+        }
+    }
+    else
+    {
+        if (++failcount > 3)
+        {
             state = false;
         }
     }

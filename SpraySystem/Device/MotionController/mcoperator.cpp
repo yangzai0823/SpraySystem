@@ -10,7 +10,6 @@
 #include <iostream>
 #include <thread>
 
-
 MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
 {
     this->ip = mc->Ip;
@@ -37,30 +36,31 @@ int MCOperator::init()
 
     // connect(dataparser, SIGNAL(getTrajParam_Signal(quint16)), this, SLOT(getTrajParam_Slot(quint16)));
     // connect(dataparser,SIGNAL(sendToRBT_Signal(quint16)),this,SLOT(sendToRBT_Slot(quint16)));
-    connect(dataparser_slave,SIGNAL(mcWarning_Signal(quint16)),this,SLOT(mcWarning_Slot(quint16)));
+    connect(dataparser_slave, SIGNAL(mcWarning_Signal(quint16)), this, SLOT(mcWarning_Slot(quint16)));
     // connect(dataparser_master,SIGNAL(test_Signal()),this,SLOT(test_Slot()));
 
     // connect(socketclient, SIGNAL(readyRead_Signal(QByteArray)), this, SLOT(readyRead_Slot(QByteArray)), Qt::ConnectionType::QueuedConnection);
     connect(this, SIGNAL(connect_master_Signal(QString, int)), master_socket, SLOT(connect_Slot(QString, int)), Qt::ConnectionType::QueuedConnection);
     connect(this, SIGNAL(connect_slave_Signal(QString, int)), slave_socket, SLOT(connect_Slot(QString, int)), Qt::ConnectionType::QueuedConnection);
 
-   timer = new QTimer();
-    connect(timer,SIGNAL(timeout()),this,SLOT(checkState_Slot()));
+    timer = new QTimer();
+    connect(timer, SIGNAL(timeout()), this, SLOT(checkState_Slot()));
     return 1;
 }
 
 int MCOperator::start()
 {
-    stop  = false;
+    stop = false;
     // auto ret = socketclient->connectServer(ip,port);
     emit connect_master_Signal(ip, port);
-    emit connect_slave_Signal(ip, port-1);
+    emit connect_slave_Signal(ip, port - 1);
     reset();
 
-     //timer->start(1000);
- 
-    //启动子线程监听被动信号
-    std::thread t_slave([=]{
+    // timer->start(1000);
+
+    // 启动子线程监听被动信号
+    std::thread t_slave([=]
+                        {
         while(!stop){
             //semaphone_slave.acquire();
              dataparser_slave->semaphone_slave.acquire();
@@ -76,25 +76,23 @@ int MCOperator::start()
             if(data_slave.order == 33){
 
                 CLog::getInstance()->log("MC Receive, 执行发送轨迹规划参数");
-                getTrajParam_Slot(0);
+                getTrajParam_Slot(data_slave.axis_num);
             }else if(data_slave.order == 35){
 
                 CLog::getInstance()->log("MC Receive, 执行发送轨迹给机器人");
-                sendToRBT_Slot(0);
+                sendToRBT_Slot(data_slave.axis_num);
             }
-       }
-    });
+       } });
     t_slave.detach();
     return 1;
 }
 
-
 void MCOperator::startReceive()
 {
     CLog::getInstance()->log("MC, 启动运动控制器接收消息");
-    
+
     // sendData(6, 0, 0);
-    trySendData(6,0,0,data_master.b_receive_start);
+    trySendData(6, 0, 0, data_master.b_receive_start);
 }
 
 void MCOperator::close()
@@ -107,26 +105,26 @@ int MCOperator::getState()
 {
 }
 
-void MCOperator::sendTrajParam(float zeropoint, float offset)
+void MCOperator::sendTrajParam(float zeropoint, float offset, uint8_t axisNum)
 {
     // sendData(0, zeropoint, offset);
-    trySendData(0,zeropoint,offset,data_master.b_receive_traj_param);
+    trySendData(0, zeropoint, offset, data_master.b_receive_traj_param, axisNum);
 }
 
 void MCOperator::reset()
 {
-     std::cout<<""<<std::endl;
-     CLog::getInstance()->log("运动控制器请报错复位");
+    std::cout << "" << std::endl;
+    CLog::getInstance()->log("运动控制器请报错复位");
     // sendData(9, 0, 0);
-    trySendData(5,0,0,data_master.b_receive_reset);
+    trySendData(5, 0, 0, data_master.b_receive_reset);
 }
 
 void MCOperator::sendRbtResult(float success)
 {
-    trySendData(7,success,0,data_master.b_receive_rbt_result);
+    trySendData(7, success, 0, data_master.b_receive_rbt_result);
 }
 
-std::vector<float> MCOperator::getChainEncoders(bool & success)
+std::vector<float> MCOperator::getChainEncoders(bool &success)
 {
     success = true;
 
@@ -135,36 +133,38 @@ std::vector<float> MCOperator::getChainEncoders(bool & success)
     // {
     //     success = false;
     // }
-    success =  trySendData(1,0,0,data_master.b_chain_encoder);
+    success = trySendData(1, 0, 0, data_master.b_chain_encoder);
     std::vector<float> val;
     val.push_back(data_master.encoder1);
     val.push_back(data_master.encoder2);
 
-    std::cout<<"获取拍照时刻悬挂链值"<<std::endl;
+    std::cout << "获取拍照时刻悬挂链值" << std::endl;
     return val;
 }
 std::vector<float> MCOperator::getRealTimeEncoder()
 {
     // sendData(2, 0, 0);
     // waitData(data.brealtimeencoder);
-    trySendData(2,0,0,data_master.b_realtime_encoder);
+    trySendData(2, 0, 0, data_master.b_realtime_encoder);
     std::vector<float> val;
     val.push_back(data_master.realtimeencoder1);
     val.push_back(data_master.realtimeencoder2);
 
-    std::cout<<"获取实施编码器数值"<<std::endl;
+    std::cout << "获取实施编码器数值" << std::endl;
     return val;
 }
 
-
-bool MCOperator::trySendData(uint8_t order,float v1,float v2, bool &flag){
+bool MCOperator::trySendData(uint8_t order, float v1, float v2, bool &flag, uint8_t axisNum)
+{
     int N = 3;
     bool ret = false;
     send_mutex.lock();
-    for(int i=0;i<3;i++){ 
-        sendData(order,v1,v2);
+    for (int i = 0; i < 3; i++)
+    {
+        sendData(order, v1, v2, axisNum);
         ret = waitData(flag);
-        if(ret == true){
+        if (ret == true)
+        {
             break;
         }
     }
@@ -172,34 +172,32 @@ bool MCOperator::trySendData(uint8_t order,float v1,float v2, bool &flag){
     return ret;
 }
 
-void MCOperator::sendData(uint8_t order, float v1, float v2, u_int16_t num)
+void MCOperator::sendData(uint8_t order, float v1, float v2, uint8_t axisNum)
 {
     QByteArray arry;
-    //报头
+    // 报头
     int16_t head = qToBigEndian<int16_t>(0xabcd);
     // arry.append((char*)&head,2);
-    //编号
-    if(num == 0){
-        if(count>=9999){
-            count = 0;
-        }else{
-            count++;
-        }
+    // 编号
+    if (count >= 9999)
+    {
+        count = 0;
     }
-    else{
-        count = num;
+    else
+    {
+        count++;
     }
-    int16_t count_BigEndian= qToBigEndian<int16_t>(count);
-    arry.append((char *)&count_BigEndian,2);
 
-    //轴号
-    int8_t axisNum= 0;
-    arry.append((char *)&axisNum,1);
+    int16_t count_BigEndian = qToBigEndian<int16_t>(count);
+    arry.append((char *)&count_BigEndian, 2);
 
-    //指令
+    // 轴号
+    arry.append((char *)&axisNum, 1);
+
+    // 指令
     arry.append(order);
 
-    //数据
+    // 数据
     float d1 = qToBigEndian<float>(v1);
     float d2 = qToBigEndian<float>(v2);
     float d3 = qToBigEndian<float>(0);
@@ -212,19 +210,18 @@ void MCOperator::sendData(uint8_t order, float v1, float v2, u_int16_t num)
     arry.append((char *)&d4, 4);
     arry.append((char *)&d5, 4);
     arry.append((char *)&d6, 4);
-    
 
-    //报尾
-    unsigned char * crcdata = (unsigned char*)arry.data();
-    u_int16_t trail = dataparser_master->do_crc(crcdata,dataparser_master->N_Data);
+    // 报尾
+    unsigned char *crcdata = (unsigned char *)arry.data();
+    u_int16_t trail = dataparser_master->do_crc(crcdata, dataparser_master->N_Data);
 
     // std::cout<<std::hex<<trail<<std::endl;
 
     auto trailToBingEndian = qToBigEndian(trail);
-    arry.append((char *)&trailToBingEndian,2);
+    arry.append((char *)&trailToBingEndian, 2);
 
     uint ret;
-    arry.insert(0,(char*)&head,2);
+    arry.insert(0, (char *)&head, 2);
     ret = master_socket->send(arry);
 }
 
@@ -250,29 +247,38 @@ void MCOperator::sendData(uint8_t order, float v1, float v2, u_int16_t num)
 bool MCOperator::waitData(bool &flag)
 {
     QString strflag;
-    if(&flag == &data_master.b_chain_encoder){
-        strflag= "b_chain_encoder";
-    }else if(&flag == &data_master.b_realtime_encoder){
-        strflag = "b_realtime_encoder";
-    }else if(&flag == &data_master.b_receive_rbt_result){
-        strflag = "b_receive_rbt_result";
-    }else if(&flag == &data_master.b_receive_reset){
-        strflag = "b_receive_reset";
-    }else if(&flag == &data_master.b_receive_traj_param){
-        strflag = "b_receive_traj_param";
-    }else if(&flag == &data_master.b_request_rbt_param){
-        strflag = "b_request_rbt_param";
-    }else if(&flag == &data_master.b_request_traj_param){
-        strflag = "b_request_traj_param";
+    if (&flag == &data_master.b_chain_encoder)
+    {
+        strflag = "b_chain_encoder";
     }
-     bool success = false;
-    for(int i=0;i<300;i++){
+    else if (&flag == &data_master.b_realtime_encoder)
+    {
+        strflag = "b_realtime_encoder";
+    }
+    else if (&flag == &data_master.b_receive_rbt_result)
+    {
+        strflag = "b_receive_rbt_result";
+    }
+    else if (&flag == &data_master.b_receive_reset)
+    {
+        strflag = "b_receive_reset";
+    }
+    else if (&flag == &data_master.b_receive_traj_param)
+    {
+        strflag = "b_receive_traj_param";
+    }
 
-        CLog::getInstance()->log("错误重试, "+ strflag);
-        if(dataparser_master->semaphore_master.tryAcquire(1,400)){
-            CLog::getInstance()->log("获得资源, "+ strflag);
-            if(flag){
-                CLog::getInstance()->log("标志成功, "+ strflag);
+    bool success = false;
+    for (int i = 0; i < 3; i++)
+    {
+
+        CLog::getInstance()->log("错误重试, " + strflag);
+        if (dataparser_master->semaphore_master.tryAcquire(1, 400))
+        {
+            CLog::getInstance()->log("获得资源, " + strflag);
+            if (flag)
+            {
+                CLog::getInstance()->log("标志成功, " + strflag);
                 flag = false;
                 success = true;
                 break;
@@ -289,34 +295,38 @@ void MCOperator::readyRead_Slot(QByteArray buf)
     // emit getTrajParam_Signal();
 }
 
-void MCOperator::getTrajParam_Slot(quint16 num)
+void MCOperator::getTrajParam_Slot(quint8 axisNum)
 {
-    emit getTrajParam_Signal();
+    emit getTrajParam_Signal(axisNum);
 }
 
-void MCOperator::sendToRBT_Slot(quint16 num) 
+void MCOperator::sendToRBT_Slot(quint8 axisNum)
 {
-    emit sendToRBT_Signal();
+    emit sendToRBT_Signal(axisNum);
 }
 
-void MCOperator::mcWarning_Slot(quint16 num){
-    //应答
-    sendData(36,0,0,num);
+void MCOperator::mcWarning_Slot(quint16 num)
+{
+    // 应答
+    sendData(36, 0, 0, num);
 }
 
 void MCOperator::checkState_Slot()
 {
-    if(preheart!=data_slave.heart){
-        preheart = data_slave.heart;
-        state=true;
-        if(failcount!=0){
-            failcount=0;
-        }
-    }else
+    if (preheart != data_slave.heart)
     {
-        if(++failcount>3){
+        preheart = data_slave.heart;
+        state = true;
+        if (failcount != 0)
+        {
+            failcount = 0;
+        }
+    }
+    else
+    {
+        if (++failcount > 3)
+        {
             state = false;
         }
     }
 }
-

@@ -1,7 +1,7 @@
 #ifndef PLCDATA_H
 #define PLCDATA_H
 #include "VWSCamera/VWSCamera.h"
-//#include "SignalState.h"
+// #include "SignalState.h"
 #include <iostream>
 #include <vector>
 #include <Eigen/Eigen>
@@ -53,9 +53,9 @@ namespace vws
         Eigen::Isometry3d boxInfo;
 
         int face;        // 0：前面， 1：后面
-        int64_t encoder; //拍照时刻
-        float diff;      //偏移
-        bool isup;          // true: 上层， false ： 下层
+        int64_t encoder; // 拍照时刻
+        float diff;      // 偏移
+        bool isup;       // true: 上层， false ： 下层
     };
 
     /**
@@ -72,17 +72,15 @@ namespace vws
         int sendtorbt;
         int heart;
         uint8_t order;
+        uint8_t axis_num;
 
         bool b_chain_encoder = false;
         bool b_realtime_encoder = false;
-        /** @brief 请求： 7轴轨迹规划参数*/
-        bool b_request_traj_param = false;
-        /** @brief 请求: 机器人轨迹参数*/
-        bool b_request_rbt_param = false;
+
         /** @brief 应答： 受到重置信号*/
         bool b_receive_reset = false;
         /** @brief 应答： 受到启动信号*/
-        bool b_receive_start  = false;
+        bool b_receive_start = false;
         /** @brief 应答： 收到机器人结果反馈*/
         bool b_receive_rbt_result = false;
         /** @brief 应答： 收到7轴轨迹规划参数*/
@@ -99,7 +97,7 @@ namespace vws
         float width;
         float height;
         /** @brief 头部信息是否已使用固定长度计算*/
-        bool head_done=false;
+        bool head_done = false;
         std::vector<float> imgpose;
         std::vector<double> robotpose;
 
@@ -107,7 +105,7 @@ namespace vws
 
         std::vector<float> imgpose_trail;
         std::vector<double> robotpose_trail;
-        
+
         std::vector<double> righttop;
         std::vector<double> rightbottom;
         std::vector<double> lefttop;
@@ -116,7 +114,7 @@ namespace vws
         std::vector<double> normalvector_head;
 
         /** @brief 0: top, 1: bottom*/
-        bool top_or_bottom; 
+        bool top_or_bottom;
         /** 视觉处理是否有异常*/
         bool hasError = false;
     };

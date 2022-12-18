@@ -246,58 +246,58 @@ void MainWindow::startDevices()
     // msg = retplc>0?"PLC启动成功":"PLC启动失败";
     // showMsg(msg);
 
-    // 运动控制器
-    auto mc = deviceManager->getMC();
-    auto retmc = mc->init();
-    retmc = mc->start();
+    // // 运动控制器
+    // auto mc = deviceManager->getMC();
+    // auto retmc = mc->init();
+    // retmc = mc->start();
 
-    // msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
-    // showMsg(msg);
+    // // msg = retmc>0?"运动控制器启动成功":"运动控制器启动失败";
+    // // showMsg(msg);
 
-    // 机器人
-    auto rbt = deviceManager->getRobot(0);
-    auto retrbt = rbt->init();
-    if (retrbt > 0)
-    {
-        std::cout << "robot1 init: " << retrbt << std::endl;
-        retrbt = rbt->start();
-        std::cout << "robot1 start: " << retrbt << std::endl;
-    }
-    else
-    {
-        msg = rbt->getName() + ", 启动失败";
-        showMsg(msg);
-    }
+    // // 机器人
+    // auto rbt = deviceManager->getRobot(0);
+    // auto retrbt = rbt->init();
+    // if (retrbt > 0)
+    // {
+    //     std::cout << "robot1 init: " << retrbt << std::endl;
+    //     retrbt = rbt->start();
+    //     std::cout << "robot1 start: " << retrbt << std::endl;
+    // }
+    // else
+    // {
+    //     msg = rbt->getName() + ", 启动失败";
+    //     showMsg(msg);
+    // }
 
-    // 相机
-    auto camera1 = deviceManager->getCamera(0);
+    // // 相机
+    // auto camera1 = deviceManager->getCamera(0);
 
-    auto ret = camera1->init();
-    if (ret > 0)
-    {
-        std::cout << "camera1 init: " << ret << std::endl;
-        ret = camera1->start();
-        std::cout << "camera1 start: " << ret << std::endl;
-    }
-    else
-    {
-        msg = camera1->getName() + "， 启动失败";
-        showMsg(msg);
-    }
+    // auto ret = camera1->init();
+    // if (ret > 0)
+    // {
+    //     std::cout << "camera1 init: " << ret << std::endl;
+    //     ret = camera1->start();
+    //     std::cout << "camera1 start: " << ret << std::endl;
+    // }
+    // else
+    // {
+    //     msg = camera1->getName() + "， 启动失败";
+    //     showMsg(msg);
+    // }
 
-    auto camera2 = deviceManager->getCamera(1);
-    ret = camera2->init();
-    if (ret > 0)
-    {
-        std::cout << "camera2 init: " << ret << std::endl;
-        ret = camera2->start();
-        std::cout << "camera2 start: " << ret << std::endl;
-    }
-    else
-    {
-        msg = camera2->getName() + "， 启动失败";
-        showMsg(msg);
-    }
+    // auto camera2 = deviceManager->getCamera(1);
+    // ret = camera2->init();
+    // if (ret > 0)
+    // {
+    //     std::cout << "camera2 init: " << ret << std::endl;
+    //     ret = camera2->start();
+    //     std::cout << "camera2 start: " << ret << std::endl;
+    // }
+    // else
+    // {
+    //     msg = camera2->getName() + "， 启动失败";
+    //     showMsg(msg);
+    // }
 
     /***设备状态监控***/
     devicemonitor = new DeviceMonitor();
