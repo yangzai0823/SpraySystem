@@ -14,6 +14,7 @@ MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
 {
     this->ip = mc->Ip;
     this->port = mc->Port.toInt();
+    this->port2 = mc->Port2.toInt();
     this->name = mc->Name;
 }
 
@@ -53,7 +54,7 @@ int MCOperator::start()
     stop = false;
     // auto ret = socketclient->connectServer(ip,port);
     emit connect_master_Signal(ip, port);
-    emit connect_slave_Signal(ip, port - 1);
+    emit connect_slave_Signal(ip, port2);
     reset();
 
     // timer->start(1000);
@@ -141,11 +142,12 @@ std::vector<float> MCOperator::getChainEncoders(bool &success)
     std::cout << "获取拍照时刻悬挂链值" << std::endl;
     return val;
 }
-std::vector<float> MCOperator::getRealTimeEncoder()
+std::vector<float> MCOperator::getRealTimeEncoder(bool &success)
 {
+    success = true;
     // sendData(2, 0, 0);
     // waitData(data.brealtimeencoder);
-    trySendData(2, 0, 0, data_master.b_realtime_encoder);
+    success = trySendData(2, 0, 0, data_master.b_realtime_encoder);
     std::vector<float> val;
     val.push_back(data_master.realtimeencoder1);
     val.push_back(data_master.realtimeencoder2);

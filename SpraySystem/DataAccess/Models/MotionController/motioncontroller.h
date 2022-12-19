@@ -2,7 +2,6 @@
 #define MOTIONCONTROLLER_H
 #include <QObject>
 
-
 class MotionController
 {
 public:
@@ -11,6 +10,7 @@ public:
     QString Name;
     QString Ip;
     QString Port;
+    QString Port2;
 };
 
 #endif // MOTIONCONTROLLER_H

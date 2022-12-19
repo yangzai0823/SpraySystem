@@ -236,6 +236,12 @@ void MainWindow::on_btn_PLC_clicked()
     DeviceManager::getInstance()->getPlc()->start();
 }
 
+void MainWindow::on_btn_MC_clicked()
+{
+    DeviceManager::getInstance()->getMC()->init();
+    DeviceManager::getInstance()->getMC()->start();
+}
+
 void MainWindow::startDevices()
 {
     QString msg;
@@ -375,3 +381,4 @@ void MainWindow::alarm_Slot()
 {
     showMsg("设备异常");
 }
+

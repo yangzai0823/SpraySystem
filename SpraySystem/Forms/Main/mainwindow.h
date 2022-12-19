@@ -45,6 +45,8 @@ private slots:
     void updateRealTime_Slot();
     void alarm_Slot();
 
+    void on_btn_MC_clicked();
+
 signals:
     void startMonitorDevice_signal();
 

@@ -8,8 +8,7 @@ namespace vws {
     QString Robot1= "机器人1";
     QString Robot2 = "机器人2";
     QString PLC ="PLC";
-    QString MC1 = "MC";
-    QString MC2 = "MC2";
+    QString MC = "MC";
 
     /**
      * @brief 箱子理论长度，单位mm

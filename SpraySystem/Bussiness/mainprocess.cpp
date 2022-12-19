@@ -265,9 +265,10 @@ float MainProcess::getChainSpeed() const
 
 int64_t MainProcess::getChainEncoder() const
 {
+    bool success;
 #ifndef PLAN_FAKE_DATA
     // todo:: 返回的编码器数值类型改为int64_t
-    auto val = DeviceManager::getInstance()->getMC()->getRealTimeEncoder();
+    auto val = DeviceManager::getInstance()->getMC()->getRealTimeEncoder(success);
     std::cout << "encoder value: " << val[0] << ", " << val[1] << std::endl;
     return val[1];
 #else

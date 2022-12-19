@@ -7,7 +7,6 @@ int DeviceOperator::start()
 
 void DeviceOperator::close()
 {
-
 }
 
 QString DeviceOperator::getName()
@@ -22,19 +21,33 @@ QString DeviceOperator::getIP()
 
 void DeviceOperator::setIP(QString ip)
 {
-    updated=true;
+    updated = true;
     this->ip = ip;
 }
 
-int DeviceOperator::getPort()
+int DeviceOperator::getPort(int index)
 {
-    return port;
+    if (index == 0)
+    {
+        return port;
+    }
+    else
+    {
+        return port2;
+    }
 }
 
-void DeviceOperator::setPort(int port)
+void DeviceOperator::setPort(int port, int index)
 {
-    updated=true;
-    this->port = port;
+    updated = true;
+    if (index == 0)
+    {
+        this->port = port;
+    }
+    else
+    {
+        this->port2 = port;
+    }
 }
 
 int DeviceOperator::getState()

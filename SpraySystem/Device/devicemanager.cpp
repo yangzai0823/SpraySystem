@@ -257,6 +257,7 @@ void DeviceManager::saveMC()
                 if(item->Name == cam->getName()){
                     item->Ip = cam->getIP();
                     item->Port =QString::number( cam->getPort());
+                    item->Port2 = QString::number(cam->getPort(1));
                     break;
                 }
             }

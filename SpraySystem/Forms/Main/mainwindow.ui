@@ -1121,7 +1121,7 @@ QToolButton:pressed{background-color:#404040;border-style: inset;}</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,1,10">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,1,5">
        <property name="bottomMargin">
         <number>0</number>
        </property>
@@ -1501,6 +1501,48 @@ QToolButton:pressed{background-color:#404040;border-style: inset;}</string>
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="btn_MC">
+            <property name="maximumSize">
+             <size>
+              <width>220</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>25</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>运动控制器</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../Resources.qrc">
+              <normaloff>:/Images/warning.png</normaloff>:/Images/warning.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+            <property name="autoRepeatDelay">
+             <number>200</number>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -1550,6 +1592,7 @@ QToolButton:pressed{background-color:#404040;border-style: inset;}</string>
              </font>
             </property>
             <property name="text">
+             <string/>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

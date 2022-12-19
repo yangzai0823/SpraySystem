@@ -41,7 +41,7 @@ public:
      */
     void sendRbtResult(float success);
     std::vector<float> getChainEncoders(bool &success);
-    std::vector<float> getRealTimeEncoder();
+    std::vector<float> getRealTimeEncoder(bool &success);
     void SevenAxisReset();
 
 private:

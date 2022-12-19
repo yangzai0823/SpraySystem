@@ -54,8 +54,6 @@ private slots:
 
     void on_btn_PLCConnect_clicked();
 
-    void on_btn_PLCSend_clicked();
-
     void on_tabWidget_currentChanged(int index);
 
     void receiveData_Slot(QVariant varData);
@@ -63,6 +61,11 @@ private slots:
 
     void on_btn_MCSave_clicked();
 
+    void on_btn_MCConnect_clicked();
+
+    void on_btn_MCSend_clicked();
+
+    void on_btn_MCReset_clicked();
 signals:
     void client_Singal(QString msg);
 private:
@@ -70,6 +73,8 @@ private:
     QDesktopWidget *m_pDeskdop;
     bool isrbtconnected;
     bool iscamconnected;
+    bool ismcconnected;
+    bool isplcconnected;
     DeviceManager *devicemanager;
 
 
@@ -79,6 +84,7 @@ private:
     void initMC();
     void ShowRbtMessage(QString msg,bool recv);
     void ShowPlcMessage(QString msg, bool recv);
+    void ShowMcMessage(QString msg,bool recv);
 };
 
 #endif // DEVICELIST_H

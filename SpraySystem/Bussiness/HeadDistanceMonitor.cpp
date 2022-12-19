@@ -9,13 +9,13 @@ void HeadDistanceMonitor::Work_Slot(float camera_encoder)
     while (!flag_stop)
     {
         /* code */
-      float realtime_encoder = DeviceManager::getInstance()->getMC()->getRealTimeEncoder()[0];
-        float diff = (camera_encoder-realtime_encoder) * vws::chainFactor;
-        if(diff>=vws::HeadMoveMaxLength){
-            //std::cout<<"头部运行距离超出规定范围"<<std::endl;
-            emit outOfLimit_Signal();
-        }
-       usleep(10);
+//      float realtime_encoder = DeviceManager::getInstance()->getMC()->getRealTimeEncoder()[0];
+//        float diff = (camera_encoder-realtime_encoder) * vws::chainFactor;
+//        if(diff>=vws::HeadMoveMaxLength){
+//            //std::cout<<"头部运行距离超出规定范围"<<std::endl;
+//            emit outOfLimit_Signal();
+//        }
+//       usleep(10);
     }
     
 }
