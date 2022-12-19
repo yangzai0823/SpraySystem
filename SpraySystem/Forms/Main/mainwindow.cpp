@@ -39,6 +39,8 @@ MainWindow::MainWindow(std::shared_ptr<User> user)
     connect(timer, SIGNAL(timeout()), this, SLOT(updateRealTime_Slot()));
 
     startDevices();
+
+    mainprocess = new MainProcess();
 }
 
 MainWindow::~MainWindow()
@@ -79,21 +81,34 @@ void MainWindow::on_btn_Start_clicked()
     QIcon ico;
     if (isRun)
     {
-        delete mainprocess;
+        // delete mainprocess;
+        mainprocess->Stop();
         ico.addFile("://Images/start.png");
+        ui->btn_Start->setIcon(ico);
+        isRun = false;
     }
     else
     {
-        if (!mainprocess)
+        int ret = -1;
+        QString msg = "";
+        if (mainprocess->State == -1)
         {
-            showMsg("开始运行");
-            mainprocess = new MainProcess();
+            // mainprocess = new MainProcess();
+            ret = mainprocess->Start(msg);
+            if (ret > 0)
+            {
+                showMsg("开始运行");
+                ico.addFile("://Images/stop.png");
+                ui->btn_Start->setIcon(ico);
+                isRun = true;
+            }
+            else
+            {
+                isRun = false;
+                showMsg(msg);
+            }
         }
-
-        ico.addFile("://Images/stop.png");
     }
-    isRun = !isRun;
-    ui->btn_Start->setIcon(ico);
 }
 
 void MainWindow::on_btn_User_clicked()
@@ -362,6 +377,7 @@ void MainWindow::judgeAuthority()
 
 void MainWindow::showMsg(QString msg)
 {
+    CLog::getInstance()->log(msg, CLog::CLOG_LEVEL::RINFO);
     QDateTime current_date_time = QDateTime::currentDateTime();
     QString current_date = current_date_time.toString("yyyy.MM.dd hh:mm:ss");
     msg = "<p>" + current_date + "</p>" + "<p>" + msg + "</p>";
@@ -381,4 +397,3 @@ void MainWindow::alarm_Slot()
 {
     showMsg("设备异常");
 }
-

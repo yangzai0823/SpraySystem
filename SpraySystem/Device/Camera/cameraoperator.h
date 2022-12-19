@@ -11,7 +11,6 @@
 using ImageData = VWSCamera::ImageData;
 using GetImageCallBack = VWSCamera::GetImageCallBack;
 
-
 class CameraOperator : public DeviceOperator
 {
 public:
@@ -21,8 +20,12 @@ public:
     int start();
     void close();
     int getState();
-    //int getImage(ImageData & data);
-    int RegisterFrameCallBack(GetImageCallBack func, void* pUser);
+    int startGrab();
+    int stopGrab();
+    int saveAllParam(const char *pOutFileName);
+    int loadAllParam(const char *pOutFileName);
+    // int getImage(ImageData & data);
+    int RegisterFrameCallBack(GetImageCallBack func, void *pUser);
     int deleteImage(const ImageData &data);
 
 private:

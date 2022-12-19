@@ -37,7 +37,7 @@ public:
     };
     MainProcess();
     ~MainProcess();
-    void Start();
+    int Start(QString &msg);
     void Stop();
 
     /**
@@ -68,7 +68,7 @@ public:
     PLCData plcdata;
     QQueue<ImageData> q_img;
     /** @brief 运行状态*/
-    int State;
+    int State = -1;
 
 private:
     QQueue<std::vector<VWSRobot::RobotTask>> trajQueue;

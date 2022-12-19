@@ -161,36 +161,10 @@ void MainProcess::recevieData_Slot(QVariant data)
 
 MainProcess::MainProcess()
 {
-
+    CLog::getInstance()->log("初始化程序");
     // vws::DataInit::Init();
-    CLog::getInstance()->log("启动程序");
 
     connect(this, SIGNAL(sendTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
-
-    DeviceManager *deviceManager = DeviceManager::getInstance();
-    // PLC
-    auto plc = deviceManager->getPlc();
-    connect(plc, SIGNAL(recevieData_Signal(QVariant)), this, SLOT(recevieData_Slot(QVariant)));
-
-    // 运动控制器
-    auto mc = deviceManager->getMC();
-    connect(mc, SIGNAL(getTrajParam_Signal(quint8)), this, SLOT(getTrajParam_Slot(quint8)));
-    connect(mc, SIGNAL(sendToRBT_Signal(quint8)), this, SLOT(sendToRBT_Slot(quint8)));
-    mc->startReceive();
-
-    // 相机
-    auto camera1 = deviceManager->getCamera(vws::Camera_bottom);
-    camera1CallbackData_b = new CameraCallbackData();
-    camera1CallbackData_b->up_or_bottom = 1;
-    camera1CallbackData_b->mainProcess = this;
-
-    auto camera2 = deviceManager->getCamera(vws::Camera_top);
-    camera2CallbackData_u = new CameraCallbackData();
-    camera2CallbackData_u->up_or_bottom = 0;
-    camera2CallbackData_u->mainProcess = this;
-
-    camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
-    camera2->RegisterFrameCallBack(imgFunc_b, (void *)(camera2CallbackData_u));
 
     visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();
@@ -208,7 +182,6 @@ MainProcess::MainProcess()
     sm_bottom->IsTop = false;
     sm_bottom->Context.index = 0;
     sm_bottom->Context.visionData.top_or_bottom = 1;
-    sm_bottom->StartRun();
 
     sm_top = new ContextStateMachine();
     connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top, SLOT(sendPlcData_Slot(QVariant)));
@@ -218,13 +191,10 @@ MainProcess::MainProcess()
     sm_top->IsTop = true;
     sm_top->Context.index = 1;
     sm_top->Context.visionData.top_or_bottom = 0;
-    sm_top->StartRun();
 }
 
 MainProcess::~MainProcess()
 {
-    sm_bottom->StopRun();
-    sm_top->StopRun();
     trajThread->quit();
     trajThread->wait();
     delete trajThread;
@@ -238,12 +208,86 @@ MainProcess::~MainProcess()
     delete sm_bottom;
 }
 
-void MainProcess::Start()
+int MainProcess::Start(QString &msg)
 {
+    CLog::getInstance()->log("启动程序");
+    msg = "";
+    DeviceManager *deviceManager = DeviceManager::getInstance();
+    // PLC
+    auto plc = deviceManager->getPlc();
+    if (plc->getState() > 0)
+    {
+        connect(plc, SIGNAL(recevieData_Signal(QVariant)), this, SLOT(recevieData_Slot(QVariant)));
+    }
+    else
+    {
+        msg = "请先连接PLC";
+        return -1;
+    }
+
+    // 运动控制器
+    auto mc = deviceManager->getMC();
+    if (mc->getState() > 0)
+    {
+        connect(mc, SIGNAL(getTrajParam_Signal(quint8)), this, SLOT(getTrajParam_Slot(quint8)));
+        connect(mc, SIGNAL(sendToRBT_Signal(quint8)), this, SLOT(sendToRBT_Slot(quint8)));
+    }
+    else
+    {
+        msg = "请先连接运动控制器";
+        return -1;
+    }
+    // 相机
+    auto camera1 = deviceManager->getCamera(vws::Camera_bottom);
+    if (camera1->getState() > 0)
+    {
+        camera1CallbackData_b = new CameraCallbackData();
+        camera1CallbackData_b->up_or_bottom = 1;
+        camera1CallbackData_b->mainProcess = this;
+
+        camera1->RegisterFrameCallBack(imgFunc_b, (void *)(camera1CallbackData_b));
+    }
+    else
+    {
+        msg = "底部相机未连接";
+        return -1;
+    }
+
+    auto camera2 = deviceManager->getCamera(vws::Camera_top);
+    if (camera2->getState() > 0)
+    {
+        camera2CallbackData_u = new CameraCallbackData();
+        camera2CallbackData_u->up_or_bottom = 0;
+        camera2CallbackData_u->mainProcess = this;
+
+        camera2->RegisterFrameCallBack(imgFunc_b, (void *)(camera2CallbackData_u));
+    }
+    else
+    {
+        msg = "顶部相机未连接";
+        return -1;
+    }
+
+    mc->startReceive();
+    camera1->startGrab();
+    camera2->startGrab();
+    sm_bottom->StartRun();
+    sm_top->StartRun();
+
+    State = 1;
+
+    return 1;
 }
 
 void MainProcess::Stop()
 {
+    CLog::getInstance()->log("程序停止");
+
+    State = -1;
+    sm_bottom->StopRun();
+    sm_top->StopRun();
+    DeviceManager::getInstance()->getCamera(0)->stopGrab();
+    DeviceManager::getInstance()->getCamera(1)->stopGrab();
 }
 
 ThreadSafeVector<vws::PlanTaskInfo> *MainProcess::GetPlanTaskInfo(int upper_or_bottom)
