@@ -95,6 +95,7 @@ private:
 
     /* @brief 运动控制器请求*/
     bool mcRequest = false;
+    uint8_t axisNum = 0;
 
     std::vector<VWSRobot::RobotTask> rbtFailTask;
     int nFail = 0;
@@ -111,7 +112,6 @@ private slots:
     void getTrajParam_Slot(quint8 axisNum);
     /** @brief 向机器人发送轨迹*/
     void sendToRBT_Slot(quint8 axisNum);
-
     void alarm_Slot();
     /**
      * @brief
@@ -129,7 +129,7 @@ signals:
     void sendImgData_u(QVariant vData);
 
     /* @brief 运动控制器发送数据*/
-    void sendTrajParam_Signal();
+    void sendTrajParam_Signal(quint8);
 
     void alarm_Signal();
 };

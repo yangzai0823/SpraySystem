@@ -21,8 +21,8 @@ void ContextStateMachine::logState(QString strState, bool enter)
 float ContextStateMachine::getImgEncoder(bool init)
 {
     float result = 0;
-    int i = 0;
     bool success = false;
+    int i = 0;
 
     while (true)
     {
@@ -34,13 +34,13 @@ float ContextStateMachine::getImgEncoder(bool init)
         }
         else
         {
-            if (result != pre_img_encoder || i >= 10)
+            if (result != pre_img_encoder || i >= 1)
             {
                 break;
             }
         }
         i++;
-        usleep(200000);
+        usleep(200000); // 200毫秒
     }
 
     if (success == false)
@@ -70,6 +70,7 @@ ContextStateMachine::ContextStateMachine()
 
     /**绑定跳转**/
     parentState->addTransition(this, SIGNAL(alarm()), deviceAlarm);
+
     tranWaitSignal = stateIDLE->addTransition(this, SIGNAL(cameraSignalOn()), waitLaserSignal);
 
     tranProcessHeadImg = waitLaserSignal->addTransition(this, SIGNAL(laserSignalOnAndImgReady()), processHeadImg);
@@ -111,6 +112,9 @@ ContextStateMachine::ContextStateMachine()
     timer_img_trail = new QTimer();
     timer_img_trail->moveToThread(sm_thread);
     connect(timer_img_trail, SIGNAL(timeout()), this, SLOT(trailTimer_Slot()));
+
+    auto mc = DeviceManager::getInstance()->getMC();
+    connect(mc, SIGNAL(mcWarning_Signal(quint8, std::vector<int32_t>)), this, SLOT(mcWarning_Slot(quint8, std::vector<int32_t>)));
 }
 
 ContextStateMachine::~ContextStateMachine()
@@ -178,6 +182,8 @@ void ContextStateMachine::enteredParentState_Slot()
 void ContextStateMachine::enteredAlarm_Slot()
 {
     logState("Alarm");
+
+    stop();
 }
 
 void ContextStateMachine::sendPlcData_Slot(QVariant vData)
@@ -223,6 +229,28 @@ void ContextStateMachine::sendImgData_Slot(QVariant vData)
         std::cout << "******箱体： " << Name.toStdString() << "，收到尾部图像信号" << std::endl;
         checkTrailLaserAndImg();
     }
+}
+
+void ContextStateMachine::mcWarning_Slot(quint8 axisNUm, std::vector<int32_t> errData)
+{
+    QString msg;
+
+    if (errData[0] != 0)
+    {
+        msg = "轴(" + QString::number(axisNUm + 1) + ")发生异常，伺服驱动器报错，错误编码（" + QString::number(errData[0]) + "）";
+    }
+    else if (errData[1] != 0)
+    {
+        msg = "轴(" + QString::number(axisNUm + 1) + ")发生异常，控制器报错，错误编码（" + QString::number(errData[1]) + "）";
+    }
+    else if (errData[2] != 0)
+    {
+        msg = "机器人(" + QString::number(axisNUm + 1) + ")发生异常，错误编码（" + QString::number(errData[1]) + "）";
+    }
+
+    CLog::getInstance()->log(msg, CLog::CLOG_LEVEL::REEROR);
+
+    emit alarm();
 }
 
 void ContextStateMachine::enteredWaitLaserSignal_Slot()

@@ -162,9 +162,12 @@ void MainProcess::recevieData_Slot(QVariant data)
 MainProcess::MainProcess()
 {
     CLog::getInstance()->log("初始化程序");
+
+    qRegisterMetaType<std::vector<int32_t>>("std::vector<int32_t>"); // 注册数据类型
+
     // vws::DataInit::Init();
 
-    connect(this, SIGNAL(sendTrajParam_Signal()), this, SLOT(getTrajParam_Slot()));
+    connect(this, SIGNAL(sendTrajParam_Signal(quint8)), this, SLOT(getTrajParam_Slot(quint8)));
 
     visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();
@@ -358,6 +361,7 @@ void MainProcess::getTrajParam_Slot(quint8 axisNum)
         mc->sendTrajParam(zeropoint, offset, axisNum);
 
         mcRequest = false;
+        axisNum = axisNum;
     }
     else
     {
@@ -427,7 +431,7 @@ void MainProcess::SetRobotTaskInfo(std::vector<float> mc_data, std::vector<Robot
     {
         // std::cout << "运动控制器请求过数据，但未发送" << std::endl;
         CLog::getInstance()->log("运动控制器请求过数据，但未发送");
-        emit sendTrajParam_Signal();
+        emit sendTrajParam_Signal(axisNum);
     }
     _trajret_mutex.unlock();
 }
@@ -437,6 +441,8 @@ void MainProcess::alarm_Slot()
     // 停止状态机
     sm_bottom->StopRun();
     sm_top->StopRun();
+
+    emit alarm_Signal();
 }
 
 void MainProcess::begintraj_Slot(QVariant vdata, bool up_or_bttom)

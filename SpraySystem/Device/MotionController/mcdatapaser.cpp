@@ -187,9 +187,18 @@ void mcdatapaser::parseData(char *v1, vws::MCData *data)
         break;
     }
     case 36:
+    {
         std::cout << "运动控制器报错" << std::endl;
-        emit mcWarning_Signal(dnum);
+
+        data->axis_num = pd->axisNum;
+        data->mcErrs.clear();
+        data->mcErrs = {pd->a1, pd->a2};
+
+        memcpy(reply_order, v1, N);
+
+        semaphone_slave.release();
         break;
+    }
     case 0:
         // std::cout<<"答应收到轨迹规划参数"<<std::endl;
         CLog::getInstance()->log("MC Reply, 收到轨迹规划参数");

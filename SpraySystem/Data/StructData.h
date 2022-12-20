@@ -70,6 +70,7 @@ namespace vws
         int realtimeencoder2;
         int getparam;
         int sendtorbt;
+        std::vector<int32_t> mcErrs;
         int heart;
         uint8_t order;
         uint8_t axis_num;

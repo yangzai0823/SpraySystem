@@ -16,6 +16,9 @@ MCOperator::MCOperator(std::shared_ptr<MotionController> mc)
     this->port = mc->Port.toInt();
     this->port2 = mc->Port2.toInt();
     this->name = mc->Name;
+
+    data_slave.mcErrs.resize(3);
+    data_slave.mcErrs.clear();
 }
 
 MCOperator::~MCOperator()
@@ -30,17 +33,9 @@ int MCOperator::init()
     dataparser_slave = new mcdatapaser();
     dataparser_master->mcData = &data_master;
     dataparser_slave->mcData = &data_slave;
-    // dataparser->semaphone_slave = &semaphone_slave;
-    // dataparser->reply_order = replyOrder;
     master_socket = new QtSocketClient(dataparser_master);
     slave_socket = new QtSocketClient(dataparser_slave);
 
-    // connect(dataparser, SIGNAL(getTrajParam_Signal(quint16)), this, SLOT(getTrajParam_Slot(quint16)));
-    // connect(dataparser,SIGNAL(sendToRBT_Signal(quint16)),this,SLOT(sendToRBT_Slot(quint16)));
-    connect(dataparser_slave, SIGNAL(mcWarning_Signal(quint16)), this, SLOT(mcWarning_Slot(quint16)));
-    // connect(dataparser_master,SIGNAL(test_Signal()),this,SLOT(test_Slot()));
-
-    // connect(socketclient, SIGNAL(readyRead_Signal(QByteArray)), this, SLOT(readyRead_Slot(QByteArray)), Qt::ConnectionType::QueuedConnection);
     connect(this, SIGNAL(connect_master_Signal(QString, int)), master_socket, SLOT(connect_Slot(QString, int)), Qt::ConnectionType::QueuedConnection);
     connect(this, SIGNAL(connect_slave_Signal(QString, int)), slave_socket, SLOT(connect_Slot(QString, int)), Qt::ConnectionType::QueuedConnection);
 
@@ -75,13 +70,14 @@ int MCOperator::start()
             // std::cout<<"应答: "<<current_date_time1.toStdString()<<std::endl;
             slave_socket->send(byArr);
             if(data_slave.order == 33){
-
-                CLog::getInstance()->log("MC Receive, 执行发送轨迹规划参数");
-                getTrajParam_Slot(data_slave.axis_num);
+                CLog::getInstance()->log("Receive from MC, 执行发送轨迹规划参数");
+                emit getTrajParam_Signal(data_slave.axis_num);
             }else if(data_slave.order == 35){
-
-                CLog::getInstance()->log("MC Receive, 执行发送轨迹给机器人");
-                sendToRBT_Slot(data_slave.axis_num);
+                CLog::getInstance()->log("Receive from MC, 执行发送轨迹给机器人");
+                 emit sendToRBT_Signal(data_slave.axis_num);
+            }else if(data_slave.order == 36){
+                CLog::getInstance()->log("Receive from MC, 运动控制器报警");
+                emit mcWarning_Signal(data_slave.axis_num, data_slave.mcErrs);
             }
        } });
     t_slave.detach();
@@ -104,6 +100,7 @@ void MCOperator::close()
 
 int MCOperator::getState()
 {
+    return 1;
 }
 
 void MCOperator::sendTrajParam(float zeropoint, float offset, uint8_t axisNum)
@@ -129,11 +126,6 @@ std::vector<float> MCOperator::getChainEncoders(bool &success)
 {
     success = true;
 
-    // sendData(1, 0, 0);
-    // if(!waitData(data.bchainencoder))
-    // {
-    //     success = false;
-    // }
     success = trySendData(1, 0, 0, data_master.b_chain_encoder);
     std::vector<float> val;
     val.push_back(data_master.encoder1);
@@ -145,8 +137,7 @@ std::vector<float> MCOperator::getChainEncoders(bool &success)
 std::vector<float> MCOperator::getRealTimeEncoder(bool &success)
 {
     success = true;
-    // sendData(2, 0, 0);
-    // waitData(data.brealtimeencoder);
+
     success = trySendData(2, 0, 0, data_master.b_realtime_encoder);
     std::vector<float> val;
     val.push_back(data_master.realtimeencoder1);
@@ -227,25 +218,6 @@ void MCOperator::sendData(uint8_t order, float v1, float v2, uint8_t axisNum)
     ret = master_socket->send(arry);
 }
 
-// bool MCOperator::waitData(bool &flag)
-// {
-//     int i = 0;
-//     while (!flag && i<300)
-//     {
-//         i++;
-//         //        QCoreApplication::processEvents();
-//         usleep(1e5);
-//     }
-//     //相应超时
-//     if(flag == false){
-//         return false;
-//     }
-//     else{
-//         flag = false;
-//         return true;
-//     }
-// }
-
 bool MCOperator::waitData(bool &flag)
 {
     QString strflag;
@@ -271,11 +243,11 @@ bool MCOperator::waitData(bool &flag)
     }
 
     bool success = false;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 10; i++)
     {
 
         CLog::getInstance()->log("错误重试, " + strflag);
-        if (dataparser_master->semaphore_master.tryAcquire(1, 400))
+        if (dataparser_master->semaphore_master.tryAcquire(1, 100))
         {
             CLog::getInstance()->log("获得资源, " + strflag);
             if (flag)
@@ -296,23 +268,6 @@ void MCOperator::readyRead_Slot(QByteArray buf)
     std::thread::id id = std::this_thread::get_id();
     // emit getTrajParam_Signal();
 }
-
-void MCOperator::getTrajParam_Slot(quint8 axisNum)
-{
-    emit getTrajParam_Signal(axisNum);
-}
-
-void MCOperator::sendToRBT_Slot(quint8 axisNum)
-{
-    emit sendToRBT_Signal(axisNum);
-}
-
-void MCOperator::mcWarning_Slot(quint16 num)
-{
-    // 应答
-    sendData(36, 0, 0, num);
-}
-
 void MCOperator::checkState_Slot()
 {
     if (preheart != data_slave.heart)

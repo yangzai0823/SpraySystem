@@ -127,6 +127,7 @@ public slots:
     // 外部事件
     void sendPlcData_Slot(QVariant vData);
     void sendImgData_Slot(QVariant vData);
+    void mcWarning_Slot(quint8 axisNum, std::vector<int32_t> errData);
 
     // 内部事件
     void enteredParentState_Slot();
