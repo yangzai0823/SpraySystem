@@ -52,7 +52,10 @@
                 "work": "dleft_plane-pdf-dleft_plane",
                 "cancle": "dleft_plane-dright_plane",
                 "follow": "d",
-                "followOffset": -300
+                "followOffset": 300,
+                "time1": 4,
+                "timeAll": 4,
+                "segmentSymbol": "p"
             },
             {
                 "name": "downback",
@@ -66,7 +69,10 @@
                 "work": "dleft_plane-puf-dleft_plane",
                 "cancle": "",
                 "follow": "u",
-                "followOffset": 500
+                "followOffset": 500,
+                "time1": 4,
+                "timeAll": 4,
+                "segmentSymbol": "p"
             },
             {
                 "name": "upback",
@@ -80,7 +86,10 @@
                 "work": "dleft_plane-puf-pdf-dleft_plane",
                 "cancle": "",
                 "follow": "u",
-                "followOffset": 500
+                "followOffset": 500,
+                "time1": 7.5,
+                "timeAll": 7.5,
+                "segmentSymbol": "p"
             },
             {
                 "name": "whole back",

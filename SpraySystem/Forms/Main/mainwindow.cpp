@@ -271,11 +271,12 @@ void MainWindow::startDevices()
     // 运动控制器
     auto mc = deviceManager->getMC();
     auto retmc = mc->init();
+#ifndef PLAN_FAKE_DATA
     retmc = mc->start();
 
     msg = retmc > 0 ? "运动控制器启动成功" : "运动控制器启动失败";
     showMsg(msg);
-
+#endif
     // 机器人
     auto rbt = deviceManager->getRobot(0);
     auto retrbt = rbt->init();
