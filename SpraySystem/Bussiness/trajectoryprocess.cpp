@@ -173,6 +173,7 @@ bool PlanStragety::teachPoseOf(const std::string &key,
   }
   return false;
 }
+
 bool PlanStragety::tacticOf(const std::string &name, std::string &work_tactic,
                             std::string &cancel_tactic, std::string &follow,
                             float &follow_offset) const {
@@ -1971,6 +1972,12 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata) {
     createPlanSceneUsingTactic(generator, task_info, stragety, units);
     createSafeRegionUsingTactic(generator, task_info, stragety, units,
                                 mc_dpos_min, mc_dpos_max, mc_dpos_mid);
+    CLog::getInstance()->log("规划， mc_dpos_max : " +
+                             QString::number(mc_dpos_max));
+    CLog::getInstance()->log("规划， mc_dpos_mid : " +
+                             QString::number(mc_dpos_mid));
+    CLog::getInstance()->log("规划， mc_dpos_min : " +
+                             QString::number(mc_dpos_min));
     std::cout << "mc_dpos_min : " << mc_dpos_min << std::endl
               << "mc_dpos_mid : " << mc_dpos_mid << std::endl
               << "mc_dpos_max : " << mc_dpos_max << std::endl;
@@ -2020,6 +2027,9 @@ void TrajectoryProcess::begintraj_Slot(MainProcess *vdata) {
       //   auto rbttasks = convertToRobotTask(all_traj, stragety);
       // auto rbttasks = convertToRobotTask(traj_info);
 #endif
+      mc_data.push_back(mc_dpos_max);
+      mc_data.push_back(mc_dpos_mid);
+      mc_data.push_back(mc_dpos_min);
       vdata->SetRobotTaskInfo(mc_data, rbttasks);
     }
   }

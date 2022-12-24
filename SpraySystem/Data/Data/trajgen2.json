@@ -50,7 +50,7 @@
             {
                 "name": "downfront",
                 "work": "dleft_plane-pdf-dleft_plane",
-                "cancle": "dleft_plane-dright_plane",
+                "cancel": "dleft_plane-dright_plane",
                 "follow": "d",
                 "followOffset": 300,
                 "time1": 4,
@@ -60,14 +60,14 @@
             {
                 "name": "downback",
                 "work": "dleft_plane-sdf-dleft_plane-dright_plane-pdf-dright_plane",
-                "cancle": "dleft_plane-dright_plane",
+                "cancel": "dleft_plane-dright_plane",
                 "follow": "d",
                 "followOffset": -300
             },
             {
                 "name": "upfront",
                 "work": "dleft_plane-puf-dleft_plane",
-                "cancle": "",
+                "cancel": "",
                 "follow": "u",
                 "followOffset": 500,
                 "time1": 4,
@@ -77,14 +77,14 @@
             {
                 "name": "upback",
                 "work": "dleft_plane-suf-dleft_plane-dright_plane-puf-dright_plane",
-                "cancle": "dleft_plane-dright_plane",
+                "cancel": "dleft_plane-dright_plane",
                 "follow": "u",
                 "followOffset": -300
             },
             {
                 "name": "front two plane",
                 "work": "dleft_plane-puf-pdf-dleft_plane",
-                "cancle": "",
+                "cancel": "",
                 "follow": "u",
                 "followOffset": 500,
                 "time1": 7.5,
@@ -94,7 +94,7 @@
             {
                 "name": "whole back",
                 "work": "dleft_plane-sdb-sub-dright_plane-puf-pdf-dright_plane",
-                "cancle": "dleft_plane-dright_plane",
+                "cancel": "dleft_plane-dright_plane",
                 "follow": "u",
                 "followOffset": -300
             }

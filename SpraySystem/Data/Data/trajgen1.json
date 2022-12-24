@@ -78,7 +78,7 @@
             {
                 "name": "downfront",
                 "work": "dleft_plane-sdf-dleft_plane",
-                "cancle": "",
+                "cancel": "",
                 "follow": "d",
                 "followOffset": -300,
                 "time1": 2,
@@ -88,7 +88,7 @@
             {
                 "name": "downback",
                 "work": "dright_plane-sdf-dright_plane-dleft_plane-pdf-dleft_plane",
-                "cancle": "dright_plane-dleft_plane",
+                "cancel": "dright_plane-dleft_plane",
                 "follow": "d",
                 "followOffset": -300,
                 "time1": 2,
@@ -98,7 +98,7 @@
             {
                 "name": "upfront",
                 "work": "uleft_plane-suf-uleft_plane",
-                "cancle": "",
+                "cancel": "",
                 "follow": "u",
                 "followOffset": -300,
                 "time1": 2,
@@ -108,7 +108,7 @@
             {
                 "name": "upback",
                 "work": "uright_plane-suf-uright_plane-uleft_plane-puf-uleft_plane",
-                "cancle": "uright_plane-uleft_plane",
+                "cancel": "uright_plane-uleft_plane",
                 "follow": "u",
                 "followOffset": -300,
                 "time1": 2,
@@ -118,7 +118,7 @@
             {
                 "name": "front two seams",
                 "work": "uleft_plane-suf-sdf-dleft_plane",
-                "cancle": "uleft_plane-dleft_plane",
+                "cancel": "uleft_plane-dleft_plane",
                 "follow": "d",
                 "followOffset": -300,
                 "time1": 3,
@@ -128,7 +128,7 @@
             {
                 "name": "whole back",
                 "work": "dright_plane-sdb-sub-uright_plane-uleft_plane-puf-pdf-dleft_plane",
-                "cancle": "dright_plane-dleft_plane",
+                "cancel": "dright_plane-dleft_plane",
                 "follow": "u",
                 "followOffset": -300,
                 "time1": 3,

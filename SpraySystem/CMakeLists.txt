@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(SpraySystem LANGUAGES CXX)
-add_definitions(-DPLAN_FAKE_DATA)
-add_definitions(-DROBOT1)
+# add_definitions(-DPLAN_FAKE_DATA)
+# add_definitions(-DROBOT1)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)

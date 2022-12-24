@@ -105,6 +105,16 @@ void MCOperator::sendTrajParam(float zeropoint, float offset, uint8_t axisNum) {
   trySendData(0, zeropoint, offset, data_master.b_receive_traj_param, axisNum);
 }
 
+void MCOperator::sendTrajParam(MCOperator::TrajParamData para) {
+  std::vector<float> val;
+  val.push_back(para.zeropoint);
+  val.push_back(para.offset);
+  val.push_back(para.dpos_start);
+  val.push_back(para.dpos_mid);
+  val.push_back(para.dpos_stop);
+  trySendData(0, val, data_master.b_receive_traj_param, para.axisNum);
+}
+
 void MCOperator::reset() {
   std::cout << "" << std::endl;
   CLog::getInstance()->log("运动控制器请报错复位");
@@ -138,7 +148,21 @@ std::vector<float> MCOperator::getRealTimeEncoder(bool &success) {
   std::cout << "获取实施编码器数值" << std::endl;
   return val;
 }
-
+bool MCOperator::trySendData(uint8_t order, std::vector<float> val, bool &flag,
+                             uint8_t axisNum) {
+  int N = 3;
+  bool ret = false;
+  send_mutex.lock();
+  for (int i = 0; i < 3; i++) {
+    sendData(order, val, axisNum);
+    ret = waitData(flag);
+    if (ret == true) {
+      break;
+    }
+  }
+  send_mutex.unlock();
+  return ret;
+}
 bool MCOperator::trySendData(uint8_t order, float v1, float v2, bool &flag,
                              uint8_t axisNum) {
   int N = 3;
@@ -153,6 +177,54 @@ bool MCOperator::trySendData(uint8_t order, float v1, float v2, bool &flag,
   }
   send_mutex.unlock();
   return ret;
+}
+
+void MCOperator::sendData(uint8_t order, std::vector<float> val,
+                          uint8_t axisNum) {
+  QByteArray arry;
+  // 报头
+  int16_t head = qToBigEndian<int16_t>(0xabcd);
+  // arry.append((char*)&head,2);
+  // 编号
+  if (count >= 9999) {
+    count = 0;
+  } else {
+    count++;
+  }
+
+  int16_t count_BigEndian = qToBigEndian<int16_t>(count);
+  arry.append((char *)&count_BigEndian, 2);
+
+  // 轴号
+  arry.append((char *)&axisNum, 1);
+
+  // 指令
+  arry.append(order);
+
+  // 数据
+  int N = 6;
+  int M = N < val.size() ? N : val.size();
+  for (int i = 0; i < M; i++) {
+    float d = qToBigEndian<float>(val[i]);
+    arry.append((char *)&d, 4);
+  }
+  for (int i = M; i < N; i++) {
+    arry.append(4, '\0');
+  }
+
+  // 报尾
+  unsigned char *crcdata = (unsigned char *)arry.data();
+  u_int16_t trail =
+      dataparser_master->do_crc(crcdata, dataparser_master->N_Data);
+
+  // std::cout<<std::hex<<trail<<std::endl;
+
+  auto trailToBingEndian = qToBigEndian(trail);
+  arry.append((char *)&trailToBingEndian, 2);
+
+  uint ret;
+  arry.insert(0, (char *)&head, 2);
+  ret = master_socket->send(arry);
 }
 
 void MCOperator::sendData(uint8_t order, float v1, float v2, uint8_t axisNum) {
