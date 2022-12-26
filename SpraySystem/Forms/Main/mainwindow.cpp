@@ -11,7 +11,7 @@
 #include "Forms/global.h"
 #include <QAbstractButton>
 #include "Data/StaticData.h"
-
+#include "Forms/Devices/mcmove.h"
 MainWindow::MainWindow(std::shared_ptr<User> user)
     : ui(new Ui::MainWindow)
 {
@@ -398,4 +398,11 @@ void MainWindow::updateRealTime_Slot()
 void MainWindow::alarm_Slot()
 {
     showMsg("设备异常");
+}
+
+void MainWindow::on_btn_MCMove_clicked()
+{
+    // std::shared_ptr<MCMove> mcmove = std::make_shared<MCMove>();
+    MCMove *mcmove = new MCMove();
+    mcmove->show();
 }

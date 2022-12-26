@@ -86,6 +86,7 @@ namespace vws
         bool b_receive_rbt_result = false;
         /** @brief 应答： 收到7轴轨迹规划参数*/
         bool b_receive_traj_param = false;
+        bool b_move = false;
     };
 
     /**

@@ -17,7 +17,8 @@
 using MCData = vws::MCData;
 
 Q_DECLARE_METATYPE(MCData) // 注册结构体
-class MCOperator : public QObject, public DeviceOperator {
+class MCOperator : public QObject, public DeviceOperator
+{
   Q_OBJECT
 public:
   MCOperator(std::shared_ptr<MotionController> mc);
@@ -34,7 +35,8 @@ public:
 
   /** @brief 向机器人发送运动轨迹*/
   void sendTrajParam(float zeropoint, float offset, uint8_t axisNum);
-  struct TrajParamData {
+  struct TrajParamData
+  {
     float zeropoint;
     float offset;
     float dpos_start;
@@ -51,6 +53,8 @@ public:
   std::vector<float> getChainEncoders(bool &success);
   std::vector<float> getRealTimeEncoder(bool &success);
   void SevenAxisReset();
+  /** @brief 移动7轴*/
+  void move(float step, uint8_t axisNum);
 
 private:
   MCData data_master;

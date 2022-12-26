@@ -47,6 +47,8 @@ private slots:
 
     void on_btn_MC_clicked();
 
+    void on_btn_MCMove_clicked();
+
 signals:
     void startMonitorDevice_signal();
 

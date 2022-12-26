@@ -19,5 +19,6 @@
         <file>Images/reset.png</file>
         <file>Images/send.png</file>
         <file>Images/delete.png</file>
+        <file>Images/mcMove.png</file>
     </qresource>
 </RCC>
