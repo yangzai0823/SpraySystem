@@ -205,6 +205,11 @@ void mcdatapaser::parseData(char *v1, vws::MCData *data)
         data->b_receive_traj_param = true;
         semaphore_master.release();
         break;
+    case 3:
+        CLog::getInstance()->log("MC Reply, 手动控制");
+        data->b_move = true;
+        semaphore_master.release();
+        break;
     case 5:
         CLog::getInstance()->log("MC Reply, 复位消息");
         data->b_receive_reset = true;
