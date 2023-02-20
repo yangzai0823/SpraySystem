@@ -4,47 +4,127 @@
 #include "Device/devicemanager.h"
 #include "Util/Log/clog.h"
 #include <QDate>
+#ifdef LOCALTEST
+#include "VWSCamera/VWSCamera.h"
+#include "mainprocess.h"
+static ImageData image_bh;//下头
+static ImageData image_bt;//下尾
+static ImageData image_uh;//上头
+static ImageData image_ut;//上尾
+ 
+   
 
-std::mutex ContextStateMachine::_mutex;
-void ContextStateMachine::logState(QString strState, bool enter)
-{
-    if (enter)
-    {
-        CLog::getInstance()->log("*****箱体： " + Name + "(" + QString::number(nCount) + ")，进入状态： " + strState + "******");
+static std::string str_bh = "/home/joker/Project/SpraySystem/11.24点云/头尾2/head_1051.000000,1360.000000.ply";
+static std::string str_bt = "/home/joker/Project/SpraySystem/11.24点云/头尾2/trail_1051.000000,1360.000000.ply";
+static std::string str_uh = "/home/joker/Project/SpraySystem/11.24点云/头尾2/head_943.000000,1315.000000.ply";
+static std::string str_ut = "/home/joker/Project/SpraySystem/11.24点云/头尾2/trail_943.000000,1315.000000.ply";
+
+// static std::string str_bh = "/home/joker/Project/SpraySystem/11.24点云/头尾2/bottom_head_1049.000000,1361.000000.ply";
+// static std::string str_bt = "/home/joker/Project/SpraySystem/11.24点云/头尾2/bottom_trail_1049.000000,1361.000000.ply";
+// static std::string str_uh = "/home/joker/Project/SpraySystem/11.24点云/头尾2/top_head_952.000000,1311.000000.ply";
+// static std::string str_ut = "/home/joker/Project/SpraySystem/11.24点云/头尾2/top_trail_952.000000,1311.000000.ply";
+void readImage(std::string &fileName,ImageData &data){
+    data.PointCloudImage.nDataLen = 1441792 * (sizeof(float) * 3);
+    data.PointCloudImage.nHeight = 1024;
+    data.PointCloudImage.nWidth = 1408;
+    data.PointCloudImage.pData = new uint8_t[1441792 * (sizeof(float) * 3)];
+    float *im = (float*)data.PointCloudImage.pData;
+    std::string line;
+    std::ifstream outFile;
+    outFile.open(fileName);
+    for(int i = 0;i < 8;i++){
+        getline(outFile,line);
     }
-    else
-    {
+	while (getline(outFile,line)){//将in文件中的每一行字符读入到string line中
+		std::stringstream ss(line);//使用string初始化stringstream
+		ss >> *im >> *(im+1) >> *(im+2);//由于固定为三列。所以可以这样读取，stringstream 默认按空格分割字符串
+		//std::cout << *im<<" "<<*(im+1)<<" "<<*(im+2)<<std::endl;
+        im = im +3;
+	}
+    outFile.close();
+}
+void cameraTest(MainProcess *obj,int num) {//num : 0，1,2,3： 下头，下尾，上头，上尾
+    MainProcess::CameraCallbackData *cameraCallbackData;
+    ImageData data;
+    if(num <= 1){
+        cameraCallbackData = obj->camera1CallbackData_b;
+        if(cameraCallbackData == nullptr){
+            return;
+        }
+        if(num == 0){
+            data = image_bt;
+        }else{
+            data = image_bh;
+        }
+         
+    }else{
+        cameraCallbackData = obj->camera2CallbackData_u;
+        if(cameraCallbackData == nullptr){
+            return;
+        }
+        if(num == 2){
+            data = image_bt;
+        }else{
+            data = image_bh;
+        }
+    }
+    auto mainProcess = cameraCallbackData->mainProcess;
+    auto cameraOperator = cameraCallbackData->camera;
+
+
+    if (mainProcess->q_img.size() == 20) {
+        for (int i = 0; i < 5; i++) {
+            auto rm_img = mainProcess->q_img.dequeue();
+            //DeviceManager::getInstance()->getCamera(0)->deleteImage(rm_img);
+        }
+    }
+    mainProcess->q_img.enqueue(data);
+
+    VisionData v;
+
+    if (cameraCallbackData->up_or_bottom == 0) {
+        std::cout << " 获得上相机图像" << std::endl;
+
+        QVariant vData;
+        vData.setValue(data);
+        emit mainProcess->sendImgData_u(vData);
+    } else {
+        std::cout << " 获得下相机图像" << std::endl;
+        QVariant vData;
+        vData.setValue(data);
+        emit mainProcess->sendImgData_b(vData);
+    }
+}
+#endif
+std::mutex ContextStateMachine::_mutex;
+void ContextStateMachine::logState(QString strState, bool enter) {
+    if (enter) {
+        CLog::getInstance()->log("*****箱体： " + Name + "(" + QString::number(nCount) + ")，进入状态： " + strState + "******");
+    } else {
         CLog::getInstance()->log("*****箱体： " + Name + "(" + QString::number(nCount) + ")，退出状态： " + strState + "******");
     }
 }
 
-float ContextStateMachine::getImgEncoder(bool init)
-{
+float ContextStateMachine::getImgEncoder(bool init) {
     float result = 0;
     bool success = false;
     int i = 0;
 
-    while (true)
-    {
+    while (true) {
         /* code */
         result = DeviceManager::getInstance()->getMC()->getChainEncoders(success)[Context.index];
-        if (init)
-        {
+        if (init) {
             break;
-        }
-        else
-        {
-            if (result != pre_img_encoder || i >= 1)
-            {
+        } else {
+            if (result != pre_img_encoder || i >= 1) {
                 break;
             }
         }
         i++;
-        usleep(200000); // 200毫秒
+        usleep(200000);  // 200毫秒
     }
 
-    if (success == false)
-    {
+    if (success == false) {
         CLog::getInstance()->log("读取拍照时刻编码器数值超时");
         CLog::getInstance()->log("当前读数： " + QString::number(result) + ", 前一次数值： " + QString::number(pre_img_encoder));
         // 设备报警
@@ -53,9 +133,17 @@ float ContextStateMachine::getImgEncoder(bool init)
     pre_img_encoder = result;
     return result;
 }
-
+#ifdef LOCALTEST
+ContextStateMachine::ContextStateMachine(MainProcess *mainProcessobj) {
+    mainProcessobj_ = mainProcessobj;
+    readImage(str_bh,image_bh);
+    readImage(str_bt,image_bt);
+    readImage(str_uh,image_uh);
+    readImage(str_ut,image_ut);
+#else
 ContextStateMachine::ContextStateMachine()
 {
+#endif
     Name = "状态机";
     visionContext = new VisionContext();
 
@@ -117,8 +205,7 @@ ContextStateMachine::ContextStateMachine()
     connect(mc, SIGNAL(mcWarning_Signal(quint8, std::vector<int32_t>)), this, SLOT(mcWarning_Slot(quint8, std::vector<int32_t>)));
 }
 
-ContextStateMachine::~ContextStateMachine()
-{
+ContextStateMachine::~ContextStateMachine() {
     sm_thread->quit();
     sm_thread->wait();
     delete sm_thread;
@@ -127,124 +214,112 @@ ContextStateMachine::~ContextStateMachine()
     delete timer_img_trail;
 }
 
-void ContextStateMachine::StartRun()
-{
+void ContextStateMachine::StartRun() {
     nCount = 0;
 
     sm_thread->start();
     start();
 }
 
-void ContextStateMachine::StopRun()
-{
+void ContextStateMachine::StopRun() {
     sm_thread->quit();
 
     stop();
 }
 
-void ContextStateMachine::checkHeadLaserAndImg()
-{
+void ContextStateMachine::checkHeadLaserAndImg() {
     _mutex.lock();
 #ifdef _STATEPRINT_
     // std::cout << "enter checkHeadLaserAndImg" << std::endl;
 #endif
-    if (Context.flag_laser == true && Context.flag_img_head == true)
-    {
+    if (Context.flag_laser == true && Context.flag_img_head == true) {
         emit laserSignalOnAndImgReady();
-    }
-    else
-    {
+    } else {
     }
     _mutex.unlock();
 }
 
-void ContextStateMachine::checkTrailLaserAndImg()
-{
+void ContextStateMachine::checkTrailLaserAndImg() {
 #ifdef _STATEPRINT_
     // std::cout << "enter checkTrailLaserAndImg" << std::endl;
 #endif
     _mutex.lock();
-    if (!Context.flag_camera && Context.flag_img_trail)
-    {
+    if (!Context.flag_camera && Context.flag_img_trail) {
         emit cameraSignalOffAndImgReady();
-    }
-    else
-    {
+    } else {
     }
     _mutex.unlock();
 }
 
-void ContextStateMachine::enteredParentState_Slot()
-{
+void ContextStateMachine::enteredParentState_Slot() {
     logState("Parent");
 }
 
-void ContextStateMachine::enteredAlarm_Slot()
-{
+void ContextStateMachine::enteredAlarm_Slot() {
     logState("Alarm");
 
     stop();
 }
 
-void ContextStateMachine::sendPlcData_Slot(QVariant vData)
-{
+void ContextStateMachine::sendPlcData_Slot(QVariant vData) {
     SMContext data = vData.value<SMContext>();
-    if (data.flag_camera)
-    {
+    if (data.flag_camera) {
         std::cout << Name.toStdString() << "， 第一次拍照触发信息号" << std::endl;
         // Context.flag_laser = true;
         tmplaserdata = data.laserCouple1;
         emit cameraSignalOn();
+#ifdef LOCALTEST
+        if(IsTop){
+            cameraTest(mainProcessobj_,2);
+        }else{
+            cameraTest(mainProcessobj_,0);
+        }
+#endif
     }
 
-    if (data.flag_laser)
-    {
+    if (data.flag_laser) {
         std::cout << "检测到" << Name.toStdString() << "箱体" << std::endl;
         Context.flag_laser = true;
         checkHeadLaserAndImg();
     }
 
-    if (!data.flag_camera)
-    {
+    if (!data.flag_camera) {
+#ifdef LOCALTEST
+        if(IsTop){
+            cameraTest(mainProcessobj_,3);
+        }else{
+            cameraTest(mainProcessobj_,1);
+        }
+#endif
         std::cout << Name.toStdString() << "， 第二次拍照触发信息号" << std::endl;
         Context.flag_camera = false;
         checkTrailLaserAndImg();
     }
 }
 
-void ContextStateMachine::sendImgData_Slot(QVariant vData)
-{
+void ContextStateMachine::sendImgData_Slot(QVariant vData) {
     VWSCamera::ImageData img = vData.value<VWSCamera::ImageData>();
-    if (!Context.flag_img_head)
-    {
+    if (!Context.flag_img_head) {
         Context.flag_img_head = true;
         Context.img_head = img;
-        std::cout << "******箱体： " << Name.toStdString() << " ，收到头部图像信号" << std::endl;
+        CLog::getInstance()->log("******箱体： " + Name +  " ，收到头部图像信号");
         checkHeadLaserAndImg();
-    }
-    else
-    {
+    } else {
         Context.flag_img_trail = true;
         Context.img_trail = img;
-        std::cout << "******箱体： " << Name.toStdString() << "，收到尾部图像信号" << std::endl;
+        CLog::getInstance()->log("******箱体： " + Name +  " ，收到尾部图像信号");
         checkTrailLaserAndImg();
     }
 }
 
-void ContextStateMachine::mcWarning_Slot(quint8 axisNUm, std::vector<int32_t> errData)
-{
+void ContextStateMachine::mcWarning_Slot(quint8 axisNUm, std::vector<int32_t> errData) {
     QString msg;
 
-    if (errData[0] != 0)
-    {
+    if (errData[0] != 0) {
         msg = "轴(" + QString::number(axisNUm + 1) + ")发生异常，伺服驱动器报错，错误编码（" + QString::number(errData[0]) + "）";
-    }
-    else if (errData[1] != 0)
-    {
+    } else if (errData[1] != 0) {
         msg = "轴(" + QString::number(axisNUm + 1) + ")发生异常，控制器报错，错误编码（" + QString::number(errData[1]) + "）";
-    }
-    else if (errData[2] != 0)
-    {
+    } else if (errData[2] != 0) {
         msg = "机器人(" + QString::number(axisNUm + 1) + ")发生异常，错误编码（" + QString::number(errData[1]) + "）";
     }
 
@@ -253,17 +328,13 @@ void ContextStateMachine::mcWarning_Slot(quint8 axisNUm, std::vector<int32_t> er
     emit alarm();
 }
 
-void ContextStateMachine::enteredWaitLaserSignal_Slot()
-{
+void ContextStateMachine::enteredWaitLaserSignal_Slot() {
     logState("等待箱体感应信号");
 
     // 校验测距
-    if (vws::DataVerify::RangingVerify(tmplaserdata[0], tmplaserdata[1]))
-    {
+    if (vws::DataVerify::RangingVerify(tmplaserdata[0], tmplaserdata[1])) {
         Context.laserCouple1 = tmplaserdata;
-    }
-    else
-    {
+    } else {
         CLog::getInstance()->log("测距异常", CLog::CLOG_LEVEL::REEROR);
         Context.laserCouple1 = {vws::rangeMin, vws::rangeMin};
     }
@@ -275,16 +346,19 @@ void ContextStateMachine::enteredWaitLaserSignal_Slot()
 
     // 开启计时器
     timer_img_head->start(interval);
+#ifdef LOCALTEST
+    time_head = 0;
+    CLog::getInstance()->log("超时计时器开始");
+#endif
     timer_img_trail->start(interval);
 }
-void ContextStateMachine::exitWaitLaserSignal_Slot()
-{
+void ContextStateMachine::exitWaitLaserSignal_Slot() {
     logState("等待箱体感应信号", false);
     timer_img_head->stop();
+    time_head = 0;
 }
 
-void ContextStateMachine::enteredProcessHeadImg_Slot()
-{
+void ContextStateMachine::enteredProcessHeadImg_Slot() {
     logState("处理头部图像");
 
     // 视觉处理头部
@@ -293,17 +367,14 @@ void ContextStateMachine::enteredProcessHeadImg_Slot()
     emit headDone();
 }
 
-void ContextStateMachine::enterdWaitTrailProcess_Slot()
-{
+void ContextStateMachine::enterdWaitTrailProcess_Slot() {
     logState("等待尾部图像处理");
 }
-void ContextStateMachine::exitWaitTrailProcess_Slot()
-{
+void ContextStateMachine::exitWaitTrailProcess_Slot() {
     logState("等待尾部图像处理", false);
 }
 
-void ContextStateMachine::enteredProcessTrailImg_Slot()
-{
+void ContextStateMachine::enteredProcessTrailImg_Slot() {
     logState("处理尾部图像");
 
     timer_img_trail->stop();
@@ -317,20 +388,18 @@ void ContextStateMachine::enteredProcessTrailImg_Slot()
     emit trailDone();
 }
 
-void ContextStateMachine::enteredIDLE_Slot()
-{
+void ContextStateMachine::enteredIDLE_Slot() {
     nCount++;
 
     logState("IDLE");
     // std::thread::id id = std::this_thread::get_id();
     // std::cout << "socketclient slot 线程ID: "<< id << std::endl;
 
-    if (timer_img_head->isActive())
-    {
+    if (timer_img_head->isActive()) {
         timer_img_head->stop();
+        time_head = 0;
     }
-    if (timer_img_trail)
-    {
+    if (timer_img_trail) {
         timer_img_trail->stop();
     }
     Context.flag_laser = false;
@@ -344,22 +413,18 @@ void ContextStateMachine::enteredIDLE_Slot()
     pre_img_encoder = getImgEncoder(true);
 }
 
-void ContextStateMachine::headTimer_Slot()
-{
+void ContextStateMachine::headTimer_Slot() {
     time_head += this->interval;
-    if (time_head > timeout_head)
-    {
+    if (time_head > timeout_head) {
         timer_img_head->stop();
         time_head = 0;
         CLog::getInstance()->log("箱体： " + Name + "(" + QString::number(nCount) + ")，头部图像反馈超时");
         emit headImgTimeout();
     }
 }
-void ContextStateMachine::trailTimer_Slot()
-{
+void ContextStateMachine::trailTimer_Slot() {
     time_trail += this->interval;
-    if (time_trail > timeout_trail)
-    {
+    if (time_trail > timeout_trail) {
         timer_img_trail->stop();
         time_trail = 0;
         CLog::getInstance()->log("箱体： " + Name + "(" + QString::number(nCount) + ")，尾部图像反馈超时");
@@ -367,8 +432,7 @@ void ContextStateMachine::trailTimer_Slot()
     }
 }
 
-void ContextStateMachine::beginVision_head()
-{
+void ContextStateMachine::beginVision_head() {
 #ifdef YASKAWA_ZERO_OFFSET
     double zero_offset = 600;
 #else
@@ -380,8 +444,7 @@ void ContextStateMachine::beginVision_head()
     visionContext->work_head(Context.img_head, Context.laserCouple1, Context.visionData);
 
     vws::PlanTaskInfo planTaskInfo_head;
-    if (!Context.visionData.hasError)
-    {
+    if (!Context.visionData.hasError) {
         planTaskInfo_head.diff = vws::diff;
         planTaskInfo_head.lx = Context.visionData.width;
         planTaskInfo_head.ly = Context.visionData.length_head;
@@ -405,8 +468,7 @@ void ContextStateMachine::beginVision_head()
     QVariant vdata;
 
     // 根据状态机判断底层/顶层
-    if (!Context.visionData.hasError)
-    {
+    if (!Context.visionData.hasError) {
         planTaskInfo_head.isup = IsTop;
         vdata.setValue(planTaskInfo_head);
         emit begintraj_Singal(vdata, IsTop);
@@ -415,8 +477,7 @@ void ContextStateMachine::beginVision_head()
     CLog::getInstance()->log(strTopOrBottom + "箱子头部被参数进入队列");
 }
 
-void ContextStateMachine::beginVision_trail()
-{
+void ContextStateMachine::beginVision_trail() {
 #ifdef YASKAWA_ZERO_OFFSET
     double zero_offset = 600;
 #else
@@ -432,8 +493,7 @@ void ContextStateMachine::beginVision_trail()
 
     // 参数入规划队列, 头部如果未入队列，将头部也入队列
     vws::PlanTaskInfo planTaskInfo;
-    if (Context.visionData.hasError)
-    {
+    if (Context.visionData.hasError) {
         planTaskInfo.flag = true;
     }
     planTaskInfo.diff = vws::diff;
@@ -460,8 +520,7 @@ void ContextStateMachine::beginVision_trail()
 
     QVariant vdata;
     // 根据状态机判断底层/顶层
-    if (!Context.visionData.hasError)
-    {
+    if (!Context.visionData.hasError) {
         planTaskInfo.isup = IsTop;
         vdata.setValue(planTaskInfo);
         emit begintraj_Singal(vdata, IsTop);

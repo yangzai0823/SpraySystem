@@ -14,6 +14,9 @@
 #include "Vision/visioncontext.h"
 
 Q_DECLARE_METATYPE(vws::PlanTaskInfo) // 注册结构体
+#ifdef LOCALTEST
+class MainProcess;
+#endif
 class ContextStateMachine : public QStateMachine
 {
     Q_OBJECT
@@ -40,8 +43,11 @@ public:
     SMContext Context;
     QString Name;
     bool IsTop;
-
+#ifdef LOCALTEST
+    ContextStateMachine(MainProcess *mainProcessObj);
+#else 
     ContextStateMachine();
+#endif
     ~ContextStateMachine();
     void StartRun();
     void StopRun();
@@ -106,6 +112,10 @@ private:
     float pre_img_encoder; // 暂存编码器前一次拍照数值
 
     int nCount = 0;
+#ifdef LOCALTEST
+
+    MainProcess *mainProcessobj_ = nullptr;
+#endif
 
 signals:
     /** @brief 开始规划信号

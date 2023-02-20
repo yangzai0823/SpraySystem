@@ -1,21 +1,19 @@
 #include "mainwindow.h"
 
-#include "Forms/Login/loginform.h"
-#include "Forms/Users/List/userlistform.h"
-#include "Forms/Products/List/productlistform.h"
-#include "Forms/Devices/devicelist.h"
-#include "Forms/Systems/systemeditform.h"
+#include <QAbstractButton>
 #include <QTime>
 #include <QTimer>
 
-#include "Forms/global.h"
-#include <QAbstractButton>
 #include "Data/StaticData.h"
+#include "Forms/Devices/devicelist.h"
 #include "Forms/Devices/mcmove.h"
+#include "Forms/Login/loginform.h"
+#include "Forms/Products/List/productlistform.h"
+#include "Forms/Systems/systemeditform.h"
+#include "Forms/Users/List/userlistform.h"
+#include "Forms/global.h"
 MainWindow::MainWindow(std::shared_ptr<User> user)
-    : ui(new Ui::MainWindow)
-{
-
+    : ui(new Ui::MainWindow) {
     ui->setupUi(this);
     this->showMaximized();
 
@@ -44,13 +42,11 @@ MainWindow::MainWindow(std::shared_ptr<User> user)
     connect(mainprocess, SIGNAL(alarm_Signal()), this, SLOT(alarm_Slot()));
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
-{
+void MainWindow::closeEvent(QCloseEvent *event) {
     //    devicemonitor->stopWork();
     //    devicemonitorThread->quit();
     //    devicemonitorThread->wait();
@@ -59,52 +55,41 @@ void MainWindow::closeEvent(QCloseEvent *event)
     // 断开所有设备连接
 }
 
-void imgfunc(const VWSCamera::ImageData &data, void *pUser)
-{
+void imgfunc(const VWSCamera::ImageData &data, void *pUser) {
 }
 
-void MainWindow::on_actQuit_triggered()
-{
+void MainWindow::on_actQuit_triggered() {
     QApplication *applicaiton;
     applicaiton->exit(0);
 }
 
-void MainWindow::on_actChangeUser_triggered()
-{
+void MainWindow::on_actChangeUser_triggered() {
     LoginForm *loginform = new LoginForm();
 
     this->close();
     loginform->show();
 }
 
-void MainWindow::on_btn_Start_clicked()
-{
+void MainWindow::on_btn_Start_clicked() {
     QIcon ico;
-    if (isRun)
-    {
+    if (isRun) {
         // delete mainprocess;
         mainprocess->Stop();
         ico.addFile("://Images/start.png");
         ui->btn_Start->setIcon(ico);
         isRun = false;
-    }
-    else
-    {
+    } else {
         int ret = -1;
         QString msg = "";
-        if (mainprocess->State == -1)
-        {
+        if (mainprocess->State == -1) {
             // mainprocess = new MainProcess();
             ret = mainprocess->Start(msg);
-            if (ret > 0)
-            {
+            if (ret > 0) {
                 showMsg("开始运行");
                 ico.addFile("://Images/stop.png");
                 ui->btn_Start->setIcon(ico);
                 isRun = true;
-            }
-            else
-            {
+            } else {
                 isRun = false;
                 showMsg(msg);
             }
@@ -112,51 +97,43 @@ void MainWindow::on_btn_Start_clicked()
     }
 }
 
-void MainWindow::on_btn_User_clicked()
-{
+void MainWindow::on_btn_User_clicked() {
     UserListForm *form = new UserListForm();
     form->show();
     // this->hide();
 }
 
-void MainWindow::on_btn_Product_clicked()
-{
+void MainWindow::on_btn_Product_clicked() {
     ProductListForm *form = new ProductListForm();
     form->show();
     // this->hide();
 }
 
-void MainWindow::on_btn_Device_clicked()
-{
+void MainWindow::on_btn_Device_clicked() {
     DeviceList *form = new DeviceList();
     form->show();
 }
 
-void MainWindow::on_btn_System_clicked()
-{
+void MainWindow::on_btn_System_clicked() {
     SystemEditForm *form = new SystemEditForm();
     form->show();
 }
 
-void MainWindow::deviceConnectError_slot(QString device, int state)
-{
+void MainWindow::deviceConnectError_slot(QString device, int state) {
     QStringList deviceList;
     // deviceList << "robot1"<<"robot2"<<"camera1"<<"camera2"<<"plc";
 
     auto rbtlist = DeviceManager::getInstance()->robotList();
-    foreach (auto item, rbtlist)
-    {
+    foreach (auto item, rbtlist) {
         deviceList.append(item->getName());
     }
     auto camlist = DeviceManager::getInstance()->cameraList();
-    foreach (auto item, camlist)
-    {
+    foreach (auto item, camlist) {
         deviceList.append(item->getName());
     }
     deviceList << vws::PLC;
 
-    switch (deviceList.indexOf(device))
-    {
+    switch (deviceList.indexOf(device)) {
     case 0:
         updateDeviceState(ui->btn_Robot1, state);
         break;
@@ -178,9 +155,7 @@ void MainWindow::deviceConnectError_slot(QString device, int state)
 }
 
 int i = 0;
-void MainWindow::on_btn_EStop_clicked()
-{
-
+void MainWindow::on_btn_EStop_clicked() {
     mainprocess->triggerTest();
     return;
     // mainprocess->Test(mainprocess->plcdata);
@@ -222,44 +197,37 @@ void MainWindow::on_btn_EStop_clicked()
     // //   mainprocess->sendtorbt();
 }
 
-void MainWindow::on_btn_Camera1_clicked()
-{
+void MainWindow::on_btn_Camera1_clicked() {
     DeviceManager::getInstance()->getCamera(vws::Camera_top)->init();
     DeviceManager::getInstance()->getCamera(vws::Camera_top)->start();
 }
 
-void MainWindow::on_btn_Camera2_clicked()
-{
+void MainWindow::on_btn_Camera2_clicked() {
     DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->init();
     DeviceManager::getInstance()->getCamera(vws::Camera_bottom)->start();
 }
 
-void MainWindow::on_btn_Robot1_clicked()
-{
+void MainWindow::on_btn_Robot1_clicked() {
     DeviceManager::getInstance()->getRobot(vws::Robot1)->init();
     DeviceManager::getInstance()->getRobot(vws::Robot1)->start();
 }
 
-void MainWindow::on_btn_Robot2_clicked()
-{
+void MainWindow::on_btn_Robot2_clicked() {
     DeviceManager::getInstance()->getRobot(vws::Robot2)->init();
     DeviceManager::getInstance()->getRobot(vws::Robot2)->start();
 }
 
-void MainWindow::on_btn_PLC_clicked()
-{
+void MainWindow::on_btn_PLC_clicked() {
     DeviceManager::getInstance()->getPlc()->init();
     DeviceManager::getInstance()->getPlc()->start();
 }
 
-void MainWindow::on_btn_MC_clicked()
-{
+void MainWindow::on_btn_MC_clicked() {
     DeviceManager::getInstance()->getMC()->init();
     DeviceManager::getInstance()->getMC()->start();
 }
 
-void MainWindow::startDevices()
-{
+void MainWindow::startDevices() {
     QString msg;
     DeviceManager *deviceManager = DeviceManager::getInstance();
     // PLC
@@ -280,14 +248,11 @@ void MainWindow::startDevices()
     // 机器人
     auto rbt = deviceManager->getRobot(0);
     auto retrbt = rbt->init();
-    if (retrbt > 0)
-    {
+    if (retrbt > 0) {
         std::cout << "robot1 init: " << retrbt << std::endl;
         retrbt = rbt->start();
         std::cout << "robot1 start: " << retrbt << std::endl;
-    }
-    else
-    {
+    } else {
         msg = rbt->getName() + ", 启动失败";
         showMsg(msg);
     }
@@ -296,28 +261,22 @@ void MainWindow::startDevices()
     auto camera1 = deviceManager->getCamera(0);
 
     auto ret = camera1->init();
-    if (ret > 0)
-    {
+    if (ret > 0) {
         std::cout << "camera1 init: " << ret << std::endl;
         ret = camera1->start();
         std::cout << "camera1 start: " << ret << std::endl;
-    }
-    else
-    {
+    } else {
         msg = camera1->getName() + "， 启动失败";
         showMsg(msg);
     }
 
     auto camera2 = deviceManager->getCamera(1);
     ret = camera2->init();
-    if (ret > 0)
-    {
+    if (ret > 0) {
         std::cout << "camera2 init: " << ret << std::endl;
         ret = camera2->start();
         std::cout << "camera2 start: " << ret << std::endl;
-    }
-    else
-    {
+    } else {
         msg = camera2->getName() + "， 启动失败";
         showMsg(msg);
     }
@@ -327,8 +286,7 @@ void MainWindow::startDevices()
     devicemonitorThread = new QThread();
 
     devicemonitor->moveToThread(devicemonitorThread);
-    if (!devicemonitorThread->isRunning())
-    {
+    if (!devicemonitorThread->isRunning()) {
         devicemonitorThread->start();
     }
     connect(this, SIGNAL(startMonitorDevice_signal()), devicemonitor, SLOT(startMonitorDevice_slot()));
@@ -337,48 +295,34 @@ void MainWindow::startDevices()
     /***设备状态监控***/
 }
 
-void MainWindow::updateDeviceState(QPushButton *sender, int state)
-{
+void MainWindow::updateDeviceState(QPushButton *sender, int state) {
     QIcon ico;
-    if (state >= 0)
-    {
+    if (state >= 0) {
         ico.addFile("://Images/running.png");
-    }
-    else
-    {
+    } else {
         ico.addFile("://Images/warning.png");
     }
     sender->setIcon(ico);
 }
 
-void MainWindow::judgeAuthority()
-{
-
+void MainWindow::judgeAuthority() {
     QStringList permissions = loginUser->Permissions;
-    if (permissions.length() == 0)
-    { // 无任任何权限隐藏左侧导航兰
+    if (permissions.length() == 0) {  // 无任任何权限隐藏左侧导航兰
         ui->frame_Nav->setVisible(false);
-    }
-    else
-    {
-        QList<QToolButton *> navBtns = ui->frame_Nav->findChildren<QToolButton *>(); // 导航栏按钮
-        for (int i = 0; i < navBtns.length(); i++)
-        {
+    } else {
+        QList<QToolButton *> navBtns = ui->frame_Nav->findChildren<QToolButton *>();  // 导航栏按钮
+        for (int i = 0; i < navBtns.length(); i++) {
             QToolButton *var = navBtns[i];
-            if (permissions.indexOf(var->text()) > -1)
-            {
+            if (permissions.indexOf(var->text()) > -1) {
                 var->setVisible(true);
-            }
-            else
-            {
+            } else {
                 var->setVisible(false);
             }
         }
     }
 }
 
-void MainWindow::showMsg(QString msg)
-{
+void MainWindow::showMsg(QString msg) {
     CLog::getInstance()->log(msg, CLog::CLOG_LEVEL::RINFO);
     QDateTime current_date_time = QDateTime::currentDateTime();
     QString current_date = current_date_time.toString("yyyy.MM.dd hh:mm:ss");
@@ -389,19 +333,16 @@ void MainWindow::showMsg(QString msg)
     ui->lbl_Msg->setTextFormat(Qt::RichText);
 }
 
-void MainWindow::updateRealTime_Slot()
-{
+void MainWindow::updateRealTime_Slot() {
     QTime timenow = QTime::currentTime();
     ui->lbl_Time->setText(tr("%1").arg(timenow.toString()));
 }
 
-void MainWindow::alarm_Slot()
-{
+void MainWindow::alarm_Slot() {
     showMsg("设备异常");
 }
 
-void MainWindow::on_btn_MCMove_clicked()
-{
+void MainWindow::on_btn_MCMove_clicked() {
     // std::shared_ptr<MCMove> mcmove = std::make_shared<MCMove>();
     MCMove *mcmove = new MCMove();
     mcmove->show();

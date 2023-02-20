@@ -249,6 +249,9 @@ int VWSRobot::createFile(std::string &fileData, const std::vector<RobotTask> &ta
 
 int VWSRobot::Init(const std::string &ip, int port)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     this->ip = ip;
     this->port = port;
     TcpClient tcp;
@@ -260,6 +263,9 @@ int VWSRobot::Init(const std::string &ip, int port)
 }
 int VWSRobot::state()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     TcpClient tcp;
     if (tcp.toConnect(ip, port) == 1)
     {
@@ -269,6 +275,9 @@ int VWSRobot::state()
 }
 int VWSRobot::start()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     TcpClient tcp;
     if (tcp.toConnect(ip, port) != 1)
         return -1;
@@ -323,6 +332,9 @@ int VWSRobot::start()
 }
 int VWSRobot::close()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     TcpClient tcp;
     if (tcp.toConnect(ip, port) != 1)
         return -1;
@@ -348,6 +360,9 @@ int VWSRobot::close()
 
 int VWSRobot::sendData(const std::vector<RobotTask> &taskData)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     // time_t timep,tim2;
     // time (&timep);
     std::string taskStr;

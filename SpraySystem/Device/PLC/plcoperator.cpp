@@ -42,7 +42,11 @@ void PLCOperator::close()
 
 int PLCOperator::getState()
 {
+#ifdef LOCALTEST
+    auto ret = 1;//state ? 1 : -1;
+#else
     auto ret = state ? 1 : -1;
+#endif
     return ret;
 }
 

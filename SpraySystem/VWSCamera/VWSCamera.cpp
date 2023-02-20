@@ -40,6 +40,9 @@ VWSCamera::~VWSCamera()
 
 int VWSCamera::Init(std::string ip, int port)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     unsigned int nDevNum = 0;
     int nRet = MV3D_RGBD_OK;
     nRet = MV3D_RGBD_Initialize();
@@ -77,6 +80,9 @@ int VWSCamera::Init(std::string ip, int port)
 }
 int VWSCamera::connect()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     int nRet;
     nRet = MV3D_RGBD_OpenDevice(&handle_, &devInfo_);
     if (nRet != MV3D_RGBD_OK)
@@ -100,6 +106,9 @@ int VWSCamera::connect()
 }
 int VWSCamera::disConnect()
 {
+ #ifdef LOCALTEST
+    return 1;
+#endif
     int nRet = MV3D_RGBD_OK;
     // nRet = MV3D_RGBD_Stop(handle_);
     // if(nRet != MV3D_RGBD_OK){
@@ -172,10 +181,16 @@ int VWSCamera::disConnect()
 // }
 int VWSCamera::state()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     return netState_;
 }
 int VWSCamera::startGrab()
 {
+ #ifdef LOCALTEST
+    return 1;
+#endif
     int nRet = MV3D_RGBD_OK;
 
     nRet = MV3D_RGBD_Start(handle_);
@@ -188,6 +203,9 @@ int VWSCamera::startGrab()
 }
 int VWSCamera::stopGrab()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     int nRet = MV3D_RGBD_OK;
     nRet = MV3D_RGBD_Stop(handle_);
     if (nRet != MV3D_RGBD_OK)
@@ -233,6 +251,9 @@ void VWSCamera::imageProcess(MV3D_RGBD_FRAME_DATA *stFrameData, VWSCamera::Image
 
 int VWSCamera::RegisterFrameCallBack(GetImageCallBack func, void *pUser)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     int nRet = MV3D_RGBD_RegisterFrameCallBack(handle_, GetImageCallBackFunc, this);
     if (nRet != MV3D_RGBD_OK)
     {
@@ -253,6 +274,9 @@ int VWSCamera::deleteImage(const VWSCamera::ImageData &data)
 
 int VWSCamera::softTrigger()
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     // changeTriggerSource(false);
     int nRet = MV3D_RGBD_SoftTrigger(handle_);
     if (nRet != MV3D_RGBD_OK)
@@ -269,6 +293,9 @@ int VWSCamera::softTrigger()
  */
 int VWSCamera::changeTriggerMode(bool flag)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     if (flag)
         para.ParamInfo.stEnumParam.nCurValue = 1;
@@ -285,6 +312,9 @@ int VWSCamera::changeTriggerMode(bool flag)
 }
 int VWSCamera::getTriggerMode(int &mode)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     para.enParamType = Mv3dRgbdParamType::ParamType_Enum;
     int nRet = MV3D_RGBD_GetParam(handle_, MV3D_RGBD_ENUM_TRIGGERMODE, &para);
@@ -298,6 +328,9 @@ int VWSCamera::getTriggerMode(int &mode)
 }
 int VWSCamera::FetchFrame(uint32_t nTimeOut, VWSCamera::ImageData &data)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_FRAME_DATA pstFrameData = {0};
     int nRet = MV3D_RGBD_FetchFrame(handle_, &pstFrameData, nTimeOut);
     if (nRet != MV3D_RGBD_OK)
@@ -314,6 +347,9 @@ int VWSCamera::FetchFrame(uint32_t nTimeOut, VWSCamera::ImageData &data)
  */
 int VWSCamera::changeTriggerSource(bool flag)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     if (flag)
         para.ParamInfo.stEnumParam.nCurValue = 0;
@@ -330,6 +366,9 @@ int VWSCamera::changeTriggerSource(bool flag)
 }
 int VWSCamera::getTriggerSource(int &mode)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     para.enParamType = Mv3dRgbdParamType::ParamType_Enum;
     int nRet = MV3D_RGBD_GetParam(handle_, MV3D_RGBD_ENUM_TRIGGERSOURCE, &para);
@@ -343,6 +382,9 @@ int VWSCamera::getTriggerSource(int &mode)
 }
 int VWSCamera::setImageMode(int mode)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     para.enParamType = Mv3dRgbdParamType::ParamType_Enum;
     para.ParamInfo.stEnumParam.nCurValue = mode;
@@ -356,6 +398,9 @@ int VWSCamera::setImageMode(int mode)
 }
 int VWSCamera::getImageMode(int &mode)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     para.enParamType = Mv3dRgbdParamType::ParamType_Enum;
     int nRet = MV3D_RGBD_GetParam(handle_, MV3D_RGBD_ENUM_IMAGEMODE, &para);
@@ -370,6 +415,9 @@ int VWSCamera::getImageMode(int &mode)
 
 int VWSCamera::saveAllParam(const char *pOutFileName)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     int nRet = MV3D_RGBD_ExportAllParam(handle_, pOutFileName);
     if (nRet != MV3D_RGBD_OK)
     {
@@ -381,6 +429,9 @@ int VWSCamera::saveAllParam(const char *pOutFileName)
 
 int VWSCamera::loadAllParam(const char *pOutFileName)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     int nRet = MV3D_RGBD_ImportAllParam(handle_, pOutFileName);
     if (nRet != MV3D_RGBD_OK)
     {
@@ -400,6 +451,9 @@ Max: 8
 */
 int VWSCamera::setFPS_Color(int frame)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM para;
     int mode;
     bool needTrans = false;
@@ -438,6 +492,9 @@ Max: 998584
 */
 int VWSCamera::setExposure_Color(float time)
 {
+#ifdef LOCALTEST
+    return 1;
+#endif
     int mode;
     bool needTrans = false;
     if (getImageMode(mode) != 1)
@@ -787,6 +844,9 @@ int VWSCamera::getGain_Depth(float &dB)
 }
 int VWSCamera::coordChanged()
 {
+ #ifdef LOCALTEST
+    return 1;
+#endif
     MV3D_RGBD_PARAM stParm;
     stParm.enParamType = ParamType_Int;
     stParm.ParamInfo.stIntParam.nCurValue = 0;

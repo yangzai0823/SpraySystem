@@ -69,7 +69,12 @@ public:
     QQueue<ImageData> q_img;
     /** @brief 运行状态*/
     int State = -1;
-
+#ifdef LOCALTEST
+    /* @brief 下相机回调输入参数*/
+    CameraCallbackData *camera1CallbackData_b = nullptr;
+    /* @brief 上相机回调输入参数*/
+    CameraCallbackData *camera2CallbackData_u = nullptr;
+#endif
 private:
     QQueue<std::vector<VWSRobot::RobotTask>> trajQueue;
     QQueue<std::vector<float>> mcQueue;
@@ -81,12 +86,12 @@ private:
 
     TrajectoryProcess *trajProc;
     QThread *trajThread;
-
+#ifndef LOCALTEST
     /* @brief 下相机回调输入参数*/
     CameraCallbackData *camera1CallbackData_b;
     /* @brief 上相机回调输入参数*/
     CameraCallbackData *camera2CallbackData_u;
-
+#endif
     static std::mutex _mutex;
     /** @brief 规划结果如队列加锁*/
     static std::mutex _trajret_mutex;
