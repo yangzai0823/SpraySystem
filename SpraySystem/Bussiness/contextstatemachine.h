@@ -51,7 +51,11 @@ public:
     ~ContextStateMachine();
     void StartRun();
     void StopRun();
-
+    /**
+     * @brief 按键触发模式切换（人工/机器人）
+     */
+    void transManualMode();
+    void transRobotMode();
 private:
     void checkHeadLaserAndImg();
     void checkTrailLaserAndImg();
@@ -78,6 +82,9 @@ private:
     QState *parentState;
     QState *deviceAlarm;
     QState *stateIDLE;
+    /** @brief 人工手动操作*/
+    bool hasManualSignal_ = false;
+    QState *manual;
     /** @brief 等待感应开关*/
     QState *waitLaserSignal;
     /** @brief 处理头部图像*/
@@ -89,6 +96,8 @@ private:
     /**状态end**/
 
     /**Transition**/
+    QSignalTransition *tranManualSignal;
+    QSignalTransition *manualTranWaitSignal;
     QSignalTransition *tranWaitSignal;
     QSignalTransition *tranProcessHeadImg;
     QSignalTransition *tranWaiTrailProcess;
@@ -132,6 +141,9 @@ signals:
     void trailDone();
     void headImgTimeout();
     void trailImgTimeout();
+    // 外部信号
+    void enterManual_Singal();
+    void exitManual_Singal();
 
 public slots:
     // 外部事件
@@ -140,6 +152,9 @@ public slots:
     void mcWarning_Slot(quint8 axisNum, std::vector<int32_t> errData);
 
     // 内部事件
+    void enterManual_Slot();
+    void exitManual_Slot();
+
     void enteredParentState_Slot();
     void enteredAlarm_Slot();
 

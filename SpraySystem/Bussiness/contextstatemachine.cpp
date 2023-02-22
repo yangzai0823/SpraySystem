@@ -150,6 +150,7 @@ ContextStateMachine::ContextStateMachine()
     /*初始化状态*/
     parentState = new QState(this);
     deviceAlarm = new QState(this);
+    manual = new QState(parentState);
     stateIDLE = new QState(parentState);
     waitLaserSignal = new QState(parentState);
     processHeadImg = new QState(parentState);
@@ -157,7 +158,12 @@ ContextStateMachine::ContextStateMachine()
     processTrailImg = new QState(parentState);
 
     /**绑定跳转**/
+    
+
     parentState->addTransition(this, SIGNAL(alarm()), deviceAlarm);
+
+    manualTranWaitSignal = manual->addTransition(this,SIGNAL(exitManual_Singal),waitLaserSignal);
+    tranManualSignal = stateIDLE->addTransition(this,SIGNAL(enterManual_Singal),manual);
 
     tranWaitSignal = stateIDLE->addTransition(this, SIGNAL(cameraSignalOn()), waitLaserSignal);
 
@@ -172,8 +178,12 @@ ContextStateMachine::ContextStateMachine()
     tranIDLE = processTrailImg->addTransition(this, SIGNAL(trailDone()), stateIDLE);
 
     /**enter 事件**/
+
     connect(parentState, SIGNAL(entered()), this, SLOT(enteredParentState_Slot()));
     connect(deviceAlarm, SIGNAL(entered()), this, SLOT(enteredAlarm_Slot()));
+
+    connect(manual,SIGNAL(entered()),this,SLOT(enterManual_Slot()));
+    connect(manual,SIGNAL(exited()),this,SLOT(exitManual_Slot()));
 
     connect(waitLaserSignal, SIGNAL(entered()), this, SLOT(enteredWaitLaserSignal_Slot()));
     connect(waitLaserSignal, SIGNAL(exited()), this, SLOT(exitWaitLaserSignal_Slot()));
@@ -226,6 +236,14 @@ void ContextStateMachine::StopRun() {
 
     stop();
 }
+void ContextStateMachine::transManualMode(){
+    hasManualSignal_ = true;
+    emit enterManual_Singal();
+}
+void ContextStateMachine::transRobotMode(){
+    hasManualSignal_ = false;
+    emit exitManual_Singal();
+}
 
 void ContextStateMachine::checkHeadLaserAndImg() {
     _mutex.lock();
@@ -249,6 +267,15 @@ void ContextStateMachine::checkTrailLaserAndImg() {
     } else {
     }
     _mutex.unlock();
+}
+
+void ContextStateMachine::enterManual_Slot(){
+    //TODO::控制机器人第七轴到固定位置
+}
+
+void ContextStateMachine::exitManual_Slot(){
+    //TODO::控制机器人第七轴到初始位置
+
 }
 
 void ContextStateMachine::enteredParentState_Slot() {
@@ -411,6 +438,9 @@ void ContextStateMachine::enteredIDLE_Slot() {
 
     // 初始化数值
     pre_img_encoder = getImgEncoder(true);
+    if(hasManualSignal_){
+        emit enterManual_Singal();
+    }
 }
 
 void ContextStateMachine::headTimer_Slot() {

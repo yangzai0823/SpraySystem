@@ -12,6 +12,7 @@
 #include "Forms/Systems/systemeditform.h"
 #include "Forms/Users/List/userlistform.h"
 #include "Forms/global.h"
+#include "Forms/Calibration/sevenaxiscalibration.h"
 MainWindow::MainWindow(std::shared_ptr<User> user)
     : ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -116,6 +117,11 @@ void MainWindow::on_btn_Device_clicked() {
 
 void MainWindow::on_btn_System_clicked() {
     SystemEditForm *form = new SystemEditForm();
+    form->show();
+}
+
+void MainWindow::on_btn_Calibration_clicked(){
+    SevenAxisCalibration *form = new SevenAxisCalibration();
     form->show();
 }
 
@@ -346,4 +352,24 @@ void MainWindow::on_btn_MCMove_clicked() {
     // std::shared_ptr<MCMove> mcmove = std::make_shared<MCMove>();
     MCMove *mcmove = new MCMove();
     mcmove->show();
+}
+
+void MainWindow::on_btn_manualMode_clicked()
+{
+
+}
+
+void MainWindow::on_btn_topMode_clicked()
+{
+
+}
+
+void MainWindow::on_btn_bottomMode_clicked()
+{
+
+}
+
+void MainWindow::on_btn_TopBottom_clicked()
+{
+
 }

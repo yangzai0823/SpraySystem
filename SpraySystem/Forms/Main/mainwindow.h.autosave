@@ -3,21 +3,23 @@
 
 #include <QMainWindow>
 #include <memory>
-// #include "Device/Robot/robot.h"
-// #include "Device/Camera/camera.h"
-// #include "Device/PLC/plc.h"
-#include "./ui_mainwindow.h"
-#include "Bussiness/mainprocess.h"
-#include "DataAccess/Models/User/user.h"
+//#include "Device/Robot/robot.h"
+//#include "Device/Camera/camera.h"
+//#include "Device/PLC/plc.h"
 #include "devicemonitor.h"
+#include "./ui_mainwindow.h"
+#include "DataAccess/Models/User/user.h"
+#include "Bussiness/mainprocess.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
+namespace Ui
+{
+    class MainWindow;
 }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
     Q_OBJECT
 
 public:
@@ -39,23 +41,31 @@ private slots:
     void on_btn_Robot1_clicked();
     void on_btn_Robot2_clicked();
     void on_btn_PLC_clicked();
-    void on_btn_Calibration_clicked();
+
     void updateRealTime_Slot();
     void alarm_Slot();
-    void on_btn_MC_clicked();
-    void on_btn_MCMove_clicked();
-    void on_btn_manualMode_clicked();
-    void on_btn_topMode_clicked();
-    void on_btn_bottomMode_clicked();
-    void on_btn_TopBottom_clicked();
 
+    void on_btn_MC_clicked();
+
+    void on_btn_MCMove_clicked();
+
+    void on_radioButton_1_clicked();
+
+    void on_btn_manualMode_clicked();
+
+    void on_btn_topMode_clicked();
+
+    void on_btn_bottomMode_clicked();
+    
+    void on_btn_TopBottom_clicked();
+    
 signals:
     void startMonitorDevice_signal();
 
 private:
     Ui::MainWindow *ui;
     bool isRun;
-    QTimer *timer;  // 时间显示
+    QTimer *timer;  //时间显示
     MainProcess::CameraCallbackData *camera1CallbackData;
 
     //    Robot *robot1;
@@ -64,8 +74,8 @@ private:
     //    Camera *camera2;
     //    PLC *plc;
 
-    DeviceMonitor *devicemonitor;  // 监听所有设备状态
-    QThread *devicemonitorThread;
+       DeviceMonitor *devicemonitor; //监听所有设备状态
+       QThread *devicemonitorThread;
     MainProcess *mainprocess = nullptr;
 
     void startDevices();
@@ -73,4 +83,4 @@ private:
     void judgeAuthority();
     void showMsg(QString msg);
 };
-#endif  // MAINWINDOW_H
+#endif // MAINWINDOW_H

@@ -54,13 +54,16 @@ void LoginForm::on_btn_Login_clicked() {
     auto user = userRepository->identify(txtUser, txtPwd);
     if (user != nullptr) {
         logger->log(QString("%1,登陆").arg(txtUser));
-
-        // auto Main = std::make_shared<MainWindow>();
-        // MainWindow *Main = new MainWindow(user);
-        // Main->show();
-        // this - close();
+#ifdef LOCALTEST
         TestMain* main = new TestMain();
         this->hide();
+#else
+        //auto Main = std::make_shared<MainWindow>();
+        MainWindow* Main = new MainWindow(user);
+        Main->show();
+        this->close();
+#endif
+
     } else {
         QMessageBox::warning(this, "提示", "用户名或密码错误", QMessageBox::Ok);
     }

@@ -148,19 +148,15 @@ MainProcess::MainProcess() {
         "std::vector<int32_t>");  // 注册数据类型
 
     // vws::DataInit::Init();
-    std::cout << "111111111111111111" << std::endl;
     connect(this, SIGNAL(sendTrajParam_Signal(quint8)), this,
             SLOT(getTrajParam_Slot(quint8)));
-    std::cout << "222222222222222222" << std::endl;
     visionContext = new VisionContext();
     trajProc = new TrajectoryProcess();
     trajThread = new QThread;
     trajProc->moveToThread(trajThread);
     connect(this, SIGNAL(begintraj_Singal(MainProcess *)), trajProc,
             SLOT(begintraj_Slot(MainProcess *)));
-    std::cout << "333333333333333333333" << std::endl;
     trajThread->start();
-    std::cout << "3333333333333334444444444444" << std::endl;
 #ifdef LOCALTEST
     sm_bottom = new ContextStateMachine(this);
 #else
@@ -177,11 +173,10 @@ MainProcess::MainProcess() {
     sm_bottom->IsTop = false;
     sm_bottom->Context.index = 0;
     sm_bottom->Context.visionData.top_or_bottom = 1;
-    std::cout << "44444444444444444444" << std::endl;
 #ifdef LOCALTEST
-    sm_bottom = new ContextStateMachine(this);
+    sm_top = new ContextStateMachine(this);
 #else
-    sm_bottom = new ContextStateMachine();
+    sm_top = new ContextStateMachine();
 #endif
     connect(this, SIGNAL(sendPlcData_u(QVariant)), sm_top,
             SLOT(sendPlcData_Slot(QVariant)));
@@ -189,7 +184,6 @@ MainProcess::MainProcess() {
             SLOT(sendImgData_Slot(QVariant)));
     connect(sm_top, SIGNAL(begintraj_Singal(QVariant, bool)), this,
             SLOT(begintraj_Slot(QVariant, bool)));
-    std::cout << "55555555555555555555" << std::endl;
     sm_top->Name = "Top";
     sm_top->IsTop = true;
     sm_top->Context.index = 1;
