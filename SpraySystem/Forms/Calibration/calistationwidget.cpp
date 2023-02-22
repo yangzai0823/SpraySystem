@@ -117,7 +117,8 @@ int caliStationWidget::readBeltData(const std::string& prefix,
   float beltPos_(0);
   MCOperator* mc = prefix == "front" ? _motionController1 : _motionController2;
   try {
-    beltPos_ = mc->getRealTimeEncoder()[1];
+    bool success;
+    beltPos_ = mc->getRealTimeEncoder(success)[1];
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
     return -1;
@@ -139,7 +140,8 @@ int caliStationWidget::readRobotData(const std::string& prefix,
   float extraAxisPos_(0);
   Eigen::Vector3f robotPos_;
   try {
-    extraAxisPos_ = mc->getRealTimeEncoder()[0];
+    bool success;
+    extraAxisPos_ = mc->getRealTimeEncoder(success)[0];
 
     VWSRobot::RobotPosition pose;
     if (1 != robot->getRobotPosition(pose)) {

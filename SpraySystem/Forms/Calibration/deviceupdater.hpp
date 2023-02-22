@@ -97,7 +97,8 @@ class deviceUpdater : public QThread {
     // extra axis
     float position(0);
     try {
-      position = controller->getRealTimeEncoder()[0];
+      bool success;
+      position = controller->getRealTimeEncoder(success)[0];
     } catch (...) {
       // std::cerr << e.what() << '\n';
       position = 0;
@@ -110,7 +111,8 @@ class deviceUpdater : public QThread {
     // belt
     float position(0);
     try {
-      position = controller->getRealTimeEncoder()[1];
+      bool success;
+      position = controller->getRealTimeEncoder(success)[1];
     } catch (...) {
       // std::cerr << e.what() << '\n';
       position = 0;

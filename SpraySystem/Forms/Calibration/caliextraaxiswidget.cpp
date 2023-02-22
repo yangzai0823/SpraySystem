@@ -46,11 +46,12 @@ void caliExtraAxisWidget::setDevice(RobotOperator* robot,
 int caliExtraAxisWidget::readDeviceData(std::array<float, 4>& data) {
   // data:{position, x, y, z}
   try {
+    bool success;
     VWSRobot::RobotPosition pose;
     if (1 != _robot->getRobotPosition(pose)) {
       return -1;
     };
-    auto position = _motionController->getRealTimeEncoder()[0];
+    auto position = _motionController->getRealTimeEncoder(success)[0];
     data[0] = position;
     data[1] = pose.pos[0];
     data[2] = pose.pos[1];

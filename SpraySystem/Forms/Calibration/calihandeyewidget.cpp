@@ -235,7 +235,8 @@ int caliHandEyewWidget::readCameraData(std::string& rgbPath,
   // camera belt position
   float beltPos_(0);
   try {
-    beltPos_ = _motionController->getRealTimeEncoder()[1];
+    bool success;
+    beltPos_ = _motionController->getRealTimeEncoder(success)[1];
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
     return -1;
@@ -283,7 +284,8 @@ int caliHandEyewWidget::readStationData(float& robotBeltPos,
   float beltPos_(0), extraAxisPos_(0);
   float robotPos_[3];
   try {
-    auto pos__ = _motionController->getRealTimeEncoder();
+    bool success;
+    auto pos__ = _motionController->getRealTimeEncoder(success);
     extraAxisPos_ = pos__[0];
     beltPos_ = pos__[1];
 
